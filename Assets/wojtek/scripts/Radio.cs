@@ -44,7 +44,16 @@ public class Radio : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        mousePosition= Mouse.current.position.ReadValue();
+
+        casetteChoose();
+        playMusic();
+        
+    }
+
+
+    void casetteChoose()
+    {
+        mousePosition = Mouse.current.position.ReadValue();
 
         Ray clickingRay = camera.ScreenPointToRay(mousePosition);
         RaycastHit raycastHit;
@@ -58,7 +67,7 @@ public class Radio : MonoBehaviour
 
         bool leftMousePressed = Mouse.current.leftButton.wasPressedThisFrame;
 
-        if (objectHited && leftMousePressed && raycastHit.transform.gameObject!=selectedObject)
+        if (objectHited && leftMousePressed && raycastHit.transform.gameObject != selectedObject)
         {
             raycastHit.transform.position += new Vector3(0, 0.3f, 0);
             if (selectedObject != null)
@@ -84,19 +93,16 @@ public class Radio : MonoBehaviour
                     break;
             }
         }
-        else if(objectHited && leftMousePressed && raycastHit.transform.gameObject == selectedObject)
+        else if (objectHited && leftMousePressed && raycastHit.transform.gameObject == selectedObject)
         {
             selectedObject.transform.position += new Vector3(0, -0.3f, 0);
             selectedObject = null;
         }
-        else if(!objectHited && leftMousePressed && selectedObject != null)
+        else if (!objectHited && leftMousePressed && selectedObject != null)
         {
             selectedObject.transform.position += new Vector3(0, -0.3f, 0);
             selectedObject = null;
         }
-
-        playMusic();
-        
     }
 
 
