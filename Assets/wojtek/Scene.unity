@@ -2707,6 +2707,7 @@ GameObject:
   - component: {fileID: 2116157282}
   - component: {fileID: 2116157286}
   - component: {fileID: 2116157287}
+  - component: {fileID: 2116157288}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2839,12 +2840,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7edacf73dea6f248b3dbd518bd09295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Radio
-  camera: {fileID: 330585545}
   listenersTotal: 0
   listenersHipHop: 0
   listenersDisco: 0
   listenersRock: 0
   listenersMetal: 0
+--- !u!114 &2116157288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116157281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6589158f76a3064688b57f9f31b505b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChooseCassette
+  camera: {fileID: 330585545}
   hiphopClip: {fileID: 8300000, guid: 84cc152ada873a74da791f09136d17f6, type: 3}
   discoClip: {fileID: 8300000, guid: 40fc81acc9c849744a34a1401c8b1a2c, type: 3}
   rockClip: {fileID: 8300000, guid: 352918ae88c4b844888e2a5973007e40, type: 3}
