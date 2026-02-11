@@ -1,31 +1,23 @@
 using UnityEngine;
 
-public class Cassette : MonoBehaviour
+[CreateAssetMenu(fileName = "NowaKaseta", menuName = "Muzyka/Kaseta")]
+public class Cassette : ScriptableObject
 {
-    [SerializeField]
-    private string name;
-    [SerializeField]
-    private int timesUsedInDay;
-    [SerializeField]
-    private int gainListenersHipHop;
-    [SerializeField]
-    private int gainListenersDisco;
-    [SerializeField]
-    private int gainListenersRock;
-    [SerializeField]
-    private int gainListenersMetal;
-    [SerializeField]
-    AudioClip musicClip;
+    [SerializeField] private string cassetteName; // Zmieniono nazwê, bo 'name' jest zarezerwowane w SO
+    [SerializeField] private int timesUsedInDay;
 
+    [Header("Gains")]
+    [SerializeField] private int gainListenersHipHop;
+    [SerializeField] private int gainListenersDisco;
+    [SerializeField] private int gainListenersRock;
+    [SerializeField] private int gainListenersMetal;
 
-    void Start()
+    [SerializeField] private AudioClip musicClip;
+
+    // Mo¿esz tu dodaæ metody pomocnicze
+    public void Play(AudioSource source)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        source.clip = musicClip;
+        source.Play();
     }
 }

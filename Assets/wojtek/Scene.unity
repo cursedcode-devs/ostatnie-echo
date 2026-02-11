@@ -2840,11 +2840,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7edacf73dea6f248b3dbd518bd09295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Radio
+  day: 0
+  hour: 0
   listenersTotal: 0
   listenersHipHop: 0
   listenersDisco: 0
   listenersRock: 0
   listenersMetal: 0
+  money: 0
 --- !u!114 &2116157288
 MonoBehaviour:
   m_ObjectHideFlags: 0
