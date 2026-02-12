@@ -22,7 +22,7 @@ public class ChooseCassette : MonoBehaviour
 
     Vector3 mousePosition;
 
-    GameObject selectedObject = null;
+    private GameObject selectedObject = null;
     private bool playing = false;
 
 
@@ -35,63 +35,88 @@ public class ChooseCassette : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        casetteChoose();
-        playMusic();
+        //casetteChoose();
+        //playMusic();
     }
 
-    void casetteChoose()
-    {
-        mousePosition = Mouse.current.position.ReadValue();
-
-        Ray clickingRay = camera.ScreenPointToRay(mousePosition);
+    public GameObject SelectingObject(Vector3 mousePos)
+    {     
+        Ray clickingRay = camera.ScreenPointToRay(mousePos);
         RaycastHit raycastHit;
-        bool objectHited = Physics.Raycast(clickingRay, out raycastHit);
+        bool objectHited = Physics.Raycast(clickingRay, out raycastHit);      
 
-        if (objectHited)
+        if (objectHited)    
         {
             Debug.Log(raycastHit.transform.name);
         }
 
-
-        bool leftMousePressed = Mouse.current.leftButton.wasPressedThisFrame;
-
-        if (objectHited && leftMousePressed && raycastHit.transform.gameObject != selectedObject)
+        if (objectHited) //klikniêto w obiekt z colliderem
         {
-            raycastHit.transform.position += new Vector3(0, 0.3f, 0);
-            if (selectedObject != null)
-            {
-                selectedObject.transform.position += new Vector3(0, -0.3f, 0);
-                selectedObject = null;
-            }
-            selectedObject = raycastHit.transform.gameObject;
-
-            switch (selectedObject.transform.name)
-            {
-                case "kaseta HipHop":
-                    source.clip = hiphopClip;
-                    break;
-                case "kaseta Disco":
-                    source.clip = discoClip;
-                    break;
-                case "kaseta Rock":
-                    source.clip = rockClip;
-                    break;
-                case "kaseta Metal":
-                    source.clip = metalClip;
-                    break;
-            }
+            return raycastHit.transform.gameObject;
         }
-        else if (objectHited && leftMousePressed && raycastHit.transform.gameObject == selectedObject)
+        else if (!objectHited)  //Nie klikniêto w obiekt z colliderem
         {
-            selectedObject.transform.position += new Vector3(0, -0.3f, 0);
-            selectedObject = null;
+            return null;
         }
-        else if (!objectHited && leftMousePressed && selectedObject != null)
-        {
-            selectedObject.transform.position += new Vector3(0, -0.3f, 0);
-            selectedObject = null;
-        }
+        return null;
     }
+
+
+
+
+    //void casetteChoose()
+    //{
+    //    mousePosition = Mouse.current.position.ReadValue();
+
+    //    Ray clickingRay = camera.ScreenPointToRay(mousePosition);
+    //    RaycastHit raycastHit;
+    //    bool objectHited = Physics.Raycast(clickingRay, out raycastHit);
+
+    //    if (objectHited)
+    //    {
+    //        Debug.Log(raycastHit.transform.name);
+    //    }
+
+
+    //    bool leftMousePressed = Mouse.current.leftButton.wasPressedThisFrame;
+
+    //    if (objectHited && leftMousePressed && raycastHit.transform.gameObject != selectedObject)
+    //    {
+    //        raycastHit.transform.position += new Vector3(0, 0.3f, 0);
+    //        if (selectedObject != null)
+    //        {
+    //            selectedObject.transform.position += new Vector3(0, -0.3f, 0);
+    //            selectedObject = null;
+    //        }
+    //        selectedObject = raycastHit.transform.gameObject;
+
+    //        switch (selectedObject.transform.name)
+    //        {
+    //            case "kaseta HipHop":
+    //                source.clip = hiphopClip;
+    //                break;
+    //            case "kaseta Disco":
+    //                source.clip = discoClip;
+    //                break;
+    //            case "kaseta Rock":
+    //                source.clip = rockClip;
+    //                break;
+    //            case "kaseta Metal":
+    //                source.clip = metalClip;
+    //                break;
+    //        }
+    //    }
+    //    else if (objectHited && leftMousePressed && raycastHit.transform.gameObject == selectedObject)
+    //    {
+    //        selectedObject.transform.position += new Vector3(0, -0.3f, 0);
+    //        selectedObject = null;
+    //    }
+    //    else if (!objectHited && leftMousePressed && selectedObject != null)
+    //    {
+    //        selectedObject.transform.position += new Vector3(0, -0.3f, 0);
+    //        selectedObject = null;
+    //    }
+    //}
 
 
     void playMusic()

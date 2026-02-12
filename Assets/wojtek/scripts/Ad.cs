@@ -1,28 +1,17 @@
 using UnityEngine;
 
-public class Ad : MonoBehaviour
+[CreateAssetMenu(fileName = "NowaReklama", menuName = "Radio/Reklama")]
+public class Ad : PlayableContent
 {
     [SerializeField]
     private string name;
     [SerializeField]
     private int timesUsedInDay;
-    [SerializeField]
-    private int gainMoneyHipHop;
-    [SerializeField]
-    private int gainMoneyDisco;
-    [SerializeField]
-    private int gainMoneyRock;
-    [SerializeField]
-    private int gainMoneyMetal;
+    GenreValues revenuePerListener; //Ile groszy za jednego s³uchacza 100 -> 1 zl 50 -> 0.50z³.
 
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public override void ApplyEffect(Radio radio)
     {
-        
+        radio.AddRevenue(revenuePerListener);
     }
 }

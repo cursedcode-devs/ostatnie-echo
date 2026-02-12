@@ -5,9 +5,6 @@ public class CassetteObject : MonoBehaviour
     [Header("Dane z ScriptableObject")]
     public Cassette data; // Przeci¹gasz tu swój plik .asset
 
-    [Header("Model3D")]
-    public MeshRenderer modelRenderer;
-
     void Start()
     {
         // Przyk³ad: Jeœli w danych kasety masz kolor lub teksturê, 
