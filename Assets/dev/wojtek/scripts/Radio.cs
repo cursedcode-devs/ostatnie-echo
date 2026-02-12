@@ -18,8 +18,6 @@ public class Radio : MonoBehaviour
     private AudioSource source;
     private bool playing = false;
 
-    public GameObject getSelectedObject() { return selectedObject; }
-
     public void AddListeners(GenreValues listenerGrowthPrecentage)
     {
         currentListeners.hipHop += Mathf.CeilToInt(currentListeners.hipHop * (listenerGrowthPrecentage.hipHop / 100f));
@@ -52,7 +50,7 @@ public class Radio : MonoBehaviour
     void Update()
     {
         MouseOperations();
-        PlayMusic();
+        //PlayMusic();
     }
 
 
@@ -161,27 +159,27 @@ public class Radio : MonoBehaviour
     }
 
 
-    void PlayMusic()
-    {
-        // Sprawdzamy czy spacja wciœniêta ORAZ czy mamy przypisane Ÿród³o dŸwiêku
-        if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            if (source != null && playing == false)
-            {
-                Debug.Log("SPACJA! Gram dŸwiêk.");
-                source.Play();
-                playing = true;
-            }
-            else if (source != null && playing == true)
-            {
-                source.Stop();
-                playing = false;
-            }
-            else
-            {
-                Debug.LogError("Zapomnia³eœ przypisaæ AudioSource do skryptu w inspektorze!");
-            }
-        }
-    }
+    //void PlayMusic()
+    //{
+    //    // Sprawdzamy czy spacja wciœniêta ORAZ czy mamy przypisane Ÿród³o dŸwiêku
+    //    if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
+    //    {
+    //        if (source != null && playing == false)
+    //        {
+    //            Debug.Log("SPACJA! Gram dŸwiêk.");
+    //            source.Play();
+    //            playing = true;
+    //        }
+    //        else if (source != null && playing == true)
+    //        {
+    //            source.Stop();
+    //            playing = false;
+    //        }
+    //        else
+    //        {
+    //            Debug.LogError("Zapomnia³eœ przypisaæ AudioSource do skryptu w inspektorze!");
+    //        }
+    //    }
+    //}
 
 }

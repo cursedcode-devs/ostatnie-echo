@@ -7,25 +7,6 @@ public class ChooseCassette : MonoBehaviour
     [SerializeField]
     private Camera camera;
 
-    [SerializeField]
-    AudioClip hiphopClip;
-    [SerializeField]
-    AudioClip discoClip;
-    [SerializeField]
-    AudioClip rockClip;
-    [SerializeField]
-    AudioClip metalClip;
-
-
-    [SerializeField]
-    private AudioSource source;
-
-    Vector3 mousePosition;
-
-    private GameObject selectedObject = null;
-    private bool playing = false;
-
-
 
     void Start()
     {
@@ -119,27 +100,27 @@ public class ChooseCassette : MonoBehaviour
     //}
 
 
-    void playMusic()
-    {
-        // Sprawdzamy czy spacja wciœniêta ORAZ czy mamy przypisane Ÿród³o dŸwiêku
-        if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            if (source != null && playing == false)
-            {
-                Debug.Log("SPACJA! Gram dŸwiêk.");
-                source.Play();
-                playing = true;
-            }
-            else if (source != null && playing == true)
-            {
-                source.Stop();
-                playing = false;
-            }
-            else
-            {
-                Debug.LogError("Zapomnia³eœ przypisaæ AudioSource do skryptu w inspektorze!");
-            }
-        }
-    }
+    //void playMusic()
+    //{
+    //    // Sprawdzamy czy spacja wciœniêta ORAZ czy mamy przypisane Ÿród³o dŸwiêku
+    //    if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
+    //    {
+    //        if (source != null && playing == false)
+    //        {
+    //            Debug.Log("SPACJA! Gram dŸwiêk.");
+    //            source.Play();
+    //            playing = true;
+    //        }
+    //        else if (source != null && playing == true)
+    //        {
+    //            source.Stop();
+    //            playing = false;
+    //        }
+    //        else
+    //        {
+    //            Debug.LogError("Zapomnia³eœ przypisaæ AudioSource do skryptu w inspektorze!");
+    //        }
+    //    }
+    //}
 
 }
