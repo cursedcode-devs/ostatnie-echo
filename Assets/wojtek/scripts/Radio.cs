@@ -22,10 +22,10 @@ public class Radio : MonoBehaviour
 
     public void AddListeners(GenreValues listenerGrowthPrecentage)
     {
-        currentListeners.hipHop += currentListeners.hipHop * listenerGrowthPrecentage.hipHop;
-        currentListeners.disco += currentListeners.disco * listenerGrowthPrecentage.disco;
-        currentListeners.rock += currentListeners.rock * listenerGrowthPrecentage.rock;
-        currentListeners.metal += currentListeners.metal * listenerGrowthPrecentage.metal;
+        currentListeners.hipHop += Mathf.CeilToInt(currentListeners.hipHop * (listenerGrowthPrecentage.hipHop / 100f));
+        currentListeners.disco += Mathf.CeilToInt(currentListeners.disco * (listenerGrowthPrecentage.disco / 100f));
+        currentListeners.rock += Mathf.CeilToInt(currentListeners.rock * (listenerGrowthPrecentage.rock / 100f));
+        currentListeners.metal += Mathf.CeilToInt(currentListeners.metal * (listenerGrowthPrecentage.metal / 100f));
     }
 
 
@@ -84,6 +84,7 @@ public class Radio : MonoBehaviour
                 Debug.Log("TEST!!!!");
                 if (!playing)
                 {
+                    AddListeners(selectedObject.GetComponent<CassetteObject>().data.listenerGrowthPrecentage);
                     source.Play();
                     playing = true;
                 }
