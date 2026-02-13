@@ -6,7 +6,7 @@ using static Unity.VisualScripting.Member;
 
 public class Radio : MonoBehaviour
 {
-    private ChooseCassette chooseCassette;
+    private Controls controls;
     public GenreValues currentListeners;
 
     [SerializeField] private int startListeners = 5;
@@ -37,7 +37,9 @@ public class Radio : MonoBehaviour
 
     void Start()
     {
-        chooseCassette = GetComponent<ChooseCassette>();
+        // Szuka komponentu na tym samym obiekcie lub dodaje go, jeœli go nie ma
+        controls = GetComponent<Controls>();
+        if (controls == null) controls = gameObject.AddComponent<Controls>();
 
         selectedObject = null;
         currentListeners.hipHop = startListeners;
@@ -72,7 +74,7 @@ public class Radio : MonoBehaviour
 
     void PlayingCassette(Vector3 mousePosition)
     {
-        GameObject clickedObject = chooseCassette.SelectingObject(mousePosition);
+        GameObject clickedObject = controls.SelectingObject(mousePosition);
         if (selectedObject != null && clickedObject != null)  //Klikniêto na obiekt z colliderem gdy jest wybrana kasety
         {
             CassetteObject cassetteInfo = clickedObject.GetComponent<CassetteObject>();
@@ -98,7 +100,7 @@ public class Radio : MonoBehaviour
 
     void SelectingCassettes(Vector3 mousePosition)
     {
-        GameObject clickedObject = chooseCassette.SelectingObject(mousePosition);
+        GameObject clickedObject = controls.SelectingObject(mousePosition);
 
         if (clickedObject != selectedObject && selectedObject != null && clickedObject != null)  //Klikniêto na obiekt z colliderem gdy jest wybrana kasety
         {

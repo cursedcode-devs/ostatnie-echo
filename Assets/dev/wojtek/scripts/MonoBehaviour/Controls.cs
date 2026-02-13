@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class Controls : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField]
+    private Camera mainCamera;
+
     void Start()
     {
         
@@ -12,5 +14,27 @@ public class Controls : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public GameObject SelectingObject(Vector3 mousePos)
+    {
+        Ray clickingRay = mainCamera.ScreenPointToRay(mousePos);
+        RaycastHit raycastHit;
+        bool objectHited = Physics.Raycast(clickingRay, out raycastHit);
+
+        if (objectHited)
+        {
+            Debug.Log(raycastHit.transform.name);
+        }
+
+        if (objectHited) //klikniêto w obiekt z colliderem
+        {
+            return raycastHit.transform.gameObject;
+        }
+        else if (!objectHited)  //Nie klikniêto w obiekt z colliderem
+        {
+            return null;
+        }
+        return null;
     }
 }

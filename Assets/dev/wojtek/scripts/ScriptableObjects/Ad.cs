@@ -10,6 +10,6 @@ public class Ad : PlayableContent
 
     public override void ApplyEffect(Radio radio)
     {
-        radio.AddRevenue(revenuePerListener);
+       // radio.AddRevenue(revenuePerListener);
     }
 }
