@@ -1,5 +1,9 @@
 using UnityEngine;
 
+
+/// <summary>
+/// Klasa do obs³ugi sterowania
+/// </summary>
 public class Controls : MonoBehaviour
 {
     [SerializeField]

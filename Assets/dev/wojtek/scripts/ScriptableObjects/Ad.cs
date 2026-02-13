@@ -1,6 +1,10 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NowaReklama", menuName = "Radio/Reklama")]
+
+/// <summary>
+/// Klasa przechowuj¹ca dane reklamy
+/// </summary>
 public class Ad : PlayableContent
 {
     [SerializeField]

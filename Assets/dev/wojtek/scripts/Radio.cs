@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static Unity.VisualScripting.Member;
 
+/// <summary>
+/// Klasa zajmuj¹ca siê prezchowywanie stanu radio i zmienianiem go
+/// </summary>
 public class Radio : MonoBehaviour
 {
     private Controls controls;
@@ -159,29 +162,5 @@ public class Radio : MonoBehaviour
             selectedObject = null;
         }
     }
-
-
-    //void PlayMusic()
-    //{
-    //    // Sprawdzamy czy spacja wciœniêta ORAZ czy mamy przypisane Ÿród³o dŸwiêku
-    //    if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
-    //    {
-    //        if (source != null && playing == false)
-    //        {
-    //            Debug.Log("SPACJA! Gram dŸwiêk.");
-    //            source.Play();
-    //            playing = true;
-    //        }
-    //        else if (source != null && playing == true)
-    //        {
-    //            source.Stop();
-    //            playing = false;
-    //        }
-    //        else
-    //        {
-    //            Debug.LogError("Zapomnia³eœ przypisaæ AudioSource do skryptu w inspektorze!");
-    //        }
-    //    }
-    //}
 
 }

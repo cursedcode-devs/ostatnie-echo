@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Klasa podpinaj¹ca dane do kaset
+/// </summary>
 public class CassetteObject : MonoBehaviour
 {
     [Header("Dane z ScriptableObject")]

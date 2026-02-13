@@ -1,6 +1,9 @@
 using UnityEngine;
 
 //[CreateAssetMenu(fileName = "PlayableContent", menuName = "Scriptable Objects/PlayableContent")]
+/// <summary>
+/// Klasa z której dziedziczy ka¿dy Playable item np. kaseta, reklama
+/// </summary
 public abstract class PlayableContent : ScriptableObject
 {
     [SerializeField] private string itemName;

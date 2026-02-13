@@ -1,6 +1,10 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NowaKaseta", menuName = "Radio/Kaseta")]
+
+/// <summary>
+/// Klasa przechowuj¹ca dane kasety
+/// </summary
 public class Cassette : PlayableContent {
 
     public AudioClip song;
