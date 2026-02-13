@@ -5,7 +5,7 @@ using static Unity.VisualScripting.Member;
 public class ChooseCassette : MonoBehaviour
 {
     [SerializeField]
-    private Camera camera;
+    private Camera mainCamera;
 
 
     void Start()
@@ -22,7 +22,7 @@ public class ChooseCassette : MonoBehaviour
 
     public GameObject SelectingObject(Vector3 mousePos)
     {     
-        Ray clickingRay = camera.ScreenPointToRay(mousePos);
+        Ray clickingRay = mainCamera.ScreenPointToRay(mousePos);
         RaycastHit raycastHit;
         bool objectHited = Physics.Raycast(clickingRay, out raycastHit);      
 
