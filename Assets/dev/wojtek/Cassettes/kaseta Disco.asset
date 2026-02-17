@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a795ad3ef4179e04ea0cb84a7d3a2682, type: 3}
   m_Name: kaseta Disco
   m_EditorClassIdentifier: Assembly-CSharp::Cassette
+  audio: {fileID: 8300000, guid: 40fc81acc9c849744a34a1401c8b1a2c, type: 3}
   itemName: kaseta Disco
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
-  song: {fileID: 8300000, guid: 2d2c18c7b8569c047b0c2cbcc8edf62e, type: 3}
   listenerGrowthPrecentage:
     hipHop: 10
     disco: 20

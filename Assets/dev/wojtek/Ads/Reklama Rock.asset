@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a795ad3ef4179e04ea0cb84a7d3a2682, type: 3}
-  m_Name: kaseta HipHop
-  m_EditorClassIdentifier: Assembly-CSharp::Cassette
-  audio: {fileID: 8300000, guid: 84cc152ada873a74da791f09136d17f6, type: 3}
-  itemName: kaseta HipHop
+  m_Script: {fileID: 11500000, guid: 4ef629219f6b17c4bbd2d813eecbea14, type: 3}
+  m_Name: Reklama Rock
+  m_EditorClassIdentifier: Assembly-CSharp::Ad
+  audio: {fileID: 8300000, guid: 6a43d509c50045f4a87d1c51d147c411, type: 3}
+  itemName: Reklama Rock
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
-  listenerGrowthPrecentage:
-    hipHop: 20
-    disco: 10
-    rock: 10
-    metal: 10
   timesUsedInDay: 0
+  revenuePerListener:
+    hipHop: 150
+    disco: 150
+    rock: 300
+    metal: 150

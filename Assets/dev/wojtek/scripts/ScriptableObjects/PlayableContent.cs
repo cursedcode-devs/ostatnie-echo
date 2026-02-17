@@ -6,8 +6,16 @@ using UnityEngine;
 /// </summary
 public abstract class PlayableContent : ScriptableObject
 {
+    public AudioClip audio;
     [SerializeField] private string itemName;
     [SerializeField] private GameObject physicalPrefab;
 
-    public abstract void ApplyEffect(Radio radio);
+
+    public void Play(ref AudioSource source)
+    {
+        source.clip = audio;
+        source.Play();
+    }
+
+    public abstract void ApplyEffect(RadioStation radio);
 }

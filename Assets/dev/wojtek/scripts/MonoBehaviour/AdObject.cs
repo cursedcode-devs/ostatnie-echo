@@ -1,22 +1,20 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
-/// <summary>
-/// Klasa podpinaj¹ca dane do kaset
-/// </summary>
-public class CassetteObject : MonoBehaviour
+public class AdObject : MonoBehaviour
 {
     [Header("Dane z ScriptableObject")]
-    public Cassette data;
+    public Ad data;
 
     void Start()
     {
         if (data != null)
         {
-            gameObject.tag = "PlayableCassette";
+            gameObject.tag = "PlayableAd";
             Debug.Log("To jest fizyczna kopia kasety: " + data.name);
         }
     }
+
+    // Update is called once per frame
     void Update()
     {
         
