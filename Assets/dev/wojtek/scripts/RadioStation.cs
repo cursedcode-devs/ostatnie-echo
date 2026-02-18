@@ -15,22 +15,40 @@ public class RadioStation : MonoBehaviour
     //[SerializeField] private int day = 0;
     //[SerializeField] private int hour = 0;
     [SerializeField] private float currentMoney = 0.00f;
+    [SerializeField] private GenreValuesModifier listenersModifier;
+    [SerializeField] private GenreValuesModifier revenueModifier;
+
+    public void setListenersModifier(float hipHop, float disco, float rock, float metal)
+    {
+        listenersModifier.hipHop = hipHop;
+        listenersModifier.disco = disco;
+        listenersModifier.rock = rock;
+        listenersModifier.metal = metal;
+    }
+
+    public void setRevenueModifier(float hipHop, float disco, float rock, float metal)
+    {
+        revenueModifier.hipHop = hipHop;
+        revenueModifier.disco = disco;
+        revenueModifier.rock = rock;
+        revenueModifier.metal = metal;
+    }
 
     public void AddListeners(GenreValues listenerGrowthPrecentage)
     {
-        currentListeners.hipHop += Mathf.CeilToInt(currentListeners.hipHop * (listenerGrowthPrecentage.hipHop / 100f));
-        currentListeners.disco += Mathf.CeilToInt(currentListeners.disco * (listenerGrowthPrecentage.disco / 100f));
-        currentListeners.rock += Mathf.CeilToInt(currentListeners.rock * (listenerGrowthPrecentage.rock / 100f));
-        currentListeners.metal += Mathf.CeilToInt(currentListeners.metal * (listenerGrowthPrecentage.metal / 100f));
+        currentListeners.hipHop += Mathf.CeilToInt(currentListeners.hipHop * (listenerGrowthPrecentage.hipHop / 100f) * listenersModifier.hipHop);
+        currentListeners.disco += Mathf.CeilToInt(currentListeners.disco * (listenerGrowthPrecentage.disco / 100f) * listenersModifier.disco);
+        currentListeners.rock += Mathf.CeilToInt(currentListeners.rock * (listenerGrowthPrecentage.rock / 100f) * listenersModifier.rock);
+        currentListeners.metal += Mathf.CeilToInt(currentListeners.metal * (listenerGrowthPrecentage.metal / 100f) * listenersModifier.metal);
     }
 
 
     public void AddRevenue(GenreValues revenuGain)
     {
-        currentMoney += revenuGain.hipHop / 100f * currentListeners.hipHop
-            + revenuGain.disco / 100f * currentListeners.disco
-            + revenuGain.rock / 100f * currentListeners.rock
-            + revenuGain.metal / 100f * currentListeners.metal;
+        currentMoney += (revenuGain.hipHop / 100f * currentListeners.hipHop * revenueModifier.hipHop)
+            + (revenuGain.disco / 100f * currentListeners.disco * revenueModifier.disco)
+            + (revenuGain.rock / 100f * currentListeners.rock * revenueModifier.rock)
+            + (revenuGain.metal / 100f * currentListeners.metal * revenueModifier.metal);
     }
 
     void Start()

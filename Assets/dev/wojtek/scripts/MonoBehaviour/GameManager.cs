@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
 
         radioStation = GetComponent<RadioStation>();
         if (radioStation == null) radioStation = gameObject.AddComponent<RadioStation>();
+
+        radioStation.setListenersModifier(1f, 1f, 1f, 1f);
+        radioStation.setRevenueModifier(1f, 1f, 1f, 1f);
     }
 
     // Update is called once per frame
