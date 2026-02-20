@@ -2,15 +2,40 @@ using UnityEngine;
 
 public class TimeHandler : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public int Hour;
+    public int Day;
     void Start()
     {
-        
+        Day=1;
+        Hour=14;
     }
-
-    // Update is called once per frame
     void Update()
     {
         
+    }
+    public void NextHour()
+    {
+        Hour++;
+        if (Hour>20)
+        {
+            NextDay();
+        }
+    }
+    public void NextDay()
+    {
+        Day++;
+        if(Day>7)
+        {
+            FinishGame();    
+        }
+    }
+    public void FinishGame()
+    {
+        #if UNITY_STANDALONE
+            Application.Quit();
+        #endif
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #endif
     }
 }

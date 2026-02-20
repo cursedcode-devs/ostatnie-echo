@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
     public RadioStation radioStation;
     private GameObject selectedCassette;
     [SerializeField] private AudioSource source;
+    [SerializeField] private TimeHandler timeHandler;
     private bool playing = false;
     ActionTypes actionType;
     public ActionManager actionManager;
@@ -66,6 +68,8 @@ public class GameManager : MonoBehaviour
                             selectedCassette.GetComponent<AdObject>().data.ApplyEffect(radioStation);
                         }
                             playing = true;
+
+                            StartCoroutine(WaitForAudioToEnd());
                     }
                     else
                     {
@@ -86,4 +90,18 @@ public class GameManager : MonoBehaviour
         selectedCassette.transform.position += new Vector3(0f, transformValue, 0f);
     }
 
+    private IEnumerator WaitForAudioToEnd()
+    {
+        while (source.isPlaying)
+        {
+            yield return null;
+        }
+
+        playing = false;
+
+        if (timeHandler != null)
+        {
+            timeHandler.NextHour();
+        }
+    }
 }

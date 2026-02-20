@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using static Unity.VisualScripting.Member;
 
 /// <summary>
-/// Klasa zajmuj¹ca siê prezchowywanie stanu radio i zmienianiem go
+/// Klasa zajmujï¿½ca siï¿½ prezchowywanie stanu radio i zmienianiem go
 /// </summary>
 public class RadioStation : MonoBehaviour
 {
@@ -57,7 +57,7 @@ public class RadioStation : MonoBehaviour
         currentListeners.disco = startListeners;
         currentListeners.rock = startListeners;
         currentListeners.metal = startListeners;
-    }
+    }   
 
     // Update is called once per frame
     void Update()
