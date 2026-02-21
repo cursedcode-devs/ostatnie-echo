@@ -39,49 +39,56 @@ public class GameManager : MonoBehaviour
         {
             case ActionTypes.LeftClickOnObject:
                 GameObject clickedObject = actionManager.GetClickedObject();
-                if (clickedObject.CompareTag("PlayableCassette") || clickedObject.CompareTag("PlayableAd"))
-                {
-                    if (clickedObject != selectedCassette)
-                    {
-                        if (selectedCassette != null) TransformSelectedCassette(deselectTransformValue);
-                        selectedCassette = clickedObject;
-                        TransformSelectedCassette(selectTransformValue);
-                    }
-                    else
-                    {
-                        TransformSelectedCassette(deselectTransformValue);
-                        selectedCassette = null;
-                    }
-                }
-                else if (clickedObject.CompareTag("CassettePlayer"))
-                {
-                    if (!playing && selectedCassette != null)
-                    {
-                        if (selectedCassette.CompareTag("PlayableCassette"))
-                        {
-                            selectedCassette.GetComponent<CassetteObject>().data.Play(ref source);
-                            selectedCassette.GetComponent<CassetteObject>().data.ApplyEffect(radioStation);
-                        }
-                        else if (selectedCassette.CompareTag("PlayableAd"))
-                        {
-                            selectedCassette.GetComponent<AdObject>().data.Play(ref source);
-                            selectedCassette.GetComponent<AdObject>().data.ApplyEffect(radioStation);
-                        }
-                            playing = true;
-
-                            StartCoroutine(WaitForAudioToEnd());
-                    }
-                    else
-                    {
-                        source.Stop();
-                        playing = false;
-                    }
-                }
+                SelectPlayableObject(clickedObject);
+                PlayPlayableObject(clickedObject);
                 break;
             case ActionTypes.LeftClickOutsiedObject:
                 if (selectedCassette != null) TransformSelectedCassette(deselectTransformValue);
                 selectedCassette = null;
                 break;
+        }
+    }
+
+
+    private void SelectPlayableObject(GameObject clickedObject)
+    {
+        if (!clickedObject.CompareTag("PlayableCassette") && !clickedObject.CompareTag("PlayableAd")) return;
+
+        if (clickedObject == selectedCassette)
+        {
+            TransformSelectedCassette(deselectTransformValue);
+            selectedCassette = null;
+            return;
+        }
+
+        if (selectedCassette != null)
+        {
+            TransformSelectedCassette(deselectTransformValue);
+        }
+        selectedCassette = clickedObject;
+        TransformSelectedCassette(selectTransformValue);
+    }
+
+    private void PlayPlayableObject(GameObject clickedObject)
+    {
+        if (!clickedObject.CompareTag("CassettePlayer")) return;
+
+        if (playing || selectedCassette == null)
+        {
+            source.Stop();
+            playing = false;
+            return;
+        }
+
+        PlayableObject playableContent = selectedCassette.GetComponent<PlayableObject>();
+
+        if (playableContent != null && playableContent.data != null)
+        {
+            playableContent.data.Play(ref source);
+            playableContent.data.ApplyEffect(radioStation);
+
+            playing = true;
+            StartCoroutine(WaitForAudioToEnd());
         }
     }
 

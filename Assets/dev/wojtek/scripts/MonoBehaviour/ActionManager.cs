@@ -33,19 +33,19 @@ public class ActionManager : MonoBehaviour
         mousePosition = Mouse.current.position.ReadValue();
         bool leftMousePressed = Mouse.current.leftButton.wasPressedThisFrame;
 
-        if (leftMousePressed)
+        if (!leftMousePressed)
         {
-            clickedObject = ClickedObject(mousePosition);
-            if (clickedObject != null) {
-                return ActionTypes.LeftClickOnObject;
-            }
-            else
-            {
-                return ActionTypes.LeftClickOutsiedObject;
-            }
+            return ActionTypes.None;
         }
-
-        return ActionTypes.None;
+        clickedObject = ClickedObject(mousePosition);
+        if (clickedObject != null)
+        {
+            return ActionTypes.LeftClickOnObject;
+        }
+        else
+        {
+            return ActionTypes.LeftClickOutsiedObject;
+        }
     }
 
     public GameObject ClickedObject(Vector3 mousePos)
@@ -59,13 +59,14 @@ public class ActionManager : MonoBehaviour
             Debug.Log(raycastHit.transform.name);
         }
 
-        if (objectHited) //klikniêto w obiekt z colliderem
-        {
-            return raycastHit.transform.gameObject;
-        }
-        else if (!objectHited)  //Nie klikniêto w obiekt z colliderem
+        if (!objectHited) //Nie klikniêto w obiekt z colliderem
         {
             return null;
+        }
+ 
+        if (objectHited)  //klikniêto w obiekt z colliderem
+        {
+            return raycastHit.transform.gameObject;   
         }
         return null;
     }

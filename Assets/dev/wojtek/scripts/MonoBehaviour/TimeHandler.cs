@@ -24,6 +24,7 @@ public class TimeHandler : MonoBehaviour
     public void NextDay()
     {
         Day++;
+        Hour = 14;
         if(Day>7)
         {
             FinishGame();    

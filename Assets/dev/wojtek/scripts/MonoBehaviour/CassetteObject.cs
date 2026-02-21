@@ -4,11 +4,8 @@ using UnityEngine;
 /// <summary>
 /// Klasa podpinaj¹ca dane do kaset
 /// </summary>
-public class CassetteObject : MonoBehaviour
+public class CassetteObject : PlayableObject
 {
-    [Header("Dane z ScriptableObject")]
-    public Cassette data;
-
     void Start()
     {
         if (data != null)
@@ -16,9 +13,5 @@ public class CassetteObject : MonoBehaviour
             gameObject.tag = "PlayableCassette";
             Debug.Log("To jest fizyczna kopia kasety: " + data.name);
         }
-    }
-    void Update()
-    {
-        
     }
 }
