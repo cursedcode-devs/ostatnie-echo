@@ -4,23 +4,14 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// Bierze input i zamienia go na rodzaj konkretnych akcji w grze
 /// </summary>
-public class ActionManager : MonoBehaviour
+public class ActionManager
 {
-    [SerializeField]
     private Camera mainCamera;
-
-    private Vector3 mousePosition;
     private GameObject clickedObject;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    public ActionManager(Camera mainCamera)
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        this.mainCamera = mainCamera;
     }
 
     public GameObject GetClickedObject()
@@ -28,45 +19,25 @@ public class ActionManager : MonoBehaviour
         return clickedObject;
     }
 
-    public ActionTypes actionType()
+    public ActionTypes GetActionType()
     {
-        mousePosition = Mouse.current.position.ReadValue();
-        bool leftMousePressed = Mouse.current.leftButton.wasPressedThisFrame;
-
-        if (!leftMousePressed)
+        if (!Mouse.current.leftButton.wasPressedThisFrame)
         {
             return ActionTypes.None;
         }
-        clickedObject = ClickedObject(mousePosition);
-        if (clickedObject != null)
-        {
-            return ActionTypes.LeftClickOnObject;
-        }
-        else
-        {
-            return ActionTypes.LeftClickOutsiedObject;
-        }
+        clickedObject = ClickedObject(Mouse.current.position.ReadValue());
+
+        return clickedObject != null ? ActionTypes.LeftClickOnObject : ActionTypes.LeftClickOutsiedObject;
     }
 
     public GameObject ClickedObject(Vector3 mousePos)
     {
         Ray clickingRay = mainCamera.ScreenPointToRay(mousePos);
-        RaycastHit raycastHit;
-        bool objectHited = Physics.Raycast(clickingRay, out raycastHit);
 
-        if (objectHited)
+        if (Physics.Raycast(clickingRay, out RaycastHit raycastHit))
         {
             Debug.Log(raycastHit.transform.name);
-        }
-
-        if (!objectHited) //Nie klikniêto w obiekt z colliderem
-        {
-            return null;
-        }
- 
-        if (objectHited)  //klikniêto w obiekt z colliderem
-        {
-            return raycastHit.transform.gameObject;   
+            return raycastHit.transform.gameObject;
         }
         return null;
     }

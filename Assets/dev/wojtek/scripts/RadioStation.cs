@@ -7,16 +7,23 @@ using static Unity.VisualScripting.Member;
 /// <summary>
 /// Klasa zajmuj�ca si� prezchowywanie stanu radio i zmienianiem go
 /// </summary>
-public class RadioStation : MonoBehaviour
+[System.Serializable]
+public class RadioStation
 {
     public GenreValues currentListeners;
 
     [SerializeField] private int startListeners = 5;
-    //[SerializeField] private int day = 0;
-    //[SerializeField] private int hour = 0;
     [SerializeField] private float currentMoney = 0.00f;
     [SerializeField] private GenreValuesModifier listenersModifier;
     [SerializeField] private GenreValuesModifier revenueModifier;
+
+    public RadioStation() 
+    {
+        currentListeners.hipHop = startListeners;
+        currentListeners.disco = startListeners;
+        currentListeners.rock = startListeners;
+        currentListeners.metal = startListeners;
+    }
 
     public void setListenersModifier(float hipHop, float disco, float rock, float metal)
     {
@@ -42,7 +49,6 @@ public class RadioStation : MonoBehaviour
         currentListeners.metal += Mathf.CeilToInt(currentListeners.metal * (listenerGrowthPrecentage.metal / 100f) * listenersModifier.metal);
     }
 
-
     public void AddRevenue(GenreValues revenuGain)
     {
         currentMoney += (revenuGain.hipHop / 100f * currentListeners.hipHop * revenueModifier.hipHop)
@@ -50,19 +56,4 @@ public class RadioStation : MonoBehaviour
             + (revenuGain.rock / 100f * currentListeners.rock * revenueModifier.rock)
             + (revenuGain.metal / 100f * currentListeners.metal * revenueModifier.metal);
     }
-
-    void Start()
-    {
-        currentListeners.hipHop = startListeners;
-        currentListeners.disco = startListeners;
-        currentListeners.rock = startListeners;
-        currentListeners.metal = startListeners;
-    }   
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
 }

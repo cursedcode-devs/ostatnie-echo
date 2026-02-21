@@ -403,6 +403,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.20000002, y: 0.039999995, z: 0.36}
   m_Center: {x: -0.00000047683716, y: 0, z: 0}
+--- !u!20 &319700013 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 6228599196773909662, guid: a94de84d6d6573a4e9d7c14f8c0079b6, type: 3}
+  m_PrefabInstance: {fileID: 2374656138001094309}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &434010137
 GameObject:
   m_ObjectHideFlags: 0
@@ -3370,6 +3375,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1749542261}
     - target: {fileID: 69441337164291159, guid: a94de84d6d6573a4e9d7c14f8c0079b6, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 319700013}
+    - target: {fileID: 69441337164291159, guid: a94de84d6d6573a4e9d7c14f8c0079b6, type: 3}
       propertyPath: timeHandler
       value: 
       objectReference: {fileID: 2374656138001094311}
@@ -3417,7 +3426,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8141775638793378204, guid: a94de84d6d6573a4e9d7c14f8c0079b6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

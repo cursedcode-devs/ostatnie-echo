@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     private GameObject selectedCassette;
     [SerializeField] private AudioSource source;
     [SerializeField] private TimeHandler timeHandler;
+    [SerializeField] private Camera mainCamera;
     private bool playing = false;
     ActionTypes actionType;
     public ActionManager actionManager;
@@ -15,25 +16,21 @@ public class GameManager : MonoBehaviour
 
     private float selectTransformValue = 0.3f;
     private float deselectTransformValue = -0.3f;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         selectedCassette = null;
 
-        actionManager = GetComponent<ActionManager>();
-        if (actionManager == null) actionManager = gameObject.AddComponent<ActionManager>();
-
-        radioStation = GetComponent<RadioStation>();
-        if (radioStation == null) radioStation = gameObject.AddComponent<RadioStation>();
+        actionManager = new ActionManager(mainCamera);
+        radioStation = new RadioStation();
 
         radioStation.setListenersModifier(1f, 1f, 1f, 1f);
         radioStation.setRevenueModifier(1f, 1f, 1f, 1f);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        actionType = actionManager.actionType();
+        actionType = actionManager.GetActionType();
 
         switch (actionType)
         {
@@ -48,7 +45,6 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-
 
     private void SelectPlayableObject(GameObject clickedObject)
     {
