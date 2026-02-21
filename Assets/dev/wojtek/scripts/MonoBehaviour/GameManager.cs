@@ -76,12 +76,12 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        PlayableObject playableContent = selectedCassette.GetComponent<PlayableObject>();
+        PlayableObject playableObject = selectedCassette.GetComponent<PlayableObject>();
 
-        if (playableContent != null && playableContent.data != null)
+        if (playableObject != null && playableObject.data != null)
         {
-            playableContent.data.Play(ref source);
-            playableContent.data.ApplyEffect(radioStation);
+            playableObject.data.Play(ref source);
+            playableObject.data.ApplyEffect(radioStation);
 
             playing = true;
             StartCoroutine(WaitForAudioToEnd());
