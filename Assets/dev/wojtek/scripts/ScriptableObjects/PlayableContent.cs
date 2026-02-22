@@ -1,9 +1,9 @@
 using UnityEngine;
 
 //[CreateAssetMenu(fileName = "PlayableContent", menuName = "Scriptable Objects/PlayableContent")]
-/// <summary>
-/// Klasa z której dziedziczy ka¿dy Playable item np. kaseta, reklama
-/// </summary
+//
+// Klasa z której dziedziczy ka¿dy Playable item np. kaseta, reklama
+//
 public abstract class PlayableContent : ScriptableObject
 {
     public AudioClip audio;

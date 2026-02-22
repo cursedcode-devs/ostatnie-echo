@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a795ad3ef4179e04ea0cb84a7d3a2682, type: 3}
+  m_Script: {fileID: 11500000, guid: 783e4f2a3331ba644b8de0e08f172524, type: 3}
   m_Name: kaseta Metal
   m_EditorClassIdentifier: Assembly-CSharp::Cassette
   audio: {fileID: 8300000, guid: 86f47d429f7972c458ef49c10d55291c, type: 3}

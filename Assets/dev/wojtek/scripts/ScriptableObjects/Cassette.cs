@@ -4,7 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// Klasa przechowuj¹ca dane kasety
-/// </summary
+/// </summary>
 public class Cassette : PlayableContent 
 {
     public GenreValues listenerGrowthPrecentage;  //Procentowa wartoœæ wzrostu s³uchaczy 100 -> 100% 50 -> 50%

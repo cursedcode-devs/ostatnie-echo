@@ -1,9 +1,9 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-/// <summary>
-/// Klasa podpinaj¹ca dane do kaset
-/// </summary>
+//
+// Klasa podpinaj¹ca dane do kaset
+//
 public class CassetteObject : PlayableObject
 {
     void Start()
