@@ -1,0 +1,17 @@
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "NowaReklama", menuName = "Radio/Reklama")]
+
+/// <summary>
+/// Klasa przechowuj¹ca dane reklamy
+/// </summary>
+public class Ad : PlayableContent
+{
+    [SerializeField] private int timesUsedInDay;
+    public GenreValues revenuePerListener; //Ile groszy za jednego s³uchacza 100 -> 1 zl 50 -> 0.50z³.
+
+    public override void ApplyEffect(RadioStation radio)
+    {
+        radio.AddRevenue(revenuePerListener);
+    }
+}
