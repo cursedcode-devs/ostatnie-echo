@@ -132,7 +132,6 @@ GameObject:
   - component: {fileID: 111077784}
   - component: {fileID: 111077783}
   - component: {fileID: 111077787}
-  - component: {fileID: 111077788}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -229,7 +228,7 @@ Transform:
   m_GameObject: {fileID: 111077782}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.677, y: 0.92, z: -9.642}
+  m_LocalPosition: {x: -0.677, y: 0.595, z: -9.642}
   m_LocalScale: {x: 1, y: 1.2881972, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -268,21 +267,9 @@ MonoBehaviour:
       metal: 0
   source: {fileID: 1292526863}
   mainCamera: {fileID: 330585545}
-  timeHandler: {fileID: 111077788}
---- !u!114 &111077788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 111077782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0320a2abe87227243981df20416c3925, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TimeHandler
-  Hour: 0
-  Day: 0
+  timeHandler:
+    Hour: 0
+    Day: 0
 --- !u!1 &147517843
 GameObject:
   m_ObjectHideFlags: 0
