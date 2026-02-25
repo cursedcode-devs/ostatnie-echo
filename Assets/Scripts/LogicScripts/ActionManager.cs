@@ -28,7 +28,17 @@ public class ActionManager
         Debug.Log("GetActionType - LeftCLick");
         clickedObject = ClickedObject(Mouse.current.position.ReadValue());
 
-        return clickedObject != null ? ActionTypes.LeftClickOnObject : ActionTypes.LeftClickOutsiedObject;
+        if (clickedObject == null) return ActionTypes.LeftClickOutsiedObject;
+      
+        if (clickedObject.CompareTag("Playable")) return ActionTypes.LeftClickOnPlayableObject;
+
+        if (clickedObject.CompareTag("ConsoleSlider")) return ActionTypes.LeftClickOnSlider;
+
+        if (clickedObject.CompareTag("CassettePlayer")) return ActionTypes.LeftClickOnPlayingObject;
+
+        return ActionTypes.None;
+
+        
     }
 
     public GameObject ClickedObject(Vector3 mousePos)

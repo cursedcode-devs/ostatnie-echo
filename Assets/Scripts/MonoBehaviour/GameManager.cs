@@ -1,6 +1,7 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -37,15 +38,19 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         actionType = actionManager.GetActionType();
-
+        GameObject clickedObject = actionManager.GetClickedObject();
         switch (actionType)
         {
-            case ActionTypes.LeftClickOnObject:
-                Debug.Log("GetActionType - LeftClickOnObject");
-                GameObject clickedObject = actionManager.GetClickedObject();
-                SelectPlayableObject(clickedObject);
+            case ActionTypes.LeftClickOnPlayableObject:
+                Debug.Log("GetActionType - LeftClickOnPlayableObject");   
+                SelectPlayableObject(clickedObject);                            
+                break;
+            case ActionTypes.LeftClickOnPlayingObject:
+                Debug.Log("GetActionType - LeftClickOnPlayingObject");
                 PlayPlayableObject(clickedObject);
-                
+                break;
+            case ActionTypes.LeftClickOnSlider:
+                Debug.Log("GetActionType - LeftClickOnSlider");
                 break;
             case ActionTypes.LeftClickOutsiedObject:
                 Debug.Log("GetActionType - LeftClickOutsiedObject");
@@ -57,8 +62,6 @@ public class GameManager : MonoBehaviour
 
     private void SelectPlayableObject(GameObject clickedObject)
     {
-        if (!clickedObject.CompareTag("PlayableCassette") && !clickedObject.CompareTag("PlayableAd")) return;
-
         if (clickedObject == selectedCassette)
         {
             TransformSelectedCassette(deselectTransformValue);
@@ -76,8 +79,6 @@ public class GameManager : MonoBehaviour
 
     private void PlayPlayableObject(GameObject clickedObject)
     {
-        if (!clickedObject.CompareTag("CassettePlayer")) return;
-
         if (playing || selectedCassette == null)
         {
             source.Stop();
