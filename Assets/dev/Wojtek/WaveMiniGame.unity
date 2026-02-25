@@ -272,6 +272,9 @@ MonoBehaviour:
     Day: 0
   miniGame:
     rid: 4024157058597912637
+  consoleSliderAmplitude: {fileID: 2020246816}
+  consoleSliderFrequency: {fileID: 1060649005}
+  consoleSliderLength: {fileID: 764837579}
   references:
     version: 2
     RefIds:

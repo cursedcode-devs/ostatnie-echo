@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     public ActionManager actionManager;
     public TimeHandler timeHandler;
     [SerializeReference] public MiniGame miniGame = new WaveTweakingMiniGame();
+    public ConsoleSliderObject consoleSliderAmplitude;
+    public ConsoleSliderObject consoleSliderFrequency;
+    public ConsoleSliderObject consoleSliderLength;
 
 
     private float selectTransformValue = 0.3f;
@@ -38,12 +41,16 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         actionType = actionManager.GetActionType();
-        GameObject clickedObject = actionManager.GetClickedObject();
+        GameObject clickedObject = actionManager.GetPointedObject();
+        ConsoleSliderObject sliderObject = null;
+        if (clickedObject != null)
+            sliderObject = clickedObject.GetComponent<ConsoleSliderObject>();
+
         switch (actionType)
         {
             case ActionTypes.LeftClickOnPlayableObject:
-                Debug.Log("GetActionType - LeftClickOnPlayableObject");   
-                SelectPlayableObject(clickedObject);                            
+                Debug.Log("GetActionType - LeftClickOnPlayableObject");
+                SelectPlayableObject(clickedObject);
                 break;
             case ActionTypes.LeftClickOnPlayingObject:
                 Debug.Log("GetActionType - LeftClickOnPlayingObject");
@@ -51,6 +58,13 @@ public class GameManager : MonoBehaviour
                 break;
             case ActionTypes.LeftClickOnSlider:
                 Debug.Log("GetActionType - LeftClickOnSlider");
+                if (sliderObject != null)
+                    sliderObject.OnMouseClick();
+                break;
+            case ActionTypes.LeftPressedOnSlider:
+                Debug.Log("GetActionType - LeftPressedOnSlider");
+                if (sliderObject != null)
+                    sliderObject.OnMousePressed();
                 break;
             case ActionTypes.LeftClickOutsiedObject:
                 Debug.Log("GetActionType - LeftClickOutsiedObject");

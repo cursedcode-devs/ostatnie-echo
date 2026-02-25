@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 /// <summary>
 /// Bierze input i zamienia go na rodzaj konkretnych akcji w grze
@@ -7,41 +8,62 @@ using UnityEngine.InputSystem;
 public class ActionManager
 {
     private Camera mainCamera;
-    private GameObject clickedObject;
+    private GameObject pointedObject;
 
     public ActionManager(Camera mainCamera)
     {
         this.mainCamera = mainCamera;
     }
 
-    public GameObject GetClickedObject()
+    public GameObject GetPointedObject()
     {
-        return clickedObject;
+        return pointedObject;
     }
 
     public ActionTypes GetActionType()
-    {  
-        if (!Mouse.current.leftButton.wasPressedThisFrame)
+    {
+        if (!Mouse.current.leftButton.isPressed)
         {
             return ActionTypes.None;
         }
-        Debug.Log("GetActionType - LeftCLick");
-        clickedObject = ClickedObject(Mouse.current.position.ReadValue());
 
-        if (clickedObject == null) return ActionTypes.LeftClickOutsiedObject;
-      
-        if (clickedObject.CompareTag("Playable")) return ActionTypes.LeftClickOnPlayableObject;
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            return GetLeftClickAction();
+        }
 
-        if (clickedObject.CompareTag("ConsoleSlider")) return ActionTypes.LeftClickOnSlider;
-
-        if (clickedObject.CompareTag("CassettePlayer")) return ActionTypes.LeftClickOnPlayingObject;
+        if(pointedObject != null)
+        {
+            if (pointedObject.CompareTag("ConsoleSlider"))
+            {
+                return ActionTypes.LeftPressedOnSlider;
+            }
+        }
 
         return ActionTypes.None;
 
-        
     }
 
-    public GameObject ClickedObject(Vector3 mousePos)
+    private ActionTypes GetLeftClickAction()
+    {
+        Debug.Log("GetActionType - LeftCLick");
+        pointedObject = PointedObject(Mouse.current.position.ReadValue());
+
+        if (pointedObject == null) return ActionTypes.LeftClickOutsiedObject;
+
+        if (pointedObject.CompareTag("Playable")) return ActionTypes.LeftClickOnPlayableObject;
+
+        if (pointedObject.CompareTag("ConsoleSlider"))
+        {
+            return ActionTypes.LeftClickOnSlider;
+        }
+
+        if (pointedObject.CompareTag("CassettePlayer")) return ActionTypes.LeftClickOnPlayingObject;
+
+        return ActionTypes.None;
+    }
+        
+    public GameObject PointedObject(Vector3 mousePos)
     {
         Ray clickingRay = mainCamera.ScreenPointToRay(mousePos);
 

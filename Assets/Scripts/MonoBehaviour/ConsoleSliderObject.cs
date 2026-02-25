@@ -9,7 +9,6 @@ public class ConsoleSliderObject : MonoBehaviour
 
     private Vector3 screenPoint;
     private Vector3 offset;
-    private bool isDragging = false;
 
     void Start()
     {
@@ -22,18 +21,18 @@ public class ConsoleSliderObject : MonoBehaviour
         if (mainCamera == null) mainCamera = Camera.main;
     }
 
-    private void OnMouseDown()
+    public void OnMouseClick()
     {
         Vector2 mousePos = Mouse.current.position.ReadValue();
         screenPoint = mainCamera.WorldToScreenPoint(gameObject.transform.position);
 
         Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, screenPoint.z));
-        offset = gameObject.transform.localPosition - mouseWorldPos;
+        offset = gameObject.transform.position - mouseWorldPos;
 
         Debug.Log("OnMouseDownSlider");
     }
 
-    private void OnMouseDrag()
+    public void OnMousePressed()
     {
         Debug.Log("OnMouseDragSlider");
         Vector2 mousePos = Mouse.current.position.ReadValue();

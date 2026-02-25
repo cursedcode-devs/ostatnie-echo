@@ -6,5 +6,6 @@ public enum ActionTypes
     LeftClickOnPlayableObject,
     LeftClickOnPlayingObject,
     LeftClickOutsiedObject,
-    LeftClickOnSlider
+    LeftClickOnSlider,
+    LeftPressedOnSlider
 }
