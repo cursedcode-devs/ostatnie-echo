@@ -5,6 +5,7 @@ using System.Collections;
 public class GameManager : MonoBehaviour
 {
     public RadioStation radioStation;
+    [SerializeField] private MiniGame miniGame;
     private GameObject selectedCassette;
     [SerializeField] private AudioSource source;
     [SerializeField] private TimeHandler timeHandler;
@@ -23,7 +24,6 @@ public class GameManager : MonoBehaviour
 
         actionManager = new ActionManager(mainCamera);
         radioStation = new RadioStation();
-
         radioStation.setListenersModifier(1f, 1f, 1f, 1f);
         radioStation.setRevenueModifier(1f, 1f, 1f, 1f);
     }
@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
                 GameObject clickedObject = actionManager.GetClickedObject();
                 SelectPlayableObject(clickedObject);
                 PlayPlayableObject(clickedObject);
+                
                 break;
             case ActionTypes.LeftClickOutsiedObject:
                 if (selectedCassette != null) TransformSelectedCassette(deselectTransformValue);
@@ -82,6 +83,7 @@ public class GameManager : MonoBehaviour
         {
             playableObject.data.Play(ref source);
             playableObject.data.ApplyEffect(radioStation);
+            PlayMiniGame(miniGame);
 
             playing = true;
             StartCoroutine(WaitForAudioToEnd());
@@ -106,5 +108,9 @@ public class GameManager : MonoBehaviour
         {
             timeHandler.NextHour();
         }
+    }
+    private void PlayMiniGame(MiniGame miniGame)
+    {
+        miniGame.Play();
     }
 }
