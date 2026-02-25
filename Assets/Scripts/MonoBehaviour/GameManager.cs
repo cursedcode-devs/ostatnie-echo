@@ -5,14 +5,14 @@ using System.Collections;
 public class GameManager : MonoBehaviour
 {
     public RadioStation radioStation;
-    [SerializeField] private MiniGame miniGame;
     private GameObject selectedCassette;
     [SerializeField] private AudioSource source;
     [SerializeField] private Camera mainCamera;
     private bool playing = false;
-    ActionTypes actionType;
+    private ActionTypes actionType;
     public ActionManager actionManager;
     public TimeHandler timeHandler;
+    [SerializeReference] public MiniGame miniGame = new WaveTweakingMiniGame();
 
 
     private float selectTransformValue = 0.3f;
@@ -27,11 +27,9 @@ public class GameManager : MonoBehaviour
 
         actionManager = new ActionManager(mainCamera);
         radioStation = new RadioStation();
-<<<<<<< HEAD:Assets/dev/wojtek/scripts/MonoBehaviour/GameManager.cs
-=======
         timeHandler = new TimeHandler(startHour, startDay);
+        //miniGame = new WaveTweakingMiniGame();
 
->>>>>>> a049962592d07b97710b67b5a48b4543510eebe7:Assets/Scripts/MonoBehaviour/GameManager.cs
         radioStation.setListenersModifier(1f, 1f, 1f, 1f);
         radioStation.setRevenueModifier(1f, 1f, 1f, 1f);
     }
@@ -93,11 +91,17 @@ public class GameManager : MonoBehaviour
         {
             playableObject.data.Play(ref source);
             playableObject.data.ApplyEffect(radioStation);
+
             PlayMiniGame(miniGame);
 
             playing = true;
             StartCoroutine(WaitForAudioToEnd());
         }
+    }
+
+    private void PlayMiniGame(MiniGame miniGame)
+    {
+        miniGame.Play();
     }
 
     private void TransformSelectedCassette(float transformValue)
@@ -118,9 +122,5 @@ public class GameManager : MonoBehaviour
         {
             timeHandler.NextHour();
         }
-    }
-    private void PlayMiniGame(MiniGame miniGame)
-    {
-        miniGame.Play();
     }
 }

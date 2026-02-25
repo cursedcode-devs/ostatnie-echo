@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public abstract class MiniGame : ScriptableObject
+[System.Serializable]
+public abstract class MiniGame
 {
     public abstract void Play();
     public abstract void Stop();

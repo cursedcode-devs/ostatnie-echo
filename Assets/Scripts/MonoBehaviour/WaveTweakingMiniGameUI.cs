@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class WaveTweakingMiniGameUI : MonoBehaviour
 {
     [Header("MiniGame Config")]
-    [SerializeField] private WaveTweakingMiniGame miniGameConfig;
+    private WaveTweakingMiniGame miniGameConfig;
 
     [Header("UI Sliders")]
     [SerializeField] private Slider amplitudeSlider;
@@ -31,6 +31,11 @@ public class WaveTweakingMiniGameUI : MonoBehaviour
         amplitudeSlider.value = 0f;
         lengthSlider.value = 0f;
         frequencySlider.value = 0f;
+    }
+
+    public void Setup(WaveTweakingMiniGame config)
+    {
+        miniGameConfig = config;
     }
 
     private void OnSliderChanged()

@@ -132,7 +132,6 @@ GameObject:
   - component: {fileID: 111077784}
   - component: {fileID: 111077783}
   - component: {fileID: 111077787}
-  - component: {fileID: 111077788}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -229,7 +228,7 @@ Transform:
   m_GameObject: {fileID: 111077782}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.677, y: 0.92, z: -9.642}
+  m_LocalPosition: {x: -0.677, y: 0.589, z: -9.642}
   m_LocalScale: {x: 1, y: 1.2881972, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -268,26 +267,24 @@ MonoBehaviour:
       metal: 0
   source: {fileID: 1292526863}
   mainCamera: {fileID: 330585545}
-<<<<<<< Updated upstream
-  timeHandler: {fileID: 111077788}
---- !u!114 &111077788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 111077782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0320a2abe87227243981df20416c3925, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TimeHandler
-  Hour: 0
-  Day: 0
   timeHandler:
     Hour: 0
     Day: 0
-  miniGame: {fileID: 0}
+  miniGame:
+    rid: 4024157058597912637
+  references:
+    version: 2
+    RefIds:
+    - rid: 4024157058597912637
+      type: {class: WaveTweakingMiniGame, ns: , asm: Assembly-CSharp}
+      data:
+        requiredValues: {x: 2, y: 2, z: 2}
+        amplitude: 0
+        length: 0
+        frequency: 0
+        active: 0
+        WaveTweakingUI: {fileID: 6648251126710911861, guid: ea7bf09a8f72fdd40b1372adea004ea1, type: 3}
+        uiInstance: {fileID: 0}
 --- !u!1 &147517843
 GameObject:
   m_ObjectHideFlags: 0
@@ -1558,6 +1555,85 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.19999999, y: 0.039999995, z: 0.35999998}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1579873674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1579873677}
+  - component: {fileID: 1579873676}
+  - component: {fileID: 1579873675}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1579873675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579873674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.UI.InputSystemUIInputModule
+  m_SendPointerHoverToParent: 1
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
+  m_ScrollDeltaPerTick: 6
+--- !u!114 &1579873676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579873674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventSystem
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &1579873677
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579873674}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.921, y: 1.519, z: -13.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1655928466
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1972,3 +2048,4 @@ SceneRoots:
   - {fileID: 875999289}
   - {fileID: 111077786}
   - {fileID: 1292526864}
+  - {fileID: 1579873677}

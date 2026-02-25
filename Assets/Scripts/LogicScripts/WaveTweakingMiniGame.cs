@@ -1,7 +1,8 @@
 ﻿using Unity.VectorGraphics;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "MiniGames/Wave Tweaking")]
+//[CreateAssetMenu(menuName = "MiniGames/Wave Tweaking")]
+[System.Serializable]
 public class WaveTweakingMiniGame : MiniGame
 {
     [Header("Required Values")]
@@ -12,7 +13,15 @@ public class WaveTweakingMiniGame : MiniGame
     [SerializeField] public float frequency;
     [SerializeField] private bool active;
     [SerializeField] private GameObject WaveTweakingUI;
-    GameObject uiInstance;
+    public GameObject uiInstance;
+
+    public WaveTweakingMiniGame()
+    {
+        amplitude = 0f;
+        length = 0f;
+        frequency = 0f;
+        active = false;
+    }
 
     public override void Play()
     {
@@ -20,8 +29,14 @@ public class WaveTweakingMiniGame : MiniGame
         length = 0f;
         frequency = 0f;
         active = true;
-        uiInstance = Instantiate(WaveTweakingUI);
+        uiInstance = GameObject.Instantiate(WaveTweakingUI);
 
+
+        WaveTweakingMiniGameUI uiScript = uiInstance.GetComponent<WaveTweakingMiniGameUI>();
+        if (uiScript != null)
+        {
+            uiScript.Setup(this);
+        }
 
         Debug.Log("Starting Wave Tweaking MiniGame");
     }
@@ -29,7 +44,7 @@ public class WaveTweakingMiniGame : MiniGame
     public override void Stop()
     {
         active = false;
-        Destroy(uiInstance);
+        GameObject.Destroy(uiInstance);
 
         Debug.Log("Stopping Wave Tweaking MiniGame");
     }
