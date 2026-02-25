@@ -10,6 +10,9 @@ public class ConsoleSliderObject : MonoBehaviour
     private Vector3 screenPoint;
     private Vector3 offset;
 
+    [SerializeField] private float currentValue=0f;
+    private float maxValue = 1.0f; //czyli -1.0f jest maxValue w drug¹ stronê
+
     void Start()
     {
         if(data != null)
@@ -19,6 +22,11 @@ public class ConsoleSliderObject : MonoBehaviour
         }
 
         if (mainCamera == null) mainCamera = Camera.main;
+    }
+
+    public float GetCurrentValue()
+    {
+        return currentValue;
     }
 
     public void OnMouseClick()
