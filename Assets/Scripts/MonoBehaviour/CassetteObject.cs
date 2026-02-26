@@ -10,7 +10,7 @@ public class CassetteObject : PlayableObject
     {
         if (data != null)
         {
-            gameObject.tag = "PlayableCassette";
+            gameObject.tag = "Playable";
             Debug.Log("To jest fizyczna kopia kasety: " + data.name);
         }
     }
