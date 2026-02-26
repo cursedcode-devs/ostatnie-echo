@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
         actionManager = new ActionManager(mainCamera);
         radioStation = new RadioStation();
         timeHandler = new TimeHandler(startHour, startDay);
-        //miniGame = new WaveTweakingMiniGame();
 
         radioStation.setListenersModifier(1f, 1f, 1f, 1f);
         radioStation.setRevenueModifier(1f, 1f, 1f, 1f);

@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.Events;
 public class ConsoleSliderObject : MonoBehaviour
 {
     [Header("Dane z ScriptableObject")]
@@ -9,10 +9,10 @@ public class ConsoleSliderObject : MonoBehaviour
 
     private Vector3 screenPoint;
     private Vector3 offset;
-
+    public UnityEvent<float> onValueChanged = new UnityEvent<float>();
     [SerializeField] private float currentValue=0f;
-    private float maxValue = 1.0f; //czyli -1.0f jest maxValue w drug¹ stronê
 
+    
     void Start()
     {
         if(data != null)
@@ -22,7 +22,10 @@ public class ConsoleSliderObject : MonoBehaviour
         }
 
         if (mainCamera == null) mainCamera = Camera.main;
+        Vector3 start = gameObject.transform.position;
+
     }
+
 
     public float GetCurrentValue()
     {
@@ -35,6 +38,7 @@ public class ConsoleSliderObject : MonoBehaviour
         screenPoint = mainCamera.WorldToScreenPoint(gameObject.transform.position);
 
         Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, screenPoint.z));
+
         offset = gameObject.transform.position - mouseWorldPos;
 
         Debug.Log("OnMouseDownSlider");
@@ -42,11 +46,25 @@ public class ConsoleSliderObject : MonoBehaviour
 
     public void OnMousePressed()
     {
-        Debug.Log("OnMouseDragSlider");
+        Debug.Log(currentValue);
         Vector2 mousePos = Mouse.current.position.ReadValue();
-        Vector3 currentScreenPoint = new Vector3(mousePos.x,mousePos.y, screenPoint.z);
+        Vector3 currentScreenPoint = new Vector3(mousePos.x, mousePos.y, screenPoint.z);
         Vector3 currentPosition = mainCamera.ScreenToWorldPoint(currentScreenPoint) + offset;
-        transform.position = new Vector3(transform.position.x, transform.position.y, currentPosition.z);
+
+        float minZ = -7.5f;
+        float maxZ = -6.5f;
+
+        float clampedZ = Mathf.Clamp(currentPosition.z, minZ, maxZ);
+        transform.position = new Vector3(transform.position.x, transform.position.y, clampedZ);
+
+        float newValue = Mathf.InverseLerp(minZ, maxZ, clampedZ);
+
+        if (Mathf.Abs(newValue - currentValue) > 0.0001f)
+        {
+            currentValue = newValue;
+            Debug.Log("Invoke event: " + currentValue);
+            onValueChanged.Invoke(currentValue);
+        }
     }
-   
+
 }

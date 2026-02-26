@@ -6,7 +6,7 @@ using UnityEngine;
 public class WaveTweakingMiniGame : MiniGame
 {
     [Header("Required Values")]
-    [SerializeField] public Vector3 requiredValues = new Vector3(2f, 2f, 2f);
+    [SerializeField] public Vector3 requiredValues = new Vector3(1f, 1f, 1f);
 
     [SerializeField] public float amplitude;
     [SerializeField] public float length;
@@ -47,6 +47,10 @@ public class WaveTweakingMiniGame : MiniGame
         GameObject.Destroy(uiInstance);
 
         Debug.Log("Stopping Wave Tweaking MiniGame");
+    }
+    public GameObject getUiInstance()
+    {
+        return uiInstance;
     }
 
 }

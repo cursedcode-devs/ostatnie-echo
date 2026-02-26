@@ -272,19 +272,22 @@ MonoBehaviour:
     Day: 0
   miniGame:
     rid: 4024157058597912637
+  consoleSliderAmplitude: {fileID: 0}
+  consoleSliderFrequency: {fileID: 0}
+  consoleSliderLength: {fileID: 0}
   references:
     version: 2
     RefIds:
     - rid: 4024157058597912637
       type: {class: WaveTweakingMiniGame, ns: , asm: Assembly-CSharp}
       data:
-        requiredValues: {x: 2, y: 2, z: 2}
+        requiredValues: {x: 1, y: 1, z: 1}
         amplitude: 0
         length: 0
         frequency: 0
         active: 0
         WaveTweakingUI: {fileID: 6648251126710911861, guid: ea7bf09a8f72fdd40b1372adea004ea1, type: 3}
-        uiInstance: {fileID: 0}
+        uiInstance: {fileID: 6648251126710911861, guid: ea7bf09a8f72fdd40b1372adea004ea1, type: 3}
 --- !u!1 &147517843
 GameObject:
   m_ObjectHideFlags: 0
