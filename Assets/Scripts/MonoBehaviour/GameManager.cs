@@ -10,10 +10,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioSource source;
     [SerializeField] private Camera mainCamera;
     private bool playing = false;
+    private bool miniGameInProgress = false;
     private ActionTypes actionType;
     public ActionManager actionManager;
     public TimeHandler timeHandler;
-    [SerializeReference] public MiniGame miniGame = new WaveTweakingMiniGame();
+    [SerializeReference] public MiniGame miniGame;
     public ConsoleSliderObject consoleSliderAmplitude;
     public ConsoleSliderObject consoleSliderFrequency;
     public ConsoleSliderObject consoleSliderLength;
@@ -39,9 +40,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        MiniGameCheckWinCondition();
+
         actionType = actionManager.GetActionType();
         GameObject clickedObject = actionManager.GetPointedObject();
         ConsoleSliderObject sliderObject = null;
+
         if (clickedObject != null)
             sliderObject = clickedObject.GetComponent<ConsoleSliderObject>();
 
@@ -106,15 +110,24 @@ public class GameManager : MonoBehaviour
             playableObject.data.Play(ref source);
             playableObject.data.ApplyEffect(radioStation);
 
-            PlayMiniGame(miniGame);
+            PlayMiniGame();
 
             playing = true;
             StartCoroutine(WaitForAudioToEnd());
         }
     }
 
-    private void PlayMiniGame(MiniGame miniGame)
+    private void MiniGameCheckWinCondition() 
     {
+        if (!miniGameInProgress) return;
+        miniGameInProgress = !miniGame.CheckWinCondition();
+    }
+
+    private void PlayMiniGame()
+    {
+        if (miniGameInProgress) return;
+        miniGameInProgress = true;
+        Debug.Log("PlayMiniGame - GameManager");
         miniGame.Play();
     }
 

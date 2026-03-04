@@ -26,7 +26,6 @@ public class ConsoleSliderObject : MonoBehaviour
 
     }
 
-
     public float GetCurrentValue()
     {
         return currentValue;

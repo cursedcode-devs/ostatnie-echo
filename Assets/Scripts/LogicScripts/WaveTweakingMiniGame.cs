@@ -1,4 +1,5 @@
-﻿using Unity.VectorGraphics;
+﻿using System.Linq;
+using Unity.VectorGraphics;
 using UnityEngine;
 
 //[CreateAssetMenu(menuName = "MiniGames/Wave Tweaking")]
@@ -6,7 +7,7 @@ using UnityEngine;
 public class WaveTweakingMiniGame : MiniGame
 {
     [Header("Required Values")]
-    [SerializeField] public Vector3 requiredValues = new Vector3(1f, 1f, 1f);
+    [SerializeField] public float[] requiredValues = { 1f, 1f, 1f };
 
     [SerializeField] public float amplitude;
     [SerializeField] public float length;
@@ -14,6 +15,11 @@ public class WaveTweakingMiniGame : MiniGame
     [SerializeField] private bool active;
     [SerializeField] private GameObject WaveTweakingUI;
     public GameObject uiInstance;
+
+    [Header("Physical Sliders on Scene")]
+    public ConsoleSliderObject amplitudeSlider;
+    public ConsoleSliderObject lengthSlider;
+    public ConsoleSliderObject frequencySlider;
 
     public WaveTweakingMiniGame()
     {
@@ -25,6 +31,10 @@ public class WaveTweakingMiniGame : MiniGame
 
     public override void Play()
     {
+        requiredValues = new float[3];
+        requiredValues[0] = Random.Range(0.0f, 1.0f);
+        requiredValues[1] = Random.Range(0.0f, 1.0f);
+        requiredValues[2] = Random.Range(0.0f, 1.0f);
         amplitude = 0f;
         length = 0f;
         frequency = 0f;
@@ -35,10 +45,25 @@ public class WaveTweakingMiniGame : MiniGame
         WaveTweakingMiniGameUI uiScript = uiInstance.GetComponent<WaveTweakingMiniGameUI>();
         if (uiScript != null)
         {
-            uiScript.Setup(this);
+            uiScript.Setup(this, amplitudeSlider, lengthSlider, frequencySlider);
         }
 
-        Debug.Log("Starting Wave Tweaking MiniGame");
+        Debug.Log("Starting Wave Tweaking MiniGame - WaveTweakingMiniGame.cs");
+    }
+
+    public override bool CheckWinCondition()
+    {
+
+        if (Mathf.Abs(amplitudeSlider.GetCurrentValue() - requiredValues[0]) < 0.01f &&
+            Mathf.Abs(lengthSlider.GetCurrentValue() - requiredValues[1]) < 0.01f &&
+            Mathf.Abs(frequencySlider.GetCurrentValue() - requiredValues[2]) < 0.01f)
+        {
+            active = false;
+            Stop();
+            return true;
+        }
+
+        return false;
     }
 
     public override void Stop()
@@ -46,7 +71,7 @@ public class WaveTweakingMiniGame : MiniGame
         active = false;
         GameObject.Destroy(uiInstance);
 
-        Debug.Log("Stopping Wave Tweaking MiniGame");
+        Debug.Log("Stopping Wave Tweaking MiniGame - WaveTweakingMiniGame.cs");
     }
     public GameObject getUiInstance()
     {
