@@ -9,21 +9,26 @@ public class ConsoleSliderObject : MonoBehaviour
 
     private Vector3 screenPoint;
     private Vector3 offset;
-    public UnityEvent<float> onValueChanged = new UnityEvent<float>();
-    [SerializeField] private float currentValue=0f;
+    private Vector3 startingLocalPos;   //Lokalna pozycja wzglêdem konsoli
 
-    
+    [SerializeField] private float zOffsetMin = -0.02f;
+    [SerializeField] private float zOffsetMax = 0.05f;
+
+    [SerializeField] private float currentValue = 0f;
+
+
     void Start()
     {
-        if(data != null)
+        if (data != null)
         {
-            gameObject.tag = "ConsoleSlider";
+            tag = "ConsoleSlider";
             Debug.Log("To jest suwak w konsoli: " + data.name);
         }
 
-        if (mainCamera == null) mainCamera = Camera.main;
-        Vector3 start = gameObject.transform.position;
+        if (mainCamera == null)
+            mainCamera = Camera.main;
 
+        startingLocalPos = transform.localPosition;
     }
 
     public float GetCurrentValue()
@@ -34,11 +39,11 @@ public class ConsoleSliderObject : MonoBehaviour
     public void OnMouseClick()
     {
         Vector2 mousePos = Mouse.current.position.ReadValue();
-        screenPoint = mainCamera.WorldToScreenPoint(gameObject.transform.position);
+        screenPoint = mainCamera.WorldToScreenPoint(transform.position);
 
         Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, screenPoint.z));
 
-        offset = gameObject.transform.position - mouseWorldPos;
+        offset = transform.position - mouseWorldPos;
 
         Debug.Log("OnMouseDownSlider");
     }
@@ -50,20 +55,20 @@ public class ConsoleSliderObject : MonoBehaviour
         Vector3 currentScreenPoint = new Vector3(mousePos.x, mousePos.y, screenPoint.z);
         Vector3 currentPosition = mainCamera.ScreenToWorldPoint(currentScreenPoint) + offset;
 
-        float minZ = -7.5f;
-        float maxZ = -6.5f;
+        //Zamienia globaln¹ pozycje gdzie ma byæ suwak na pozycje lokaln¹ wzglêdem rodzica suwaka (konsoli)
+        Vector3 currentLocalPosition = transform.parent.InverseTransformPoint(currentPosition);
 
-        float clampedZ = Mathf.Clamp(currentPosition.z, minZ, maxZ);
-        transform.position = new Vector3(transform.position.x, transform.position.y, clampedZ);
+        float minZ = startingLocalPos.z + zOffsetMin;
+        float maxZ = startingLocalPos.z + zOffsetMax;
 
-        float newValue = Mathf.InverseLerp(minZ, maxZ, clampedZ);
 
-        if (Mathf.Abs(newValue - currentValue) > 0.0001f)
-        {
-            currentValue = newValue;
-            Debug.Log("Invoke event: " + currentValue);
-            onValueChanged.Invoke(currentValue);
-        }
+        //POPRAWA  ¯EBY SLIDER DZIA£A£ W DOWOLNYM MIEJSCY I W NIECO MNIEJSZYM ZAKRESIE MO¯E
+        float clampedZ = Mathf.Clamp(currentLocalPosition.z, minZ, maxZ);
+
+        transform.localPosition = new Vector3(startingLocalPos.x, startingLocalPos.y, clampedZ);
+
+        currentValue = Mathf.InverseLerp(minZ, maxZ, clampedZ);
+
     }
 
 }

@@ -931,9 +931,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConsoleSliderObject
   data: {fileID: 11400000, guid: 54b31799d6337fb4a88d86d86e2d35e9, type: 2}
   mainCamera: {fileID: 330585545}
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
   currentValue: 0
 --- !u!64 &764837580
 MeshCollider:
@@ -1320,9 +1317,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConsoleSliderObject
   data: {fileID: 11400000, guid: 7b77028a67ded7242a3b7fc8c038055d, type: 2}
   mainCamera: {fileID: 330585545}
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
   currentValue: 0
 --- !u!64 &1060649006
 MeshCollider:
@@ -2119,7 +2113,7 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: 0.7071068, z: 0, w: 0}
   m_LocalPosition: {x: -0.002509, y: -0.013712, z: 0.02299}
   m_LocalScale: {x: 0.0010056499, y: 0.0015220077, z: 0.0003157038}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1130875185}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 90}
@@ -2194,9 +2188,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConsoleSliderObject
   data: {fileID: 11400000, guid: 1798ecd694bb57447ad8ed3897129b7d, type: 2}
   mainCamera: {fileID: 330585545}
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
   currentValue: 0
 --- !u!64 &2020246817
 MeshCollider:
