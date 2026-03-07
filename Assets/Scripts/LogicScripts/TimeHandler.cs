@@ -1,10 +1,13 @@
 using UnityEngine;
+using    System;
 
 [System.Serializable]
 public class TimeHandler
 {
     [SerializeField] private int Hour;
     [SerializeField] private int Day;
+
+    public event Action OnDayStarted;
 
     public TimeHandler(int startHour, int startDay)
     {
@@ -17,13 +20,16 @@ public class TimeHandler
         Hour++;
         if (Hour > 20)
         {
-            NextDay();
+            StartDay();
         }
     }
-    public void NextDay()
+    public void StartDay()
     {
         Day++;
         Hour = 14;
+
+        OnDayStarted?.Invoke();
+
         if (Day > 7)
         {
             FinishGame();
@@ -31,11 +37,11 @@ public class TimeHandler
     }
     public void FinishGame()
     {
-#if UNITY_STANDALONE
+    #if UNITY_STANDALONE
         Application.Quit();
-#endif
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
+    #endif
+    #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;    
+    #endif
     }
 }

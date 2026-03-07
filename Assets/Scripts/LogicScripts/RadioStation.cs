@@ -56,4 +56,10 @@ public class RadioStation
             + (revenuGain.rock / 100f * currentListeners.rock * revenueModifier.rock)
             + (revenuGain.metal / 100f * currentListeners.metal * revenueModifier.metal);
     }
+    
+    public float GetCurrentMoney()
+    {
+        return currentMoney;
+    }
+
 }

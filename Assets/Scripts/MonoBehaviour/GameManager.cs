@@ -30,6 +30,13 @@ public class GameManager : MonoBehaviour
 
         radioStation.setListenersModifier(1f, 1f, 1f, 1f);
         radioStation.setRevenueModifier(1f, 1f, 1f, 1f);
+
+        DayEndHandler dayEndHandler = FindFirstObjectByType<DayEndHandler>();
+        if (dayEndHandler != null)
+        {
+            dayEndHandler.Initialize(radioStation, timeHandler);
+        }
+
     }
 
     void Update()
