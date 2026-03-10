@@ -11,8 +11,8 @@ public class ConsoleSliderObject : MonoBehaviour
     private Vector3 offset;
     private Vector3 startingLocalPos;   //Lokalna pozycja wzglêdem konsoli
 
-    [SerializeField] private float zOffsetMin = -0.02f;
-    [SerializeField] private float zOffsetMax = 0.05f;
+    [SerializeField] private float zOffsetMin = 0.5f;
+    [SerializeField] private float zOffsetMax = 0.5f;
 
     [SerializeField] private float currentValue = 0f;
 
@@ -58,7 +58,7 @@ public class ConsoleSliderObject : MonoBehaviour
         //Zamienia globaln¹ pozycje gdzie ma byæ suwak na pozycje lokaln¹ wzglêdem rodzica suwaka (konsoli)
         Vector3 currentLocalPosition = transform.parent.InverseTransformPoint(currentPosition);
 
-        float minZ = startingLocalPos.z + zOffsetMin;
+        float minZ = startingLocalPos.z - zOffsetMin;
         float maxZ = startingLocalPos.z + zOffsetMax;
 
 
