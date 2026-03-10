@@ -36,7 +36,7 @@ public class RadioStation
         totalRevenueModifier.metal = defaultModifier;
     }
 
-    public void setHourlyListenersModifier(float hipHop, float disco, float rock, float metal)
+    public void SetHourlyListenersModifier(float hipHop, float disco, float rock, float metal)
     {
         hourlyListenersModifier.hipHop = hipHop;
         hourlyListenersModifier.disco = disco;
@@ -44,7 +44,7 @@ public class RadioStation
         hourlyListenersModifier.metal = metal;
     }
 
-    public void setHourlyRevenueModifier(float hipHop, float disco, float rock, float metal)
+    public void SetHourlyRevenueModifier(float hipHop, float disco, float rock, float metal)
     {
         hourlyRevenueModifier.hipHop = hipHop;
         hourlyRevenueModifier.disco = disco;
@@ -52,7 +52,7 @@ public class RadioStation
         hourlyRevenueModifier.metal = metal;
     }
 
-    public void setDailyListenersModifier(float hipHop, float disco, float rock, float metal)
+    public void SetDailyListenersModifier(float hipHop, float disco, float rock, float metal)
     {
         dailyListenersModifier.hipHop = hipHop;
         dailyListenersModifier.disco = disco;
@@ -60,7 +60,7 @@ public class RadioStation
         dailyListenersModifier.metal = metal;
     }
 
-    public void setDailyRevenueModifier(float hipHop, float disco, float rock, float metal)
+    public void SetDailyRevenueModifier(float hipHop, float disco, float rock, float metal)
     {
         dailyRevenueModifier.hipHop = hipHop;
         dailyRevenueModifier.disco = disco;

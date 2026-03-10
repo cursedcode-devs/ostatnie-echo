@@ -34,10 +34,12 @@ public class GameManager : MonoBehaviour
         radioStation = new RadioStation();
         timeHandler = new TimeHandler(startHour, startDay);
 
-        radioStation.setHourlyListenersModifier(1f, 1f, 1f, 1f);
-        radioStation.setDailyListenersModifier(1f, 1f, 1f, 1f);
-        radioStation.setHourlyRevenueModifier(1f, 1f, 1f, 1f);
-        radioStation.setDailyRevenueModifier(1f,1f,1f, 1f);
+        float startingModifier = 0f;
+
+        radioStation.SetHourlyListenersModifier(startingModifier, startingModifier, startingModifier, startingModifier);
+        radioStation.SetDailyListenersModifier(startingModifier, startingModifier, startingModifier, startingModifier);
+        radioStation.SetHourlyRevenueModifier(startingModifier, startingModifier, startingModifier, startingModifier);
+        radioStation.SetDailyRevenueModifier(startingModifier, startingModifier, startingModifier, startingModifier);
     }
 
     void Update()
@@ -103,8 +105,7 @@ public class GameManager : MonoBehaviour
 
         if (playing || selectedCassette == null)
         {
-            source.Stop();
-            playing = false;
+            StopPlayingAudio();
             return;
         }
 
@@ -122,6 +123,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void StopPlayingAudio()
+    {
+        source.Stop();
+        playing = false;
+    }
+
     private void MiniGameCheckWinCondition()
     {
         if (!miniGameInProgress) return;
@@ -129,8 +136,11 @@ public class GameManager : MonoBehaviour
         bool winStatus = miniGame.CheckWinCondition();
 
         if (winStatus)
+        {
+            StopPlayingAudio();
             miniGame.AddModifier(radioStation);
-
+        }
+            
         miniGameInProgress = !winStatus;
     }
 
