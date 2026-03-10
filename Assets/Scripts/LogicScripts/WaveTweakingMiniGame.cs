@@ -21,12 +21,31 @@ public class WaveTweakingMiniGame : MiniGame
     public ConsoleSliderObject lengthSlider;
     public ConsoleSliderObject frequencySlider;
 
-    public WaveTweakingMiniGame()
+    public WaveTweakingMiniGame(ConsoleSliderObject amplitudeSlider, ConsoleSliderObject lengthSlider, ConsoleSliderObject frequencySlider)
     {
         amplitude = 0f;
         length = 0f;
         frequency = 0f;
         active = false;
+
+        this.amplitudeSlider = amplitudeSlider;
+        this.lengthSlider = lengthSlider;
+        this.frequencySlider = frequencySlider;
+    }
+
+
+
+    public WaveTweakingMiniGame(ConsoleSliderObject amplitudeSlider, ConsoleSliderObject lengthSlider, ConsoleSliderObject frequencySlider, GameObject WaveTweakingUI)
+    {
+        amplitude = 0f;
+        length = 0f;
+        frequency = 0f;
+        active = false;
+
+        this.amplitudeSlider = amplitudeSlider;
+        this.lengthSlider = lengthSlider;
+        this.frequencySlider = frequencySlider;
+        this.WaveTweakingUI = WaveTweakingUI;
     }
 
     public override void Play()

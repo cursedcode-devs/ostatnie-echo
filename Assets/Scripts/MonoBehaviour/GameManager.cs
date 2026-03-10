@@ -15,10 +15,12 @@ public class GameManager : MonoBehaviour
     public ActionManager actionManager;
     public TimeHandler timeHandler;
     [SerializeReference] public MiniGame miniGame;
-    public ConsoleSliderObject consoleSliderAmplitude;
-    public ConsoleSliderObject consoleSliderFrequency;
-    public ConsoleSliderObject consoleSliderLength;
+    private WaveTweakingMiniGame waveTweakingMiniGame;
 
+    public ConsoleSliderObject amplitudeSlider;
+    public ConsoleSliderObject lengthSlider;
+    public ConsoleSliderObject frequencySlider;
+    public GameObject WaveTweakingUI;
 
     private float selectTransformValue = 0.3f;
     private float deselectTransformValue = -0.3f;
@@ -32,6 +34,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        waveTweakingMiniGame = new WaveTweakingMiniGame(amplitudeSlider,lengthSlider,frequencySlider,WaveTweakingUI);
+        miniGame = waveTweakingMiniGame;
         selectedCassette = null;
 
         actionManager = new ActionManager(mainCamera);
