@@ -138,14 +138,17 @@ public class GameManager : MonoBehaviour
         playing = false;
     }
 
+    //TODO: NO MAGIC NUMBERS DO IT WITH ENUM OR SOMETHING
     private void SelectRandomMiniGame()
     {
-        int drawnMiniGame = Random.Range(0, availableMiniGames.Length - 1);
+        int drawnMiniGame = Random.Range(0, availableMiniGames.Length);
+
+        Debug.Log("LOSOWANIE MINIGRY - " +  drawnMiniGame);
 
         switch (drawnMiniGame)
         {
             case 0:
-                miniGame = null;
+                miniGame = availableMiniGames[0];
                 break;
             case 1:
                 miniGame = availableMiniGames[1];
@@ -172,15 +175,22 @@ public class GameManager : MonoBehaviour
     {
         if (miniGameInProgress) return;
         SelectRandomMiniGame();
+        if (miniGame == null) return;
         miniGameInProgress = true;
         Debug.Log("PlayMiniGame - GameManager");
-        if (miniGame != null)
-            miniGame.Start();
+        miniGame.Start();
     }
 
     private void TransformSelectedCassette(float transformValue)
     {
         selectedCassette.transform.position += new Vector3(0f, transformValue, 0f);
+    }
+
+    private void AddMiniGameModifier()
+    {
+        if(miniGame == null) return;
+        if (miniGameWinStatus)
+            miniGame.AddModifier(radioStation);
     }
 
     private IEnumerator WaitForAudioToEnd()
@@ -197,10 +207,7 @@ public class GameManager : MonoBehaviour
             timeHandler.NextHour(radioStation, startingModifier);
         }
 
-        if (miniGameWinStatus)
-        {
-            miniGame.AddModifier(radioStation);
-        }
+        AddMiniGameModifier();
 
     }
 }
