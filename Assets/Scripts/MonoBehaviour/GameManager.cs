@@ -96,6 +96,9 @@ public class GameManager : MonoBehaviour
 
     private void PlayPlayableObject(GameObject clickedObject)
     {
+        if (miniGameInProgress)
+            return;
+
         if (playing || selectedCassette == null)
         {
             source.Stop();
