@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     private int startHour = 14;
     private int startDay = 1;
 
+    private float startingModifier = 0f;
+
     void Start()
     {
         selectedCassette = null;
@@ -34,7 +36,6 @@ public class GameManager : MonoBehaviour
         radioStation = new RadioStation();
         timeHandler = new TimeHandler(startHour, startDay);
 
-        float startingModifier = 0f;
 
         radioStation.SetHourlyListenersModifier(startingModifier, startingModifier, startingModifier, startingModifier);
         radioStation.SetDailyListenersModifier(startingModifier, startingModifier, startingModifier, startingModifier);
@@ -169,6 +170,8 @@ public class GameManager : MonoBehaviour
         if (timeHandler != null)
         {
             timeHandler.NextHour();
+            radioStation.SetHourlyListenersModifier(startingModifier, startingModifier, startingModifier, startingModifier);
+            radioStation.SetHourlyRevenueModifier(startingModifier, startingModifier, startingModifier, startingModifier);
         }
     }
 }

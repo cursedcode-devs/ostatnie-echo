@@ -76,7 +76,7 @@ public class WaveTweakingMiniGame : MiniGame
 
     public override void AddModifier(RadioStation radioStation)
     {
-        float newModifier = 5f;
+        float newModifier = 0.2f;
         radioStation.SetHourlyListenersModifier(newModifier, newModifier, newModifier, newModifier);
     }
 
