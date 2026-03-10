@@ -67,7 +67,7 @@ public class ConsoleSliderObject : MonoBehaviour
 
         transform.localPosition = new Vector3(startingLocalPos.x, startingLocalPos.y, clampedZ);
 
-        currentValue = Mathf.InverseLerp(minZ, maxZ, clampedZ);
+        currentValue = Mathf.InverseLerp(maxZ, minZ, clampedZ);
 
     }
 
