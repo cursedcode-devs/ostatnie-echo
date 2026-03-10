@@ -15,7 +15,8 @@ public class GameManager : MonoBehaviour
     public ActionManager actionManager;
     public TimeHandler timeHandler;
     [SerializeReference] public MiniGame miniGame;
-    private WaveTweakingMiniGame waveTweakingMiniGame;
+
+    private MiniGame[] availableMiniGames = new MiniGame[2];    // index 0 - no minigame
 
     public ConsoleSliderObject amplitudeSlider;
     public ConsoleSliderObject lengthSlider;
@@ -34,8 +35,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        waveTweakingMiniGame = new WaveTweakingMiniGame(amplitudeSlider,lengthSlider,frequencySlider,WaveTweakingUI);
-        miniGame = waveTweakingMiniGame;
+        availableMiniGames[0] = null;
+        availableMiniGames[1] = new WaveTweakingMiniGame(amplitudeSlider, lengthSlider, frequencySlider, WaveTweakingUI);
+        miniGame = availableMiniGames[1];
         selectedCassette = null;
 
         actionManager = new ActionManager(mainCamera);
@@ -138,6 +140,17 @@ public class GameManager : MonoBehaviour
 
     private void SelectRandomMiniGame()
     {
+        int drawnMiniGame = Random.Range(0, availableMiniGames.Length - 1);
+
+        switch (drawnMiniGame)
+        {
+            case 0:
+                miniGame = null;
+                break;
+            case 1:
+                miniGame = availableMiniGames[1];
+                break;
+        }
 
     }
 
@@ -158,9 +171,11 @@ public class GameManager : MonoBehaviour
     private void PlayMiniGame()
     {
         if (miniGameInProgress) return;
+        SelectRandomMiniGame();
         miniGameInProgress = true;
         Debug.Log("PlayMiniGame - GameManager");
-        miniGame.Play();
+        if (miniGame != null)
+            miniGame.Start();
     }
 
     private void TransformSelectedCassette(float transformValue)
@@ -186,5 +201,6 @@ public class GameManager : MonoBehaviour
         {
             miniGame.AddModifier(radioStation);
         }
+
     }
 }

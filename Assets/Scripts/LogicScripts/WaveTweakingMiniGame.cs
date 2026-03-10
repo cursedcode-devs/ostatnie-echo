@@ -14,12 +14,11 @@ public class WaveTweakingMiniGame : MiniGame
     [SerializeField] public float frequency;
     [SerializeField] private bool active;
     [SerializeField] private GameObject WaveTweakingUI;
-    public GameObject uiInstance;
+    private GameObject uiInstance;
 
-    [Header("Physical Sliders on Scene")]
-    public ConsoleSliderObject amplitudeSlider;
-    public ConsoleSliderObject lengthSlider;
-    public ConsoleSliderObject frequencySlider;
+    private ConsoleSliderObject amplitudeSlider;
+    private ConsoleSliderObject lengthSlider;
+    private ConsoleSliderObject frequencySlider;
 
     public WaveTweakingMiniGame(ConsoleSliderObject amplitudeSlider, ConsoleSliderObject lengthSlider, ConsoleSliderObject frequencySlider)
     {
@@ -48,7 +47,7 @@ public class WaveTweakingMiniGame : MiniGame
         this.WaveTweakingUI = WaveTweakingUI;
     }
 
-    public override void Play()
+    public override void Start()
     {
         requiredValues = new float[3];
         requiredValues[0] = Random.Range(0.0f, 1.0f);
