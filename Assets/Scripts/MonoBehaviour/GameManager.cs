@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
 
     private float startingModifier = 0f;
 
+    private bool miniGameWinStatus = false;
+
     void Start()
     {
         selectedCassette = null;
@@ -130,19 +132,23 @@ public class GameManager : MonoBehaviour
         playing = false;
     }
 
+    private void SelectRandomMiniGame()
+    {
+
+    }
+
     private void MiniGameCheckWinCondition()
     {
         if (!miniGameInProgress) return;
 
-        bool winStatus = miniGame.CheckWinCondition();
+        miniGameWinStatus = miniGame.CheckWinCondition();
 
-        if (winStatus)
+        if (miniGameWinStatus)
         {
             StopPlayingAudio();
-            miniGame.AddModifier(radioStation);
         }
-            
-        miniGameInProgress = !winStatus;
+
+        miniGameInProgress = !miniGameWinStatus;
     }
 
     private void PlayMiniGame()
@@ -169,9 +175,12 @@ public class GameManager : MonoBehaviour
 
         if (timeHandler != null)
         {
-            timeHandler.NextHour();
-            radioStation.SetHourlyListenersModifier(startingModifier, startingModifier, startingModifier, startingModifier);
-            radioStation.SetHourlyRevenueModifier(startingModifier, startingModifier, startingModifier, startingModifier);
+            timeHandler.NextHour(radioStation, startingModifier);
+        }
+
+        if (miniGameWinStatus)
+        {
+            miniGame.AddModifier(radioStation);
         }
     }
 }

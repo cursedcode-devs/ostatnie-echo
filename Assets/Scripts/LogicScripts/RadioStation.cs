@@ -15,8 +15,8 @@ public class RadioStation
     [SerializeField] private GenreValuesModifier dailyListenersModifier;
     [SerializeField] private GenreValuesModifier dailyRevenueModifier;
     private float defaultModifier = 1f;
-    private GenreValuesModifier totalListenerModifer;
-    private GenreValuesModifier totalRevenueModifier;
+    [SerializeField] private GenreValuesModifier totalListenerModifer;
+    [SerializeField] private GenreValuesModifier totalRevenueModifier;
 
     public RadioStation()
     {

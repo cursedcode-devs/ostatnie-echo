@@ -12,11 +12,15 @@ public class TimeHandler
         Day = startDay;
     }
 
-    public void NextHour()
+    public void NextHour(RadioStation radioStation, float startingModifier)
     {
+        radioStation.SetHourlyListenersModifier(startingModifier, startingModifier, startingModifier, startingModifier);
+        radioStation.SetHourlyRevenueModifier(startingModifier, startingModifier, startingModifier, startingModifier);
         Hour++;
         if (Hour > 20)
         {
+            radioStation.SetDailyListenersModifier(startingModifier, startingModifier, startingModifier, startingModifier);
+            radioStation.SetDailyRevenueModifier(startingModifier, startingModifier, startingModifier, startingModifier);
             NextDay();
         }
     }
