@@ -7,13 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: telefon
-    second: {fileID: 2100000, guid: e734b3698c4be30458d3daaf2e4924d0, type: 2}
+      name: TelefonMaterial
+    second: {fileID: 2100000, guid: 4f31e25441ada9a4791e1ef352468ba9, type: 2}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Telefon_TXT
-    second: {fileID: 2800000, guid: cf73246d7d18ef441b4690933a28d3b7, type: 3}
+    second: {fileID: 2800000, guid: cb8c080024490be49b8ed6b19fece5bc, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

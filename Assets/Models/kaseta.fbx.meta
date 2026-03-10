@@ -7,13 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.001
-    second: {fileID: 2100000, guid: 617c5717efb459147a31e5693d88e017, type: 2}
+      name: KasetaMaterial
+    second: {fileID: 2100000, guid: 33335ba50b1cbfa4d87c30c556e7c7da, type: 2}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: kasetka
-    second: {fileID: 2800000, guid: 41a9301d203e68249a95baba533e45bf, type: 3}
+    second: {fileID: 2800000, guid: 7e678224e464ea44e8952334261470e4, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
