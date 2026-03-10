@@ -255,16 +255,36 @@ MonoBehaviour:
       metal: 5
     startListeners: 5
     currentMoney: 0
-    listenersModifier:
+    hourlyListenersModifier:
       hipHop: 0
       disco: 0
       rock: 0
       metal: 0
-    revenueModifier:
+    hourlyRevenueModifier:
       hipHop: 0
       disco: 0
       rock: 0
       metal: 0
+    dailyListenersModifier:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      metal: 0
+    dailyRevenueModifier:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      metal: 0
+    totalListenerModifer:
+      hipHop: 1
+      disco: 1
+      rock: 1
+      metal: 1
+    totalRevenueModifier:
+      hipHop: 1
+      disco: 1
+      rock: 1
+      metal: 1
   source: {fileID: 1292526863}
   mainCamera: {fileID: 330585545}
   timeHandler:
@@ -272,9 +292,10 @@ MonoBehaviour:
     Day: 0
   miniGame:
     rid: 4024157058597912637
-  consoleSliderAmplitude: {fileID: 2020246816}
-  consoleSliderFrequency: {fileID: 1060649005}
-  consoleSliderLength: {fileID: 764837579}
+  amplitudeSlider: {fileID: 2020246816}
+  lengthSlider: {fileID: 764837579}
+  frequencySlider: {fileID: 1060649005}
+  WaveTweakingUI: {fileID: 6648251126710911861, guid: ea7bf09a8f72fdd40b1372adea004ea1, type: 3}
   references:
     version: 2
     RefIds:
@@ -287,10 +308,6 @@ MonoBehaviour:
         frequency: 0
         active: 0
         WaveTweakingUI: {fileID: 6648251126710911861, guid: ea7bf09a8f72fdd40b1372adea004ea1, type: 3}
-        uiInstance: {fileID: 0}
-        amplitudeSlider: {fileID: 2020246816}
-        lengthSlider: {fileID: 764837579}
-        frequencySlider: {fileID: 1060649005}
 --- !u!1 &147517843
 GameObject:
   m_ObjectHideFlags: 0

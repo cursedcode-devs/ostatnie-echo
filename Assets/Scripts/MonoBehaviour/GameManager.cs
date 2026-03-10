@@ -138,19 +138,18 @@ public class GameManager : MonoBehaviour
         playing = false;
     }
 
-    //TODO: NO MAGIC NUMBERS DO IT WITH ENUM OR SOMETHING
     private void SelectRandomMiniGame()
     {
-        int drawnMiniGame = Random.Range(0, availableMiniGames.Length);
+        MiniGameTypes drawnMiniGame = (MiniGameTypes)Random.Range(0, availableMiniGames.Length);
 
         Debug.Log("LOSOWANIE MINIGRY - " +  drawnMiniGame);
 
         switch (drawnMiniGame)
         {
-            case 0:
+            case MiniGameTypes.None:
                 miniGame = availableMiniGames[0];
                 break;
-            case 1:
+            case MiniGameTypes.WeaveTweaking:
                 miniGame = availableMiniGames[1];
                 break;
         }
