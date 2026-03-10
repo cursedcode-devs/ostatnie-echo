@@ -34,8 +34,10 @@ public class GameManager : MonoBehaviour
         radioStation = new RadioStation();
         timeHandler = new TimeHandler(startHour, startDay);
 
-        radioStation.setListenersModifier(1f, 1f, 1f, 1f);
-        radioStation.setRevenueModifier(1f, 1f, 1f, 1f);
+        radioStation.setHourlyListenersModifier(1f, 1f, 1f, 1f);
+        radioStation.setDailyListenersModifier(1f, 1f, 1f, 1f);
+        radioStation.setHourlyRevenueModifier(1f, 1f, 1f, 1f);
+        radioStation.setDailyRevenueModifier(1f,1f,1f, 1f);
     }
 
     void Update()
@@ -120,10 +122,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void MiniGameCheckWinCondition() 
+    private void MiniGameCheckWinCondition()
     {
         if (!miniGameInProgress) return;
-        miniGameInProgress = !miniGame.CheckWinCondition();
+
+        bool winStatus = miniGame.CheckWinCondition();
+
+        if (winStatus)
+            miniGame.AddModifier(radioStation);
+
+        miniGameInProgress = !winStatus;
     }
 
     private void PlayMiniGame()

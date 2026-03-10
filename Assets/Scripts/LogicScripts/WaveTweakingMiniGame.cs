@@ -73,6 +73,13 @@ public class WaveTweakingMiniGame : MiniGame
 
         Debug.Log("Stopping Wave Tweaking MiniGame - WaveTweakingMiniGame.cs");
     }
+
+    public override void AddModifier(RadioStation radioStation)
+    {
+        float newModifier = 1.2f;
+        radioStation.setHourlyListenersModifier(newModifier, newModifier, newModifier, newModifier);
+    }
+
     public GameObject getUiInstance()
     {
         return uiInstance;
