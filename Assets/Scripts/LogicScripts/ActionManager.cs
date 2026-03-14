@@ -1,9 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems; 
 
-/// <summary>
-/// Bierze input i zamienia go na rodzaj konkretnych akcji w grze
-/// </summary>
 public class ActionManager
 {
     private Camera mainCamera;
@@ -20,15 +18,18 @@ public class ActionManager
     }
 
     public ActionTypes GetActionType()
-    {  
+    {
         if (!Mouse.current.leftButton.wasPressedThisFrame)
-        {
             return ActionTypes.None;
-        }
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            return ActionTypes.None;
+
         Debug.Log("GetActionType - LeftCLick");
         clickedObject = ClickedObject(Mouse.current.position.ReadValue());
 
-        return clickedObject != null ? ActionTypes.LeftClickOnObject : ActionTypes.LeftClickOutsiedObject;
+        return clickedObject != null
+            ? ActionTypes.LeftClickOnObject
+            : ActionTypes.LeftClickOutsiedObject;
     }
 
     public GameObject ClickedObject(Vector3 mousePos)

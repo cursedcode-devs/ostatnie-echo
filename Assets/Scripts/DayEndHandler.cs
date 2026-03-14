@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class DayEndHandler : MonoBehaviour
 {
-    public RadioStation radioStation;
     public TimeHandler timeHandler;
     private GenreValues startListeners;
     private float startMoney;
     public Cassette[] allCassettes;
     public Cassette[] dailyOffer;
+    private RadioStation radioStation;
+
     /*statystyki
     rachunki - wraz z statami z automatu odejmuje przed zakupami
     ulepszenia - do zakupu
@@ -88,6 +89,16 @@ public class DayEndHandler : MonoBehaviour
         {
             Debug.Log("Offered cassette: " + c.name);
         }
+    }
+
+    public void AddCassetteToOffer(Cassette cassette)
+    {
+        var newOffer = new Cassette[dailyOffer.Length + 1];
+        newOffer[0] = cassette;
+        for (int i = 0; i < dailyOffer.Length; i++)
+            newOffer[i + 1] = dailyOffer[i];
+        dailyOffer = newOffer;
+        Debug.Log($"[DayEndHandler] Dodano '{cassette.name}' do oferty.");
     }
 
 }

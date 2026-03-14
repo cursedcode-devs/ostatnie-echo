@@ -62,4 +62,8 @@ public class RadioStation
         return currentMoney;
     }
 
+    public void AddMoney(float amount)
+    {
+        currentMoney += amount;
+    }
 }

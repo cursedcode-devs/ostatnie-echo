@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     ActionTypes actionType;
     public ActionManager actionManager;
     public TimeHandler timeHandler;
+    private StatsUI statsUI; 
 
 
     private float selectTransformValue = 0.3f;
@@ -19,6 +20,9 @@ public class GameManager : MonoBehaviour
 
     private int startHour = 14;
     private int startDay = 1;
+
+    private bool inputEnabled = true;
+
 
     void Start()
     {
@@ -36,11 +40,18 @@ public class GameManager : MonoBehaviour
         {
             dayEndHandler.Initialize(radioStation, timeHandler);
         }
-
+        StatsUI statsUI = FindFirstObjectByType<StatsUI>();
+        if (statsUI != null)
+        {
+            statsUI.Initialize(radioStation);
+        }
+        var miniGameSystem = FindFirstObjectByType<MiniGameSystem>();
     }
 
     void Update()
     {
+        if (!inputEnabled) return;
+
         actionType = actionManager.GetActionType();
 
         switch (actionType)
@@ -95,6 +106,7 @@ public class GameManager : MonoBehaviour
         {
             playableObject.data.Play(ref source);
             playableObject.data.ApplyEffect(radioStation);
+            if (statsUI != null) statsUI.UpdateUI(); 
 
             playing = true;
             StartCoroutine(WaitForAudioToEnd());
@@ -118,6 +130,14 @@ public class GameManager : MonoBehaviour
         if (timeHandler != null)
         {
             timeHandler.NextHour();
+            MiniGameSystem.Instance.Launch("LightsOut");
         }
     }
+
+    public void SetInputEnabled(bool enabled)
+    {
+        inputEnabled = enabled;
+    }
 }
+
+
