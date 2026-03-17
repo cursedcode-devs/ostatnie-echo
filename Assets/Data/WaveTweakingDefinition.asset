@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 886573d2337e52d739e628e6e3715656, type: 3}
-  m_Name: LightsOut
+  m_Name: WaveTweakingDefinition
   m_EditorClassIdentifier: Assembly-CSharp::MiniGameDefinition
-  miniGameName: LightsOut
+  miniGameName: WaveTweaking
   description: 
-  prefab: {fileID: 9102794624764790728, guid: 8b0c185fa7be98f8e85fc9da6acc9f97, type: 3}
+  prefab: {fileID: 5040334955213998183, guid: 16a9e26186a3804b4b04b43f692d7b20, type: 3}
   useGlobalRewardPool: 1
   ownRewards: []
   rewardsToGive: 1

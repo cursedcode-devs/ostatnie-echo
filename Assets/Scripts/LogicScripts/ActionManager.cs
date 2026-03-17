@@ -1,38 +1,86 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.EventSystems; 
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
+/// <summary>
+/// Bierze input i zamienia go na rodzaj konkretnych akcji w grze
+/// </summary>
 public class ActionManager
 {
     private Camera mainCamera;
-    private GameObject clickedObject;
+    private GameObject pointedObject;
 
     public ActionManager(Camera mainCamera)
     {
         this.mainCamera = mainCamera;
     }
 
-    public GameObject GetClickedObject()
+    public GameObject GetPointedObject()
     {
-        return clickedObject;
+        return pointedObject;
     }
 
-    public ActionTypes GetActionType()
+    public ActionTypes GetKeyboardActionType()
     {
-        if (!Mouse.current.leftButton.wasPressedThisFrame)
-            return ActionTypes.None;
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-            return ActionTypes.None;
+        if (Keyboard.current.aKey.IsPressed())
+            return ActionTypes.PressedA;
+        if (Keyboard.current.dKey.IsPressed())
+            return ActionTypes.PressedD;
+        if (Keyboard.current.wKey.IsPressed())
+            return ActionTypes.PressedW;
+        if (Keyboard.current.sKey.IsPressed())
+            return ActionTypes.PressedS;
+        if (Keyboard.current.qKey.IsPressed())
+            return ActionTypes.PressedQ;
+        if (Keyboard.current.eKey.IsPressed())
+            return ActionTypes.PressedE;
 
+        return ActionTypes.None;
+    }
+
+    public ActionTypes GetActionMouseType()
+    {
+        if (!Mouse.current.leftButton.isPressed)
+        {
+            return ActionTypes.None;
+        }
+
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            return GetLeftClickAction();
+        }
+
+        if (pointedObject != null)
+        {
+            if (pointedObject.CompareTag("ConsoleSlider"))
+            {
+                return ActionTypes.LeftPressedOnSlider;
+            }
+        }
+
+        return ActionTypes.None;
+    }
+
+    private ActionTypes GetLeftClickAction()
+    {
         Debug.Log("GetActionType - LeftCLick");
-        clickedObject = ClickedObject(Mouse.current.position.ReadValue());
+        pointedObject = PointedObject(Mouse.current.position.ReadValue());
 
-        return clickedObject != null
-            ? ActionTypes.LeftClickOnObject
-            : ActionTypes.LeftClickOutsiedObject;
+        if (pointedObject == null) return ActionTypes.LeftClickOutsiedObject;
+
+        if (pointedObject.CompareTag("Playable")) return ActionTypes.LeftClickOnPlayableObject;
+
+        if (pointedObject.CompareTag("ConsoleSlider"))
+        {
+            return ActionTypes.LeftClickOnSlider;
+        }
+
+        if (pointedObject.CompareTag("CassettePlayer")) return ActionTypes.LeftClickOnPlayingObject;
+
+        return ActionTypes.LeftClickOnObject;
     }
 
-    public GameObject ClickedObject(Vector3 mousePos)
+    public GameObject PointedObject(Vector3 mousePos)
     {
         Ray clickingRay = mainCamera.ScreenPointToRay(mousePos);
 

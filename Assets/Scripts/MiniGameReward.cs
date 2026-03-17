@@ -1,123 +1,134 @@
 using UnityEngine;
 
 /// <summary>
-/// Jedna nagroda za wygranie minigry.
-/// Twórz przez: prawym na folder → Create → MiniGame/Reward
+/// One reward granted when a minigame is won.
+/// Uses RadioStation's layered modifier system — rewards stack
+/// rather than replacing each other.
 ///
-/// Przykłady:
-///   "Boost HipHop x1.5 na 3 dni"
-///   "Gotówka +50$"
-///   "Dodaj kasetę do oferty"
+/// Create via: right-click → Create → MiniGame/Reward
 /// </summary>
-[CreateAssetMenu(fileName = "NowaOffer", menuName = "MiniGame/Reward")]
+[CreateAssetMenu(fileName = "NewReward", menuName = "MiniGame/Reward")]
 public class MiniGameReward : ScriptableObject
 {
-    [Header("Opis (wyświetlany graczowi)")]
-    public string rewardName = "Nagroda";
-    [TextArea] public string description = "Opis nagrody...";
+    [Header("Description (shown to player)")]
+    public string rewardName = "Reward";
+    [TextArea] public string description = "Reward description...";
 
-    [Header("Typ nagrody")]
+    [Header("Reward type")]
     public RewardType type;
 
-    [Header("Boosty słuchaczy (RewardType.ListenersBoost)")]
-    public GenreValues listenersBoostFlat;        // stały przyrost słuchaczy
-    public GenreValuesModifier listenersModifier; // mnożnik (1.5 = +50%)
-    public int modifierDurationDays = 1;          // ile dni działa mnożnik (0 = permanent)
+    [Header("Listener boost (RewardType.ListenersBoost)")]
+    public GenreValues listenersBoostFlat;
+    public GenreValuesModifier listenersModifier;
 
-    [Header("Boost przychodów (RewardType.RevenueBoost)")]
+    [Tooltip("Hourly = lasts until next hour tick. Daily = lasts until end of day.")]
+    public ModifierDuration listenerModifierDuration = ModifierDuration.Daily;
+
+    [Header("Revenue boost (RewardType.RevenueBoost)")]
     public GenreValuesModifier revenueModifier;
-    public int revenueModifierDurationDays = 1;
+    public ModifierDuration revenueModifierDuration = ModifierDuration.Daily;
 
-    [Header("Gotówka (RewardType.Money)")]
+    [Header("Money (RewardType.Money)")]
     public float moneyAmount = 50f;
 
-    [Header("Kaseta (RewardType.Cassette)")]
-    public Cassette cassetteToAdd;   // kaseta dodawana do dailyOffer
+    [Header("Cassette (RewardType.Cassette)")]
+    public Cassette cassetteToAdd;
 
-    [Header("Waga losowania (wyżej = częściej)")]
+    [Header("Draw weight (higher = more common)")]
     [Range(1, 100)] public int weight = 10;
 
     // ------------------------------------------------------------------
-    /// <summary>Zastosuj nagrodę na stację radiową.</summary>
+    /// <summary>Apply this reward to the radio station.</summary>
     public void Apply(RadioStation radio, DayEndHandler dayEndHandler = null)
     {
         switch (type)
         {
             case RewardType.ListenersBoost:
-                // Stały przyrost
+                // Flat listener gain
                 if (listenersBoostFlat.totalListeners > 0)
                     radio.AddListeners(ToPercentage(listenersBoostFlat, radio));
 
-                // Mnożnik (tymczasowy lub stały)
-                if (HasNonDefaultModifier(listenersModifier))
+                // Stacking modifier — uses Add, not Set, so rewards accumulate
+                if (HasNonZeroModifier(listenersModifier))
                 {
-                    radio.setListenersModifier(
-                        listenersModifier.hipHop,
-                        listenersModifier.disco,
-                        listenersModifier.rock,
-                        listenersModifier.metal
-                    );
-                    Debug.Log($"[Reward] Listeners modifier aktywny przez {modifierDurationDays} dni.");
+                    if (listenerModifierDuration == ModifierDuration.Daily)
+                        radio.AddDailyListenersModifier(
+                            listenersModifier.hipHop, listenersModifier.disco,
+                            listenersModifier.rock,   listenersModifier.metal);
+                    else
+                        radio.AddHourlyListenersModifier(
+                            listenersModifier.hipHop, listenersModifier.disco,
+                            listenersModifier.rock,   listenersModifier.metal);
+
+                    Debug.Log($"[Reward] Listener modifier applied ({listenerModifierDuration}).");
                 }
                 break;
 
             case RewardType.RevenueBoost:
-                if (HasNonDefaultModifier(revenueModifier))
+                if (HasNonZeroModifier(revenueModifier))
                 {
-                    radio.setRevenueModifier(
-                        revenueModifier.hipHop,
-                        revenueModifier.disco,
-                        revenueModifier.rock,
-                        revenueModifier.metal
-                    );
-                    Debug.Log($"[Reward] Revenue modifier aktywny przez {revenueModifierDurationDays} dni.");
+                    if (revenueModifierDuration == ModifierDuration.Daily)
+                        radio.AddDailyRevenueModifier(
+                            revenueModifier.hipHop, revenueModifier.disco,
+                            revenueModifier.rock,   revenueModifier.metal);
+                    else
+                        radio.AddHourlyRevenueModifier(
+                            revenueModifier.hipHop, revenueModifier.disco,
+                            revenueModifier.rock,   revenueModifier.metal);
+
+                    Debug.Log($"[Reward] Revenue modifier applied ({revenueModifierDuration}).");
                 }
                 break;
 
             case RewardType.Money:
                 radio.AddMoney(moneyAmount);
-                Debug.Log($"[Reward] +{moneyAmount}$ do kasy.");
+                Debug.Log($"[Reward] +{moneyAmount}$ added.");
                 break;
 
             case RewardType.Cassette:
                 if (cassetteToAdd != null && dayEndHandler != null)
                 {
                     dayEndHandler.AddCassetteToOffer(cassetteToAdd);
-                    Debug.Log($"[Reward] Kaseta '{cassetteToAdd.name}' dodana do oferty.");
+                    Debug.Log($"[Reward] Cassette '{cassetteToAdd.name}' added to offer.");
                 }
                 break;
         }
 
-        Debug.Log($"[Reward] Zastosowano: {rewardName}");
+        Debug.Log($"[Reward] Applied: {rewardName}");
     }
 
     // ------------------------------------------------------------------
     // Helpers
 
-    // Zamienia stały przyrost na procent (żeby użyć istniejącej metody AddListeners)
     private GenreValues ToPercentage(GenreValues flat, RadioStation radio)
     {
         return new GenreValues
         {
-            hipHop = radio.currentListeners.hipHop > 0
-                ? Mathf.RoundToInt((float)flat.hipHop / radio.currentListeners.hipHop * 100f) : 0,
-            disco  = radio.currentListeners.disco > 0
-                ? Mathf.RoundToInt((float)flat.disco  / radio.currentListeners.disco  * 100f) : 0,
-            rock   = radio.currentListeners.rock > 0
-                ? Mathf.RoundToInt((float)flat.rock   / radio.currentListeners.rock   * 100f) : 0,
-            metal  = radio.currentListeners.metal > 0
-                ? Mathf.RoundToInt((float)flat.metal  / radio.currentListeners.metal  * 100f) : 0,
+            hipHop = radio.currentListeners.hipHop > 0 ? Mathf.RoundToInt((float)flat.hipHop / radio.currentListeners.hipHop * 100f) : 0,
+            disco  = radio.currentListeners.disco  > 0 ? Mathf.RoundToInt((float)flat.disco  / radio.currentListeners.disco  * 100f) : 0,
+            rock   = radio.currentListeners.rock   > 0 ? Mathf.RoundToInt((float)flat.rock   / radio.currentListeners.rock   * 100f) : 0,
+            metal  = radio.currentListeners.metal  > 0 ? Mathf.RoundToInt((float)flat.metal  / radio.currentListeners.metal  * 100f) : 0,
         };
     }
 
-    private bool HasNonDefaultModifier(GenreValuesModifier m)
+    private bool HasNonZeroModifier(GenreValuesModifier m)
         => m.hipHop != 0 || m.disco != 0 || m.rock != 0 || m.metal != 0;
 }
 
+// ------------------------------------------------------------------
+
 public enum RewardType
 {
-    ListenersBoost,   // boostuje słuchaczy
-    RevenueBoost,     // boostuje przychody z reklam
-    Money,            // gotówka od razu
-    Cassette          // dodaje kasetę do dzisiejszej oferty
+    ListenersBoost,
+    RevenueBoost,
+    Money,
+    Cassette
+}
+
+public enum ModifierDuration
+{
+    /// <summary>Cleared at the next hour tick.</summary>
+    Hourly,
+    /// <summary>Cleared at the end of the day.</summary>
+    Daily
 }

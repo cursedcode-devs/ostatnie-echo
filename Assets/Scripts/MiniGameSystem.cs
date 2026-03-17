@@ -10,13 +10,12 @@ using TMPro;
 ///
 /// SETUP W UNITY:
 ///   1. Utwórz GameObject "MiniGameSystem", dodaj ten skrypt
-///   2. Przypisz globalRewardPool[] — nagrody wspólne dla wszystkich minigier
-///   3. Przypisz miniGames[] — lista MiniGameDefinition assets
-///      Każda definicja ma flagę useGlobalRewardPool:
-///        true  → losuje z globalRewardPool (domyślnie)
-///        false → losuje z własnej puli ownRewards[]
+///   2. Przypisz globalRewardPool[]
+///   3. Przypisz miniGames[] — definicje minigier
+///   4. Przypisz amplitudeSlider, lengthSlider, frequencySlider ze sceny
 ///
 /// WYWOŁANIE:
+///   MiniGameSystem.Instance.Launch("WaveTweaking");
 ///   MiniGameSystem.Instance.Launch("LightsOut");
 ///   MiniGameSystem.Instance.LaunchRandom();
 /// </summary>
@@ -31,11 +30,16 @@ public class MiniGameSystem : MonoBehaviour
     public GameManager gameManager;
 
     [Header("Globalna pula nagród")]
-    [Tooltip("Nagrody wspólne dla wszystkich minigier (gdy useGlobalRewardPool = true w definicji).")]
     public MiniGameReward[] globalRewardPool;
 
     [Header("Definicje minigier")]
     public MiniGameDefinition[] miniGames;
+
+    [Header("Wave Tweaking — suwaki ze sceny")]
+    [Tooltip("Przeciągnij tu Length/Amplitude/Frequency ze sceny.")]
+    public ConsoleSliderObject amplitudeSlider;
+    public ConsoleSliderObject lengthSlider;
+    public ConsoleSliderObject frequencySlider;
 
     [Header("UI - Popup nagrody (opcjonalny)")]
     public GameObject rewardPopupCanvas;
@@ -62,8 +66,7 @@ public class MiniGameSystem : MonoBehaviour
     {
         if (gameManager == null)   gameManager   = FindFirstObjectByType<GameManager>();
         if (dayEndHandler == null) dayEndHandler = FindFirstObjectByType<DayEndHandler>();
-        if (radioStation == null && gameManager != null)
-            radioStation = gameManager.radioStation;
+        if (gameManager != null)   radioStation  = gameManager.radioStation;
 
         if (rewardPopupCanvas != null)
             rewardPopupCanvas.SetActive(false);
@@ -83,8 +86,6 @@ public class MiniGameSystem : MonoBehaviour
     }
 
     // ------------------------------------------------------------------
-    // API publiczne
-
     public void Launch(string miniGameName)
     {
         var def = FindDefinition(miniGameName);
@@ -137,8 +138,17 @@ public class MiniGameSystem : MonoBehaviour
             return null;
         }
 
-        // Nie wyłączaj całego prefaba — canvas jest budowany dopiero przy Launch()
-        // Wyłącz tylko canvas jeśli już istnieje, inaczej zostaw obiekt aktywny
+        // Inject sliders into WaveTweakingMiniGameAdapter
+        // (adapter is the BaseMiniGame, not WaveTweakingMiniGame directly)
+        var waveTweakingAdapter = go.GetComponent<WaveTweakingMiniGameAdapter>();
+        if (waveTweakingAdapter != null)
+        {
+            waveTweakingAdapter.SetSliders(amplitudeSlider, lengthSlider, frequencySlider);
+
+            if (amplitudeSlider == null || lengthSlider == null || frequencySlider == null)
+                Debug.LogWarning("[MiniGameSystem] One or more WaveTweaking sliders not assigned!");
+        }
+
         if (instance.miniGameCanvas != null)
             instance.miniGameCanvas.SetActive(false);
 
@@ -148,10 +158,16 @@ public class MiniGameSystem : MonoBehaviour
 
     void HandleWin()
     {
-        if (currentDefinition == null) return;
+        // Capture definition locally — HandleClosed may null currentDefinition synchronously
+        MiniGameDefinition wonDefinition = currentDefinition;
 
-        // Przekaż globalną pulę — definicja sama zdecyduje której użyć
-        var rewards = currentDefinition.DrawRewards(globalRewardPool);
+        if (wonDefinition == null)
+        {
+            Debug.LogWarning("[MiniGameSystem] HandleWin fired but currentDefinition was null — rewards skipped.");
+            return;
+        }
+
+        var rewards = wonDefinition.DrawRewards(globalRewardPool);
         ApplyRewards(rewards);
 
         if (rewards.Length > 0)

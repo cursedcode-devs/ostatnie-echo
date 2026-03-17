@@ -9,17 +9,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioSource source;
     [SerializeField] private Camera mainCamera;
     private bool playing = false;
-    ActionTypes actionType;
+    private ActionTypes mouseActionType;
+    private ActionTypes keyboardActionType;
     public ActionManager actionManager;
     public TimeHandler timeHandler;
     private StatsUI statsUI; 
-
-
-    private float selectTransformValue = 0.3f;
-    private float deselectTransformValue = -0.3f;
-
+    private Vector3 addedObjectRotation = Vector3.zero;
+    private float rotationSpeed = 3f;
+    [SerializeReference] private ObjectSelectionHandler selectionHandler;
+    public ConsoleSliderObject amplitudeSlider;
+    public ConsoleSliderObject lengthSlider;
+    public ConsoleSliderObject frequencySlider;
+    
     private int startHour = 14;
     private int startDay = 1;
+    private const float startingModifier = 0f;
 
     private bool inputEnabled = true;
 
@@ -31,9 +35,13 @@ public class GameManager : MonoBehaviour
         actionManager = new ActionManager(mainCamera);
         radioStation = new RadioStation();
         timeHandler = new TimeHandler(startHour, startDay);
+        selectionHandler = new ObjectSelectionHandler();
+        
 
-        radioStation.setListenersModifier(1f, 1f, 1f, 1f);
-        radioStation.setRevenueModifier(1f, 1f, 1f, 1f);
+        radioStation.SetHourlyListenersModifier(startingModifier, startingModifier, startingModifier, startingModifier);
+        radioStation.SetDailyListenersModifier(startingModifier, startingModifier, startingModifier, startingModifier);
+        radioStation.SetHourlyRevenueModifier(startingModifier, startingModifier, startingModifier, startingModifier);
+        radioStation.SetDailyRevenueModifier(startingModifier, startingModifier, startingModifier, startingModifier);
 
         DayEndHandler dayEndHandler = FindFirstObjectByType<DayEndHandler>();
         if (dayEndHandler != null)
@@ -50,67 +58,121 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (!inputEnabled) return;
+        mouseActionType = actionManager.GetActionMouseType();
+        GameObject clickedObject = actionManager.GetPointedObject();
+        ConsoleSliderObject sliderObject = null;
 
-        actionType = actionManager.GetActionType();
+        if (clickedObject != null)
+            sliderObject = clickedObject.GetComponent<ConsoleSliderObject>();
 
-        switch (actionType)
+        //Obs�uguje akcej myszki
+        switch (mouseActionType)
         {
+            case ActionTypes.LeftClickOnPlayableObject:
+                Debug.Log("GetActionType - LeftClickOnPlayableObject");
+                selectionHandler.SelectObject(clickedObject);
+                break;
+            case ActionTypes.LeftClickOnPlayingObject:
+                Debug.Log("GetActionType - LeftClickOnPlayingObject");
+                if (selectionHandler.IsSelectedObjectPlayable() || playing)
+                {
+                    PlayPlayableObject(clickedObject);
+                }
+                else
+                {
+                    selectionHandler.SelectObject(clickedObject);
+                }
+                break;
             case ActionTypes.LeftClickOnObject:
                 Debug.Log("GetActionType - LeftClickOnObject");
-                GameObject clickedObject = actionManager.GetClickedObject();
-                SelectPlayableObject(clickedObject);
-                PlayPlayableObject(clickedObject);
+                selectionHandler.SelectObject(clickedObject);
+                break;
+            case ActionTypes.LeftClickOnSlider:
+                Debug.Log("GetActionType - LeftClickOnSlider");
+                if (sliderObject != null)
+                    sliderObject.OnMouseClick();
+                break;
+            case ActionTypes.LeftPressedOnSlider:
+                Debug.Log("GetActionType - LeftPressedOnSlider");
+                if (sliderObject != null)
+                    sliderObject.OnMousePressed();
                 break;
             case ActionTypes.LeftClickOutsiedObject:
                 Debug.Log("GetActionType - LeftClickOutsiedObject");
-                if (selectedCassette != null) TransformSelectedCassette(deselectTransformValue);
-                selectedCassette = null;
+                if (selectionHandler.GetSelectedObject() != null)
+                    selectionHandler.DeselectedObject();
+                break;
+        }
+
+        keyboardActionType = actionManager.GetKeyboardActionType();
+        //Obs�uguje akcje klawiatury
+        switch (keyboardActionType)
+        {
+            case ActionTypes.PressedA:
+                Debug.Log("Wcisnieto A");
+                addedObjectRotation = new Vector3(0f, 0f, -rotationSpeed);
+                break;
+            case ActionTypes.PressedD:
+                Debug.Log("Wcisnieto D");
+                addedObjectRotation = new Vector3(0f, 0f, rotationSpeed);
+                break;
+            case ActionTypes.PressedW:
+                Debug.Log("Wcisnieto W");
+                addedObjectRotation = new Vector3(-rotationSpeed, 0f, 0f);
+                break;
+            case ActionTypes.PressedS:
+                Debug.Log("Wcisnieto S");
+                addedObjectRotation = new Vector3(rotationSpeed, 0f, 0f);
+                break;
+            case ActionTypes.PressedQ:
+                Debug.Log("Wcisnieto Q");
+                addedObjectRotation = new Vector3(0f, rotationSpeed, 0f);
+                break;
+            case ActionTypes.PressedE:
+                Debug.Log("Wcisnieto E");
+                addedObjectRotation = new Vector3(0f, -rotationSpeed, 0f);
+                break;
+            case ActionTypes.None:
+                addedObjectRotation = Vector3.zero;
                 break;
         }
     }
 
-    private void SelectPlayableObject(GameObject clickedObject)
+        private void FixedUpdate()
     {
-        if (!clickedObject.CompareTag("PlayableCassette") && !clickedObject.CompareTag("PlayableAd")) return;
-
-        if (clickedObject == selectedCassette)
-        {
-            TransformSelectedCassette(deselectTransformValue);
-            selectedCassette = null;
-            return;
-        }
-
-        if (selectedCassette != null)
-        {
-            TransformSelectedCassette(deselectTransformValue);
-        }
-        selectedCassette = clickedObject;
-        TransformSelectedCassette(selectTransformValue);
+        if (addedObjectRotation != Vector3.zero)
+            selectionHandler.RotateObject(addedObjectRotation.x, addedObjectRotation.y, addedObjectRotation.z);
     }
 
-    private void PlayPlayableObject(GameObject clickedObject)
+private void PlayPlayableObject(GameObject clickedObject)
     {
-        if (!clickedObject.CompareTag("CassettePlayer")) return;
 
-        if (playing || selectedCassette == null)
+        if (playing)
         {
-            source.Stop();
-            playing = false;
+            StopPlayingAudio();
             return;
         }
 
-        PlayableObject playableObject = selectedCassette.GetComponent<PlayableObject>();
-
-        if (playableObject != null && playableObject.data != null)
+        if (selectionHandler.GetSelectedObject() == null)
         {
-            playableObject.data.Play(ref source);
-            playableObject.data.ApplyEffect(radioStation);
-            if (statsUI != null) statsUI.UpdateUI(); 
-
-            playing = true;
-            StartCoroutine(WaitForAudioToEnd());
+            return;
         }
+
+        
+
+        PlayableObject playableObject = selectionHandler.GetSelectedObject().GetComponent<PlayableObject>();
+
+        if (playableObject == null) return;
+
+        if (playableObject.data == null) return;
+
+        playableObject.data.Play(ref source);
+        playableObject.data.ApplyEffect(radioStation);
+
+
+        playing = true;
+        StartCoroutine(WaitForAudioToEnd());
+
     }
 
     private void TransformSelectedCassette(float transformValue)
@@ -130,7 +192,7 @@ public class GameManager : MonoBehaviour
         if (timeHandler != null)
         {
             timeHandler.NextHour();
-            MiniGameSystem.Instance.Launch("LightsOut");
+            MiniGameSystem.Instance.LaunchRandom();
         }
     }
 
@@ -138,6 +200,12 @@ public class GameManager : MonoBehaviour
     {
         inputEnabled = enabled;
     }
+    private void StopPlayingAudio()
+    {
+        source.Stop();
+        playing = false;
+    }
+
 }
 
 
