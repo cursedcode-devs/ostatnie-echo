@@ -3,7 +3,17 @@ guid: 28ec2cbe1e4c8f4c9814729a051c6279
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LampaMaterial
+    second: {fileID: 2100000, guid: cf916ad68c0b9bd4884349e1bf6092ee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lampa_emission
+    second: {fileID: 2100000, guid: 38d86d76f1f799f4b963d51c2aee19c3, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

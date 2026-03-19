@@ -3,7 +3,12 @@ guid: 1c4237440fe0ec745883233754e692ca
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: KasetaMaterial
+    second: {fileID: 2100000, guid: c6881a924170de34f8c949f1b228fa76, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
