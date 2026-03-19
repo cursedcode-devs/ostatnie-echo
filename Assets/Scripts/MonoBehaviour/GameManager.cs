@@ -175,11 +175,6 @@ private void PlayPlayableObject(GameObject clickedObject)
 
     }
 
-    private void TransformSelectedCassette(float transformValue)
-    {
-        selectedCassette.transform.position += new Vector3(0f, transformValue, 0f);
-    }
-
     private IEnumerator WaitForAudioToEnd()
     {
         while (source.isPlaying)

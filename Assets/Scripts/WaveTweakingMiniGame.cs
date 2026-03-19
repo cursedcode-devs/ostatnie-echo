@@ -13,12 +13,12 @@ using System.Collections;
 /// </summary>
 public class WaveTweakingMiniGame : MonoBehaviour
 {
-    public const float BandMin = 0.49f;
-    public const float BandMax = 0.51f;
+    public const float BandMin = 0f;
+    public const float BandMax = 1f;
 
     [Header("Win tolerance (raw 0-1 units)")]
     [Tooltip("0.0001 ≈ 0.01 on the displayed 10-0 scale.")]
-    public float tolerance = 0.0001f;
+    public float tolerance = 0.01f;
 
     [Header("References (set by WaveTweakingSceneBuilder)")]
     public ConsoleSliderObject amplitudeSlider;

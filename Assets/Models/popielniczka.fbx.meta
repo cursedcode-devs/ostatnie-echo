@@ -3,22 +3,7 @@ guid: b90a78ce140c2434ba10ffeadb9b502c
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: papieros
-    second: {fileID: 2100000, guid: 3db7a3bf746b0c84798d39c2fd21a2f7, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: popielniczka
-    second: {fileID: 2100000, guid: 6cc610579b92e154ba95eac2d4ba8a7c, type: 2}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: PopielniczkaUVTest
-    second: {fileID: 2800000, guid: e8c7b8953c1344d4492a641be7142ecc, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
