@@ -7,6 +7,7 @@ public class AdObject : PlayableObject
         if (data != null)
         {
             gameObject.tag = "Playable";
+            data.ResetTimesUsed();
             Debug.Log("To jest fizyczna kopia kasety: " + data.name);
         }
     }

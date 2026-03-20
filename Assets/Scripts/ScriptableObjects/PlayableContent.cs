@@ -9,12 +9,18 @@ public abstract class PlayableContent : ScriptableObject
     public AudioClip audio;
     [SerializeField] private string itemName;
     [SerializeField] private GameObject physicalPrefab;
+    [SerializeField] protected int timesUsedInDay = 0;
 
 
     public void Play(ref AudioSource source)
     {
         source.clip = audio;
         source.Play();
+    }
+
+    public void ResetTimesUsed() 
+    {  
+        timesUsedInDay = 0; 
     }
 
     public abstract void ApplyEffect(RadioStation radio);
