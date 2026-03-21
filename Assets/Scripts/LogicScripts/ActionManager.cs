@@ -68,6 +68,8 @@ public class ActionManager
 
         if (pointedObject == null) return ActionTypes.LeftClickOutsiedObject;
 
+        if (pointedObject.CompareTag("Unselectable")) return ActionTypes.LeftClickOutsiedObject;
+
         if (pointedObject.CompareTag("Playable")) return ActionTypes.LeftClickOnPlayableObject;
 
         if (pointedObject.CompareTag("ConsoleSlider"))
