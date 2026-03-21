@@ -29,7 +29,7 @@ public class GameEndScreen : MonoBehaviour
 
     // ------------------------------------------------------------------
     public void Show(
-        int totalDays,
+        int endGameCause, int totalDays,
         float finalMoney,  float moneyDiff,
         int hipHop,        int hipHopDiff,
         int disco,         int discoDiff,
@@ -38,7 +38,24 @@ public class GameEndScreen : MonoBehaviour
     {
         if (!built) Build();
 
-        titleText.text       = $"KONIEC GRY — {totalDays} DNI";
+        switch (endGameCause)
+        {
+            default:
+                titleText.text = $"KONIEC GRY — {totalDays} DNI";
+                break;
+            case 0:
+                //Game is won
+                titleText.text = $"WYGRAŁEŚ! KONIEC GRY — {totalDays} DNI";
+                break;
+            case 1:
+                //Game Lost - no money
+                titleText.text = $"PRZEGRAŁEŚ! NIE MASZ PIENIĘDZY! KONIEC GRY — {totalDays} DNI";
+                break;
+            case 2:
+                titleText.text = $"PRZEGRAŁEŚ! ZA MAŁO SŁUCHACZY! KONIEC GRY — {totalDays} DNI";
+                //Game Lost - not enough listeners
+                break;
+        }
 
         moneyFinalText.text  = $"{finalMoney:F2}$";
         moneyDiffText.text   = FormatDiff(moneyDiff, "F2", "$");
