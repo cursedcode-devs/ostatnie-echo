@@ -20,7 +20,9 @@ public class GameManager : MonoBehaviour
     public ConsoleSliderObject amplitudeSlider;
     public ConsoleSliderObject lengthSlider;
     public ConsoleSliderObject frequencySlider;
-    
+
+    public GameObject instructionCanvas;
+
     private int startHour = 14;
     private int startDay = 1;
     private const float startingModifier = 0f;
@@ -30,6 +32,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        instructionCanvas.SetActive(true);
+
         selectedCassette = null;
 
         actionManager = new ActionManager(mainCamera);
@@ -58,6 +62,9 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (instructionCanvas.activeInHierarchy)
+            return;
+
         mouseActionType = actionManager.GetActionMouseType();
         GameObject clickedObject = actionManager.GetPointedObject();
         ConsoleSliderObject sliderObject = null;

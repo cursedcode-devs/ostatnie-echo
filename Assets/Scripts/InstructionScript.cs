@@ -3,10 +3,63 @@ using TMPro;
 
 public class InstructionScript : MonoBehaviour
 {
-    public TextMeshProUGUI output;
+    public GameObject instructionCanvas;
+    private int page = 0;
 
-    public void ButtonClicked()
+    public GameObject[] instructionPages;
+    public GameObject activePage;
+    public GameObject prevButton;
+
+    public TextMeshProUGUI nextPageButtonText;
+
+    private void Start()
     {
-        Destroy(output);
+        activePage = instructionPages[0];
+        activePage.SetActive(true);
+        prevButton.SetActive(false);
+    }
+
+    public void NextButtonClicked()
+    {
+        page++;
+
+        if(prevButton.activeInHierarchy == false)
+        {
+            prevButton.SetActive(true);
+        }
+
+        if (page == instructionPages.Length - 1)
+        {
+            nextPageButtonText.text = "Graj!";
+        }
+
+        if (page < instructionPages.Length)
+        {
+            activePage.SetActive(false);
+            activePage = instructionPages[page];
+            activePage.SetActive(true);
+        }
+        else
+        {
+            instructionCanvas.SetActive(false);
+        }
+    }
+
+    public void PrevButtonClicked()
+    {
+        if(page == instructionPages.Length - 1)
+        {
+            nextPageButtonText.text = "Nastêpna strona";
+        }
+
+        page--;
+        if(page == 0)
+        {
+            prevButton.SetActive(false);
+        }
+
+        activePage.SetActive(false);
+        activePage = instructionPages[page];
+        activePage.SetActive(true);
     }
 }
