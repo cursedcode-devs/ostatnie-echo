@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     private int startDay = 1;
     private const float startingModifier = 0f;
 
-    private bool inputEnabled = true;
+    private bool inputEnabled = false;
 
 
     void Start()
