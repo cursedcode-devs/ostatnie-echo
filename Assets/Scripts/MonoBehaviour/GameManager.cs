@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     private ActionTypes keyboardActionType;
     public ActionManager actionManager;
     public TimeHandler timeHandler;
-    private StatsUI statsUI; 
+    private StatsUI statsUI;
     private Vector3 addedObjectRotation = Vector3.zero;
     private float rotationSpeed = 3f;
     [SerializeReference] private ObjectSelectionHandler selectionHandler;
@@ -21,17 +21,26 @@ public class GameManager : MonoBehaviour
     public ConsoleSliderObject lengthSlider;
     public ConsoleSliderObject frequencySlider;
 
+    public int amountOfListenersToWin = 500;
+    [Header("Ekrany tekstowe")]
     public GameObject instructionCanvas;
+    public GameObject gameFailCanvas;
+    public GameObject gameWonCanvas;
+    public GameObject FailMoneyText;
+    public GameObject FailEndListenersText;
 
     private int startHour = 14;
     private int startDay = 1;
     private const float startingModifier = 0f;
 
+    
     private bool inputEnabled = true;
 
 
     void Start()
     {
+        gameFailCanvas.SetActive(false);
+        gameWonCanvas.SetActive(false);
         instructionCanvas.SetActive(true);
 
         selectedCassette = null;
@@ -40,7 +49,7 @@ public class GameManager : MonoBehaviour
         radioStation = new RadioStation();
         timeHandler = new TimeHandler(startHour, startDay);
         selectionHandler = new ObjectSelectionHandler();
-        
+
 
         radioStation.SetHourlyListenersModifier(startingModifier, startingModifier, startingModifier, startingModifier);
         radioStation.SetDailyListenersModifier(startingModifier, startingModifier, startingModifier, startingModifier);
@@ -64,6 +73,16 @@ public class GameManager : MonoBehaviour
     {
         if (instructionCanvas.activeInHierarchy)
             return;
+        if (gameFailCanvas.activeInHierarchy)
+        {
+            ExitGame();
+            return;
+        }
+        if (gameWonCanvas.activeInHierarchy)
+        {
+            ExitGame();
+            return;
+        }
 
         mouseActionType = actionManager.GetActionMouseType();
         GameObject clickedObject = actionManager.GetPointedObject();
@@ -145,13 +164,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-        private void FixedUpdate()
+    private void FixedUpdate()
     {
         if (addedObjectRotation != Vector3.zero)
             selectionHandler.RotateObject(addedObjectRotation.x, addedObjectRotation.y, addedObjectRotation.z);
     }
 
-private void PlayPlayableObject(GameObject clickedObject)
+    private void PlayPlayableObject(GameObject clickedObject)
     {
 
         if (playing)
@@ -165,7 +184,7 @@ private void PlayPlayableObject(GameObject clickedObject)
             return;
         }
 
-        
+
 
         PlayableObject playableObject = selectionHandler.GetSelectedObject().GetComponent<PlayableObject>();
 
@@ -194,7 +213,56 @@ private void PlayPlayableObject(GameObject clickedObject)
         if (timeHandler != null)
         {
             timeHandler.NextHour();
-            MiniGameSystem.Instance.LaunchRandom();
+            if (timeHandler.FinishGame())
+            {
+                if (radioStation.GetTotalListeners() < amountOfListenersToWin)
+                    EndGame(2);
+                else if (radioStation.GetCurrentMoney() <= 0)
+                    EndGame(1);
+                else EndGame(0);
+            }
+            else
+            {
+                if (radioStation.GetCurrentMoney() <= 0)
+                    EndGame(1);
+                else MiniGameSystem.Instance.LaunchRandom();
+            }
+        }
+    }
+
+    public void EndGame(int endReason)
+    {
+        switch (endReason)
+        {
+            //Wygrana
+            case 0:
+                gameWonCanvas.SetActive(true);
+                break;
+            //Zero lub mniej pieniędzy
+            case 1:
+                gameFailCanvas.SetActive(true);
+                FailEndListenersText.SetActive(false);
+                FailMoneyText.SetActive(true);
+                break;
+            //Za mało słuchaczy
+            case 2:
+                gameFailCanvas.SetActive(true);
+                FailEndListenersText.SetActive(true);
+                FailMoneyText.SetActive(false);
+                break;
+        }
+    }
+
+    private void ExitGame()
+    {
+        if (actionManager.GetKeyboardActionType() == ActionTypes.PressedESC)
+        {
+#if UNITY_STANDALONE
+            Application.Quit();
+#endif
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
         }
     }
 

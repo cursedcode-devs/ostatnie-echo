@@ -11,7 +11,7 @@ public class RadioStation
     public GenreValues currentListeners;
 
     [SerializeField] private int startListeners = 5;
-    [SerializeField] private float currentMoney = 0.00f;
+    [SerializeField] private float currentMoney = 20.00f;
     [SerializeField] private GenreValuesModifier hourlyListenersModifier;
     [SerializeField] private GenreValuesModifier hourlyRevenueModifier;
     [SerializeField] private GenreValuesModifier dailyListenersModifier;
@@ -175,6 +175,11 @@ public class RadioStation
     public float GetCurrentMoney()
     {
         return currentMoney;
+    }
+
+    public int GetTotalListeners()
+    {
+        return currentListeners.totalListeners;
     }
 
     public void AddMoney(float amount)

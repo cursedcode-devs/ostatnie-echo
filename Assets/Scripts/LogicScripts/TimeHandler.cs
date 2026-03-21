@@ -30,18 +30,18 @@ public class TimeHandler
 
         OnDayStarted?.Invoke();
 
+        //if (Day > 7)
+        //{
+        //    FinishGame();
+        //}
+    }
+    public bool FinishGame()
+    {
         if (Day > 7)
         {
-            FinishGame();
+            return true;
         }
-    }
-    public void FinishGame()
-    {
-    #if UNITY_STANDALONE
-        Application.Quit();
-    #endif
-    #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;    
-    #endif
+
+        return false;
     }
 }
