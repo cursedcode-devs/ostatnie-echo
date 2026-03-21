@@ -20,7 +20,8 @@ public class GameManager : MonoBehaviour
     public ConsoleSliderObject amplitudeSlider;
     public ConsoleSliderObject lengthSlider;
     public ConsoleSliderObject frequencySlider;
-    
+    public FMODUnity.EventReference clickSound;
+    public FMODUnity.EventReference putCasetteInSound;
     private int startHour = 14;
     private int startDay = 1;
     private const float startingModifier = 0f;
@@ -72,12 +73,15 @@ public class GameManager : MonoBehaviour
         {
             case ActionTypes.LeftClickOnPlayableObject:
                 Debug.Log("GetActionType - LeftClickOnPlayableObject");
+                FMODUnity.RuntimeManager.PlayOneShot(clickSound, this.transform.position);
                 selectionHandler.SelectObject(clickedObject);
                 break;
             case ActionTypes.LeftClickOnPlayingObject:
                 Debug.Log("GetActionType - LeftClickOnPlayingObject");
+                
                 if (selectionHandler.IsSelectedObjectPlayable() || playing)
                 {
+                    FMODUnity.RuntimeManager.PlayOneShot(putCasetteInSound, this.transform.position);
                     PlayPlayableObject(clickedObject);
                 }
                 else
@@ -87,6 +91,7 @@ public class GameManager : MonoBehaviour
                 break;
             case ActionTypes.LeftClickOnObject:
                 Debug.Log("GetActionType - LeftClickOnObject");
+                FMODUnity.RuntimeManager.PlayOneShot(clickSound, this.transform.position);
                 selectionHandler.SelectObject(clickedObject);
                 break;
             case ActionTypes.LeftClickOnSlider:
