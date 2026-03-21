@@ -1,5 +1,5 @@
 using UnityEngine;
-using    System;
+using System;
 
 [System.Serializable]
 public class TimeHandler
@@ -7,22 +7,27 @@ public class TimeHandler
     [SerializeField] private int Hour;
     [SerializeField] private int Day;
 
+    public int CurrentDay => Day;
+    public int CurrentHour => Hour;
+
     public event Action OnDayStarted;
+    public event Action OnGameFinished;
+
+    [SerializeField] private int lastDay = 7;
 
     public TimeHandler(int startHour, int startDay)
     {
         Hour = startHour;
-        Day = startDay;
+        Day  = startDay;
     }
 
     public void NextHour()
     {
         Hour++;
         if (Hour > 20)
-        {
             StartDay();
-        }
     }
+
     public void StartDay()
     {
         Day++;
@@ -30,18 +35,7 @@ public class TimeHandler
 
         OnDayStarted?.Invoke();
 
-        if (Day > 7)
-        {
-            FinishGame();
-        }
-    }
-    public void FinishGame()
-    {
-    #if UNITY_STANDALONE
-        Application.Quit();
-    #endif
-    #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;    
-    #endif
+        if (Day > lastDay)
+            OnGameFinished?.Invoke();
     }
 }

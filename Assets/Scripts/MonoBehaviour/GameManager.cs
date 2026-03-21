@@ -58,6 +58,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (!inputEnabled) return;
+
         mouseActionType = actionManager.GetActionMouseType();
         GameObject clickedObject = actionManager.GetPointedObject();
         ConsoleSliderObject sliderObject = null;
