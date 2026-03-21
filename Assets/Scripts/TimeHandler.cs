@@ -29,11 +29,6 @@ public class TimeHandler
         Hour = 14;
 
         OnDayStarted?.Invoke();
-
-        //if (Day > 7)
-        //{
-        //    FinishGame();
-        //}
     }
     public bool FinishGame()
     {
