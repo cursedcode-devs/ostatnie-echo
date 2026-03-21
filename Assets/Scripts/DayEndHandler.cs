@@ -27,6 +27,13 @@ public class DayEndHandler : MonoBehaviour
 
     void HandleDayStart()
     {
+        //if no money at the beginning of new day game finishes
+        if (radioStation.GetCurrentMoney() <= 0)
+        {
+            HandleGameFinished();
+            return;
+        }
+
         int   hipHopDiff = radioStation.currentListeners.hipHop - startListeners.hipHop;
         int   discoDiff  = radioStation.currentListeners.disco  - startListeners.disco;
         int   rockDiff   = radioStation.currentListeners.rock   - startListeners.rock;
