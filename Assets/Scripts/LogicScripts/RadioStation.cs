@@ -177,6 +177,11 @@ public class RadioStation
         return currentMoney;
     }
 
+    public int GetTotalListeners()
+    {
+        return currentListeners.totalListeners;
+    }
+
     public void AddMoney(float amount)
     {
         currentMoney += amount;
