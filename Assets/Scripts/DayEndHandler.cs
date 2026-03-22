@@ -6,6 +6,7 @@ public class DayEndHandler : MonoBehaviour
     private GenreValues startListeners;
     private float startMoney;
     public Cassette[] allCassettes;
+    public Ad[] allAds;
     public Cassette[] dailyOffer;
     private RadioStation radioStation;
 
@@ -32,6 +33,15 @@ public class DayEndHandler : MonoBehaviour
         {
             HandleGameFinished();
             return;
+        }
+
+        foreach (var cassette in allCassettes)
+        {
+            cassette.ResetTimesUsed();
+        }
+        foreach (var ad in allAds)
+        {
+            ad.ResetTimesUsed();
         }
 
         int hipHopDiff = radioStation.currentListeners.hipHop - startListeners.hipHop;

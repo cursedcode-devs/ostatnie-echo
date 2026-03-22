@@ -4362,6 +4362,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 575c2ea483af732469c186b1282a83a4, type: 2}
   - {fileID: 11400000, guid: 3bdc4632ac4a20447881efb6047175fa, type: 2}
   - {fileID: 11400000, guid: c8509628870fac44babbbadf10872fe4, type: 2}
+  allAds:
+  - {fileID: 11400000, guid: 954ce0b31d1fdf9469b0c07864e8a68c, type: 2}
+  - {fileID: 11400000, guid: aafa3a867ee933d41934ff568ccd3145, type: 2}
+  - {fileID: 11400000, guid: 86e89e1f7ef7fb941a613427f63db479, type: 2}
+  - {fileID: 11400000, guid: 1d7b65b5b0667c44fa1ce6fed8702ef6, type: 2}
   dailyOffer: []
 --- !u!4 &1996727237
 Transform:
