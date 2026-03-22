@@ -4374,7 +4374,7 @@ MonoBehaviour:
   timeHandler:
     Hour: 0
     Day: 0
-    lastDay: 0
+    lastDay: 2
   allCassettes:
   - {fileID: 11400000, guid: 9e0222f5b3ea4ec438bbf91b0346c045, type: 2}
   - {fileID: 11400000, guid: 575c2ea483af732469c186b1282a83a4, type: 2}

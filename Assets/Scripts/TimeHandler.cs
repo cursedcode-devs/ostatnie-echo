@@ -13,7 +13,7 @@ public class TimeHandler
     public event Action OnDayStarted;
     public event Action OnGameFinished;
 
-    [SerializeField] private int lastDay = 7;
+    [SerializeField] private int lastDay = 2;
 
     public TimeHandler(int startHour, int startDay)
     {

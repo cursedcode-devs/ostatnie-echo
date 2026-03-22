@@ -107,7 +107,7 @@ public class DayEndHandler : MonoBehaviour
 
         if (radioStation.GetCurrentMoney() <= 0)
             endGameCause = 1;
-        else if (radioStation.GetTotalListeners() < 1000)
+        else if (radioStation.GetTotalListeners() < 55)
             endGameCause = 2;
 
         endScreen.Show(
