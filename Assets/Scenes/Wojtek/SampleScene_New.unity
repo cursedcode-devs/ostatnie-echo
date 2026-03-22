@@ -2464,10 +2464,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 21989323046259220, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 24175035901709928, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -2479,14 +2475,6 @@ PrefabInstance:
     - target: {fileID: 1746533315691396806, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
       propertyPath: m_Name
       value: TextScreens
-      objectReference: {fileID: 0}
-    - target: {fileID: 1746533315691396806, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2989955188848088095, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3257665095543750029, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
       propertyPath: m_LocalRotation.x
