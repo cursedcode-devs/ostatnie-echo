@@ -400,10 +400,9 @@ MonoBehaviour:
     do grania (u g\xF3ry muzyka, na dole reklamy) poprzez naci\u015Bni\u0119cie jej
     lewym przyciskiem myszy. Gdy kaseta unosi si\u0119 w powietrzu znaczy, \u017Ce
     jest wybrana. Gdy jest wybrana kaseta i naci\u015Bniemy konsole kaseta si\u0119
-    odtworzy.\n\nW grze mo\u017Cna te\u017C wybiera\u0107 inne przedmioty. Wszystkimi
-    przedmiotami, kt\xF3re s\u0105 wybieralne mo\u017Cna obraca\u0107 za pomoc\u0105
-    klawisz WASDQE (B\u0119dzie to mia\u0142o wi\u0119ksze zastosowanie w przysz\u0142ych
-    wersjach)."
+    odtworzy.\n\nZa ka\u017Cdym zagraniem kasety jednego dnia jej efektywno\u015B\u0107
+    tego dnia zmniejsza si\u0119. W nowym dniu efektywno\u015B\u0107 wszystkich kaset
+    resetuje si\u0119."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -706,9 +705,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\n\n\n\nBy odznaczy\u0107 wybrany przedmiot nale\u017Cy klikn\u0105\u0107
-    lewym przyciskiem myszy, na inny wybieralny przedmiot lub na cokolwiek co nie
-    jest przedmiotem."
+  m_text: "W grze mo\u017Cna te\u017C wybiera\u0107 inne przedmioty. Wszystkimi przedmiotami,
+    kt\xF3re s\u0105 wybieralne mo\u017Cna obraca\u0107 za pomoc\u0105 klawiszy WASDQE
+    (B\u0119dzie to mia\u0142o wi\u0119ksze zastosowanie w przysz\u0142ych wersjach).\n\nBy
+    odznaczy\u0107 wybrany przedmiot nale\u017Cy klikn\u0105\u0107 lewym przyciskiem
+    myszy, na inny wybieralny przedmiot lub na cokolwiek co nie jest przedmiotem."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1395,7 +1396,7 @@ MonoBehaviour:
     wylosuje si\u0119 gra w dopasowanie fali nale\u017Cy tak manipulowa\u0107 trzema
     suwakami przy konsoli, by ich warto\u015B\u0107 by\u0142a bliska wy\u015Bwietlonej
     oczekiwanej warto\u015Bci.\n\nPo ich uko\u0144czeniu gracz uzyskuje r\xF3\u017Cne
-    bonusy.\n\n(Dla u\u0142atwienia mo\u017Cna pomin\u0105\u0107 minigr\u0119 wciskaj\u0105\u0107
+    bonusy.\n(Dla u\u0142atwienia mo\u017Cna pomin\u0105\u0107 minigr\u0119 wciskaj\u0105\u0107
     klawisz \"ESC\")"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
