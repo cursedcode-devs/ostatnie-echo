@@ -4373,6 +4373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65046f9c6d7aa10b4969e6125455de54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DayEndHandler
+  gameManager: {fileID: 111077787}
   timeHandler:
     Hour: 0
     Day: 0
