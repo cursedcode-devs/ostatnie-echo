@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class DayEndHandler : MonoBehaviour
 {
+    public GameManager gameManager;
     public TimeHandler timeHandler;
     private GenreValues startListeners;
     private float startMoney;
     public Cassette[] allCassettes;
+    public Ad[] allAds;
     public Cassette[] dailyOffer;
     private RadioStation radioStation;
 
@@ -27,12 +29,26 @@ public class DayEndHandler : MonoBehaviour
 
     void HandleDayStart()
     {
+        gameManager.SetInputEnabled(false);
+
         //if no money at the beginning of new day game finishes
         if (radioStation.GetCurrentMoney() <= 0)
         {
             HandleGameFinished();
             return;
         }
+
+        foreach (var cassette in allCassettes)
+        {
+            cassette.ResetTimesUsed();
+        }
+        foreach (var ad in allAds)
+        {
+            ad.ResetTimesUsed();
+        }
+
+        radioStation.SetDailyListenersModifier(0f, 0f, 0f, 0f);
+        radioStation.SetDailyRevenueModifier(0f, 0f, 0f, 0f);
 
         int hipHopDiff = radioStation.currentListeners.hipHop - startListeners.hipHop;
         int discoDiff = radioStation.currentListeners.disco - startListeners.disco;
@@ -68,6 +84,8 @@ public class DayEndHandler : MonoBehaviour
                 startMoney = radioStation.GetCurrentMoney();
 
                 GenerateDailyOffer();
+
+                gameManager.SetInputEnabled( true );
             }
         );
     }
@@ -109,10 +127,11 @@ public class DayEndHandler : MonoBehaviour
     }
 
     // ------------------------------------------------------------------
-    public void Initialize(RadioStation rs, TimeHandler th)
+    public void Initialize(RadioStation rs, TimeHandler th, GameManager gm)
     {
         radioStation = rs;
         timeHandler = th;
+        gameManager = gm;
 
         timeHandler.OnDayStarted += HandleDayStart;
         timeHandler.OnGameFinished += HandleGameFinished;
