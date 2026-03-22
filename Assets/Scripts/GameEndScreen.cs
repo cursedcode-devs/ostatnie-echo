@@ -30,51 +30,51 @@ public class GameEndScreen : MonoBehaviour
     // ------------------------------------------------------------------
     public void Show(
         int endGameCause, int totalDays,
-        float finalMoney,  float moneyDiff,
-        int hipHop,        int hipHopDiff,
-        int disco,         int discoDiff,
-        int rock,          int rockDiff,
-        int metal,         int metalDiff)
+        float finalMoney, float moneyDiff,
+        int hipHop, int hipHopDiff,
+        int disco, int discoDiff,
+        int rock, int rockDiff,
+        int metal, int metalDiff)
     {
         if (!built) Build();
 
         switch (endGameCause)
         {
             default:
-                titleText.text = $"KONIEC GRY — {totalDays} DNI";
+                titleText.text = $"KONIEC GRY — {totalDays - 1} DNI";
                 break;
             case 0:
                 //Game is won
-                titleText.text = $"WYGRAŁEŚ! KONIEC GRY — {totalDays} DNI";
+                titleText.text = $"WYGRAŁEŚ! KONIEC GRY — {totalDays - 1} DNI";
                 break;
             case 1:
                 //Game Lost - no money
-                titleText.text = $"PRZEGRAŁEŚ! NIE MASZ PIENIĘDZY! KONIEC GRY — {totalDays} DNI";
+                titleText.text = $"PRZEGRAŁEŚ! NIE MASZ PIENIĘDZY! KONIEC GRY — {totalDays - 1} DNI";
                 break;
             case 2:
-                titleText.text = $"PRZEGRAŁEŚ! ZA MAŁO SŁUCHACZY! KONIEC GRY — {totalDays} DNI";
+                titleText.text = $"PRZEGRAŁEŚ! ZA MAŁO SŁUCHACZY! KONIEC GRY — {totalDays - 1} DNI";
                 //Game Lost - not enough listeners
                 break;
         }
 
-        moneyFinalText.text  = $"{finalMoney:F2}$";
-        moneyDiffText.text   = FormatDiff(moneyDiff, "F2", "$");
-        moneyDiffText.color  = DiffColor(moneyDiff);
+        moneyFinalText.text = $"{finalMoney:F2}$";
+        moneyDiffText.text = FormatDiff(moneyDiff, "F2", "$");
+        moneyDiffText.color = DiffColor(moneyDiff);
 
         hipHopFinalText.text = $"{hipHop}";
-        discoFinalText.text  = $"{disco}";
-        rockFinalText.text   = $"{rock}";
-        metalFinalText.text  = $"{metal}";
+        discoFinalText.text = $"{disco}";
+        rockFinalText.text = $"{rock}";
+        metalFinalText.text = $"{metal}";
 
-        hipHopDiffText.text  = FormatDiff(hipHopDiff);
-        discoDiffText.text   = FormatDiff(discoDiff);
-        rockDiffText.text    = FormatDiff(rockDiff);
-        metalDiffText.text   = FormatDiff(metalDiff);
+        hipHopDiffText.text = FormatDiff(hipHopDiff);
+        discoDiffText.text = FormatDiff(discoDiff);
+        rockDiffText.text = FormatDiff(rockDiff);
+        metalDiffText.text = FormatDiff(metalDiff);
 
-        hipHopDiffText.color  = DiffColor(hipHopDiff);
-        discoDiffText.color   = DiffColor(discoDiff);
-        rockDiffText.color    = DiffColor(rockDiff);
-        metalDiffText.color   = DiffColor(metalDiff);
+        hipHopDiffText.color = DiffColor(hipHopDiff);
+        discoDiffText.color = DiffColor(discoDiff);
+        rockDiffText.color = DiffColor(rockDiff);
+        metalDiffText.color = DiffColor(metalDiff);
 
         canvas.SetActive(true);
         Time.timeScale = 0f;
@@ -85,12 +85,12 @@ public class GameEndScreen : MonoBehaviour
         if (canvas != null) canvas.SetActive(false);
         Time.timeScale = 1f;
 
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #endif
-        #if UNITY_STANDALONE
-            Application.Quit();
-        #endif
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+#if UNITY_STANDALONE
+        Application.Quit();
+#endif
     }
 
     // ------------------------------------------------------------------
@@ -98,10 +98,10 @@ public class GameEndScreen : MonoBehaviour
     {
         var canvasGO = new GameObject("GameEndCanvas");
         var c = canvasGO.AddComponent<Canvas>();
-        c.renderMode   = RenderMode.ScreenSpaceOverlay;
+        c.renderMode = RenderMode.ScreenSpaceOverlay;
         c.sortingOrder = 20;
         var scaler = canvasGO.AddComponent<CanvasScaler>();
-        scaler.uiScaleMode         = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         scaler.referenceResolution = new Vector2(1920, 1080);
         canvasGO.AddComponent<GraphicRaycaster>();
         canvas = canvasGO;
@@ -132,39 +132,39 @@ public class GameEndScreen : MonoBehaviour
         SR(MakeImage(ct, "Div0", new Color32(80, 60, 20, 255)), 0.5f, 0.5f, 820, 2, 0, 252);
 
         // Column headers
-        MakeHeaderLabel(ct, "HdrStat",    "STATYSTYKA",        -320, 218);
-        MakeHeaderLabel(ct, "HdrFinal",   "WYNIK KOŃCOWY",      100, 218);
+        MakeHeaderLabel(ct, "HdrStat", "STATYSTYKA", -320, 218);
+        MakeHeaderLabel(ct, "HdrFinal", "WYNIK KOŃCOWY", 100, 218);
         MakeHeaderLabel(ct, "HdrLastDay", "ZMIANA (OSTATNI DZIEŃ)", 360, 218);
 
         SR(MakeImage(ct, "Div1", new Color32(45, 38, 18, 255)), 0.5f, 0.5f, 820, 1, 0, 194);
 
         // Money row
         MakeRowLabel(ct, "MoneyLbl", "BUDŻET", -320, 158);
-        moneyFinalText = MakeValueText(ct, "MoneyFinal", "0.00$",  100, 158);
-        moneyDiffText  = MakeDiffText (ct, "MoneyDiff",  "+0.00$", 360, 158);
+        moneyFinalText = MakeValueText(ct, "MoneyFinal", "0.00$", 100, 158);
+        moneyDiffText = MakeDiffText(ct, "MoneyDiff", "+0.00$", 360, 158);
 
         SR(MakeImage(ct, "Div2", new Color32(45, 38, 18, 255)), 0.5f, 0.5f, 820, 1, 0, 120);
 
         // Genre rows
-        string[] genres    = { "HIP-HOP", "DISCO", "ROCK", "METAL" };
-        float[]  yPos      = { 82, 22, -38, -98 };
+        string[] genres = { "HIP-HOP", "DISCO", "ROCK", "METAL" };
+        float[] yPos = { 82, 22, -38, -98 };
 
         TextMeshProUGUI[] finals = new TextMeshProUGUI[4];
-        TextMeshProUGUI[] diffs  = new TextMeshProUGUI[4];
+        TextMeshProUGUI[] diffs = new TextMeshProUGUI[4];
 
         for (int i = 0; i < 4; i++)
         {
             MakeRowLabel(ct, $"Genre_{i}", genres[i], -320, yPos[i]);
-            finals[i] = MakeValueText(ct, $"Final_{i}", "0",   100, yPos[i]);
-            diffs[i]  = MakeDiffText (ct, $"Diff_{i}",  "+0",  360, yPos[i]);
+            finals[i] = MakeValueText(ct, $"Final_{i}", "0", 100, yPos[i]);
+            diffs[i] = MakeDiffText(ct, $"Diff_{i}", "+0", 360, yPos[i]);
             if (i < 3)
                 SR(MakeImage(ct, $"DivR{i}", new Color32(30, 25, 12, 255)), 0.5f, 0.5f, 820, 1, 0, yPos[i] - 30);
         }
 
         hipHopFinalText = finals[0]; discoFinalText = finals[1];
-        rockFinalText   = finals[2]; metalFinalText = finals[3];
-        hipHopDiffText  = diffs[0];  discoDiffText  = diffs[1];
-        rockDiffText    = diffs[2];  metalDiffText  = diffs[3];
+        rockFinalText = finals[2]; metalFinalText = finals[3];
+        hipHopDiffText = diffs[0]; discoDiffText = diffs[1];
+        rockDiffText = diffs[2]; metalDiffText = diffs[3];
 
         SR(MakeImage(ct, "Div3", new Color32(80, 60, 20, 255)), 0.5f, 0.5f, 820, 2, 0, -148);
 
@@ -214,8 +214,8 @@ public class GameEndScreen : MonoBehaviour
 
     Color DiffColor(float diff)
     {
-        if (diff > 0) return new Color32(80,  220, 100, 255);
-        if (diff < 0) return new Color32(220, 80,  80,  255);
+        if (diff > 0) return new Color32(80, 220, 100, 255);
+        if (diff < 0) return new Color32(220, 80, 80, 255);
         return new Color32(140, 140, 140, 255);
     }
 
@@ -234,9 +234,9 @@ public class GameEndScreen : MonoBehaviour
         obj.transform.SetParent(parent, false);
         obj.AddComponent<RectTransform>();
         var tmp = obj.AddComponent<TextMeshProUGUI>();
-        tmp.text      = text;
-        tmp.fontSize  = size;
-        tmp.color     = color;
+        tmp.text = text;
+        tmp.fontSize = size;
+        tmp.color = color;
         tmp.alignment = TextAlignmentOptions.Center;
         return obj;
     }
@@ -252,7 +252,7 @@ public class GameEndScreen : MonoBehaviour
         btn.targetGraphic = img;
         var cb = btn.colors;
         cb.highlightedColor = new Color32(90, 65, 20, 255);
-        cb.pressedColor     = new Color32(240, 190, 40, 255);
+        cb.pressedColor = new Color32(240, 190, 40, 255);
         btn.colors = cb;
         var lbl = MakeText(obj.transform, "Label", label, 22, new Color32(240, 190, 40, 255));
         SR(lbl, 0.5f, 0.5f, 280, 64, 0, 0);
@@ -263,9 +263,9 @@ public class GameEndScreen : MonoBehaviour
     {
         var rt = obj.GetComponent<RectTransform>();
         if (!rt) rt = obj.AddComponent<RectTransform>();
-        rt.anchorMin        = rt.anchorMax = new Vector2(ax, ay);
-        rt.pivot            = new Vector2(0.5f, 0.5f);
-        rt.sizeDelta        = new Vector2(w, h);
+        rt.anchorMin = rt.anchorMax = new Vector2(ax, ay);
+        rt.pivot = new Vector2(0.5f, 0.5f);
+        rt.sizeDelta = new Vector2(w, h);
         rt.anchoredPosition = new Vector2(ox, oy);
     }
 

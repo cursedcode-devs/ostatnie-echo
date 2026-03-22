@@ -395,7 +395,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Gra jest podzielona na godziny i dni. Jeden dzie\u0144 ma 8 godzin. Ca\u0142a
+  m_text: "Gra jest podzielona na godziny i dni. Jeden dzie\u0144 ma 7 godzin. Ca\u0142a
     gra trwa 7 dni.\n\nPodczas jednej godziny mo\u017Cna wybra\u0107 kaset\u0119
     do grania (u g\xF3ry muzyka, na dole reklamy) poprzez naci\u015Bni\u0119cie jej
     lewym przyciskiem myszy. Gdy kaseta unosi si\u0119 w powietrzu znaczy, \u017Ce
