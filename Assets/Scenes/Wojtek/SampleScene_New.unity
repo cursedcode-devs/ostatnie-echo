@@ -428,6 +428,20 @@ MonoBehaviour:
   amplitudeSlider: {fileID: 2020246816}
   lengthSlider: {fileID: 764837579}
   frequencySlider: {fileID: 1060649005}
+  clickSound:
+    Guid:
+      Data1: 1387345341
+      Data2: 1170242334
+      Data3: 1756865685
+      Data4: 1190915951
+    Path: event:/PickUp
+  putCasetteInSound:
+    Guid:
+      Data1: -1528900935
+      Data2: 1260672722
+      Data3: -777628484
+      Data4: 424681781
+    Path: event:/PutCasetteIn
   references:
     version: 2
     RefIds:
@@ -1301,6 +1315,13 @@ MonoBehaviour:
   zOffsetMin: 0.5
   zOffsetMax: 0.5
   currentValue: 0
+  clickSound:
+    Guid:
+      Data1: 765804575
+      Data2: 1107505933
+      Data3: 691516083
+      Data4: -1288816057
+    Path: event:/Click
 --- !u!23 &764837581
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2585,6 +2606,13 @@ MonoBehaviour:
   zOffsetMin: 0.5
   zOffsetMax: 0.5
   currentValue: 0
+  clickSound:
+    Guid:
+      Data1: 765804575
+      Data2: 1107505933
+      Data3: 691516083
+      Data4: -1288816057
+    Path: event:/Click
 --- !u!23 &1060649007
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4590,6 +4618,13 @@ MonoBehaviour:
   zOffsetMin: 0.5
   zOffsetMax: 0.5
   currentValue: 0
+  clickSound:
+    Guid:
+      Data1: 765804575
+      Data2: 1107505933
+      Data3: 691516083
+      Data4: -1288816057
+    Path: event:/Click
 --- !u!64 &2020246817
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4982,6 +5017,13 @@ MonoBehaviour:
   popupDuration: 3
   closeKey: 60
   disableClicksWhenOpen: 1
+  successSound:
+    Guid:
+      Data1: -1814538602
+      Data2: 1241385260
+      Data3: 7827350
+      Data4: -975880104
+    Path: event:/SuccessMinigame
 --- !u!4 &2060187814
 Transform:
   m_ObjectHideFlags: 0
