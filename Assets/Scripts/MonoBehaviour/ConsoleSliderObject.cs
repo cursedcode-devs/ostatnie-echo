@@ -15,7 +15,7 @@ public class ConsoleSliderObject : MonoBehaviour
     [SerializeField] private float zOffsetMax = 0.5f;
 
     [SerializeField] private float currentValue = 0f;
-
+    public FMODUnity.EventReference clickSound;
 
     void Start()
     {
@@ -42,7 +42,7 @@ public class ConsoleSliderObject : MonoBehaviour
     {
         Vector2 mousePos = Mouse.current.position.ReadValue();
         screenPoint = mainCamera.WorldToScreenPoint(transform.position);
-
+        FMODUnity.RuntimeManager.PlayOneShot(clickSound, this.transform.position);
         Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, screenPoint.z));
 
         offset = transform.position - mouseWorldPos;
