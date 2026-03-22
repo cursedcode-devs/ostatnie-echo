@@ -489,6 +489,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: TextScreens
       objectReference: {fileID: 0}
+    - target: {fileID: 2108342985443868912, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
+      propertyPath: m_text
+      value: "W grze mo\u017Cna te\u017C wybiera\u0107 inne przedmioty. Wszystkimi
+        przedmiotami, kt\xF3re s\u0105 wybieralne mo\u017Cna obraca\u0107 za pomoc\u0105
+        klawiszy WASDQE (B\u0119dzie to mia\u0142o wi\u0119ksze zastosowanie w przysz\u0142ych
+        wersjach).\n\nBy odznaczy\u0107 wybrany przedmiot nale\u017Cy klikn\u0105\u0107
+        lewym przyciskiem myszy, na inny wybieralny przedmiot lub na cokolwiek co
+        nie jest przedmiotem."
+      objectReference: {fileID: 0}
+    - target: {fileID: 3040700516314342501, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
+      propertyPath: m_text
+      value: "Gra jest podzielona na godziny i dni. Jeden dzie\u0144 ma 8 godzin.
+        Ca\u0142a gra trwa 7 dni.\n\nPodczas jednej godziny mo\u017Cna wybra\u0107
+        kaset\u0119 do grania (u g\xF3ry muzyka, na dole reklamy) poprzez naci\u015Bni\u0119cie
+        jej lewym przyciskiem myszy. Gdy kaseta unosi si\u0119 w powietrzu znaczy,
+        \u017Ce jest wybrana. Gdy jest wybrana kaseta i naci\u015Bniemy konsole kaseta
+        si\u0119 odtworzy.\n\nZa ka\u017Cdym zagraniem kasety jednego dnia jej efektywno\u015B\u0107
+        tego dnia zmniejsza si\u0119. W nowym dniu efektywno\u015B\u0107 wszystkich
+        kaset resetuje si\u0119."
+      objectReference: {fileID: 0}
     - target: {fileID: 3257665095543750029, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
