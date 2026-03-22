@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     private int startDay = 1;
     private const float startingModifier = 0f;
 
-    private bool inputEnabled = true;
+    private bool inputEnabled = false;
 
 
     void Start()
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
         DayEndHandler dayEndHandler = FindFirstObjectByType<DayEndHandler>();
         if (dayEndHandler != null)
         {
-            dayEndHandler.Initialize(radioStation, timeHandler);
+            dayEndHandler.Initialize(radioStation, timeHandler, this);
         }
         StatsUI statsUI = FindFirstObjectByType<StatsUI>();
         if (statsUI != null)
@@ -175,9 +175,8 @@ private void PlayPlayableObject(GameObject clickedObject)
 
         playableObject.data.Play(ref source);
         playableObject.data.ApplyEffect(radioStation);
-
-
         playing = true;
+        MiniGameSystem.Instance.LaunchRandom();
         StartCoroutine(WaitForAudioToEnd());
 
     }
@@ -194,7 +193,6 @@ private void PlayPlayableObject(GameObject clickedObject)
         if (timeHandler != null)
         {
             timeHandler.NextHour();
-            MiniGameSystem.Instance.LaunchRandom();
         }
     }
 

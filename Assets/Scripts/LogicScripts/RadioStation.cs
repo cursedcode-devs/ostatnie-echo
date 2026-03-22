@@ -156,6 +156,15 @@ public class RadioStation
         totalRevenueModifier.metal = defaultModifier + hourlyRevenueModifier.metal + dailyRevenueModifier.metal;
     }
 
+    public void AddListeners(GenreValues listenerGrowthPrecentage, int timesUsed)
+    {
+        int timesUsedSquared = timesUsed * timesUsed;
+        currentListeners.hipHop += Mathf.CeilToInt(currentListeners.hipHop * (listenerGrowthPrecentage.hipHop / 100f) * totalListenerModifer.hipHop * (1f / timesUsedSquared));
+        currentListeners.disco += Mathf.CeilToInt(currentListeners.disco * (listenerGrowthPrecentage.disco / 100f) * totalListenerModifer.disco * (1f / timesUsedSquared));
+        currentListeners.rock += Mathf.CeilToInt(currentListeners.rock * (listenerGrowthPrecentage.rock / 100f) * totalListenerModifer.rock * (1f / timesUsedSquared));
+        currentListeners.metal += Mathf.CeilToInt(currentListeners.metal * (listenerGrowthPrecentage.metal / 100f) * totalListenerModifer.metal * (1f / timesUsedSquared));
+    }
+
     public void AddListeners(GenreValues listenerGrowthPrecentage)
     {
         currentListeners.hipHop += Mathf.CeilToInt(currentListeners.hipHop * (listenerGrowthPrecentage.hipHop / 100f) * totalListenerModifer.hipHop);
@@ -164,17 +173,23 @@ public class RadioStation
         currentListeners.metal += Mathf.CeilToInt(currentListeners.metal * (listenerGrowthPrecentage.metal / 100f) * totalListenerModifer.metal);
     }
 
-    public void AddRevenue(GenreValues revenuGain)
+    public void AddRevenue(GenreValues revenuGain, int timesUsed)
     {
-        currentMoney += (revenuGain.hipHop / 100f * currentListeners.hipHop * totalRevenueModifier.hipHop)
+        int timesUsedSquared = timesUsed * timesUsed;
+        currentMoney += ((revenuGain.hipHop / 100f * currentListeners.hipHop * totalRevenueModifier.hipHop)
             + (revenuGain.disco / 100f * currentListeners.disco * totalRevenueModifier.disco)
             + (revenuGain.rock / 100f * currentListeners.rock * totalRevenueModifier.rock)
-            + (revenuGain.metal / 100f * currentListeners.metal * totalRevenueModifier.metal);
+            + (revenuGain.metal / 100f * currentListeners.metal * totalRevenueModifier.metal)) * (1f / timesUsedSquared);
     }
 
     public float GetCurrentMoney()
     {
         return currentMoney;
+    }
+
+    public int GetTotalListeners()
+    {
+        return currentListeners.totalListeners;
     }
 
     public void AddMoney(float amount)

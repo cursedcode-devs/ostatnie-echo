@@ -34,37 +34,37 @@ public class DaySummaryScreen : MonoBehaviour
     // ------------------------------------------------------------------
     public void Show(
         int day,
-        float finalMoney,  float moneyDiff,
-        int hipHop,        int hipHopDiff,
-        int disco,         int discoDiff,
-        int rock,          int rockDiff,
-        int metal,         int metalDiff,
+        float finalMoney, float moneyDiff,
+        int hipHop, int hipHopDiff,
+        int disco, int discoDiff,
+        int rock, int rockDiff,
+        int metal, int metalDiff,
         Action onContinueCallback = null)
     {
         if (!built) Build();
 
         onContinue = onContinueCallback;
 
-        titleText.text      = $"KONIEC DNIA {day}";
+        titleText.text = $"KONIEC DNIA {day - 1}";
 
         moneyFinalText.text = $"{finalMoney:F2}$";
-        moneyDiffText.text  = FormatDiff(moneyDiff, "F2", "$");
+        moneyDiffText.text = FormatDiff(moneyDiff, "F2", "$");
         moneyDiffText.color = DiffColor(moneyDiff);
 
         hipHopFinalText.text = $"{hipHop}";
-        discoFinalText.text  = $"{disco}";
-        rockFinalText.text   = $"{rock}";
-        metalFinalText.text  = $"{metal}";
+        discoFinalText.text = $"{disco}";
+        rockFinalText.text = $"{rock}";
+        metalFinalText.text = $"{metal}";
 
-        hipHopDiffText.text  = FormatDiff(hipHopDiff);
-        discoDiffText.text   = FormatDiff(discoDiff);
-        rockDiffText.text    = FormatDiff(rockDiff);
-        metalDiffText.text   = FormatDiff(metalDiff);
+        hipHopDiffText.text = FormatDiff(hipHopDiff);
+        discoDiffText.text = FormatDiff(discoDiff);
+        rockDiffText.text = FormatDiff(rockDiff);
+        metalDiffText.text = FormatDiff(metalDiff);
 
-        hipHopDiffText.color  = DiffColor(hipHopDiff);
-        discoDiffText.color   = DiffColor(discoDiff);
-        rockDiffText.color    = DiffColor(rockDiff);
-        metalDiffText.color   = DiffColor(metalDiff);
+        hipHopDiffText.color = DiffColor(hipHopDiff);
+        discoDiffText.color = DiffColor(discoDiff);
+        rockDiffText.color = DiffColor(rockDiff);
+        metalDiffText.color = DiffColor(metalDiff);
 
         canvas.SetActive(true);
         Time.timeScale = 0f;
@@ -82,10 +82,10 @@ public class DaySummaryScreen : MonoBehaviour
     {
         var canvasGO = new GameObject("DaySummaryCanvas");
         var c = canvasGO.AddComponent<Canvas>();
-        c.renderMode   = RenderMode.ScreenSpaceOverlay;
+        c.renderMode = RenderMode.ScreenSpaceOverlay;
         c.sortingOrder = 15;
         var scaler = canvasGO.AddComponent<CanvasScaler>();
-        scaler.uiScaleMode         = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         scaler.referenceResolution = new Vector2(1920, 1080);
         canvasGO.AddComponent<GraphicRaycaster>();
         canvas = canvasGO;
@@ -117,31 +117,31 @@ public class DaySummaryScreen : MonoBehaviour
         SR(MakeImage(ct, "Div0", new Color32(50, 65, 90, 255)), 0.5f, 0.5f, 780, 2, 0, 238);
 
         // Column headers
-        MakeHeaderLabel(ct, "HdrStat",    "STATYSTYKA",  -300, 205);
-        MakeHeaderLabel(ct, "HdrCurrent", "TERAZ",        100, 205);
-        MakeHeaderLabel(ct, "HdrChange",  "ZMIANA",       340, 205);
+        MakeHeaderLabel(ct, "HdrStat", "STATYSTYKA", -300, 205);
+        MakeHeaderLabel(ct, "HdrCurrent", "TERAZ", 100, 205);
+        MakeHeaderLabel(ct, "HdrChange", "ZMIANA", 340, 205);
 
         SR(MakeImage(ct, "Div1", new Color32(35, 48, 65, 255)), 0.5f, 0.5f, 780, 1, 0, 182);
 
         // Money row
-        MakeRowLabel(ct, "MoneyLbl", "BUDŻET",     -300, 148);
+        MakeRowLabel(ct, "MoneyLbl", "BUDŻET", -300, 148);
         moneyFinalText = MakeValueText(ct, "MoneyFinal", "0.00$", 100, 148);
-        moneyDiffText  = MakeDiffText (ct, "MoneyDiff",  "+0.00$", 340, 148);
+        moneyDiffText = MakeDiffText(ct, "MoneyDiff", "+0.00$", 340, 148);
 
         SR(MakeImage(ct, "Div2", new Color32(35, 48, 65, 255)), 0.5f, 0.5f, 780, 1, 0, 112);
 
         // Genre rows
-        string[] genres    = { "HIP-HOP", "DISCO", "ROCK", "METAL" };
-        float[]  yPositions = { 75, 20, -35, -90 };
+        string[] genres = { "HIP-HOP", "DISCO", "ROCK", "METAL" };
+        float[] yPositions = { 75, 20, -35, -90 };
 
         TextMeshProUGUI[] finals = new TextMeshProUGUI[4];
-        TextMeshProUGUI[] diffs  = new TextMeshProUGUI[4];
+        TextMeshProUGUI[] diffs = new TextMeshProUGUI[4];
 
         for (int i = 0; i < 4; i++)
         {
             MakeRowLabel(ct, $"Genre_{i}", genres[i], -300, yPositions[i]);
-            finals[i] = MakeValueText(ct, $"Final_{i}", "0",   100, yPositions[i]);
-            diffs[i]  = MakeDiffText (ct, $"Diff_{i}",  "+0",  340, yPositions[i]);
+            finals[i] = MakeValueText(ct, $"Final_{i}", "0", 100, yPositions[i]);
+            diffs[i] = MakeDiffText(ct, $"Diff_{i}", "+0", 340, yPositions[i]);
 
             // Row separator (skip last)
             if (i < 3)
@@ -149,9 +149,9 @@ public class DaySummaryScreen : MonoBehaviour
         }
 
         hipHopFinalText = finals[0]; discoFinalText = finals[1];
-        rockFinalText   = finals[2]; metalFinalText = finals[3];
-        hipHopDiffText  = diffs[0];  discoDiffText  = diffs[1];
-        rockDiffText    = diffs[2];  metalDiffText  = diffs[3];
+        rockFinalText = finals[2]; metalFinalText = finals[3];
+        hipHopDiffText = diffs[0]; discoDiffText = diffs[1];
+        rockDiffText = diffs[2]; metalDiffText = diffs[3];
 
         SR(MakeImage(ct, "Div3", new Color32(50, 65, 90, 255)), 0.5f, 0.5f, 780, 2, 0, -128);
 
@@ -201,8 +201,8 @@ public class DaySummaryScreen : MonoBehaviour
 
     Color DiffColor(float diff)
     {
-        if (diff > 0) return new Color32(80,  220, 100, 255);
-        if (diff < 0) return new Color32(220, 80,  80,  255);
+        if (diff > 0) return new Color32(80, 220, 100, 255);
+        if (diff < 0) return new Color32(220, 80, 80, 255);
         return new Color32(140, 140, 140, 255);
     }
 
@@ -221,9 +221,9 @@ public class DaySummaryScreen : MonoBehaviour
         obj.transform.SetParent(parent, false);
         obj.AddComponent<RectTransform>();
         var tmp = obj.AddComponent<TextMeshProUGUI>();
-        tmp.text      = text;
-        tmp.fontSize  = size;
-        tmp.color     = color;
+        tmp.text = text;
+        tmp.fontSize = size;
+        tmp.color = color;
         tmp.alignment = TextAlignmentOptions.Center;
         return obj;
     }
@@ -239,7 +239,7 @@ public class DaySummaryScreen : MonoBehaviour
         btn.targetGraphic = img;
         var cb = btn.colors;
         cb.highlightedColor = new Color32(50, 85, 130, 255);
-        cb.pressedColor     = new Color32(220, 180, 50, 255);
+        cb.pressedColor = new Color32(220, 180, 50, 255);
         btn.colors = cb;
         var lbl = MakeText(obj.transform, "Label", label, 22, new Color32(220, 190, 50, 255));
         SR(lbl, 0.5f, 0.5f, 260, 60, 0, 0);
@@ -250,9 +250,9 @@ public class DaySummaryScreen : MonoBehaviour
     {
         var rt = obj.GetComponent<RectTransform>();
         if (!rt) rt = obj.AddComponent<RectTransform>();
-        rt.anchorMin        = rt.anchorMax = new Vector2(ax, ay);
-        rt.pivot            = new Vector2(0.5f, 0.5f);
-        rt.sizeDelta        = new Vector2(w, h);
+        rt.anchorMin = rt.anchorMax = new Vector2(ax, ay);
+        rt.pivot = new Vector2(0.5f, 0.5f);
+        rt.sizeDelta = new Vector2(w, h);
         rt.anchoredPosition = new Vector2(ox, oy);
     }
 

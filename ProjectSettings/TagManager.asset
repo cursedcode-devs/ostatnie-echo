@@ -7,6 +7,7 @@ TagManager:
   - CassettePlayer
   - Playable
   - ConsoleSlider
+  - Unselectable
   layers:
   - Default
   - TransparentFX

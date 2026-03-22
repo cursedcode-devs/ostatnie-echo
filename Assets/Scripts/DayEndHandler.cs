@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class DayEndHandler : MonoBehaviour
 {
+    public GameManager gameManager;
     public TimeHandler timeHandler;
     private GenreValues startListeners;
     private float startMoney;
     public Cassette[] allCassettes;
+    public Ad[] allAds;
     public Cassette[] dailyOffer;
     private RadioStation radioStation;
 
@@ -18,20 +20,41 @@ public class DayEndHandler : MonoBehaviour
         startListeners = new GenreValues
         {
             hipHop = radioStation.currentListeners.hipHop,
-            rock   = radioStation.currentListeners.rock,
-            metal  = radioStation.currentListeners.metal,
-            disco  = radioStation.currentListeners.disco
+            rock = radioStation.currentListeners.rock,
+            metal = radioStation.currentListeners.metal,
+            disco = radioStation.currentListeners.disco
         };
         startMoney = radioStation.GetCurrentMoney();
     }
 
     void HandleDayStart()
     {
-        int   hipHopDiff = radioStation.currentListeners.hipHop - startListeners.hipHop;
-        int   discoDiff  = radioStation.currentListeners.disco  - startListeners.disco;
-        int   rockDiff   = radioStation.currentListeners.rock   - startListeners.rock;
-        int   metalDiff  = radioStation.currentListeners.metal  - startListeners.metal;
-        float moneyDiff  = radioStation.GetCurrentMoney() - startMoney;
+        gameManager.SetInputEnabled(false);
+
+        //if no money at the beginning of new day game finishes
+        if (radioStation.GetCurrentMoney() <= 0)
+        {
+            HandleGameFinished();
+            return;
+        }
+
+        foreach (var cassette in allCassettes)
+        {
+            cassette.ResetTimesUsed();
+        }
+        foreach (var ad in allAds)
+        {
+            ad.ResetTimesUsed();
+        }
+
+        radioStation.SetDailyListenersModifier(0f, 0f, 0f, 0f);
+        radioStation.SetDailyRevenueModifier(0f, 0f, 0f, 0f);
+
+        int hipHopDiff = radioStation.currentListeners.hipHop - startListeners.hipHop;
+        int discoDiff = radioStation.currentListeners.disco - startListeners.disco;
+        int rockDiff = radioStation.currentListeners.rock - startListeners.rock;
+        int metalDiff = radioStation.currentListeners.metal - startListeners.metal;
+        float moneyDiff = radioStation.GetCurrentMoney() - startMoney;
 
         Debug.Log($"Day ended! HipHop:{hipHopDiff}, Disco:{discoDiff}, Rock:{rockDiff}, Metal:{metalDiff}, Money:{moneyDiff}");
 
@@ -40,74 +63,85 @@ public class DayEndHandler : MonoBehaviour
             summaryScreen = gameObject.AddComponent<DaySummaryScreen>();
 
         summaryScreen.Show(
-            day:        timeHandler.CurrentDay,
+            day: timeHandler.CurrentDay,
             finalMoney: radioStation.GetCurrentMoney(),
-            moneyDiff:  moneyDiff,
-            hipHop:     radioStation.currentListeners.hipHop,
+            moneyDiff: moneyDiff,
+            hipHop: radioStation.currentListeners.hipHop,
             hipHopDiff: hipHopDiff,
-            disco:      radioStation.currentListeners.disco,
-            discoDiff:  discoDiff,
-            rock:       radioStation.currentListeners.rock,
-            rockDiff:   rockDiff,
-            metal:      radioStation.currentListeners.metal,
-            metalDiff:  metalDiff,
+            disco: radioStation.currentListeners.disco,
+            discoDiff: discoDiff,
+            rock: radioStation.currentListeners.rock,
+            rockDiff: rockDiff,
+            metal: radioStation.currentListeners.metal,
+            metalDiff: metalDiff,
             onContinueCallback: () =>
             {
                 // Update snapshots and generate offer only after player dismisses summary
                 startListeners.hipHop = radioStation.currentListeners.hipHop;
-                startListeners.disco  = radioStation.currentListeners.disco;
-                startListeners.rock   = radioStation.currentListeners.rock;
-                startListeners.metal  = radioStation.currentListeners.metal;
+                startListeners.disco = radioStation.currentListeners.disco;
+                startListeners.rock = radioStation.currentListeners.rock;
+                startListeners.metal = radioStation.currentListeners.metal;
                 startMoney = radioStation.GetCurrentMoney();
 
                 GenerateDailyOffer();
+
+                gameManager.SetInputEnabled( true );
             }
         );
     }
 
     void HandleGameFinished()
     {
-        int   hipHopDiff = radioStation.currentListeners.hipHop - startListeners.hipHop;
-        int   discoDiff  = radioStation.currentListeners.disco  - startListeners.disco;
-        int   rockDiff   = radioStation.currentListeners.rock   - startListeners.rock;
-        int   metalDiff  = radioStation.currentListeners.metal  - startListeners.metal;
-        float moneyDiff  = radioStation.GetCurrentMoney() - startMoney;
+        int hipHopDiff = radioStation.currentListeners.hipHop - startListeners.hipHop;
+        int discoDiff = radioStation.currentListeners.disco - startListeners.disco;
+        int rockDiff = radioStation.currentListeners.rock - startListeners.rock;
+        int metalDiff = radioStation.currentListeners.metal - startListeners.metal;
+        float moneyDiff = radioStation.GetCurrentMoney() - startMoney;
 
         Debug.Log("[DayEndHandler] Game finished — showing end screen.");
 
         if (endScreen == null)
             endScreen = gameObject.AddComponent<GameEndScreen>();
 
+        int endGameCause = 0;
+
+        if (radioStation.GetCurrentMoney() <= 0)
+            endGameCause = 1;
+        else if (radioStation.GetTotalListeners() < 1000)
+            endGameCause = 2;
+
         endScreen.Show(
-            totalDays:  timeHandler.CurrentDay,
+            endGameCause: endGameCause,
+            totalDays: timeHandler.CurrentDay,
             finalMoney: radioStation.GetCurrentMoney(),
-            moneyDiff:  moneyDiff,
-            hipHop:     radioStation.currentListeners.hipHop,
+            moneyDiff: moneyDiff,
+            hipHop: radioStation.currentListeners.hipHop,
             hipHopDiff: hipHopDiff,
-            disco:      radioStation.currentListeners.disco,
-            discoDiff:  discoDiff,
-            rock:       radioStation.currentListeners.rock,
-            rockDiff:   rockDiff,
-            metal:      radioStation.currentListeners.metal,
-            metalDiff:  metalDiff
+            disco: radioStation.currentListeners.disco,
+            discoDiff: discoDiff,
+            rock: radioStation.currentListeners.rock,
+            rockDiff: rockDiff,
+            metal: radioStation.currentListeners.metal,
+            metalDiff: metalDiff
         );
     }
 
     // ------------------------------------------------------------------
-    public void Initialize(RadioStation rs, TimeHandler th)
+    public void Initialize(RadioStation rs, TimeHandler th, GameManager gm)
     {
         radioStation = rs;
-        timeHandler  = th;
+        timeHandler = th;
+        gameManager = gm;
 
-        timeHandler.OnDayStarted   += HandleDayStart;
+        timeHandler.OnDayStarted += HandleDayStart;
         timeHandler.OnGameFinished += HandleGameFinished;
 
         startListeners = new GenreValues
         {
             hipHop = radioStation.currentListeners.hipHop,
-            disco  = radioStation.currentListeners.disco,
-            rock   = radioStation.currentListeners.rock,
-            metal  = radioStation.currentListeners.metal
+            disco = radioStation.currentListeners.disco,
+            rock = radioStation.currentListeners.rock,
+            metal = radioStation.currentListeners.metal
         };
         startMoney = radioStation.GetCurrentMoney();
         dailyOffer = new Cassette[3];
