@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
@@ -20,6 +22,39 @@ public class RadioStation
     private float defaultHourlyAndDailyModifier = 0f;
     [SerializeField] private GenreValuesModifier totalListenerModifer;
     [SerializeField] private GenreValuesModifier totalRevenueModifier;
+    [SerializeField] private List<GenreValues> cassettes = new List<GenreValues>();
+
+    public void AddCassette(GenreValues cassette)
+    {
+        if (cassettes.Count >= 3)
+        {
+            AddListeners(cassettes.ToArray());
+            cassettes.Clear();
+        }
+        else
+            cassettes.Add(cassette);
+    }
+
+    public void AddListeners(GenreValues[] cassettes)
+    {
+        int totalHipHop = 0;
+        int totalDisco = 0;
+        int totalRock = 0;
+        int totalMetal = 0;
+
+        foreach (var cassette in cassettes)
+        {
+            totalHipHop += cassette.hipHop;
+            totalDisco += cassette.disco;
+            totalRock += cassette.rock;
+            totalMetal += cassette.metal;
+        }
+
+        currentListeners.hipHop += Mathf.CeilToInt(currentListeners.hipHop * (totalHipHop / 100f) * totalListenerModifer.hipHop);
+        currentListeners.disco += Mathf.CeilToInt(currentListeners.disco * (totalDisco / 100f) * totalListenerModifer.disco);
+        currentListeners.rock += Mathf.CeilToInt(currentListeners.rock * (totalRock / 100f) * totalListenerModifer.rock);
+        currentListeners.metal += Mathf.CeilToInt(currentListeners.metal * (totalMetal / 100f) * totalListenerModifer.metal);
+    }
 
     public RadioStation()
     {
@@ -165,13 +200,13 @@ public class RadioStation
         currentListeners.metal += Mathf.CeilToInt(currentListeners.metal * (listenerGrowthPrecentage.metal / 100f) * totalListenerModifer.metal * (1f / timesUsedSquared));
     }
 
-    public void AddListeners(GenreValues listenerGrowthPrecentage)
-    {
-        currentListeners.hipHop += Mathf.CeilToInt(currentListeners.hipHop * (listenerGrowthPrecentage.hipHop / 100f) * totalListenerModifer.hipHop);
-        currentListeners.disco += Mathf.CeilToInt(currentListeners.disco * (listenerGrowthPrecentage.disco / 100f) * totalListenerModifer.disco);
-        currentListeners.rock += Mathf.CeilToInt(currentListeners.rock * (listenerGrowthPrecentage.rock / 100f) * totalListenerModifer.rock);
-        currentListeners.metal += Mathf.CeilToInt(currentListeners.metal * (listenerGrowthPrecentage.metal / 100f) * totalListenerModifer.metal);
-    }
+    //public void AddListeners(GenreValues listenerGrowthPrecentage)
+    //{
+    //    currentListeners.hipHop += Mathf.CeilToInt(currentListeners.hipHop * (listenerGrowthPrecentage.hipHop / 100f) * totalListenerModifer.hipHop);
+    //    currentListeners.disco += Mathf.CeilToInt(currentListeners.disco * (listenerGrowthPrecentage.disco / 100f) * totalListenerModifer.disco);
+    //    currentListeners.rock += Mathf.CeilToInt(currentListeners.rock * (listenerGrowthPrecentage.rock / 100f) * totalListenerModifer.rock);
+    //    currentListeners.metal += Mathf.CeilToInt(currentListeners.metal * (listenerGrowthPrecentage.metal / 100f) * totalListenerModifer.metal);
+    //}
 
     public void AddRevenue(GenreValues revenuGain, int timesUsed)
     {
