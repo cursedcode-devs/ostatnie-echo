@@ -13,6 +13,6 @@ public class Ad : PlayableContent
     public override void ApplyEffect(RadioStation radio)
     {
         timesUsedInDay++;
-        radio.AddRevenue(revenuePerListener, timesUsedInDay);
+        radio.AddCassette(revenuePerListener);
     }
 }

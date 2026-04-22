@@ -385,6 +385,7 @@ MonoBehaviour:
       disco: 5
       rock: 5
       metal: 5
+      type: 0
     startListeners: 5
     currentMoney: 0
     hourlyListenersModifier:
@@ -417,6 +418,7 @@ MonoBehaviour:
       disco: 1
       rock: 1
       metal: 1
+    cassettes: []
   source: {fileID: 1292526863}
   mainCamera: {fileID: 330585545}
   timeHandler:
@@ -442,6 +444,7 @@ MonoBehaviour:
       Data3: -777628484
       Data4: 424681781
     Path: event:/PutCasetteIn
+  selectedCassettes: []
   references:
     version: 2
     RefIds:
@@ -1258,6 +1261,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &602082872
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 6493ea9bc942dbf428afcea371177144, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.222
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6493ea9bc942dbf428afcea371177144, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.292
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6493ea9bc942dbf428afcea371177144, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.393
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6493ea9bc942dbf428afcea371177144, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7133814
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6493ea9bc942dbf428afcea371177144, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6493ea9bc942dbf428afcea371177144, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.70077604
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6493ea9bc942dbf428afcea371177144, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6493ea9bc942dbf428afcea371177144, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6493ea9bc942dbf428afcea371177144, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 88.979
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6493ea9bc942dbf428afcea371177144, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6493ea9bc942dbf428afcea371177144, type: 3}
+      propertyPath: m_Name
+      value: gramofon
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6493ea9bc942dbf428afcea371177144, type: 3}
 --- !u!4 &755273673 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1055843370877094663, guid: 42fbbfffeb97fe34285882342f269942, type: 3}
@@ -2246,7 +2306,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 28ec2cbe1e4c8f4c9814729a051c6279, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.8
+      value: 1.453
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 28ec2cbe1e4c8f4c9814729a051c6279, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2254,7 +2314,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 28ec2cbe1e4c8f4c9814729a051c6279, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.79
+      value: -7.005
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 28ec2cbe1e4c8f4c9814729a051c6279, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4968,6 +5028,7 @@ MonoBehaviour:
       disco: 5
       rock: 5
       metal: 5
+      type: 0
     startListeners: 5
     currentMoney: 0
     hourlyListenersModifier:
@@ -5000,6 +5061,7 @@ MonoBehaviour:
       disco: 1
       rock: 1
       metal: 1
+    cassettes: []
   dayEndHandler: {fileID: 1996727236}
   gameManager: {fileID: 111077787}
   globalRewardPool:
@@ -5502,3 +5564,4 @@ SceneRoots:
   - {fileID: 807231934}
   - {fileID: 261768314}
   - {fileID: 1044155847}
+  - {fileID: 602082872}

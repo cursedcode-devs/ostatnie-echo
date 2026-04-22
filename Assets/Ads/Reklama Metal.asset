@@ -21,3 +21,4 @@ MonoBehaviour:
     disco: 150
     rock: 150
     metal: 300
+    type: 1

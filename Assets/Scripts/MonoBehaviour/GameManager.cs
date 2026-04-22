@@ -1,11 +1,12 @@
+using NUnit.Framework;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
     public RadioStation radioStation;
-    private GameObject selectedCassette;
     [SerializeField] private AudioSource source;
     [SerializeField] private Camera mainCamera;
     private bool playing = false;
@@ -28,11 +29,9 @@ public class GameManager : MonoBehaviour
 
     private bool inputEnabled = false;
 
-
+    [SerializeField] private List<PlayableContent> selectedCassettes = new List<PlayableContent>();
     void Start()
     {
-        selectedCassette = null;
-
         actionManager = new ActionManager(mainCamera);
         radioStation = new RadioStation();
         timeHandler = new TimeHandler(startHour, startDay);

@@ -1,8 +1,5 @@
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using UnityEngine;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 /// <summary>
 /// Klasa zajmuj�ca si� prezchowywanie stanu radio i zmienianiem go
@@ -24,38 +21,57 @@ public class RadioStation
     [SerializeField] private GenreValuesModifier totalRevenueModifier;
     [SerializeField] private List<GenreValues> cassettes = new List<GenreValues>();
 
+    public int GetCassettesNr()
+    {
+        return cassettes.Count;
+    }
+
     public void AddCassette(GenreValues cassette)
     {
         if (cassettes.Count >= 3)
         {
-            AddListeners(cassettes.ToArray());
+            ApplySegment(cassettes.ToArray());
             cassettes.Clear();
         }
         else
             cassettes.Add(cassette);
     }
 
-    public void AddListeners(GenreValues[] cassettes)
+    public void ApplySegment(GenreValues[] cassettes)
     {
         int totalHipHopListeners = 0;
         int totalDiscoListeners = 0;
         int totalRockListeners = 0;
         int totalMetalListeners = 0;
 
+        int totalHipHopRevenue = 0;
+        int totalDiscoRevenue = 0;
+        int totalRockRevenue = 0;
+        int totalMetalRevenue = 0;
+
         foreach (var cassette in cassettes)
         {
-            if (cassette.type == "music")
+            switch (cassette.type)
             {
-                totalHipHopListeners += cassette.hipHop;
-                totalDiscoListeners += cassette.disco;
-                totalRockListeners += cassette.rock;
-                totalMetalListeners += cassette.metal;
-            }
-            else
-            {
-
+                case CassetteTypes.Music:
+                    totalHipHopListeners += cassette.hipHop;
+                    totalDiscoListeners += cassette.disco;
+                    totalRockListeners += cassette.rock;
+                    totalMetalListeners += cassette.metal;
+                    break;
+                case CassetteTypes.Ad:
+                    totalHipHopRevenue += cassette.hipHop;
+                    totalDiscoRevenue += cassette.disco;
+                    totalRockRevenue += cassette.rock;
+                    totalMetalRevenue += cassette.metal;
+                    break;
             }
         }
+
+        currentMoney += ((totalHipHopRevenue / 100f * currentListeners.hipHop * totalRevenueModifier.hipHop)
+                    + (totalDiscoRevenue / 100f * currentListeners.disco * totalRevenueModifier.disco)
+                    + (totalRockRevenue / 100f * currentListeners.rock * totalRevenueModifier.rock)
+                    + (totalMetalRevenue / 100f * currentListeners.metal * totalRevenueModifier.metal));
 
         currentListeners.hipHop += Mathf.CeilToInt(currentListeners.hipHop * (totalHipHopListeners / 100f) * totalListenerModifer.hipHop);
         currentListeners.disco += Mathf.CeilToInt(currentListeners.disco * (totalDiscoListeners / 100f) * totalListenerModifer.disco);

@@ -12,6 +12,6 @@ public class Cassette : PlayableContent
     public override void ApplyEffect(RadioStation radio)
     {
         timesUsedInDay++;
-        radio.AddListeners(listenerGrowthPrecentage, timesUsedInDay);
+        radio.AddCassette(listenerGrowthPrecentage);
     }
 }
