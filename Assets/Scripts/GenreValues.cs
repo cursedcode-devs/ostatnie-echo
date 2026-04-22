@@ -7,5 +7,6 @@ public struct GenreValues
     public int disco;
     public int rock;
     public int metal;
+    public string type;
     public int totalListeners => hipHop + disco + rock + metal;
 }

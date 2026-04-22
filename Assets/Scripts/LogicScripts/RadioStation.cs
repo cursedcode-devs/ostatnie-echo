@@ -37,23 +37,39 @@ public class RadioStation
 
     public void AddListeners(GenreValues[] cassettes)
     {
-        int totalHipHop = 0;
-        int totalDisco = 0;
-        int totalRock = 0;
-        int totalMetal = 0;
+        int totalHipHopListeners = 0;
+        int totalDiscoListeners = 0;
+        int totalRockListeners = 0;
+        int totalMetalListeners = 0;
 
         foreach (var cassette in cassettes)
         {
-            totalHipHop += cassette.hipHop;
-            totalDisco += cassette.disco;
-            totalRock += cassette.rock;
-            totalMetal += cassette.metal;
+            if (cassette.type == "music")
+            {
+                totalHipHopListeners += cassette.hipHop;
+                totalDiscoListeners += cassette.disco;
+                totalRockListeners += cassette.rock;
+                totalMetalListeners += cassette.metal;
+            }
+            else
+            {
+
+            }
         }
 
-        currentListeners.hipHop += Mathf.CeilToInt(currentListeners.hipHop * (totalHipHop / 100f) * totalListenerModifer.hipHop);
-        currentListeners.disco += Mathf.CeilToInt(currentListeners.disco * (totalDisco / 100f) * totalListenerModifer.disco);
-        currentListeners.rock += Mathf.CeilToInt(currentListeners.rock * (totalRock / 100f) * totalListenerModifer.rock);
-        currentListeners.metal += Mathf.CeilToInt(currentListeners.metal * (totalMetal / 100f) * totalListenerModifer.metal);
+        currentListeners.hipHop += Mathf.CeilToInt(currentListeners.hipHop * (totalHipHopListeners / 100f) * totalListenerModifer.hipHop);
+        currentListeners.disco += Mathf.CeilToInt(currentListeners.disco * (totalDiscoListeners / 100f) * totalListenerModifer.disco);
+        currentListeners.rock += Mathf.CeilToInt(currentListeners.rock * (totalRockListeners / 100f) * totalListenerModifer.rock);
+        currentListeners.metal += Mathf.CeilToInt(currentListeners.metal * (totalMetalListeners / 100f) * totalListenerModifer.metal);
+    }
+
+    //Stara funkcja zostawiona na potrzeby nagrody FlatListenersBoost w MiniGameReward
+    public void AddListeners(GenreValues listenerGrowthPrecentage)
+    {
+        currentListeners.hipHop += Mathf.CeilToInt(currentListeners.hipHop * (listenerGrowthPrecentage.hipHop / 100f) * totalListenerModifer.hipHop);
+        currentListeners.disco += Mathf.CeilToInt(currentListeners.disco * (listenerGrowthPrecentage.disco / 100f) * totalListenerModifer.disco);
+        currentListeners.rock += Mathf.CeilToInt(currentListeners.rock * (listenerGrowthPrecentage.rock / 100f) * totalListenerModifer.rock);
+        currentListeners.metal += Mathf.CeilToInt(currentListeners.metal * (listenerGrowthPrecentage.metal / 100f) * totalListenerModifer.metal);
     }
 
     public RadioStation()
