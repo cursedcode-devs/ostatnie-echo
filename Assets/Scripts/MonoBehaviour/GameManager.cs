@@ -29,7 +29,10 @@ public class GameManager : MonoBehaviour
 
     private bool inputEnabled = false;
 
+    [SerializeField] private List<PlayableContent> ownedCassettes = new List<PlayableContent>();
     [SerializeField] private List<PlayableContent> selectedCassettes = new List<PlayableContent>();
+
+    
     void Start()
     {
         actionManager = new ActionManager(mainCamera);
@@ -153,30 +156,30 @@ public class GameManager : MonoBehaviour
 private void PlayPlayableObject(GameObject clickedObject)
     {
 
-        if (playing)
-        {
-            StopPlayingAudio();
-            return;
-        }
+        //if (playing)
+        //{
+        //    StopPlayingAudio();
+        //    return;
+        //}
 
-        if (selectionHandler.GetSelectedObject() == null)
-        {
-            return;
-        }
+        //if (selectionHandler.GetSelectedObject() == null)
+        //{
+        //    return;
+        //}
 
         
 
-        PlayableObject playableObject = selectionHandler.GetSelectedObject().GetComponent<PlayableObject>();
+        //PlayableObject playableObject = selectionHandler.GetSelectedObject().GetComponent<PlayableObject>();
 
-        if (playableObject == null) return;
+        //if (playableObject == null) return;
 
-        if (playableObject.data == null) return;
+        //if (playableObject.data == null) return;
 
-        playableObject.data.Play(ref source);
-        playableObject.data.ApplyEffect(radioStation);
-        playing = true;
-        MiniGameSystem.Instance.LaunchRandom();
-        StartCoroutine(WaitForAudioToEnd());
+        //playableObject.data.Play(ref source);
+        //playableObject.data.ApplyEffect(radioStation);
+        //playing = true;
+        //MiniGameSystem.Instance.LaunchRandom();
+        //StartCoroutine(WaitForAudioToEnd());
 
     }
 
@@ -206,5 +209,3 @@ private void PlayPlayableObject(GameObject clickedObject)
     }
 
 }
-
-
