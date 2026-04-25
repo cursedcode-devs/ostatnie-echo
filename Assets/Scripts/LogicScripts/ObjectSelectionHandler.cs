@@ -6,6 +6,7 @@ public class ObjectSelectionHandler
     private float selectTransformValue = 0.3f;
     private float deselectTransformValue = -0.3f;
     [SerializeField] private GameObject selectedObject = null;
+    private GameObject lastSelectedObject = null;
 
     public ObjectSelectionHandler()
     {
@@ -42,7 +43,13 @@ public class ObjectSelectionHandler
     {
         TransformSelectedObject(deselectTransformValue);
         SetDefaultRotation();
-        selectedObject = null; ;
+        lastSelectedObject = selectedObject;
+        selectedObject = null;
+    }
+
+    public GameObject GetLastSelectedObject()
+    {
+        return lastSelectedObject;
     }
 
     public void SelectObject(GameObject clickedObject)

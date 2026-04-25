@@ -4,16 +4,24 @@ using UnityEngine;
 
 public class Airtime : MonoBehaviour
 {
-    public List<PlayableContent> cassettes = new List<PlayableContent>();
+    [SerializeField] private List<PlayableContent> cassettes = new List<PlayableContent>();
 
-    public void addSlot()
+    void Start()
     {
-        cassettes.Add(null);
+        addSlot(3);
+    }
+
+    public void addSlot(int slotsAmount)
+    {
+        for (int i = 0; i < slotsAmount; i++)
+        {
+            cassettes.Add(null);
+        }
     }
 
     public void removeLastSlot()
     {
-        if(cassettes.Count == 0)
+        if (cassettes.Count == 0)
         {
             Debug.Log("Nie moge usunac slotu, bo juz nie ma ¿adnych slotów");
             return;
@@ -29,7 +37,7 @@ public class Airtime : MonoBehaviour
             return;
         }
 
-        if (slot > cassettes.Count-1)
+        if (slot > cassettes.Count - 1)
         {
             Debug.Log("Wybrano slot mniejszy od 0");
             return;

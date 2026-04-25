@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     private StatsUI statsUI; 
     private Vector3 addedObjectRotation = Vector3.zero;
     private float rotationSpeed = 3f;
-    [SerializeReference] private ObjectSelectionHandler selectionHandler;
+    [SerializeReference] public ObjectSelectionHandler selectionHandler;
     public ConsoleSliderObject amplitudeSlider;
     public ConsoleSliderObject lengthSlider;
     public ConsoleSliderObject frequencySlider;
@@ -32,7 +32,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<PlayableContent> ownedCassettes = new List<PlayableContent>();
     [SerializeField] private List<PlayableContent> selectedCassettes = new List<PlayableContent>();
 
-    
+    public Airtime airtime;
+    public GameObject choosingCassetteUI;
+    private bool choosingCassette = false;
+
     void Start()
     {
         actionManager = new ActionManager(mainCamera);
@@ -90,6 +93,8 @@ public class GameManager : MonoBehaviour
                 {
                     selectionHandler.SelectObject(clickedObject);
                 }
+                choosingCassette = !choosingCassette;
+                choosingCassetteUI.SetActive(choosingCassette);
                 break;
             case ActionTypes.LeftClickOnObject:
                 Debug.Log("GetActionType - LeftClickOnObject");

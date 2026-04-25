@@ -246,6 +246,17 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!114 &81848956 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8232600396259370851, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+  m_PrefabInstance: {fileID: 4195482705564456089}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!4 &87856084 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1055843370877094663, guid: 42fbbfffeb97fe34285882342f269942, type: 3}
@@ -454,6 +465,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 954ce0b31d1fdf9469b0c07864e8a68c, type: 2}
   - {fileID: 11400000, guid: aafa3a867ee933d41934ff568ccd3145, type: 2}
   selectedCassettes: []
+  airtime: {fileID: 1296084681}
+  choosingCassetteUI: {fileID: 420978106}
   references:
     version: 2
     RefIds:
@@ -603,6 +616,17 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2771453084063955978, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
+--- !u!114 &235570567 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5053187287143727384, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+  m_PrefabInstance: {fileID: 4195482705564456089}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &261768313
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,6 +928,17 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!114 &410322415 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5347804243066772218, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+  m_PrefabInstance: {fileID: 4195482705564456089}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &420977668
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3946,6 +3981,10 @@ MonoBehaviour:
   choosingCassetteCanvas: {fileID: 420978106}
   gameManager: {fileID: 111077787}
   airtime: {fileID: 1296084681}
+  cassetteSlotTexts:
+  - {fileID: 410322415}
+  - {fileID: 235570567}
+  - {fileID: 81848956}
 --- !u!4 &1596736047
 Transform:
   m_ObjectHideFlags: 0
@@ -5693,6 +5732,58 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 264935405821681957, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_Name
+      value: Slot 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 300005746606515267, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_Name
+      value: Slot 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 695512202157929484, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_Name
+      value: Slot 2 Text
+      objectReference: {fileID: 0}
+    - target: {fileID: 1477069761351715806, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_Name
+      value: Slot 0 Text
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936573209178745902, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936573209178745902, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936573209178745902, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1596736046}
+    - target: {fileID: 1936573209178745902, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936573209178745902, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: clickedSlot
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936573209178745902, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ChoosingCassetteUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936573209178745902, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936573209178745902, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2207071324610636642, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_Name
+      value: Slot 1 Text
+      objectReference: {fileID: 0}
     - target: {fileID: 4612924941064329770, guid: c091ec011fea46349ae09b119edefdba, type: 3}
       propertyPath: m_Name
       value: ChoosingCassetteUI
@@ -5780,6 +5871,74 @@ PrefabInstance:
     - target: {fileID: 6318027582483525868, guid: c091ec011fea46349ae09b119edefdba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6649341264395961673, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_Name
+      value: Slot 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8064217643269426890, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8064217643269426890, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8064217643269426890, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1596736046}
+    - target: {fileID: 8064217643269426890, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8064217643269426890, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: clickedSlot
+      objectReference: {fileID: 0}
+    - target: {fileID: 8064217643269426890, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ChoosingCassetteUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8064217643269426890, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8064217643269426890, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8855953437678965886, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8855953437678965886, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8855953437678965886, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1596736046}
+    - target: {fileID: 8855953437678965886, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8855953437678965886, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: clickedSlot
+      objectReference: {fileID: 0}
+    - target: {fileID: 8855953437678965886, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ChoosingCassetteUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8855953437678965886, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8855953437678965886, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
