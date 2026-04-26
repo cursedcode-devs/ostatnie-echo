@@ -19,23 +19,6 @@ public class RadioStation
     private float defaultHourlyAndDailyModifier = 0f;
     [SerializeField] private GenreValuesModifier totalListenerModifer;
     [SerializeField] private GenreValuesModifier totalRevenueModifier;
-    [SerializeField] private List<GenreValues> cassettes = new List<GenreValues>();
-
-    public int GetCassettesNr()
-    {
-        return cassettes.Count;
-    }
-
-    public void AddCassette(GenreValues cassette)
-    {
-        if (cassettes.Count >= 3)
-        {
-            ApplySegment(cassettes.ToArray());
-            cassettes.Clear();
-        }
-        else
-            cassettes.Add(cassette);
-    }
 
     public void ApplySegment(GenreValues[] cassettes)
     {

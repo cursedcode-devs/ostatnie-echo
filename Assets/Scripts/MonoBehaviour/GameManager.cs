@@ -29,8 +29,8 @@ public class GameManager : MonoBehaviour
 
     private bool inputEnabled = false;
 
-    [SerializeField] private List<PlayableContent> ownedCassettes = new List<PlayableContent>();
-    [SerializeField] private List<PlayableContent> selectedCassettes = new List<PlayableContent>();
+    //[SerializeField] private List<PlayableContent> ownedCassettes = new List<PlayableContent>();
+    //[SerializeField] private List<PlayableContent> selectedCassettes = new List<PlayableContent>();
 
     public Airtime airtime;
     public GameObject choosingCassetteUI;
@@ -145,6 +145,10 @@ public class GameManager : MonoBehaviour
             case ActionTypes.PressedE:
                 Debug.Log("Wcisnieto E");
                 addedObjectRotation = new Vector3(0f, -rotationSpeed, 0f);
+                break;
+            case ActionTypes.PressedEnter:
+                Debug.Log("Wcisnieto Enter");
+                radioStation.ApplySegment(airtime.GetGenreValues());
                 break;
             case ActionTypes.None:
                 addedObjectRotation = Vector3.zero;

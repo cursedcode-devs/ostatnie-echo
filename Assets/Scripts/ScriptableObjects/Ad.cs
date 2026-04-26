@@ -7,12 +7,11 @@ using UnityEngine;
 /// </summary>
 public class Ad : PlayableContent
 {
-    
-    public GenreValues revenuePerListener; //Ile groszy za jednego s³uchacza 100 -> 1 zl 50 -> 0.50z³.
+    //Ile groszy za jednego s³uchacza 100 -> 1 zl 50 -> 0.50z³.
 
-    public override void ApplyEffect(RadioStation radio)
-    {
-        timesUsedInDay++;
-        radio.AddCassette(revenuePerListener);
-    }
+    //public override void ApplyEffect(RadioStation radio)
+    //{
+    //    timesUsedInDay++;
+    //    radio.AddCassette(revenuePerListener);
+    //}
 }

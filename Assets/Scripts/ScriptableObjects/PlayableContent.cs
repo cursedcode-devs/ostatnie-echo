@@ -10,6 +10,12 @@ public abstract class PlayableContent : ScriptableObject
     [SerializeField] private string itemName;
     [SerializeField] private GameObject physicalPrefab;
     [SerializeField] protected int timesUsedInDay;
+    [SerializeField] protected GenreValues cassetteValues;
+
+    public GenreValues GetCassetteValues()
+    {
+        return cassetteValues;
+    }
 
     public void Play(ref AudioSource source)
     {
@@ -22,5 +28,5 @@ public abstract class PlayableContent : ScriptableObject
         timesUsedInDay = 0;
     }
 
-    public abstract void ApplyEffect(RadioStation radio);
+    //public abstract void ApplyEffect(RadioStation radio);
 }

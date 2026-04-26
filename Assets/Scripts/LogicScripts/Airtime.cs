@@ -11,6 +11,30 @@ public class Airtime : MonoBehaviour
         addSlot(3);
     }
 
+    public GenreValues[] GetGenreValues()
+    {
+        GenreValues emptyValues = new GenreValues();
+        emptyValues.hipHop = 0;
+        emptyValues.rock = 0;
+        emptyValues.metal = 0;
+        emptyValues.disco = 0;
+        emptyValues.type = CassetteTypes.Empty;
+
+        List<GenreValues> cassetteValues = new List<GenreValues>();
+        foreach (var cassette in cassettes)
+        {
+            if(cassette==null)
+            {
+                Debug.Log("Pusta Kaseta");
+                continue;
+            }
+            cassetteValues.Add(cassette.GetCassetteValues());
+            Debug.Log("Kaseta dodana");
+        }
+
+        return cassetteValues.ToArray();
+    }
+
     public void addSlot(int slotsAmount)
     {
         for (int i = 0; i < slotsAmount; i++)

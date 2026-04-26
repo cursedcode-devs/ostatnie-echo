@@ -429,7 +429,6 @@ MonoBehaviour:
       disco: 1
       rock: 1
       metal: 1
-    cassettes: []
   source: {fileID: 1292526863}
   mainCamera: {fileID: 330585545}
   timeHandler:
@@ -455,16 +454,6 @@ MonoBehaviour:
       Data3: -777628484
       Data4: 424681781
     Path: event:/PutCasetteIn
-  ownedCassettes:
-  - {fileID: 11400000, guid: 9e0222f5b3ea4ec438bbf91b0346c045, type: 2}
-  - {fileID: 11400000, guid: 575c2ea483af732469c186b1282a83a4, type: 2}
-  - {fileID: 11400000, guid: 3bdc4632ac4a20447881efb6047175fa, type: 2}
-  - {fileID: 11400000, guid: c8509628870fac44babbbadf10872fe4, type: 2}
-  - {fileID: 11400000, guid: 86e89e1f7ef7fb941a613427f63db479, type: 2}
-  - {fileID: 11400000, guid: 1d7b65b5b0667c44fa1ce6fed8702ef6, type: 2}
-  - {fileID: 11400000, guid: 954ce0b31d1fdf9469b0c07864e8a68c, type: 2}
-  - {fileID: 11400000, guid: aafa3a867ee933d41934ff568ccd3145, type: 2}
-  selectedCassettes: []
   airtime: {fileID: 1296084681}
   choosingCassetteUI: {fileID: 420978106}
   references:
@@ -5244,7 +5233,6 @@ MonoBehaviour:
       disco: 1
       rock: 1
       metal: 1
-    cassettes: []
   dayEndHandler: {fileID: 1996727236}
   gameManager: {fileID: 111077787}
   globalRewardPool:
@@ -5757,6 +5745,10 @@ PrefabInstance:
       value: Slot 0 Text
       objectReference: {fileID: 0}
     - target: {fileID: 1936573209178745902, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936573209178745902, guid: c091ec011fea46349ae09b119edefdba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -5889,6 +5881,10 @@ PrefabInstance:
       value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8064217643269426890, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8064217643269426890, guid: c091ec011fea46349ae09b119edefdba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -5919,6 +5915,10 @@ PrefabInstance:
     - target: {fileID: 8064217643269426890, guid: c091ec011fea46349ae09b119edefdba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8855953437678965886, guid: c091ec011fea46349ae09b119edefdba, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8855953437678965886, guid: c091ec011fea46349ae09b119edefdba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

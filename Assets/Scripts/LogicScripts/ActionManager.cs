@@ -34,6 +34,8 @@ public class ActionManager
             return ActionTypes.PressedQ;
         if (Keyboard.current.eKey.IsPressed())
             return ActionTypes.PressedE;
+        if(Keyboard.current.enterKey.wasPressedThisFrame)
+            return ActionTypes.PressedEnter;
 
         return ActionTypes.None;
     }
