@@ -1,30 +1,35 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class ChoosingCassetteUI : MonoBehaviour
 {
     public GameObject choosingCassetteCanvas;
     public GameManager gameManager;
     public Airtime airtime;
-    private PlayableObject selectedObject;
+    private GameObject selectedObject;
+   private PlayableObject playableObject;
     //public GameObject[] cassetteSlots;
     public TextMeshProUGUI[] cassetteSlotTexts;
 
     public void clickedSlot(int slot)
     {
         //LastSelectedObject bo jak klikniesz na lewym na przycisk to kaseta zd¹¿y siê zdeselectowaæ
-        if (gameManager.selectionHandler.GetLastSelectedObject() == null)
+        selectedObject = gameManager.selectionHandler.GetLastSelectedObject();
+
+        if (selectedObject == null || !selectedObject.CompareTag("Playable"))
         {
             airtime.emptySlot(slot);
-            cassetteSlotTexts[slot].text = "Slot " + slot;
+            cassetteSlotTexts[slot].text = "Slot " + (slot+1);
             return;
         }
-
-        selectedObject = gameManager.selectionHandler.GetLastSelectedObject().GetComponent<PlayableObject>();
+ 
         if (selectedObject.CompareTag("Playable"))
         {
-            airtime.setSlot(selectedObject.data, slot);
-            cassetteSlotTexts[slot].text = selectedObject.data.name;
+            playableObject = selectedObject.GetComponent<PlayableObject>();
+            airtime.setSlot(playableObject.data, slot);
+            cassetteSlotTexts[slot].text = playableObject.data.name;
+            gameManager.selectionHandler.ResetLastSelectedObject();
         }
     }
 

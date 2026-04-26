@@ -8,6 +8,7 @@ TagManager:
   - Playable
   - ConsoleSlider
   - Unselectable
+  - Button
   layers:
   - Default
   - TransparentFX

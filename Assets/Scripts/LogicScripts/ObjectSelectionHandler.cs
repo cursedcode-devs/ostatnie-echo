@@ -52,6 +52,11 @@ public class ObjectSelectionHandler
         return lastSelectedObject;
     }
 
+    public void ResetLastSelectedObject()
+    {
+        lastSelectedObject = null;
+    }
+
     public void SelectObject(GameObject clickedObject)
     {
         if (clickedObject == selectedObject)
