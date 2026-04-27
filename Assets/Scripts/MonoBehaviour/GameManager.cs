@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
                 break;
             case ActionTypes.PressedEnter:
                 Debug.Log("Wcisnieto Enter");
-                radioStation.ApplySegment(airtime.GetGenreValues());
+                radioStation.ApplySegment(airtime.GetCassettes());
                 break;
             case ActionTypes.None:
                 addedObjectRotation = Vector3.zero;

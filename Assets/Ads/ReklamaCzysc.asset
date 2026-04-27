@@ -21,10 +21,4 @@ MonoBehaviour:
     disco: 150
     rock: 150
     metal: 150
-    type: 1
-  revenuePerListener:
-    hipHop: 300
-    disco: 150
-    rock: 150
-    metal: 150
-    type: 1
+  type: 1

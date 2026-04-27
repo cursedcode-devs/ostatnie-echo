@@ -20,7 +20,7 @@ public class RadioStation
     [SerializeField] private GenreValuesModifier totalListenerModifer;
     [SerializeField] private GenreValuesModifier totalRevenueModifier;
 
-    public void ApplySegment(GenreValues[] cassettes)
+    public void ApplySegment(PlayableContent[] cassettes)
     {
         int totalHipHopListeners = 0;
         int totalDiscoListeners = 0;
@@ -32,21 +32,63 @@ public class RadioStation
         int totalRockRevenue = 0;
         int totalMetalRevenue = 0;
 
-        foreach (var cassette in cassettes)
+        for (int i = 0; i < cassettes.Length; i++)
         {
-            switch (cassette.type)
+            if (cassettes[i] == null)
+                continue;
+
+            switch (cassettes[i].GetType())
             {
                 case CassetteTypes.Music:
-                    totalHipHopListeners += cassette.hipHop;
-                    totalDiscoListeners += cassette.disco;
-                    totalRockListeners += cassette.rock;
-                    totalMetalListeners += cassette.metal;
+                    if (cassettes[i].GetTimesUsed() == 0)
+                    {
+                        totalHipHopListeners += cassettes[i].GetCassetteValues().hipHop;
+                        totalDiscoListeners += cassettes[i].GetCassetteValues().disco;
+                        totalRockListeners += cassettes[i].GetCassetteValues().rock;
+                        totalMetalListeners += cassettes[i].GetCassetteValues().metal;
+                    }
+                    else
+                    {
+                        Debug.Log("TimesUsed: " + cassettes[i].GetTimesUsed());
+                        int hipHop = cassettes[i].GetLastValues().hipHop / 2;
+                        int disco = cassettes[i].GetLastValues().disco / 2;
+                        int rock = cassettes[i].GetLastValues().rock / 2;
+                        int metal = cassettes[i].GetLastValues().metal / 2;
+
+                        hipHop = cassettes[i].GetLastValues().hipHop - Mathf.Abs(hipHop);
+                        disco = cassettes[i].GetLastValues().disco - Mathf.Abs(disco);
+                        rock = cassettes[i].GetLastValues().rock - Mathf.Abs(rock);
+                        metal = cassettes[i].GetLastValues().metal - Mathf.Abs(metal);
+
+                        totalHipHopListeners += hipHop;
+                        totalDiscoListeners += disco;
+                        totalRockListeners += rock;
+                        totalMetalListeners += metal;
+
+                        cassettes[i].SetLastValues(hipHop, disco, rock, metal);
+                    }
+                    cassettes[i].IncreaseTimesUsed();
                     break;
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //                          JAKA KARA ZA PUSZCZANIE TEJ SAMEJ REKLAMY POD RZĄD I SPAM REKLAMAMI?                                       //
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 case CassetteTypes.Ad:
-                    totalHipHopRevenue += cassette.hipHop;
-                    totalDiscoRevenue += cassette.disco;
-                    totalRockRevenue += cassette.rock;
-                    totalMetalRevenue += cassette.metal;
+                    if (cassettes[i].GetTimesUsed() == 0)
+                    {
+                        totalHipHopRevenue += cassettes[i].GetCassetteValues().hipHop;
+                        totalDiscoRevenue += cassettes[i].GetCassetteValues().disco;
+                        totalRockRevenue += cassettes[i].GetCassetteValues().rock;
+                        totalMetalRevenue += cassettes[i].GetCassetteValues().metal;
+                    }
+                    else
+                    {
+                        //Nie wiem co z tym tu narazie zrobić tak jak w wyżej komentarzu napisane
+                        totalHipHopRevenue += cassettes[i].GetCassetteValues().hipHop;
+                        totalDiscoRevenue += cassettes[i].GetCassetteValues().disco;
+                        totalRockRevenue += cassettes[i].GetCassetteValues().rock;
+                        totalMetalRevenue += cassettes[i].GetCassetteValues().metal;
+                    }
+                    cassettes[i].IncreaseTimesUsed();
                     break;
             }
         }

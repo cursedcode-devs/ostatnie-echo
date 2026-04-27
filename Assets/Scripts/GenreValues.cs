@@ -7,6 +7,5 @@ public struct GenreValues
     public int disco;
     public int rock;
     public int metal;
-    public CassetteTypes type;
     public int totalListeners => hipHop + disco + rock + metal;
 }

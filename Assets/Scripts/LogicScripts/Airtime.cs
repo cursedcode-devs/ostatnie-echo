@@ -5,34 +5,24 @@ using UnityEngine;
 public class Airtime : MonoBehaviour
 {
     [SerializeField] private List<PlayableContent> cassettes = new List<PlayableContent>();
+    [SerializeField] private PlayableContent emptyCassette;
 
     void Start()
     {
         addSlot(3);
     }
 
-    public GenreValues[] GetGenreValues()
+    public PlayableContent[] GetCassettes()
     {
-        GenreValues emptyValues = new GenreValues();
-        emptyValues.hipHop = 0;
-        emptyValues.rock = 0;
-        emptyValues.metal = 0;
-        emptyValues.disco = 0;
-        emptyValues.type = CassetteTypes.Empty;
-
-        List<GenreValues> cassetteValues = new List<GenreValues>();
-        foreach (var cassette in cassettes)
+        for (int i = 0; i < cassettes.Count; i++)
         {
-            if(cassette==null)
+            if(cassettes[i] ==  null)
             {
-                Debug.Log("Pusta Kaseta");
-                continue;
+                cassettes[i] = emptyCassette;
             }
-            cassetteValues.Add(cassette.GetCassetteValues());
-            Debug.Log("Kaseta dodana");
         }
 
-        return cassetteValues.ToArray();
+        return cassettes.ToArray();
     }
 
     public void addSlot(int slotsAmount)
