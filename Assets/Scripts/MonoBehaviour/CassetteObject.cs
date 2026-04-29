@@ -2,7 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 //
-// Klasa podpinaj¹ca dane do kaset
+// Klasa podpinajï¿½ca dane do kaset
 //
 public class CassetteObject : PlayableObject
 {
@@ -10,7 +10,7 @@ public class CassetteObject : PlayableObject
     {
         if (data != null)
         {
-            gameObject.tag = "PlayableCassette";
+            gameObject.tag = "Playable";
             Debug.Log("To jest fizyczna kopia kasety: " + data.name);
         }
     }

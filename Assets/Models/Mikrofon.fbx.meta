@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mikrofon
-    second: {fileID: 2100000, guid: 43cf58992e1890b4faf3841e02589cb3, type: 2}
+      name: MikrofonMaterial
+    second: {fileID: 2100000, guid: 5db0f937431780445a15ccba0dce4c83, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

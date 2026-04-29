@@ -4,9 +4,11 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - PlayableCassette
   - CassettePlayer
-  - PlayableAd
+  - Playable
+  - ConsoleSlider
+  - Unselectable
+  - Button
   layers:
   - Default
   - TransparentFX
