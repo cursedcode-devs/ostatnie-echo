@@ -264,6 +264,7 @@ GameObject:
   - component: {fileID: 111077784}
   - component: {fileID: 111077783}
   - component: {fileID: 111077787}
+  - component: {fileID: 111077788}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -447,6 +448,24 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+--- !u!114 &111077788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111077782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce89913b36b335cec8c964f1ed49b31e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
+  interactRange: 200
+  interactLayer:
+    m_Bits: 0
+  playerCamera: {fileID: 330585545}
+  interactAction: {fileID: 0}
+  interactPrompt: {fileID: 0}
 --- !u!1 &147517843
 GameObject:
   m_ObjectHideFlags: 0
@@ -4281,21 +4300,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5330821314683283402, guid: 6d444779aa140db4b86d0c2a03d18185, type: 3}
---- !u!114 &1783074611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1783074606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd36a0e1c40c711e9b4954fd278104ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PhoneRinger
-  ringClip: {fileID: 0}
-  shakeMagnitude: 0.004
-  shakeSpeed: 18
 --- !u!82 &1783074612
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4455,9 +4459,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6d444779aa140db4b86d0c2a03d18185, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1783074612}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6d444779aa140db4b86d0c2a03d18185, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1783074611}
   m_SourcePrefab: {fileID: 100100000, guid: 6d444779aa140db4b86d0c2a03d18185, type: 3}
 --- !u!1 &1996727235
 GameObject:
