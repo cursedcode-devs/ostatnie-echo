@@ -15,5 +15,6 @@ public enum ActionTypes
     PressedS,
     PressedQ,
     PressedE,
-    PressedEnter
+    PressedEnter,
+    PressedP
 }

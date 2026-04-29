@@ -24,7 +24,8 @@ public class TimeHandler
     public void NextHour()
     {
         Hour++;
-        if (Hour > 20)
+        MiniGameSystem.Instance.LaunchRandom();
+        if (Hour > 17)
             StartDay();
     }
 

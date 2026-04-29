@@ -25,6 +25,25 @@ public class Airtime : MonoBehaviour
         return cassettes.ToArray();
     }
 
+    public AudioClip[] GetCassettesAudio()
+    {
+        List<AudioClip> audios = new List<AudioClip>();
+
+        for (int i = 0; i < cassettes.Count; i++)
+        {
+            if (cassettes[i] == null)
+            {
+                audios.Add(null);
+            }
+            else
+            {
+                audios.Add(cassettes[i].audio);
+            }
+        }
+
+        return audios.ToArray();
+    }
+
     public void addSlot(int slotsAmount)
     {
         for (int i = 0; i < slotsAmount; i++)

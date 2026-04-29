@@ -33,6 +33,24 @@ public class ChoosingCassetteUI : MonoBehaviour
         }
     }
 
+    public void Show()
+    {
+        choosingCassetteCanvas.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        choosingCassetteCanvas.SetActive(false);
+    }
+
+    public void ResetSlotText()
+    {
+        for(int i =0;i<cassetteSlotTexts.Length;i++)
+        {
+            cassetteSlotTexts[i].text = "Slot " + (i + 1);
+        }
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

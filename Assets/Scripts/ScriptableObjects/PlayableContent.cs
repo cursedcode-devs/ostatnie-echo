@@ -8,6 +8,7 @@ public abstract class PlayableContent : ScriptableObject
 {
     public AudioClip audio;
     [SerializeField] private string itemName;
+    [SerializeField] private string author;
     [SerializeField] private GameObject physicalPrefab;
     [SerializeField] protected int timesUsedInDay = 0;
     [SerializeField] protected GenreValues cassetteValues;

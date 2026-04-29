@@ -396,7 +396,6 @@ MonoBehaviour:
       disco: 5
       rock: 5
       metal: 5
-      type: 0
     startListeners: 5
     currentMoney: 0
     hourlyListenersModifier:
@@ -455,7 +454,8 @@ MonoBehaviour:
       Data4: 424681781
     Path: event:/PutCasetteIn
   airtime: {fileID: 1296084681}
-  choosingCassetteUI: {fileID: 420978106}
+  choosingCassetteUI: {fileID: 1596736046}
+  audioQueueManager: {fileID: 330912644}
   references:
     version: 2
     RefIds:
@@ -790,6 +790,51 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1 &330912643
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 330912645}
+  - component: {fileID: 330912644}
+  m_Layer: 0
+  m_Name: AudioQueueManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &330912644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330912643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be92d896d10cb7f419c5190e9de813b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioQueueManager
+  audioSource: {fileID: 1292526863}
+--- !u!4 &330912645
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330912643}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.21865, y: 0.3044, z: -4.9319}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -3393,6 +3438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Airtime
   cassettes: []
+  emptyCassette: {fileID: 0}
 --- !u!4 &1296084682
 Transform:
   m_ObjectHideFlags: 0
@@ -5200,7 +5246,6 @@ MonoBehaviour:
       disco: 5
       rock: 5
       metal: 5
-      type: 0
     startListeners: 5
     currentMoney: 0
     hourlyListenersModifier:
@@ -5984,3 +6029,4 @@ SceneRoots:
   - {fileID: 1596736047}
   - {fileID: 4195482705564456089}
   - {fileID: 1296084682}
+  - {fileID: 330912645}

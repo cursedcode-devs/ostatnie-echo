@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     private ActionTypes keyboardActionType;
     public ActionManager actionManager;
     public TimeHandler timeHandler;
-    private StatsUI statsUI; 
+    private StatsUI statsUI;
     private Vector3 addedObjectRotation = Vector3.zero;
     private float rotationSpeed = 3f;
     [SerializeReference] public ObjectSelectionHandler selectionHandler;
@@ -33,7 +33,8 @@ public class GameManager : MonoBehaviour
     //[SerializeField] private List<PlayableContent> selectedCassettes = new List<PlayableContent>();
 
     public Airtime airtime;
-    public GameObject choosingCassetteUI;
+    public ChoosingCassetteUI choosingCassetteUI;
+    public AudioQueueManager audioQueueManager;
     private bool choosingCassette = false;
 
     void Start()
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
         timeHandler = new TimeHandler(startHour, startDay);
         selectionHandler = new ObjectSelectionHandler();
         
+       audioQueueManager.SetTimeHandler(timeHandler);
 
         radioStation.SetHourlyListenersModifier(startingModifier, startingModifier, startingModifier, startingModifier);
         radioStation.SetDailyListenersModifier(startingModifier, startingModifier, startingModifier, startingModifier);
@@ -83,7 +85,7 @@ public class GameManager : MonoBehaviour
                 break;
             case ActionTypes.LeftClickOnPlayingObject:
                 Debug.Log("GetActionType - LeftClickOnPlayingObject");
-                
+
                 if (selectionHandler.IsSelectedObjectPlayable() || playing)
                 {
                     FMODUnity.RuntimeManager.PlayOneShot(putCasetteInSound, this.transform.position);
@@ -93,8 +95,8 @@ public class GameManager : MonoBehaviour
                 {
                     selectionHandler.SelectObject(clickedObject);
                 }
-                choosingCassette = !choosingCassette;
-                choosingCassetteUI.SetActive(choosingCassette);
+               // choosingCassette = !choosingCassette;
+                choosingCassetteUI.Show();
                 break;
             case ActionTypes.LeftClickOnObject:
                 Debug.Log("GetActionType - LeftClickOnObject");
@@ -149,6 +151,14 @@ public class GameManager : MonoBehaviour
             case ActionTypes.PressedEnter:
                 Debug.Log("Wcisnieto Enter");
                 radioStation.ApplySegment(airtime.GetCassettes());
+                audioQueueManager.EnqueueClips(airtime.GetCassettesAudio());
+                audioQueueManager.PlayClipsSequence();
+                airtime.emptyAllSlots();
+                choosingCassetteUI.ResetSlotText();
+                choosingCassetteUI.Hide();
+                break;
+            case ActionTypes.PressedP:
+                audioQueueManager.SkipSong();
                 break;
             case ActionTypes.None:
                 addedObjectRotation = Vector3.zero;
@@ -156,13 +166,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-        private void FixedUpdate()
+    private void FixedUpdate()
     {
         if (addedObjectRotation != Vector3.zero)
             selectionHandler.RotateObject(addedObjectRotation.x, addedObjectRotation.y, addedObjectRotation.z);
     }
 
-private void PlayPlayableObject(GameObject clickedObject)
+    private void PlayPlayableObject(GameObject clickedObject)
     {
 
         //if (playing)
@@ -176,7 +186,7 @@ private void PlayPlayableObject(GameObject clickedObject)
         //    return;
         //}
 
-        
+
 
         //PlayableObject playableObject = selectionHandler.GetSelectedObject().GetComponent<PlayableObject>();
 

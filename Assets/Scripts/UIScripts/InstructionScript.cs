@@ -43,6 +43,7 @@ public class InstructionScript : MonoBehaviour
         {
             gameManager.SetInputEnabled(true);
             instructionCanvas.SetActive(false);
+            MiniGameSystem.Instance.LaunchRandom();
         }
     }
 
