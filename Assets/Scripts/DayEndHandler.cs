@@ -25,6 +25,17 @@ public class DayEndHandler : MonoBehaviour
             disco = radioStation.currentListeners.disco
         };
         startMoney = radioStation.GetCurrentMoney();
+
+        foreach (var cassette in allCassettes)
+        {
+            cassette.ResetTimesUsed();
+            cassette.ResetLastValues();
+        }
+        foreach (var ad in allAds)
+        {
+            ad.ResetTimesUsed();
+            ad.ResetLastValues();
+        }
     }
 
     void HandleDayStart()
@@ -41,10 +52,12 @@ public class DayEndHandler : MonoBehaviour
         foreach (var cassette in allCassettes)
         {
             cassette.ResetTimesUsed();
+            cassette.ResetLastValues();
         }
         foreach (var ad in allAds)
         {
             ad.ResetTimesUsed();
+            ad.ResetLastValues();
         }
 
         radioStation.SetDailyListenersModifier(0f, 0f, 0f, 0f);

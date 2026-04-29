@@ -15,9 +15,10 @@ MonoBehaviour:
   audio: {fileID: 8300000, guid: 40fc81acc9c849744a34a1401c8b1a2c, type: 3}
   itemName: kaseta Disco
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
-  listenerGrowthPrecentage:
-    hipHop: 10
+  timesUsedInDay: 21
+  cassetteValues:
+    hipHop: -20
     disco: 20
     rock: 10
     metal: 10
-  timesUsedInDay: 0
+  type: 0

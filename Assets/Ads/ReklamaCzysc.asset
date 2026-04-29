@@ -16,8 +16,9 @@ MonoBehaviour:
   itemName: Reklama HipHop
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
   timesUsedInDay: 0
-  revenuePerListener:
+  cassetteValues:
     hipHop: 300
     disco: 150
     rock: 150
     metal: 150
+  type: 1
