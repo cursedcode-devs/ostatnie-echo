@@ -16,7 +16,13 @@ public abstract class PlayableContent : ScriptableObject
     [SerializeField] private GenreValues lastCassetteValues;
     [SerializeField] public float price;
 
- 
+
+    public string GetName()
+    { return itemName; }
+
+    public string GetAuthor()
+    { return author; }
+
     public void ResetLastValues()
     {
         lastCassetteValues = cassetteValues;
@@ -33,6 +39,26 @@ public abstract class PlayableContent : ScriptableObject
     public GenreValues GetLastValues()
     {
         return lastCassetteValues;
+    }
+
+    public int GetHipHop()
+    {
+        return cassetteValues.hipHop;
+    }
+
+    public int GetRock()
+    {
+        return cassetteValues.rock;
+    }
+
+    public int GetMetal()
+    {
+        return cassetteValues.metal;
+    }
+
+    public int GetDisco()
+    {
+        return cassetteValues.disco;
     }
 
     public CassetteTypes GetType()

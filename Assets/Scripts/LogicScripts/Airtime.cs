@@ -12,11 +12,42 @@ public class Airtime : MonoBehaviour
         addSlot(3);
     }
 
+    public float GetStatsSum(int genre, CassetteTypes type = CassetteTypes.Music)
+    {
+        float total = 0f;
+
+        for (int i = 0; i < cassettes.Count; i++)
+        {
+            if (cassettes[i] == null)
+                continue;
+            if (cassettes[i].GetType() != type)
+                continue;
+
+                switch (genre)
+                {
+                    case 0:
+                        total += cassettes[i].GetHipHop();
+                        break;
+                    case 1:
+                        total += cassettes[i].GetRock();
+                        break;
+                    case 2:
+                        total += cassettes[i].GetMetal();
+                        break;
+                    case 3:
+                        total += cassettes[i].GetDisco();
+                        break;
+                }
+        }
+
+        return total/100f;
+    }
+
     public PlayableContent[] GetCassettes()
     {
         for (int i = 0; i < cassettes.Count; i++)
         {
-            if(cassettes[i] ==  null)
+            if (cassettes[i] == null)
             {
                 cassettes[i] = emptyCassette;
             }
