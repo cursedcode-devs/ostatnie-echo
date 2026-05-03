@@ -74,6 +74,10 @@ public class RadioStation
                 //W takim wypadku rekalmy nie potrzebują zmiennej timesUsed
                 case CassetteTypes.Ad:
                     adsPlayed++;
+                    totalHipHopRevenue += cassettes[i].GetCassetteValues().hipHop;
+                    totalDiscoRevenue += cassettes[i].GetCassetteValues().disco;
+                    totalRockRevenue += cassettes[i].GetCassetteValues().rock;
+                    totalMetalRevenue += cassettes[i].GetCassetteValues().metal;
                     cassettes[i].IncreaseTimesUsed();
                     break;
             }
@@ -290,7 +294,8 @@ public class RadioStation
         return currentMoney;
     }
 
-    public void SetCurrentMoney(float newAmountOfMoney){
+    public void SetCurrentMoney(float newAmountOfMoney)
+    {
         currentMoney = newAmountOfMoney;
     }
 

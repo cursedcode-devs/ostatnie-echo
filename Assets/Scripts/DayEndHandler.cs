@@ -14,10 +14,19 @@ public class DayEndHandler : MonoBehaviour
     private RadioStation radioStation;
     private DaySummaryScreen summaryScreen;
     private GameEndScreen endScreen;
+    public Vector3 kawalerka_fees;
+    public Vector3 jedzenie_fees;
+    public Vector3 studia_fees;
+    private float kawalerka_fee;
+    private float jedzenie_fee;
+    private float studia_fee;
+
 
     // ------------------------------------------------------------------
     void Start()
     {   
+
+
         ShopUI.gameObject.SetActive(false);
         ShopButton.gameObject.SetActive(false);
         startListeners = new GenreValues
@@ -43,6 +52,25 @@ public class DayEndHandler : MonoBehaviour
 
     void HandleDayStart()
     {
+        switch (timeHandler.getDay()) 
+        {
+            case 2:
+                kawalerka_fee = kawalerka_fees.x;
+                jedzenie_fee = jedzenie_fees.x;
+                studia_fee = studia_fees.x;
+                break;
+            case 3:
+                kawalerka_fee = kawalerka_fees.y;
+                jedzenie_fee = jedzenie_fees.y;
+                studia_fee = studia_fees.y;
+                break;
+            case 4:
+                kawalerka_fee = kawalerka_fees.z;
+                jedzenie_fee = jedzenie_fees.z;
+                studia_fee = studia_fees.z;   
+                break; 
+
+        }
         gameManager.SetInputEnabled(false);
 
         //if no money at the beginning of new day game finishes
@@ -51,6 +79,7 @@ public class DayEndHandler : MonoBehaviour
             HandleGameFinished();
             return;
         }
+        
 
         foreach (var cassette in allCassettes)
         {
@@ -70,6 +99,7 @@ public class DayEndHandler : MonoBehaviour
         int discoDiff = radioStation.currentListeners.disco - startListeners.disco;
         int rockDiff = radioStation.currentListeners.rock - startListeners.rock;
         int metalDiff = radioStation.currentListeners.metal - startListeners.metal;
+        radioStation.SetCurrentMoney(radioStation.GetCurrentMoney() - kawalerka_fee - jedzenie_fee - studia_fee);
         float moneyDiff = radioStation.GetCurrentMoney() - startMoney;
 
         Debug.Log($"Day ended! HipHop:{hipHopDiff}, Disco:{discoDiff}, Rock:{rockDiff}, Metal:{metalDiff}, Money:{moneyDiff}");
@@ -80,6 +110,9 @@ public class DayEndHandler : MonoBehaviour
 
         summaryScreen.Show(
             day: timeHandler.CurrentDay,
+            kawalerka_fee: kawalerka_fee,
+            jedzenie_fee: jedzenie_fee,
+            studia_fee: studia_fee,
             finalMoney: radioStation.GetCurrentMoney(),
             moneyDiff: moneyDiff,
             hipHop: radioStation.currentListeners.hipHop,
