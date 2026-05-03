@@ -2,7 +2,7 @@ using UnityEngine;
 
 //[CreateAssetMenu(fileName = "PlayableContent", menuName = "Scriptable Objects/PlayableContent")]
 //
-// Klasa z której dziedziczy ka¿dy Playable item np. kaseta, reklama
+// Klasa z ktï¿½rej dziedziczy kaï¿½dy Playable item np. kaseta, reklama
 //
 public abstract class PlayableContent : ScriptableObject
 {
@@ -14,7 +14,9 @@ public abstract class PlayableContent : ScriptableObject
     [SerializeField] protected GenreValues cassetteValues;
     [SerializeField] protected CassetteTypes type;
     [SerializeField] private GenreValues lastCassetteValues;
+    [SerializeField] public float price;
 
+ 
     public void ResetLastValues()
     {
         lastCassetteValues = cassetteValues;
@@ -56,6 +58,8 @@ public abstract class PlayableContent : ScriptableObject
     {
         cassetteValues = genreValues;
     }
+
+
 
     public void Play(ref AudioSource source)
     {

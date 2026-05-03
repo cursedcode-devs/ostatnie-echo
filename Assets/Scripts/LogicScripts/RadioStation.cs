@@ -290,6 +290,10 @@ public class RadioStation
         return currentMoney;
     }
 
+    public void SetCurrentMoney(float newAmountOfMoney){
+        currentMoney = newAmountOfMoney;
+    }
+
     public int GetTotalListeners()
     {
         return currentListeners.totalListeners;
@@ -299,4 +303,5 @@ public class RadioStation
     {
         currentMoney += amount;
     }
+
 }
