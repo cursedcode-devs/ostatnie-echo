@@ -32,6 +32,8 @@ public class RadioStation
         int totalRockRevenue = 0;
         int totalMetalRevenue = 0;
 
+        int adsPlayed = 0;
+
         for (int i = 0; i < cassettes.Length; i++)
         {
             if (cassettes[i] == null)
@@ -69,25 +71,13 @@ public class RadioStation
                     }
                     cassettes[i].IncreaseTimesUsed();
                     break;
-                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                //                          JAKA KARA ZA PUSZCZANIE TEJ SAMEJ REKLAMY POD RZĄD I SPAM REKLAMAMI?                                       //
-                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //W takim wypadku rekalmy nie potrzebują zmiennej timesUsed
                 case CassetteTypes.Ad:
-                    if (cassettes[i].GetTimesUsed() == 0)
-                    {
-                        totalHipHopRevenue += cassettes[i].GetCassetteValues().hipHop;
-                        totalDiscoRevenue += cassettes[i].GetCassetteValues().disco;
-                        totalRockRevenue += cassettes[i].GetCassetteValues().rock;
-                        totalMetalRevenue += cassettes[i].GetCassetteValues().metal;
-                    }
-                    else
-                    {
-                        //Nie wiem co z tym tu narazie zrobić tak jak w wyżej komentarzu napisane
-                        totalHipHopRevenue += cassettes[i].GetCassetteValues().hipHop;
-                        totalDiscoRevenue += cassettes[i].GetCassetteValues().disco;
-                        totalRockRevenue += cassettes[i].GetCassetteValues().rock;
-                        totalMetalRevenue += cassettes[i].GetCassetteValues().metal;
-                    }
+                    adsPlayed++;
+                    totalHipHopRevenue += cassettes[i].GetCassetteValues().hipHop;
+                    totalDiscoRevenue += cassettes[i].GetCassetteValues().disco;
+                    totalRockRevenue += cassettes[i].GetCassetteValues().rock;
+                    totalMetalRevenue += cassettes[i].GetCassetteValues().metal;
                     cassettes[i].IncreaseTimesUsed();
                     break;
             }
@@ -98,10 +88,43 @@ public class RadioStation
                     + (totalRockRevenue / 100f * currentListeners.rock * totalRevenueModifier.rock)
                     + (totalMetalRevenue / 100f * currentListeners.metal * totalRevenueModifier.metal));
 
+        AdsPunishment(adsPlayed);
+
         currentListeners.hipHop += Mathf.CeilToInt(currentListeners.hipHop * (totalHipHopListeners / 100f) * totalListenerModifer.hipHop);
         currentListeners.disco += Mathf.CeilToInt(currentListeners.disco * (totalDiscoListeners / 100f) * totalListenerModifer.disco);
         currentListeners.rock += Mathf.CeilToInt(currentListeners.rock * (totalRockListeners / 100f) * totalListenerModifer.rock);
         currentListeners.metal += Mathf.CeilToInt(currentListeners.metal * (totalMetalListeners / 100f) * totalListenerModifer.metal);
+    }
+
+    public void AdsPunishment(int adsPlayed)
+    {
+        if (adsPlayed < 1)
+            return;
+
+        if (adsPlayed == 1)
+        {
+            AddHourlyListenersModifier(-0.05f, -0.05f, -0.05f, -0.05f);
+        }
+        else if (adsPlayed == 2)
+        {
+            AddHourlyListenersModifier(-0.07f, -0.07f, -0.07f, -0.07f);
+            AddDailyListenersModifier(-0.05f, -0.05f, -0.05f, -0.05f);
+            RemoveListenersPr(0.05f);
+        }
+        else if (adsPlayed >= 3)
+        {
+            AddHourlyListenersModifier(-0.1f, -0.1f, -0.1f, -0.1f);
+            AddDailyListenersModifier(-0.07f, -0.07f, -0.07f, -0.07f);
+            RemoveListenersPr(0.1f);
+        }
+    }
+
+    public void RemoveListenersPr(float precentage)
+    {
+        currentListeners.hipHop -= Mathf.CeilToInt(currentListeners.hipHop * precentage);
+        currentListeners.disco -= Mathf.CeilToInt(currentListeners.disco * precentage);
+        currentListeners.rock -= Mathf.CeilToInt(currentListeners.rock * precentage);
+        currentListeners.metal = Mathf.CeilToInt(currentListeners.metal * precentage);
     }
 
     //Stara funkcja zostawiona na potrzeby nagrody FlatListenersBoost w MiniGameReward
@@ -257,14 +280,6 @@ public class RadioStation
         currentListeners.metal += Mathf.CeilToInt(currentListeners.metal * (listenerGrowthPrecentage.metal / 100f) * totalListenerModifer.metal * (1f / timesUsedSquared));
     }
 
-    //public void AddListeners(GenreValues listenerGrowthPrecentage)
-    //{
-    //    currentListeners.hipHop += Mathf.CeilToInt(currentListeners.hipHop * (listenerGrowthPrecentage.hipHop / 100f) * totalListenerModifer.hipHop);
-    //    currentListeners.disco += Mathf.CeilToInt(currentListeners.disco * (listenerGrowthPrecentage.disco / 100f) * totalListenerModifer.disco);
-    //    currentListeners.rock += Mathf.CeilToInt(currentListeners.rock * (listenerGrowthPrecentage.rock / 100f) * totalListenerModifer.rock);
-    //    currentListeners.metal += Mathf.CeilToInt(currentListeners.metal * (listenerGrowthPrecentage.metal / 100f) * totalListenerModifer.metal);
-    //}
-
     public void AddRevenue(GenreValues revenuGain, int timesUsed)
     {
         int timesUsedSquared = timesUsed * timesUsed;
@@ -279,6 +294,11 @@ public class RadioStation
         return currentMoney;
     }
 
+    public void SetCurrentMoney(float newAmountOfMoney)
+    {
+        currentMoney = newAmountOfMoney;
+    }
+
     public int GetTotalListeners()
     {
         return currentListeners.totalListeners;
@@ -288,4 +308,5 @@ public class RadioStation
     {
         currentMoney += amount;
     }
+
 }

@@ -15,7 +15,10 @@ public class ObjectSelectionHandler
 
     private void TransformSelectedObject(float transformValue)
     {
-        if (selectedObject != null)
+        if (selectedObject == null)
+            return;
+        if(selectedObject.CompareTag("CassettePlayer"))
+            return;
             selectedObject.transform.position += new Vector3(0f, transformValue, 0f);
     }
 
@@ -76,6 +79,10 @@ public class ObjectSelectionHandler
 
     public void SetDefaultRotation()
     {
+        if (selectedObject == null)
+            return;
+        if (selectedObject.CompareTag("CassettePlayer"))
+            return;
         //obiekt wyrówna siê do globalnej osi xyz lub do lokalnej swojego rodzica
         selectedObject.transform.rotation = Quaternion.identity;
     }

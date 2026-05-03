@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
     public Airtime airtime;
     public ChoosingCassetteUI choosingCassetteUI;
     public AudioQueueManager audioQueueManager;
-    private bool choosingCassette = false;
 
     void Start()
     {
@@ -89,14 +88,12 @@ public class GameManager : MonoBehaviour
                 if (selectionHandler.IsSelectedObjectPlayable() || playing)
                 {
                     FMODUnity.RuntimeManager.PlayOneShot(putCasetteInSound, this.transform.position);
-                    PlayPlayableObject(clickedObject);
                 }
                 else
                 {
                     selectionHandler.SelectObject(clickedObject);
                 }
-               // choosingCassette = !choosingCassette;
-                choosingCassetteUI.Show();
+                choosingCassetteUI.ToggleVisibility(audioQueueManager.IsPlaying());
                 break;
             case ActionTypes.LeftClickOnObject:
                 Debug.Log("GetActionType - LeftClickOnObject");
@@ -172,59 +169,8 @@ public class GameManager : MonoBehaviour
             selectionHandler.RotateObject(addedObjectRotation.x, addedObjectRotation.y, addedObjectRotation.z);
     }
 
-    private void PlayPlayableObject(GameObject clickedObject)
-    {
-
-        //if (playing)
-        //{
-        //    StopPlayingAudio();
-        //    return;
-        //}
-
-        //if (selectionHandler.GetSelectedObject() == null)
-        //{
-        //    return;
-        //}
-
-
-
-        //PlayableObject playableObject = selectionHandler.GetSelectedObject().GetComponent<PlayableObject>();
-
-        //if (playableObject == null) return;
-
-        //if (playableObject.data == null) return;
-
-        //playableObject.data.Play(ref source);
-        //playableObject.data.ApplyEffect(radioStation);
-        //playing = true;
-        //MiniGameSystem.Instance.LaunchRandom();
-        //StartCoroutine(WaitForAudioToEnd());
-
-    }
-
-    private IEnumerator WaitForAudioToEnd()
-    {
-        while (source.isPlaying)
-        {
-            yield return null;
-        }
-
-        playing = false;
-
-        if (timeHandler != null)
-        {
-            timeHandler.NextHour();
-        }
-    }
-
     public void SetInputEnabled(bool enabled)
     {
         inputEnabled = enabled;
     }
-    private void StopPlayingAudio()
-    {
-        source.Stop();
-        playing = false;
-    }
-
 }

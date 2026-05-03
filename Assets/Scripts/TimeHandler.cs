@@ -12,9 +12,7 @@ public class TimeHandler
 
     public event Action OnDayStarted;
     public event Action OnGameFinished;
-
     [SerializeField] private int lastDay = 2;
-
     public TimeHandler(int startHour, int startDay)
     {
         Hour = startHour;
@@ -33,10 +31,13 @@ public class TimeHandler
     {
         Day++;
         Hour = 14;
-
         OnDayStarted?.Invoke();
 
         if (Day > lastDay)
             OnGameFinished?.Invoke();
+    
+    }
+    public int getDay(){
+        return Day;
     }
 }

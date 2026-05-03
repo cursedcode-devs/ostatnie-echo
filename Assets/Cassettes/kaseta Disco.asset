@@ -13,12 +13,19 @@ MonoBehaviour:
   m_Name: kaseta Disco
   m_EditorClassIdentifier: Assembly-CSharp::Cassette
   audio: {fileID: 8300000, guid: 40fc81acc9c849744a34a1401c8b1a2c, type: 3}
-  itemName: kaseta Disco
+  itemName: 'All You Need Is Dance '
+  author: Bay-b
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
-  timesUsedInDay: 21
+  timesUsedInDay: 0
   cassetteValues:
     hipHop: -20
     disco: 20
     rock: 10
     metal: 10
   type: 0
+  lastCassetteValues:
+    hipHop: -20
+    disco: 20
+    rock: 10
+    metal: 10
+  price: 93
