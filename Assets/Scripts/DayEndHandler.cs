@@ -252,6 +252,6 @@ public class DayEndHandler : MonoBehaviour
     public void ExitShop(){
         ShopUI.gameObject.SetActive(false);
         ShopButton.gameObject.SetActive(false);
-        gameManager.SetInputEnabled( false );
+        gameManager.SetInputEnabled( true );
     }
 }
