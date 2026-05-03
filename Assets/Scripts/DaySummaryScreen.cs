@@ -18,6 +18,9 @@ public class DaySummaryScreen : MonoBehaviour
 
     // UI refs
     private TextMeshProUGUI titleText;
+    private TextMeshProUGUI kawalerka_feeText;
+    private TextMeshProUGUI kawalerka_jedzenieText;
+    private TextMeshProUGUI kawalerka_studiaText;
     private TextMeshProUGUI moneyFinalText;
     private TextMeshProUGUI moneyDiffText;
     private TextMeshProUGUI hipHopFinalText;
@@ -34,6 +37,9 @@ public class DaySummaryScreen : MonoBehaviour
     // ------------------------------------------------------------------
     public void Show(
         int day,
+        float kawalerka_fee,
+        float jedzenie_fee,
+        float studia_fee,
         float finalMoney, float moneyDiff,
         int hipHop, int hipHopDiff,
         int disco, int discoDiff,
@@ -47,6 +53,9 @@ public class DaySummaryScreen : MonoBehaviour
 
         titleText.text = $"KONIEC DNIA {day - 1}";
 
+        kawalerka_feeText.text = $"{kawalerka_fee:F2}$";
+        kawalerka_jedzenieText.text = $"{jedzenie_fee:F2}$";
+        kawalerka_studiaText.text = $"{studia_fee:F2}$";
         moneyFinalText.text = $"{finalMoney:F2}$";
         moneyDiffText.text = FormatDiff(moneyDiff, "F2", "$");
         moneyDiffText.color = DiffColor(moneyDiff);
@@ -79,90 +88,137 @@ public class DaySummaryScreen : MonoBehaviour
 
     // ------------------------------------------------------------------
     void Build()
+{
+    var canvasGO = new GameObject("DaySummaryCanvas");
+    var c = canvasGO.AddComponent<Canvas>();
+    c.renderMode = RenderMode.ScreenSpaceOverlay;
+    c.sortingOrder = 15;
+
+    var scaler = canvasGO.AddComponent<CanvasScaler>();
+    scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+    scaler.referenceResolution = new Vector2(1920, 1080);
+
+    canvasGO.AddComponent<GraphicRaycaster>();
+    canvas = canvasGO;
+
+    var ct = canvasGO.transform;
+
+    // Overlay
+    var overlay = MakeImage(ct, "Overlay", new Color(0f, 0f, 0f, 0.75f));
+    StretchFull(overlay);
+
+    // 🔥 WIĘKSZY PANEL
+    var panel = MakeImage(ct, "Panel", new Color32(18, 22, 28, 255));
+    SR(panel, 0.5f, 0.5f, 860, 860, 0, 0);
+
+    var border = MakeImage(panel.transform, "Border", new Color32(35, 50, 70, 255));
+    SR(border, 0.5f, 0.5f, 840, 840, 0, 0);
+    border.GetComponent<RectTransform>().SetAsFirstSibling();
+
+    // Title
+    titleText = MakeText(ct, "Title", "KONIEC DNIA ?", 36,
+        new Color32(220, 180, 50, 255)).GetComponent<TextMeshProUGUI>();
+    SR(titleText.gameObject, 0.5f, 0.5f, 820, 56, 0, 360);
+
+    var subtitle = MakeText(ct, "Subtitle", "PODSUMOWANIE DNIA", 20,
+        new Color32(100, 120, 160, 255));
+    SR(subtitle, 0.5f, 0.5f, 820, 34, 0, 315);
+
+    SR(MakeImage(ct, "Div0", new Color32(50, 65, 90, 255)),
+        0.5f, 0.5f, 780, 2, 0, 290);
+
+    // Headers
+    MakeHeaderLabel(ct, "HdrStat", "STATYSTYKA", -300, 255);
+    MakeHeaderLabel(ct, "HdrCurrent", "TERAZ", 100, 255);
+    MakeHeaderLabel(ct, "HdrChange", "ZMIANA", 340, 255);
+
+    SR(MakeImage(ct, "Div1", new Color32(35, 48, 65, 255)),
+        0.5f, 0.5f, 780, 1, 0, 230);
+
+
+    float y = 190;
+    float step = 50;
+
+    MakeRowLabel(ct, "FeeRentLbl", "CZYNSZ", -300, y);
+    kawalerka_feeText = MakeValueText(ct, "FeeRentVal", "0.00$", 100, y);
+    kawalerka_feeText.color = Color.red;
+
+    y -= step;
+    MakeRowLabel(ct, "FeeFoodLbl", "JEDZENIE", -300, y);
+    kawalerka_jedzenieText = MakeValueText(ct, "FeeFoodVal", "0.00$", 100, y);
+    kawalerka_jedzenieText.color = Color.red;
+
+    y -= step;
+    MakeRowLabel(ct, "FeeStudyLbl", "STUDIA", -300, y);
+    kawalerka_studiaText = MakeValueText(ct, "FeeStudyVal", "0.00$", 100, y);
+    kawalerka_studiaText.color = Color.red;
+
+    // separator
+    y -= 35;
+    SR(MakeImage(ct, "DivFees", new Color32(35, 48, 65, 255)),
+        0.5f, 0.5f, 780, 1, 0, y);
+
+
+
+    y -= 50;
+    MakeRowLabel(ct, "MoneyLbl", "BUDŻET", -300, y);
+    moneyFinalText = MakeValueText(ct, "MoneyFinal", "0.00$", 100, y);
+    moneyDiffText = MakeDiffText(ct, "MoneyDiff", "+0.00$", 340, y);
+
+    // separator
+    y -= 40;
+    SR(MakeImage(ct, "Div2", new Color32(35, 48, 65, 255)),
+        0.5f, 0.5f, 780, 1, 0, y);
+
+
+
+    string[] genres = { "HIP-HOP", "DISCO", "ROCK", "METAL" };
+
+    TextMeshProUGUI[] finals = new TextMeshProUGUI[4];
+    TextMeshProUGUI[] diffs = new TextMeshProUGUI[4];
+
+    for (int i = 0; i < 4; i++)
     {
-        var canvasGO = new GameObject("DaySummaryCanvas");
-        var c = canvasGO.AddComponent<Canvas>();
-        c.renderMode = RenderMode.ScreenSpaceOverlay;
-        c.sortingOrder = 15;
-        var scaler = canvasGO.AddComponent<CanvasScaler>();
-        scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-        scaler.referenceResolution = new Vector2(1920, 1080);
-        canvasGO.AddComponent<GraphicRaycaster>();
-        canvas = canvasGO;
+        y -= 45;
 
-        var ct = canvasGO.transform;
+        MakeRowLabel(ct, $"Genre_{i}", genres[i], -300, y);
+        finals[i] = MakeValueText(ct, $"Final_{i}", "0", 100, y);
+        diffs[i] = MakeDiffText(ct, $"Diff_{i}", "+0", 340, y);
 
-        // Dim overlay
-        var overlay = MakeImage(ct, "Overlay", new Color(0f, 0f, 0f, 0.75f));
-        StretchFull(overlay);
-
-        // Main panel — wide and tall
-        var panel = MakeImage(ct, "Panel", new Color32(18, 22, 28, 255));
-        SR(panel, 0.5f, 0.5f, 860, 720, 0, 0);
-
-        var border = MakeImage(panel.transform, "Border", new Color32(35, 50, 70, 255));
-        SR(border, 0.5f, 0.5f, 840, 700, 0, 0);
-        border.GetComponent<RectTransform>().SetAsFirstSibling();
-
-        // Title
-        titleText = MakeText(ct, "Title", "KONIEC DNIA ?", 36,
-                             new Color32(220, 180, 50, 255)).GetComponent<TextMeshProUGUI>();
-        SR(titleText.gameObject, 0.5f, 0.5f, 820, 56, 0, 310);
-
-        var subtitle = MakeText(ct, "Subtitle", "PODSUMOWANIE DNIA", 20,
-                                new Color32(100, 120, 160, 255));
-        SR(subtitle, 0.5f, 0.5f, 820, 34, 0, 262);
-
-        // Top divider
-        SR(MakeImage(ct, "Div0", new Color32(50, 65, 90, 255)), 0.5f, 0.5f, 780, 2, 0, 238);
-
-        // Column headers
-        MakeHeaderLabel(ct, "HdrStat", "STATYSTYKA", -300, 205);
-        MakeHeaderLabel(ct, "HdrCurrent", "TERAZ", 100, 205);
-        MakeHeaderLabel(ct, "HdrChange", "ZMIANA", 340, 205);
-
-        SR(MakeImage(ct, "Div1", new Color32(35, 48, 65, 255)), 0.5f, 0.5f, 780, 1, 0, 182);
-
-        // Money row
-        MakeRowLabel(ct, "MoneyLbl", "BUDŻET", -300, 148);
-        moneyFinalText = MakeValueText(ct, "MoneyFinal", "0.00$", 100, 148);
-        moneyDiffText = MakeDiffText(ct, "MoneyDiff", "+0.00$", 340, 148);
-
-        SR(MakeImage(ct, "Div2", new Color32(35, 48, 65, 255)), 0.5f, 0.5f, 780, 1, 0, 112);
-
-        // Genre rows
-        string[] genres = { "HIP-HOP", "DISCO", "ROCK", "METAL" };
-        float[] yPositions = { 75, 20, -35, -90 };
-
-        TextMeshProUGUI[] finals = new TextMeshProUGUI[4];
-        TextMeshProUGUI[] diffs = new TextMeshProUGUI[4];
-
-        for (int i = 0; i < 4; i++)
+        if (i < 3)
         {
-            MakeRowLabel(ct, $"Genre_{i}", genres[i], -300, yPositions[i]);
-            finals[i] = MakeValueText(ct, $"Final_{i}", "0", 100, yPositions[i]);
-            diffs[i] = MakeDiffText(ct, $"Diff_{i}", "+0", 340, yPositions[i]);
-
-            // Row separator (skip last)
-            if (i < 3)
-                SR(MakeImage(ct, $"DivR{i}", new Color32(25, 35, 50, 255)), 0.5f, 0.5f, 780, 1, 0, yPositions[i] - 27);
+            SR(MakeImage(ct, $"DivR{i}", new Color32(25, 35, 50, 255)),
+                0.5f, 0.5f, 780, 1, 0, y - 25);
         }
-
-        hipHopFinalText = finals[0]; discoFinalText = finals[1];
-        rockFinalText = finals[2]; metalFinalText = finals[3];
-        hipHopDiffText = diffs[0]; discoDiffText = diffs[1];
-        rockDiffText = diffs[2]; metalDiffText = diffs[3];
-
-        SR(MakeImage(ct, "Div3", new Color32(50, 65, 90, 255)), 0.5f, 0.5f, 780, 2, 0, -128);
-
-        // Continue button
-        var continueBtn = MakeButton(ct, "ContinueBtn", "DALEJ →");
-        SR(continueBtn, 0.5f, 0.5f, 260, 60, 0, -190);
-        continueBtn.GetComponent<Button>().onClick.AddListener(Hide);
-
-        canvas.SetActive(false);
-        built = true;
     }
+
+    hipHopFinalText = finals[0];
+    discoFinalText = finals[1];
+    rockFinalText = finals[2];
+    metalFinalText = finals[3];
+
+    hipHopDiffText = diffs[0];
+    discoDiffText = diffs[1];
+    rockDiffText = diffs[2];
+    metalDiffText = diffs[3];
+
+    // Bottom divider
+    y -= 40;
+    SR(MakeImage(ct, "Div3", new Color32(50, 65, 90, 255)),
+        0.5f, 0.5f, 780, 2, 0, y);
+
+    // =========================
+    // ▶ BUTTON
+    // =========================
+
+    var continueBtn = MakeButton(ct, "ContinueBtn", "DALEJ →");
+    SR(continueBtn, 0.5f, 0.5f, 260, 60, 0, y - 70);
+
+    continueBtn.GetComponent<Button>().onClick.AddListener(Hide);
+
+    canvas.SetActive(false);
+    built = true;
+}
 
     // ------------------------------------------------------------------
     #region Helpers
