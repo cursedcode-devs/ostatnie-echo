@@ -4710,7 +4710,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1746533315691396806, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3257665095543750029, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
       propertyPath: m_LocalRotation.x
@@ -7988,7 +7988,7 @@ MonoBehaviour:
   timeHandler:
     Hour: 0
     Day: 0
-    lastDay: 2
+    lastDay: 3
   ShopUI: {fileID: 1890631365}
   ShopButton: {fileID: 1970925079}
   allCassettes:
@@ -8002,6 +8002,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 86e89e1f7ef7fb941a613427f63db479, type: 2}
   - {fileID: 11400000, guid: 1d7b65b5b0667c44fa1ce6fed8702ef6, type: 2}
   dailyOffer: []
+  kawalerka_fees:
+  - 50
+  - 125
+  - 150
+  jedzenie_fees:
+  - 50
+  - 125
+  - 310
+  studia_fees:
+  - 30
+  - 75
+  - 190
 --- !u!4 &1996727237
 Transform:
   m_ObjectHideFlags: 0
@@ -9175,7 +9187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4612924941064329770, guid: c091ec011fea46349ae09b119edefdba, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4962378516515002051, guid: c091ec011fea46349ae09b119edefdba, type: 3}
       propertyPath: m_Camera

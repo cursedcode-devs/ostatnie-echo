@@ -14,9 +14,9 @@ public class DayEndHandler : MonoBehaviour
     private RadioStation radioStation;
     private DaySummaryScreen summaryScreen;
     private GameEndScreen endScreen;
-    public Vector3 kawalerka_fees;
-    public Vector3 jedzenie_fees;
-    public Vector3 studia_fees;
+    public float[] kawalerka_fees;
+    public float[] jedzenie_fees;
+    public float[] studia_fees;
     private float kawalerka_fee;
     private float jedzenie_fee;
     private float studia_fee;
@@ -24,7 +24,7 @@ public class DayEndHandler : MonoBehaviour
 
     // ------------------------------------------------------------------
     void Start()
-    {   
+    {
 
 
         ShopUI.gameObject.SetActive(false);
@@ -52,26 +52,15 @@ public class DayEndHandler : MonoBehaviour
 
     void HandleDayStart()
     {
-        switch (timeHandler.getDay()) 
+        if (timeHandler.getDay() > 1)
         {
-            case 2:
-                kawalerka_fee = kawalerka_fees.x;
-                jedzenie_fee = jedzenie_fees.x;
-                studia_fee = studia_fees.x;
-                break;
-            case 3:
-                kawalerka_fee = kawalerka_fees.y;
-                jedzenie_fee = jedzenie_fees.y;
-                studia_fee = studia_fees.y;
-                break;
-            case 4:
-                kawalerka_fee = kawalerka_fees.z;
-                jedzenie_fee = jedzenie_fees.z;
-                studia_fee = studia_fees.z;   
-                break; 
 
+            kawalerka_fee = kawalerka_fees[timeHandler.getDay() - 2];
+            jedzenie_fee = jedzenie_fees[timeHandler.getDay() - 2];
+            studia_fee = studia_fees[timeHandler.getDay() - 2];
         }
         gameManager.SetInputEnabled(false);
+        radioStation.SetCurrentMoney(radioStation.GetCurrentMoney() - kawalerka_fee - jedzenie_fee - studia_fee);
 
         //if no money at the beginning of new day game finishes
         if (radioStation.GetCurrentMoney() <= 0)
@@ -79,7 +68,7 @@ public class DayEndHandler : MonoBehaviour
             HandleGameFinished();
             return;
         }
-        
+
 
         foreach (var cassette in allCassettes)
         {
@@ -99,7 +88,6 @@ public class DayEndHandler : MonoBehaviour
         int discoDiff = radioStation.currentListeners.disco - startListeners.disco;
         int rockDiff = radioStation.currentListeners.rock - startListeners.rock;
         int metalDiff = radioStation.currentListeners.metal - startListeners.metal;
-        radioStation.SetCurrentMoney(radioStation.GetCurrentMoney() - kawalerka_fee - jedzenie_fee - studia_fee);
         float moneyDiff = radioStation.GetCurrentMoney() - startMoney;
 
         Debug.Log($"Day ended! HipHop:{hipHopDiff}, Disco:{discoDiff}, Rock:{rockDiff}, Metal:{metalDiff}, Money:{moneyDiff}");
@@ -132,11 +120,12 @@ public class DayEndHandler : MonoBehaviour
                 startListeners.metal = radioStation.currentListeners.metal;
                 startMoney = radioStation.GetCurrentMoney();
 
-                
+
                 // GenerateDailyOffer();
 
-                gameManager.SetInputEnabled( true );
-                if (timeHandler.getDay() >= 2 ){
+                gameManager.SetInputEnabled(true);
+                if (timeHandler.getDay() >= 2)
+                {
                     ShopButton.gameObject.SetActive(true);
                 }
             }
@@ -202,7 +191,7 @@ public class DayEndHandler : MonoBehaviour
 
     public void GenerateDailyOffer()
     {
-        gameManager.SetInputEnabled( false );
+        gameManager.SetInputEnabled(false);
         if (allCassettes.Length < 3)
         {
             Debug.Log("Not enough cassettes to generate daily offer!");
@@ -238,14 +227,14 @@ public class DayEndHandler : MonoBehaviour
             TextMeshProUGUI stats = slot.Find("STATYSTYKI")
                                         .GetComponent<TextMeshProUGUI>();
 
-            name.text = dailyOffer[i-1].name;
-            dailyOffer[i-1].price = Random.Range(10, 100);
-            price.text = dailyOffer[i-1].price.ToString() + " ZŁ";
-            stats.text = dailyOffer[i-1].GetCassetteValues().ToString();
+            name.text = dailyOffer[i - 1].name;
+            dailyOffer[i - 1].price = Random.Range(10, 100);
+            price.text = dailyOffer[i - 1].price.ToString() + " ZŁ";
+            stats.text = dailyOffer[i - 1].GetCassetteValues().ToString();
         }
         // foreach (var c in dailyOffer)
         //     Debug.Log("Offered cassette: " + c.name);
-        
+
 
         ShopUI.gameObject.SetActive(true);
     }
@@ -259,32 +248,36 @@ public class DayEndHandler : MonoBehaviour
         dailyOffer = newOffer;
         Debug.Log($"[DayEndHandler] Dodano '{cassette.name}' do oferty.");
     }
-    
 
-    public void BuyCassette(int offerIndex){
+
+    public void BuyCassette(int offerIndex)
+    {
         Cassette cassetteToBuy = dailyOffer[offerIndex];
-        float yourMoney= radioStation.GetCurrentMoney();
+        float yourMoney = radioStation.GetCurrentMoney();
         float cassettePrice = cassetteToBuy.price;
-        if (yourMoney >= cassettePrice){
+        if (yourMoney >= cassettePrice)
+        {
             radioStation.SetCurrentMoney(yourMoney - cassettePrice);
             UpdateMoneySlotInShop();
-            Transform slot = ShopUI.transform.GetChild(offerIndex+1);
+            Transform slot = ShopUI.transform.GetChild(offerIndex + 1);
             slot.gameObject.SetActive(false);
         }
-        
+
 
 
     }
 
-    public void UpdateMoneySlotInShop(){
+    public void UpdateMoneySlotInShop()
+    {
         Transform yourMoneySlot = ShopUI.transform.GetChild(5);
         TextMeshProUGUI yourMoney = yourMoneySlot.GetComponent<TextMeshProUGUI>();
         yourMoney.text = radioStation.GetCurrentMoney().ToString();
     }
 
-    public void ExitShop(){
+    public void ExitShop()
+    {
         ShopUI.gameObject.SetActive(false);
         ShopButton.gameObject.SetActive(false);
-        gameManager.SetInputEnabled( true );
+        gameManager.SetInputEnabled(true);
     }
 }
