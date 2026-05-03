@@ -3835,6 +3835,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChoosingCassetteUI
   choosingCassetteCanvas: {fileID: 420978106}
   gameManager: {fileID: 111077787}
+  cassettePlayer: {fileID: 594620025}
   airtime: {fileID: 1296084681}
   cassetteSlotTexts:
   - {fileID: 410322415}
