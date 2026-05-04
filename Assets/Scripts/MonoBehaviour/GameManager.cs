@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
         if (clickedObject != null)
             sliderObject = clickedObject.GetComponent<ConsoleSliderObject>();
 
-        //Obs�uguje akcej myszki
+        //Obsługuje akcej myszki
         switch (mouseActionType)
         {
             case ActionTypes.LeftClickOnPlayableObject:
@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
         }
 
         keyboardActionType = actionManager.GetKeyboardActionType();
-        //Obs�uguje akcje klawiatury
+        //Obsługuje akcje klawiatury
         switch (keyboardActionType)
         {
             case ActionTypes.PressedA:
@@ -150,6 +150,7 @@ public class GameManager : MonoBehaviour
                 radioStation.ApplySegment(airtime.GetCassettes());
                 audioQueueManager.EnqueueClips(airtime.GetCassettesAudio());
                 audioQueueManager.PlayClipsSequence();
+                CheckForRequestedCassette();
                 airtime.emptyAllSlots();
                 choosingCassetteUI.ResetSlotText();
                 choosingCassetteUI.Hide();
@@ -173,4 +174,93 @@ public class GameManager : MonoBehaviour
     {
         inputEnabled = enabled;
     }
+
+        public string requestedGenre = "";
+public PlayableContent requestedCassette;
+    public float requestedCassetteBoost = 0.1f; // 10% boost
+
+    public void SetRequestedCassette(PlayableContent cassette)
+    {
+        requestedCassette = cassette;
+    }
+
+public void SetRequestedGenre(string genre)
+{
+    requestedGenre = genre;
+}
+
+
+public void CheckForRequestedCassette()
+{
+    bool wasPlayed = false;
+    string successfullyPlayedGenre = "";
+
+    if (requestedCassette != null)
+    {
+        foreach (var cassette in airtime.GetCassettes())
+        {
+            if (cassette == requestedCassette)
+            {
+                wasPlayed = true;
+                break;
+            }
+        }
+    }
+
+    if (!string.IsNullOrEmpty(requestedGenre))
+    {
+        foreach (var cassette in airtime.GetCassettes())
+        {
+            if (cassette != null)
+            {
+                GenreValues values = cassette.GetCassetteValues();
+                float genreValue = 0;
+                switch (requestedGenre.ToLower())
+                {
+                    case "hiphop":
+                    case "hip hop": genreValue = values.hipHop; break;
+                    case "disco": genreValue = values.disco; break;
+                    case "rock": genreValue = values.rock; break;
+                    case "metal": genreValue = values.metal; break;
+                }
+                
+                if (genreValue > 0)
+                {
+                    wasPlayed = true;
+                    successfullyPlayedGenre = requestedGenre.ToLower();
+                    break;
+                }
+            }
+        }
+    }
+
+    if (wasPlayed)
+    {
+        float boostHipHop = 0f, boostDisco = 0f, boostRock = 0f, boostMetal = 0f;
+        
+        if (successfullyPlayedGenre == "hiphop" || successfullyPlayedGenre == "hip hop") boostHipHop = requestedCassetteBoost;
+        else if (successfullyPlayedGenre == "disco") boostDisco = requestedCassetteBoost;
+        else if (successfullyPlayedGenre == "rock") boostRock = requestedCassetteBoost;
+        else if (successfullyPlayedGenre == "metal") boostMetal = requestedCassetteBoost;
+        else 
+        {
+            // Fallback for specific cassette request without genre specified
+            boostHipHop = requestedCassetteBoost;
+            boostDisco = requestedCassetteBoost;
+            boostRock = requestedCassetteBoost;
+            boostMetal = requestedCassetteBoost;
+        }
+
+        Debug.Log("Zagrałeś pożądaną piosenkę/gatunek! Boost do słuchaczy!");
+        radioStation.AddHourlyListenersModifier(boostHipHop, boostDisco, boostRock, boostMetal);
+        
+        if (MiniGameSystem.Instance != null)
+        {
+            MiniGameSystem.Instance.ShowPopup("Sukces", "Zagrałeś pożądany gatunek!");
+        }
+    }
+
+    requestedCassette = null;
+    requestedGenre = "";
+}
 }
