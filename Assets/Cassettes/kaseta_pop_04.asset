@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783e4f2a3331ba644b8de0e08f172524, type: 3}
   m_Name: kaseta_pop_04
   m_EditorClassIdentifier: Assembly-CSharp::Cassette
-  audio: {fileID: 0}
-  itemName: "Uzbekista\u0144ski pop"
-  author: Bobek
+  audio: {fileID: 8300000, guid: 47b6f296008e41fb79cbdc574cf9b8d4, type: 3}
+  itemName: On The Top
+  author: Dj Loco
   physicalPrefab: {fileID: 0}
   timesUsedInDay: 0
   cassetteValues:

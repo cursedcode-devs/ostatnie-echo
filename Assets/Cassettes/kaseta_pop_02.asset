@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783e4f2a3331ba644b8de0e08f172524, type: 3}
   m_Name: kaseta_pop_02
   m_EditorClassIdentifier: Assembly-CSharp::Cassette
-  audio: {fileID: 0}
+  audio: {fileID: 8300000, guid: 162df77db862842948d1658a442ce1b8, type: 3}
   itemName: Get freaky
   author: Das bonk
   physicalPrefab: {fileID: 0}

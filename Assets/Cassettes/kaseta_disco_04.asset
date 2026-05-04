@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783e4f2a3331ba644b8de0e08f172524, type: 3}
   m_Name: kaseta_disco_04
   m_EditorClassIdentifier: Assembly-CSharp::Cassette
-  audio: {fileID: 8300000, guid: 40fc81acc9c849744a34a1401c8b1a2c, type: 3}
+  audio: {fileID: 8300000, guid: 2d2c18c7b8569c047b0c2cbcc8edf62e, type: 3}
   itemName: Dancing Prince
   author: Boogie Woogie
   physicalPrefab: {fileID: 0}

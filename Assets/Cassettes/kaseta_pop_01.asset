@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783e4f2a3331ba644b8de0e08f172524, type: 3}
   m_Name: kaseta_pop_01
   m_EditorClassIdentifier: Assembly-CSharp::Cassette
-  audio: {fileID: 0}
-  itemName: It's my o'siedle
-  author: Dr. Oetker
+  audio: {fileID: 8300000, guid: dcb70e0e99456d7fb855c885b29f2a43, type: 3}
+  itemName: It's my car
+  author: Dr. Gruzya
   physicalPrefab: {fileID: 0}
   timesUsedInDay: 0
   cassetteValues:

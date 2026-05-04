@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783e4f2a3331ba644b8de0e08f172524, type: 3}
   m_Name: kaseta_pop_03
   m_EditorClassIdentifier: Assembly-CSharp::Cassette
-  audio: {fileID: 0}
+  audio: {fileID: 8300000, guid: c95ebd2a233f47175a874d9697b95a41, type: 3}
   itemName: Volare Cantare
   author: Gazzi
   physicalPrefab: {fileID: 0}
