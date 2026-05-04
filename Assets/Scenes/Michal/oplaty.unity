@@ -4838,6 +4838,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Muzyka Rock
       objectReference: {fileID: 0}
+    - target: {fileID: 9215451571708502910, guid: a1cc94c287d5d034cab52f1c3f8bef49, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: 5f35b44e2a7cd824d9fdc50d19dbb773, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5665,6 +5669,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Muzyka Disco
       objectReference: {fileID: 0}
+    - target: {fileID: 8496836675875996194, guid: 8d5f9ef4d54df2346a9f6c424c19a78c, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: 6a1c88870bbc14746a3442dea6ad7a5c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5833,11 +5841,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChoosingCassetteUI
   choosingCassetteCanvas: {fileID: 420978106}
   gameManager: {fileID: 111077787}
+  cassettePlayer: {fileID: 0}
   airtime: {fileID: 1296084681}
   cassetteSlotTexts:
   - {fileID: 410322415}
   - {fileID: 235570567}
   - {fileID: 81848956}
+  StatTexts: []
 --- !u!4 &1596736047
 Transform:
   m_ObjectHideFlags: 0
@@ -5905,6 +5915,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'Muzyka HipHop '
       objectReference: {fileID: 0}
+    - target: {fileID: 4219901616719185076, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: 89da18489831d504a91b81507b984a70, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6685,6 +6699,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Muzyka Metal
       objectReference: {fileID: 0}
+    - target: {fileID: 1159697874351585818, guid: 7e70c77e5df28fb4d8423c24eff788f4, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: ab5c37b1f9094094a9d54dd2252877eb, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7424,6 +7442,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 86e89e1f7ef7fb941a613427f63db479, type: 2}
   - {fileID: 11400000, guid: 1d7b65b5b0667c44fa1ce6fed8702ef6, type: 2}
   dailyOffer: []
+  kawalerka_fees: []
+  jedzenie_fees: []
+  studia_fees: []
 --- !u!4 &1996727237
 Transform:
   m_ObjectHideFlags: 0
