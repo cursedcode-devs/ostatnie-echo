@@ -5517,6 +5517,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Muzyka Rock
       objectReference: {fileID: 0}
+    - target: {fileID: 9215451571708502910, guid: a1cc94c287d5d034cab52f1c3f8bef49, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: ab5c37b1f9094094a9d54dd2252877eb, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6564,6 +6568,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Muzyka Disco
       objectReference: {fileID: 0}
+    - target: {fileID: 8496836675875996194, guid: 8d5f9ef4d54df2346a9f6c424c19a78c, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: 89da18489831d504a91b81507b984a70, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6953,6 +6961,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'Muzyka HipHop '
       objectReference: {fileID: 0}
+    - target: {fileID: 4219901616719185076, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: 6a1c88870bbc14746a3442dea6ad7a5c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7876,6 +7888,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Muzyka Metal
       objectReference: {fileID: 0}
+    - target: {fileID: 1159697874351585818, guid: 7e70c77e5df28fb4d8423c24eff788f4, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: 5f35b44e2a7cd824d9fdc50d19dbb773, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8676,10 +8692,22 @@ MonoBehaviour:
   ShopUI: {fileID: 1890631365}
   ShopButton: {fileID: 1970925079}
   allCassettes:
-  - {fileID: 11400000, guid: 9e0222f5b3ea4ec438bbf91b0346c045, type: 2}
-  - {fileID: 11400000, guid: 575c2ea483af732469c186b1282a83a4, type: 2}
-  - {fileID: 11400000, guid: 3bdc4632ac4a20447881efb6047175fa, type: 2}
-  - {fileID: 11400000, guid: c8509628870fac44babbbadf10872fe4, type: 2}
+  - {fileID: 11400000, guid: 89da18489831d504a91b81507b984a70, type: 2}
+  - {fileID: 11400000, guid: ec275bb3828210e46897bcd357cc8c78, type: 2}
+  - {fileID: 11400000, guid: ed0d56143c97b4145a68d7d83b8bd50f, type: 2}
+  - {fileID: 11400000, guid: cc859ce1e4ce8b7408e5d8295d0e8ed8, type: 2}
+  - {fileID: 11400000, guid: 6a1c88870bbc14746a3442dea6ad7a5c, type: 2}
+  - {fileID: 11400000, guid: b0528d5df78c4c242831b399fc53688b, type: 2}
+  - {fileID: 11400000, guid: 7ff5527fd0c913b459525cbdfcaaf914, type: 2}
+  - {fileID: 11400000, guid: b9e88c6ff769f2440a1b3c500444dd3f, type: 2}
+  - {fileID: 11400000, guid: 5f35b44e2a7cd824d9fdc50d19dbb773, type: 2}
+  - {fileID: 11400000, guid: b37e4dd3fe6914b44b552bd83fe7d532, type: 2}
+  - {fileID: 11400000, guid: 42682f1d2331f84479f47092a8f6a958, type: 2}
+  - {fileID: 11400000, guid: 4257a630e8bd87f4285111a0212b6837, type: 2}
+  - {fileID: 11400000, guid: ab5c37b1f9094094a9d54dd2252877eb, type: 2}
+  - {fileID: 11400000, guid: ff7e06384e84bc5439ebbae593159fd1, type: 2}
+  - {fileID: 11400000, guid: ff7e06384e84bc5439ebbae593159fd1, type: 2}
+  - {fileID: 11400000, guid: cc859ce1e4ce8b7408e5d8295d0e8ed8, type: 2}
   allAds:
   - {fileID: 11400000, guid: 954ce0b31d1fdf9469b0c07864e8a68c, type: 2}
   - {fileID: 11400000, guid: aafa3a867ee933d41934ff568ccd3145, type: 2}
