@@ -669,6 +669,9 @@ MonoBehaviour:
   airtime: {fileID: 1296084681}
   choosingCassetteUI: {fileID: 1596736046}
   audioQueueManager: {fileID: 330912644}
+  requestedGenre: 
+  requestedCassette: {fileID: 0}
+  requestedCassetteBoost: 0.1
   references:
     version: 2
     RefIds:
@@ -5105,6 +5108,35 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2108342985443868912, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
+      propertyPath: m_text
+      value: "By w\u0142\u0105czy\u0107 wybieranie kasety do odtworzenia nale\u017Cy
+        nacisn\u0105\u0107 na odtwarzacz.\n\nW grze mo\u017Cna te\u017C wybiera\u0107
+        inne przedmioty. Wszystkimi przedmiotami, kt\xF3re s\u0105 wybieralne mo\u017Cna
+        obraca\u0107 za pomoc\u0105 klawiszy WASDQE (B\u0119dzie to mia\u0142o wi\u0119ksze
+        zastosowanie w przysz\u0142ych wersjach).\n\nBy odznaczy\u0107 wybrany przedmiot
+        nale\u017Cy klikn\u0105\u0107 lewym przyciskiem myszy, na inny wybiera\nlny
+        przedmiot lub na cokolwiek co nie jest przedmiotem."
+      objectReference: {fileID: 0}
+    - target: {fileID: 2579035408114638365, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
+      propertyPath: m_text
+      value: Ostatnie Echo - Beta
+      objectReference: {fileID: 0}
+    - target: {fileID: 3040700516314342501, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
+      propertyPath: m_text
+      value: "Gra jest podzielona na godziny i dni. Jeden dzie\u0144 ma 4 godzin.
+        Ca\u0142a gra trwa 3 dni.\r\nPodczas jednej godziny mo\u017Cna wybra\u0107
+        3 kasety do grania (u g\xF3ry muzyka, na dole reklamy) poprzez naci\u015Bni\u0119cie
+        jej lewym przyciskiem myszy. Gdy kaseta unosi si\u0119 w powietrzu znaczy,
+        \u017Ce jest wybrana. Gdy jest wybrana kaseta i naci\u015Bniemy na odpowiedni
+        slot ona si\u0119 tam ustawi. By pu\u015Bci\u0107 wybrane kasety na dan\u0105
+        godzin\u0119 nale\u017Cy wcisn\u0105\u0107 enter. Nowa godzina zaczyna si\u0119
+        , gdy wszystkie trzy kaseta sko\u0144cz\u0105 gra\u0107. By pomin\u0105\u0107
+        audio kasety wci\u015Bnij P.\r\nZa ka\u017Cdym zagraniem kasety jednego dnia
+        jej efektywno\u015B\u0107 tego dnia zmniejsza si\u0119. W nowym dniu efektywno\u015B\u0107
+        wszystkich kaset resetuje si\u0119. Im wi\u0119cej reklam w godzinie pu\u015Bcisz
+        tym wi\u0119cej s\u0142uchaczy stracisz\r\n"
+      objectReference: {fileID: 0}
     - target: {fileID: 3257665095543750029, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
@@ -5156,6 +5188,19 @@ PrefabInstance:
     - target: {fileID: 3359964184216739668, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5396626654763785738, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
+      propertyPath: m_text
+      value: "Po puszczeniu kasety losuje si\u0119 jedna z minigier.\r\n\r\n Gdy
+        wylosuje si\u0119 gra w \u015Bwiat\u0142a nale\u017Cy ustawi\u0107 prze\u0142\u0105czniki
+        w ka\u017Cdym rogu w taki spos\xF3b, by ca\u0142a plansza by\u0142a zapalona.\r\nGdy
+        wylosuje si\u0119 gra w dopasowanie fali nale\u017Cy tak manipulowa\u0107
+        trzema suwakami przy konsoli, by ich warto\u015B\u0107 by\u0142a bliska wy\u015Bwietlonej
+        oczekiwanej warto\u015Bci.\r\nGdy wylosuj\u0119 si\u0119 gra w \u0142\u0105czenie
+        kabli nale\u017Cy wcisn\u0105\u0107 spacj\u0119, gdy kabel jest w zielonym
+        obszarze.\r\n\r\nPo ich uko\u0144czeniu gracz uzyskuje r\xF3\u017Cne bonusy.\r\n(Dla
+        u\u0142atwienia mo\u017Cna pomin\u0105\u0107 minigr\u0119 wciskaj\u0105\u0107
+        klawisz \"ESC\")"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8716,16 +8761,16 @@ MonoBehaviour:
   dailyOffer: []
   kawalerka_fees:
   - 50
-  - 125
-  - 150
+  - 75
+  - 100
   jedzenie_fees:
   - 50
-  - 125
-  - 310
+  - 75
+  - 100
   studia_fees:
   - 30
   - 75
-  - 190
+  - 100
 --- !u!4 &1996727237
 Transform:
   m_ObjectHideFlags: 0
@@ -9397,6 +9442,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c6f6338ec385f1536b363fcb02a36fd6, type: 2}
   - {fileID: 11400000, guid: 1e3e2ce82a99bea43b490a6ad55a278b, type: 2}
   - {fileID: 11400000, guid: e3331cfb25182bdf0a7bdc845c30444f, type: 2}
+  - {fileID: 11400000, guid: 31942b84a597520449e96a4ca5399994, type: 2}
   amplitudeSlider: {fileID: 2020246816}
   lengthSlider: {fileID: 764837579}
   frequencySlider: {fileID: 1060649005}
