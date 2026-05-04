@@ -5191,8 +5191,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5396626654763785738, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
       propertyPath: m_text
-      value: "Po puszczeniu kasety losuje si\u0119 jedna z minigier.\r\n\r\n Gdy
-        wylosuje si\u0119 gra w \u015Bwiat\u0142a nale\u017Cy ustawi\u0107 prze\u0142\u0105czniki
+      value: "Po puszczeniu kasety losuje si\u0119 jedna z minigier.\r\n\r\nGdy wylosuje
+        si\u0119 gra w \u015Bwiat\u0142a nale\u017Cy ustawi\u0107 prze\u0142\u0105czniki
         w ka\u017Cdym rogu w taki spos\xF3b, by ca\u0142a plansza by\u0142a zapalona.\r\nGdy
         wylosuje si\u0119 gra w dopasowanie fali nale\u017Cy tak manipulowa\u0107
         trzema suwakami przy konsoli, by ich warto\u015B\u0107 by\u0142a bliska wy\u015Bwietlonej
