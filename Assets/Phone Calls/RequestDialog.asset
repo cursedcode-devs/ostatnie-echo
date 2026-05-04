@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d45b0f46aa3003d4089d0867c36920e2, type: 3}
+  m_Name: RequestDialog
+  m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
+  callType: 1
+  callerName: 
+  initialDialog: "*dzwoni telefon do studia* \nSiema ch\u0142opaki, pu\u015B\u0107cie
+    jaki\u015B prawdziwy {GENRE}!"
+  dialogOptions:
+  - optionText: "Pewnie, w\u0142\u0105czymy to w najbli\u017Cszym bloku!"
+    resultingText: "Dzi\u0119ki wielkie!"
+    moneyChange: 0
+    listenersPrecentageChange: 0
+    requestedGenre: random
+    flatListenersChange:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      metal: 0
+  - optionText: "Nie gramy na \u017Cyczenie."
+    resultingText: "S\u0142abi jeste\u015Bcie..."
+    moneyChange: -5
+    listenersPrecentageChange: -0.05
+    requestedGenre: 
+    flatListenersChange:
+      hipHop: -5
+      disco: 0
+      rock: 0
+      metal: 0

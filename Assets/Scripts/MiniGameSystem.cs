@@ -191,6 +191,21 @@ public class MiniGameSystem : MonoBehaviour
             r?.Apply(radioStation, dayEndHandler);
     }
 
+public void ShowPopup(string title, string description)
+{
+    if (rewardPopupCanvas == null || rewardText == null) return;
+    StartCoroutine(ShowPopupCoroutine(title, description));
+}
+
+private IEnumerator ShowPopupCoroutine(string title, string description)
+{
+    rewardText.text = $"{title}\n{description}";
+    rewardPopupCanvas.SetActive(true);
+    yield return new WaitForSeconds(popupDuration);
+    rewardPopupCanvas.SetActive(false);
+}
+
+
     IEnumerator ShowRewardPopup(MiniGameReward[] rewards)
     {
         if (rewardPopupCanvas == null || rewardText == null) yield break;
