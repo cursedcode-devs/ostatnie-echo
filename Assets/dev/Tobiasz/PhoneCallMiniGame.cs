@@ -66,7 +66,7 @@ private void SetupSongRequest()
     if (requestedCassette.GetCassetteValues().hipHop > 0) genreText = "hip hop";
     else if (requestedCassette.GetCassetteValues().disco > 0) genreText = "disco";
     else if (requestedCassette.GetCassetteValues().rock > 0) genreText = "rock";
-    else if (requestedCassette.GetCassetteValues().metal > 0) genreText = "metal";
+    else if (requestedCassette.GetCassetteValues().pop > 0) genreText = "pop";
     
     string dialog = "";
     switch(genreText)
@@ -74,7 +74,7 @@ private void SetupSongRequest()
         case "hip hop": dialog = $"Yo, macie może kasetę '{requestedCassette.GetName()}'? Puśćcie trochę hip hopu!"; break;
         case "disco": dialog = $"Hej! Zróbcie trochę hałasu i puśćcie '{requestedCassette.GetName()}'!"; break;
         case "rock": dialog = $"Witam. Chciałbym usłyszeć klasycznego rocka. Może '{requestedCassette.GetName()}'?"; break;
-        case "metal": dialog = $"Dawajcie metal! Puść '{requestedCassette.GetName()}' natychmiast!"; break;
+        case "pop": dialog = $"Dawajcie pop! Puść '{requestedCassette.GetName()}' natychmiast!"; break;
         default: dialog = $"Hej, puść proszę '{requestedCassette.GetName()}'."; break;
     }
 
@@ -105,7 +105,7 @@ private void SetupDialogCall()
     string dialogTextString = currentPhoneCall.initialDialog;
     if (dialogTextString != null && dialogTextString.Contains("{GENRE}"))
     {
-        string[] genres = { "hip hop", "disco", "rock", "metal" };
+        string[] genres = { "hip hop", "disco", "rock", "pop" };
         dynamicallyPickedGenre = genres[Random.Range(0, genres.Length)];
         dialogTextString = dialogTextString.Replace("{GENRE}", dynamicallyPickedGenre);
     }
@@ -176,7 +176,7 @@ private void OnOptionClicked(int optionIndex)
             radioStation.currentListeners.hipHop += option.flatListenersChange.hipHop;
             radioStation.currentListeners.disco += option.flatListenersChange.disco;
             radioStation.currentListeners.rock += option.flatListenersChange.rock;
-            radioStation.currentListeners.metal += option.flatListenersChange.metal;
+            radioStation.currentListeners.pop += option.flatListenersChange.pop;
         }
     }
 

@@ -6,7 +6,7 @@ public class StatsUI : MonoBehaviour
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI hipHopText;
     public TextMeshProUGUI rockText;
-    public TextMeshProUGUI metalText;
+    public TextMeshProUGUI popText;
     public TextMeshProUGUI discoText;
 
     private RadioStation radioStation;
@@ -27,7 +27,7 @@ public class StatsUI : MonoBehaviour
         moneyText.text  = "Money: "  + radioStation.GetCurrentMoney().ToString("F2") + "$";
         hipHopText.text = "HipHop: " + radioStation.currentListeners.hipHop;
         rockText.text   = "Rock: "   + radioStation.currentListeners.rock;
-        metalText.text  = "Metal: "  + radioStation.currentListeners.metal;
+        popText.text  = "Pop: "  + radioStation.currentListeners.pop;
         discoText.text  = "Disco: "  + radioStation.currentListeners.disco;
     }
 }

@@ -221,7 +221,7 @@ public void CheckForRequestedCassette()
                     case "hip hop": genreValue = values.hipHop; break;
                     case "disco": genreValue = values.disco; break;
                     case "rock": genreValue = values.rock; break;
-                    case "metal": genreValue = values.metal; break;
+                    case "pop": genreValue = values.pop; break;
                 }
                 
                 if (genreValue > 0)
@@ -241,7 +241,7 @@ public void CheckForRequestedCassette()
         if (successfullyPlayedGenre == "hiphop" || successfullyPlayedGenre == "hip hop") boostHipHop = requestedCassetteBoost;
         else if (successfullyPlayedGenre == "disco") boostDisco = requestedCassetteBoost;
         else if (successfullyPlayedGenre == "rock") boostRock = requestedCassetteBoost;
-        else if (successfullyPlayedGenre == "metal") boostMetal = requestedCassetteBoost;
+        else if (successfullyPlayedGenre == "pop") boostMetal = requestedCassetteBoost;
         else 
         {
             // Fallback for specific cassette request without genre specified

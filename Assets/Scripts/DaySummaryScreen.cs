@@ -26,11 +26,11 @@ public class DaySummaryScreen : MonoBehaviour
     private TextMeshProUGUI hipHopFinalText;
     private TextMeshProUGUI discoFinalText;
     private TextMeshProUGUI rockFinalText;
-    private TextMeshProUGUI metalFinalText;
+    private TextMeshProUGUI popFinalText;
     private TextMeshProUGUI hipHopDiffText;
     private TextMeshProUGUI discoDiffText;
     private TextMeshProUGUI rockDiffText;
-    private TextMeshProUGUI metalDiffText;
+    private TextMeshProUGUI popDiffText;
 
     private Action onContinue;
 
@@ -44,7 +44,7 @@ public class DaySummaryScreen : MonoBehaviour
         int hipHop, int hipHopDiff,
         int disco, int discoDiff,
         int rock, int rockDiff,
-        int metal, int metalDiff,
+        int pop, int popDiff,
         Action onContinueCallback = null)
     {
         if (!built) Build();
@@ -63,17 +63,17 @@ public class DaySummaryScreen : MonoBehaviour
         hipHopFinalText.text = $"{hipHop}";
         discoFinalText.text = $"{disco}";
         rockFinalText.text = $"{rock}";
-        metalFinalText.text = $"{metal}";
+        popFinalText.text = $"{pop}";
 
         hipHopDiffText.text = FormatDiff(hipHopDiff);
         discoDiffText.text = FormatDiff(discoDiff);
         rockDiffText.text = FormatDiff(rockDiff);
-        metalDiffText.text = FormatDiff(metalDiff);
+        popDiffText.text = FormatDiff(popDiff);
 
         hipHopDiffText.color = DiffColor(hipHopDiff);
         discoDiffText.color = DiffColor(discoDiff);
         rockDiffText.color = DiffColor(rockDiff);
-        metalDiffText.color = DiffColor(metalDiff);
+        popDiffText.color = DiffColor(popDiff);
 
         canvas.SetActive(true);
         Time.timeScale = 0f;
@@ -195,12 +195,12 @@ public class DaySummaryScreen : MonoBehaviour
     hipHopFinalText = finals[0];
     discoFinalText = finals[1];
     rockFinalText = finals[2];
-    metalFinalText = finals[3];
+    popFinalText = finals[3];
 
     hipHopDiffText = diffs[0];
     discoDiffText = diffs[1];
     rockDiffText = diffs[2];
-    metalDiffText = diffs[3];
+    popDiffText = diffs[3];
 
     // Bottom divider
     y -= 40;

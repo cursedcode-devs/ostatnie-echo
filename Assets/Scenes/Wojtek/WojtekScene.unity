@@ -608,39 +608,39 @@ MonoBehaviour:
       hipHop: 5
       disco: 5
       rock: 5
-      metal: 5
+      pop: 5
     startListeners: 5
     currentMoney: 0
     hourlyListenersModifier:
       hipHop: 0
       disco: 0
       rock: 0
-      metal: 0
+      pop: 0
     hourlyRevenueModifier:
       hipHop: 0
       disco: 0
       rock: 0
-      metal: 0
+      pop: 0
     dailyListenersModifier:
       hipHop: 0
       disco: 0
       rock: 0
-      metal: 0
+      pop: 0
     dailyRevenueModifier:
       hipHop: 0
       disco: 0
       rock: 0
-      metal: 0
+      pop: 0
     totalListenerModifer:
       hipHop: 1
       disco: 1
       rock: 1
-      metal: 1
+      pop: 1
     totalRevenueModifier:
       hipHop: 1
       disco: 1
       rock: 1
-      metal: 1
+      pop: 1
   source: {fileID: 1292526863}
   mainCamera: {fileID: 330585545}
   timeHandler:
@@ -5508,7 +5508,7 @@ MonoBehaviour:
   moneyText: {fileID: 1438900047}
   hipHopText: {fileID: 1438900046}
   rockText: {fileID: 1438900045}
-  metalText: {fileID: 1438900044}
+  popText: {fileID: 1438900044}
   discoText: {fileID: 1438900043}
 --- !u!1001 &1209084566
 PrefabInstance:
@@ -6482,6 +6482,10 @@ PrefabInstance:
     - target: {fileID: 2089296297592938700, guid: e7d2d9c5369bee6ccb47515f71f27320, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350214204385830231, guid: e7d2d9c5369bee6ccb47515f71f27320, type: 3}
+      propertyPath: m_Name
+      value: popText
       objectReference: {fileID: 0}
     - target: {fileID: 5962462081729440586, guid: e7d2d9c5369bee6ccb47515f71f27320, type: 3}
       propertyPath: m_Enabled
@@ -9399,39 +9403,39 @@ MonoBehaviour:
       hipHop: 5
       disco: 5
       rock: 5
-      metal: 5
+      pop: 5
     startListeners: 5
     currentMoney: 0
     hourlyListenersModifier:
       hipHop: 0
       disco: 0
       rock: 0
-      metal: 0
+      pop: 0
     hourlyRevenueModifier:
       hipHop: 0
       disco: 0
       rock: 0
-      metal: 0
+      pop: 0
     dailyListenersModifier:
       hipHop: 0
       disco: 0
       rock: 0
-      metal: 0
+      pop: 0
     dailyRevenueModifier:
       hipHop: 0
       disco: 0
       rock: 0
-      metal: 0
+      pop: 0
     totalListenerModifer:
       hipHop: 1
       disco: 1
       rock: 1
-      metal: 1
+      pop: 1
     totalRevenueModifier:
       hipHop: 1
       disco: 1
       rock: 1
-      metal: 1
+      pop: 1
   dayEndHandler: {fileID: 1996727236}
   gameManager: {fileID: 111077787}
   globalRewardPool:

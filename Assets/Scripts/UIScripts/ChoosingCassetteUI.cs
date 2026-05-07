@@ -44,11 +44,11 @@ public class ChoosingCassetteUI : MonoBehaviour
 
             if (playableObject.data.GetType() == CassetteTypes.Ad)
             {
-                StatTexts[slot].text = "HipHop: " + values.hipHop / 100f + "z³" + "\nRock: " + values.rock / 100f + "z³" + "\nMetal: " + values.metal / 100f + "z³" + "\nDisco: " + values.disco / 100f + "z³";
+                StatTexts[slot].text = "HipHop: " + values.hipHop / 100f + "z³" + "\nRock: " + values.rock / 100f + "z³" + "\nMetal: " + values.pop / 100f + "z³" + "\nDisco: " + values.disco / 100f + "z³";
             }
             else if (playableObject.data.GetType() == CassetteTypes.Music)
             {
-                StatTexts[slot].text = "HipHop: " + values.hipHop / 100f + "\nRock: " + values.rock / 100f + "\nMetal: " + values.metal / 100f + "\nDisco: " + values.disco / 100f;
+                StatTexts[slot].text = "HipHop: " + values.hipHop / 100f + "\nRock: " + values.rock / 100f + "\nMetal: " + values.pop / 100f + "\nDisco: " + values.disco / 100f;
             }
 
             gameManager.selectionHandler.ResetLastSelectedObject();

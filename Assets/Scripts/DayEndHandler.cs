@@ -33,7 +33,7 @@ public class DayEndHandler : MonoBehaviour
         {
             hipHop = radioStation.currentListeners.hipHop,
             rock = radioStation.currentListeners.rock,
-            metal = radioStation.currentListeners.metal,
+            pop = radioStation.currentListeners.pop,
             disco = radioStation.currentListeners.disco
         };
         startMoney = radioStation.GetCurrentMoney();
@@ -87,10 +87,10 @@ public class DayEndHandler : MonoBehaviour
         int hipHopDiff = radioStation.currentListeners.hipHop - startListeners.hipHop;
         int discoDiff = radioStation.currentListeners.disco - startListeners.disco;
         int rockDiff = radioStation.currentListeners.rock - startListeners.rock;
-        int metalDiff = radioStation.currentListeners.metal - startListeners.metal;
+        int popDiff = radioStation.currentListeners.pop - startListeners.pop;
         float moneyDiff = radioStation.GetCurrentMoney() - startMoney;
 
-        Debug.Log($"Day ended! HipHop:{hipHopDiff}, Disco:{discoDiff}, Rock:{rockDiff}, Metal:{metalDiff}, Money:{moneyDiff}");
+        Debug.Log($"Day ended! HipHop:{hipHopDiff}, Disco:{discoDiff}, Rock:{rockDiff}, Metal:{popDiff}, Money:{moneyDiff}");
 
         // Show day summary — generate next daily offer after player clicks continue
         if (summaryScreen == null)
@@ -109,15 +109,15 @@ public class DayEndHandler : MonoBehaviour
             discoDiff: discoDiff,
             rock: radioStation.currentListeners.rock,
             rockDiff: rockDiff,
-            metal: radioStation.currentListeners.metal,
-            metalDiff: metalDiff,
+            pop: radioStation.currentListeners.pop,
+            popDiff: popDiff,
             onContinueCallback: () =>
             {
                 // Update snapshots and generate offer only after player dismisses summary
                 startListeners.hipHop = radioStation.currentListeners.hipHop;
                 startListeners.disco = radioStation.currentListeners.disco;
                 startListeners.rock = radioStation.currentListeners.rock;
-                startListeners.metal = radioStation.currentListeners.metal;
+                startListeners.pop = radioStation.currentListeners.pop;
                 startMoney = radioStation.GetCurrentMoney();
 
 
@@ -137,7 +137,7 @@ public class DayEndHandler : MonoBehaviour
         int hipHopDiff = radioStation.currentListeners.hipHop - startListeners.hipHop;
         int discoDiff = radioStation.currentListeners.disco - startListeners.disco;
         int rockDiff = radioStation.currentListeners.rock - startListeners.rock;
-        int metalDiff = radioStation.currentListeners.metal - startListeners.metal;
+        int popDiff = radioStation.currentListeners.pop - startListeners.pop;
         float moneyDiff = radioStation.GetCurrentMoney() - startMoney;
 
         Debug.Log("[DayEndHandler] Game finished — showing end screen.");
@@ -163,8 +163,8 @@ public class DayEndHandler : MonoBehaviour
             discoDiff: discoDiff,
             rock: radioStation.currentListeners.rock,
             rockDiff: rockDiff,
-            metal: radioStation.currentListeners.metal,
-            metalDiff: metalDiff
+            pop: radioStation.currentListeners.pop,
+            popDiff: popDiff
         );
     }
 
@@ -183,7 +183,7 @@ public class DayEndHandler : MonoBehaviour
             hipHop = radioStation.currentListeners.hipHop,
             disco = radioStation.currentListeners.disco,
             rock = radioStation.currentListeners.rock,
-            metal = radioStation.currentListeners.metal
+            pop = radioStation.currentListeners.pop
         };
         startMoney = radioStation.GetCurrentMoney();
         dailyOffer = new Cassette[3];
