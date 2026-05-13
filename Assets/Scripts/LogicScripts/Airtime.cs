@@ -32,7 +32,7 @@ public class Airtime : MonoBehaviour
                         total += cassettes[i].GetRock();
                         break;
                     case 2:
-                        total += cassettes[i].GetMetal();
+                        total += cassettes[i].GetPop();
                         break;
                     case 3:
                         total += cassettes[i].GetDisco();

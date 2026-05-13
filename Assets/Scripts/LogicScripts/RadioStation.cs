@@ -22,6 +22,36 @@ public class RadioStation
 
     public void ApplySegment(PlayableContent[] cassettes)
     {
+
+        SegmentChangeVal changeVal = CalculateSegment(cassettes);
+
+
+        currentMoney += changeVal.money;
+        currentListeners.hipHop += changeVal.hipHop;
+        currentListeners.disco += changeVal.disco;
+        currentListeners.rock += changeVal.rock;
+        currentListeners.pop += changeVal.pop;
+
+       if(currentListeners.hipHop < 0)
+            currentListeners.hipHop = 0;
+        if (currentListeners.disco < 0)
+            currentListeners.disco = 0;
+        if (currentListeners.rock < 0)
+            currentListeners.rock = 0;
+        if (currentListeners.pop < 0)
+            currentListeners.pop = 0;
+    }
+
+    public SegmentChangeVal CalculateSegment(PlayableContent[] cassettes)
+    {
+        SegmentChangeVal val = new SegmentChangeVal();
+
+        val.hipHop = 0;
+        val.disco = 0;
+        val.rock = 0;
+        val.pop = 0;
+        val.money = 0f;
+
         int totalHipHopListeners = 0;
         int totalDiscoListeners = 0;
         int totalRockListeners = 0;
@@ -83,17 +113,19 @@ public class RadioStation
             }
         }
 
-        currentMoney += ((totalHipHopRevenue / 100f * currentListeners.hipHop * totalRevenueModifier.hipHop)
+        val.money += ((totalHipHopRevenue / 100f * currentListeners.hipHop * totalRevenueModifier.hipHop)
                     + (totalDiscoRevenue / 100f * currentListeners.disco * totalRevenueModifier.disco)
                     + (totalRockRevenue / 100f * currentListeners.rock * totalRevenueModifier.rock)
                     + (totalPopRevenue / 100f * currentListeners.pop * totalRevenueModifier.pop));
 
         AdsPunishment(adsPlayed);
 
-        currentListeners.hipHop += Mathf.CeilToInt(currentListeners.hipHop * (totalHipHopListeners / 100f) * totalListenerModifer.hipHop);
-        currentListeners.disco += Mathf.CeilToInt(currentListeners.disco * (totalDiscoListeners / 100f) * totalListenerModifer.disco);
-        currentListeners.rock += Mathf.CeilToInt(currentListeners.rock * (totalRockListeners / 100f) * totalListenerModifer.rock);
-        currentListeners.pop += Mathf.CeilToInt(currentListeners.pop * (totalPopListeners / 100f) * totalListenerModifer.pop);
+        val.hipHop += Mathf.CeilToInt(currentListeners.hipHop * (totalHipHopListeners / 100f) * totalListenerModifer.hipHop);
+        val.disco += Mathf.CeilToInt(currentListeners.disco * (totalDiscoListeners / 100f) * totalListenerModifer.disco);
+        val.rock += Mathf.CeilToInt(currentListeners.rock * (totalRockListeners / 100f) * totalListenerModifer.rock);
+        val.pop += Mathf.CeilToInt(currentListeners.pop * (totalPopListeners / 100f) * totalListenerModifer.pop);
+
+        return val;
     }
 
     public void AdsPunishment(int adsPlayed)
@@ -124,7 +156,7 @@ public class RadioStation
         currentListeners.hipHop -= Mathf.CeilToInt(currentListeners.hipHop * precentage);
         currentListeners.disco -= Mathf.CeilToInt(currentListeners.disco * precentage);
         currentListeners.rock -= Mathf.CeilToInt(currentListeners.rock * precentage);
-        currentListeners.pop = Mathf.CeilToInt(currentListeners.pop * precentage);
+        currentListeners.pop -= Mathf.CeilToInt(currentListeners.pop * precentage);
     }
 
     //Stara funkcja zostawiona na potrzeby nagrody FlatListenersBoost w MiniGameReward
@@ -302,6 +334,16 @@ public class RadioStation
     public int GetTotalListeners()
     {
         return currentListeners.totalListeners;
+    }
+
+    public GenreValuesModifier GetTotalListenerModifier()
+    {
+        return totalListenerModifer;
+    }
+
+    public GenreValuesModifier GetTotalRevenueModifier()
+    {
+        return totalRevenueModifier;
     }
 
     public void AddMoney(float amount)

@@ -51,7 +51,7 @@ public abstract class PlayableContent : ScriptableObject
         return cassetteValues.rock;
     }
 
-    public int GetMetal()
+    public int GetPop()
     {
         return cassetteValues.pop;
     }

@@ -31,11 +31,11 @@ public class CassetteHoverUI : MonoBehaviour
         author.text=cassette.GetAuthor();
         if (cassette.GetType() == CassetteTypes.Ad)
         {
-            stats.text = "HipHop: " + cassette.GetHipHop() / 100f + "z³" + "\nRock: " + cassette.GetRock() / 100f + "z³" + "\nMetal: " + cassette.GetMetal() / 100f + "z³" + "\nDisco: " + cassette.GetDisco() / 100f + "z³";
+            stats.text = "HipHop: " + cassette.GetHipHop() / 100f + "z³" + "\nRock: " + cassette.GetRock() / 100f + "z³" + "\nPop: " + cassette.GetPop() / 100f + "z³" + "\nDisco: " + cassette.GetDisco() / 100f + "z³";
         }
         else if (cassette.GetType() == CassetteTypes.Music)
         {
-            stats.text = "HipHop: " + cassette.GetHipHop() / 100f + "\nRock: " + cassette.GetRock() / 100f + "\nMetal: " + cassette.GetMetal() / 100f + "\nDisco: " + cassette.GetDisco() / 100f;
+            stats.text = "HipHop: " + cassette.GetHipHop() / 100f + "\nRock: " + cassette.GetRock() / 100f + "\nPop: " + cassette.GetPop() / 100f + "\nDisco: " + cassette.GetDisco() / 100f;
         }
         hoverUI.SetActive(true);
     }

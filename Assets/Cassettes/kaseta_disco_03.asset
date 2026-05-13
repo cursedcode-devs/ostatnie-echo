@@ -18,14 +18,14 @@ MonoBehaviour:
   physicalPrefab: {fileID: 0}
   timesUsedInDay: 0
   cassetteValues:
+    hipHop: -10
+    disco: 40
+    rock: -5
+    pop: 0
+  type: 0
+  lastCassetteValues:
     hipHop: -20
     disco: 40
     rock: -10
-    metal: 0
-  type: 0
-  lastCassetteValues:
-    hipHop: 0
-    disco: 0
-    rock: 0
-    metal: 0
+    pop: 0
   price: 0
