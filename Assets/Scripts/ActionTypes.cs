@@ -9,6 +9,7 @@ public enum ActionTypes
     LeftClickOutsiedObject,
     LeftClickOnSlider,
     LeftPressedOnSlider,
+    LeftClickOnSlot,
     PressedA,
     PressedD,
     PressedW,

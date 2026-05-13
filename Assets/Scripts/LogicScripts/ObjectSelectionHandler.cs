@@ -17,9 +17,11 @@ public class ObjectSelectionHandler
     {
         if (selectedObject == null)
             return;
-        if(selectedObject.CompareTag("CassettePlayer"))
+        if (selectedObject.CompareTag("CassettePlayer"))
             return;
-            selectedObject.transform.position += new Vector3(0f, transformValue, 0f);
+        if (selectedObject.CompareTag("Slot"))
+            return;
+        selectedObject.transform.position += new Vector3(0f, transformValue, 0f);
     }
 
     public GameObject GetSelectedObject()
@@ -29,7 +31,7 @@ public class ObjectSelectionHandler
 
     public bool IsAnObjectSelected()
     {
-        if(selectedObject == null) return false;
+        if (selectedObject == null) return false;
         return true;
     }
 
@@ -38,7 +40,7 @@ public class ObjectSelectionHandler
         if (!IsAnObjectSelected()) return false;
 
         if (selectedObject.CompareTag("Playable")) return true;
-            
+
         return false;
     }
 
@@ -83,13 +85,20 @@ public class ObjectSelectionHandler
             return;
         if (selectedObject.CompareTag("CassettePlayer"))
             return;
+        if (selectedObject.CompareTag("Slot"))
+            return;
         //obiekt wyrówna siê do globalnej osi xyz lub do lokalnej swojego rodzica
         selectedObject.transform.rotation = Quaternion.identity;
     }
 
     public void RotateObject(float x, float y, float z)
     {
-        if (selectedObject == null) return;
+        if (selectedObject == null)
+            return;
+        if (selectedObject.CompareTag("CassettePlayer"))
+            return;
+        if (selectedObject.CompareTag("Slot"))
+            return;
 
         selectedObject.transform.Rotate(x, y, z);
     }

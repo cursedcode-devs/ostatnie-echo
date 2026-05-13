@@ -110,6 +110,12 @@ public class GameManager : MonoBehaviour
                 if (sliderObject != null)
                     sliderObject.OnMousePressed();
                 break;
+            case ActionTypes.LeftClickOnSlot:
+                Debug.Log("GetActionType - LeftClickOnSlot");
+                //selectionHandler.SelectObject(clickedObject);
+                CassetteSlotHandler slotHandler = clickedObject.GetComponent<CassetteSlotHandler>();
+                slotHandler.HandleSlot();
+                break;
             case ActionTypes.LeftClickOutsiedObject:
                 Debug.Log("GetActionType - LeftClickOutsiedObject");
                 if (selectionHandler.GetSelectedObject() != null)
