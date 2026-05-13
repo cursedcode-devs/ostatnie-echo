@@ -39,7 +39,7 @@ public class ChoosingCassetteUI : MonoBehaviour
         UpdatePredictions();
     }
 
-    private void UpdatePredictions()
+    public void UpdatePredictions()
     {
         PlayableContent[] cassettes = airtime.GetCassettes();
 
@@ -48,6 +48,8 @@ public class ChoosingCassetteUI : MonoBehaviour
 
         float sumMusicHipHop = 0f, sumMusicRock = 0f, sumMusicPop = 0f, sumMusicDisco = 0f;
         float sumAdHipHop = 0f, sumAdRock = 0f, sumAdPop = 0f, sumAdDisco = 0f;
+
+        
 
         for (int i = 0; i < cassettes.Length; i++)
         {
@@ -98,7 +100,7 @@ public class ChoosingCassetteUI : MonoBehaviour
 
             if (c.GetType() == CassetteTypes.Ad)
             {
-                StatTexts[i].text = $"HipHop: {h / 100f}z³\nRock: {r / 100f}z³\nPop: {p / 100f}z³\nDisco: {d / 100f}z³";
+                StatTexts[i].text = $"HipHop: {h / 100f:0.##}z³\nRock: {r / 100f:0.##}z³\nPop: {p / 100f:0.##}z³\nDisco: {d / 100f:0.##}z³";
                 sumAdHipHop += h / 100f;
                 sumAdRock += r / 100f;
                 sumAdPop += p / 100f;
@@ -106,7 +108,7 @@ public class ChoosingCassetteUI : MonoBehaviour
             }
             else if (c.GetType() == CassetteTypes.Music)
             {
-                StatTexts[i].text = $"HipHop: {h / 100f}\nRock: {r / 100f}\nPop: {p / 100f}\nDisco: {d / 100f}";
+                StatTexts[i].text = $"HipHop: {h / 100f:0.##}\nRock: {r / 100f:0.##}\nPop: {p / 100f:0.##}\nDisco: {d / 100f:0.##}";
                 sumMusicHipHop += h / 100f;
                 sumMusicRock += r / 100f;
                 sumMusicPop += p / 100f;
@@ -117,10 +119,10 @@ public class ChoosingCassetteUI : MonoBehaviour
         }
 
         // Aktualizacja sumy ca³kowitej w ostatnim polu (zak³adam, ¿e to StatTexts[3])
-        StatTexts[3].text = $"HipHop: {sumMusicHipHop} {sumAdHipHop}z³\n" +
-                            $"Rock: {sumMusicRock} {sumAdRock}z³\n" +
-                            $"Pop: {sumMusicPop} {sumAdPop}z³\n" +
-                            $"Disco: {sumMusicDisco} {sumAdDisco}z³";
+        StatTexts[3].text = $"HipHop: {sumMusicHipHop:0.##} {sumAdHipHop:0.##}z³\n" +
+                            $"Rock: {sumMusicRock:0.##} {sumAdRock:0.##}z³\n" +
+                            $"Pop: {sumMusicPop:0.##} {sumAdPop:0.##}z³\n" +
+                            $"Disco: {sumMusicDisco:0.##} {sumAdDisco:0.##}z³";
     }
 
     private void PlayCassetteSound()
@@ -138,6 +140,7 @@ public class ChoosingCassetteUI : MonoBehaviour
 
     public void Show()
     {
+        UpdatePredictions();
         choosingCassetteCanvas.SetActive(true);
     }
 
