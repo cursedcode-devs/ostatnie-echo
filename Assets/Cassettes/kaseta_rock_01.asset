@@ -19,13 +19,13 @@ MonoBehaviour:
   timesUsedInDay: 0
   cassetteValues:
     hipHop: 0
-    disco: -2
+    disco: -5
     rock: 30
-    metal: -2
+    pop: -10
   type: 0
   lastCassetteValues:
     hipHop: 0
-    disco: -10
+    disco: -2
     rock: 30
-    metal: -10
+    pop: 0
   price: 0
