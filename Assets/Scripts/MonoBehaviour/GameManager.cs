@@ -153,6 +153,7 @@ public class GameManager : MonoBehaviour
                 CheckForRequestedCassette();
                 airtime.emptyAllSlots();
                 choosingCassetteUI.ResetSlotText();
+                choosingCassetteUI.UpdatePredictions();
                 choosingCassetteUI.Hide();
                 break;
             case ActionTypes.PressedP:
