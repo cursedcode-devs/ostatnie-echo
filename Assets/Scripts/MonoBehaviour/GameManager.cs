@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     private StatsUI statsUI;
     private Vector3 addedObjectRotation = Vector3.zero;
     private float rotationSpeed = 3f;
-    [SerializeReference] public ObjectSelectionHandler selectionHandler;
+    public ObjectSelectionHandler selectionHandler;
     public ConsoleSliderObject amplitudeSlider;
     public ConsoleSliderObject lengthSlider;
     public ConsoleSliderObject frequencySlider;
@@ -41,9 +41,8 @@ public class GameManager : MonoBehaviour
         actionManager = new ActionManager(mainCamera);
         radioStation = new RadioStation();
         timeHandler = new TimeHandler(startHour, startDay);
-        selectionHandler = new ObjectSelectionHandler();
-        
-       audioQueueManager.SetTimeHandler(timeHandler);
+
+        audioQueueManager.SetTimeHandler(timeHandler);
 
         radioStation.SetHourlyListenersModifier(startingModifier, startingModifier, startingModifier, startingModifier);
         radioStation.SetDailyListenersModifier(startingModifier, startingModifier, startingModifier, startingModifier);
@@ -70,6 +69,7 @@ public class GameManager : MonoBehaviour
         mouseActionType = actionManager.GetActionMouseType();
         GameObject clickedObject = actionManager.GetPointedObject();
         ConsoleSliderObject sliderObject = null;
+        CassetteSlotHandler slotHandler = null;
 
         if (clickedObject != null)
             sliderObject = clickedObject.GetComponent<ConsoleSliderObject>();
@@ -110,11 +110,34 @@ public class GameManager : MonoBehaviour
                 if (sliderObject != null)
                     sliderObject.OnMousePressed();
                 break;
-            case ActionTypes.LeftClickOnSlot:
+            case ActionTypes.LeftClickOnSlotHinge:
                 Debug.Log("GetActionType - LeftClickOnSlot");
                 //selectionHandler.SelectObject(clickedObject);
-                CassetteSlotHandler slotHandler = clickedObject.GetComponent<CassetteSlotHandler>();
-                slotHandler.HandleSlot();
+                slotHandler = clickedObject.GetComponent<CassetteSlotHandler>();
+                slotHandler.HandleHinge();
+                break;
+            case ActionTypes.LeftClickOnSlotHitBox:
+                Debug.Log("GetActionType - LeftClickOnSlotHitBox");
+                slotHandler = clickedObject.GetComponent<SlotHitBox>().GetSlotHandler();
+
+                if (selectionHandler.GetSelectedObject() == null)
+                {
+                    slotHandler.PutCassetteOut();
+                    break;
+                } 
+
+                if (selectionHandler.GetSelectedObject().CompareTag("Playable"))
+                {
+                    GameObject selectedObject = selectionHandler.GetSelectedObject();
+                    if(slotHandler.PutCassetteIn(selectedObject))
+                        selectionHandler.DeselectedObject(false, false);
+                }
+                break;
+            case ActionTypes.LeftClickOnShelf:
+                if (selectionHandler.GetSelectedObject() == null)
+                    break;
+                if (selectionHandler.GetSelectedObject().CompareTag("Playable"))
+                    selectionHandler.DeselectedObject();
                 break;
             case ActionTypes.LeftClickOutsiedObject:
                 Debug.Log("GetActionType - LeftClickOutsiedObject");
@@ -158,7 +181,7 @@ public class GameManager : MonoBehaviour
                 audioQueueManager.PlayClipsSequence();
                 CheckForRequestedCassette();
                 airtime.emptyAllSlots();
-                choosingCassetteUI.ResetSlotText();
+               // choosingCassetteUI.ResetSlotText();
                 choosingCassetteUI.UpdatePredictions();
                 choosingCassetteUI.Hide();
                 break;
@@ -182,8 +205,8 @@ public class GameManager : MonoBehaviour
         inputEnabled = enabled;
     }
 
-        public string requestedGenre = "";
-public PlayableContent requestedCassette;
+    public string requestedGenre = "";
+    public PlayableContent requestedCassette;
     public float requestedCassetteBoost = 0.1f; // 10% boost
 
     public void SetRequestedCassette(PlayableContent cassette)
@@ -191,83 +214,83 @@ public PlayableContent requestedCassette;
         requestedCassette = cassette;
     }
 
-public void SetRequestedGenre(string genre)
-{
-    requestedGenre = genre;
-}
-
-
-public void CheckForRequestedCassette()
-{
-    bool wasPlayed = false;
-    string successfullyPlayedGenre = "";
-
-    if (requestedCassette != null)
+    public void SetRequestedGenre(string genre)
     {
-        foreach (var cassette in airtime.GetCassettes())
-        {
-            if (cassette == requestedCassette)
-            {
-                wasPlayed = true;
-                break;
-            }
-        }
+        requestedGenre = genre;
     }
 
-    if (!string.IsNullOrEmpty(requestedGenre))
+
+    public void CheckForRequestedCassette()
     {
-        foreach (var cassette in airtime.GetCassettes())
+        bool wasPlayed = false;
+        string successfullyPlayedGenre = "";
+
+        if (requestedCassette != null)
         {
-            if (cassette != null)
+            foreach (var cassette in airtime.GetCassettes())
             {
-                GenreValues values = cassette.GetCassetteValues();
-                float genreValue = 0;
-                switch (requestedGenre.ToLower())
-                {
-                    case "hiphop":
-                    case "hip hop": genreValue = values.hipHop; break;
-                    case "disco": genreValue = values.disco; break;
-                    case "rock": genreValue = values.rock; break;
-                    case "pop": genreValue = values.pop; break;
-                }
-                
-                if (genreValue > 0)
+                if (cassette == requestedCassette)
                 {
                     wasPlayed = true;
-                    successfullyPlayedGenre = requestedGenre.ToLower();
                     break;
                 }
             }
         }
-    }
 
-    if (wasPlayed)
-    {
-        float boostHipHop = 0f, boostDisco = 0f, boostRock = 0f, boostMetal = 0f;
-        
-        if (successfullyPlayedGenre == "hiphop" || successfullyPlayedGenre == "hip hop") boostHipHop = requestedCassetteBoost;
-        else if (successfullyPlayedGenre == "disco") boostDisco = requestedCassetteBoost;
-        else if (successfullyPlayedGenre == "rock") boostRock = requestedCassetteBoost;
-        else if (successfullyPlayedGenre == "pop") boostMetal = requestedCassetteBoost;
-        else 
+        if (!string.IsNullOrEmpty(requestedGenre))
         {
-            // Fallback for specific cassette request without genre specified
-            boostHipHop = requestedCassetteBoost;
-            boostDisco = requestedCassetteBoost;
-            boostRock = requestedCassetteBoost;
-            boostMetal = requestedCassetteBoost;
+            foreach (var cassette in airtime.GetCassettes())
+            {
+                if (cassette != null)
+                {
+                    GenreValues values = cassette.GetCassetteValues();
+                    float genreValue = 0;
+                    switch (requestedGenre.ToLower())
+                    {
+                        case "hiphop":
+                        case "hip hop": genreValue = values.hipHop; break;
+                        case "disco": genreValue = values.disco; break;
+                        case "rock": genreValue = values.rock; break;
+                        case "pop": genreValue = values.pop; break;
+                    }
+
+                    if (genreValue > 0)
+                    {
+                        wasPlayed = true;
+                        successfullyPlayedGenre = requestedGenre.ToLower();
+                        break;
+                    }
+                }
+            }
         }
 
-        Debug.Log("Zagrałeś pożądaną piosenkę/gatunek! Boost do słuchaczy!");
-        radioStation.AddHourlyListenersModifier(boostHipHop, boostDisco, boostRock, boostMetal);
-        
-        if (MiniGameSystem.Instance != null)
+        if (wasPlayed)
         {
-            MiniGameSystem.Instance.ShowPopup("Sukces", "Zagrałeś pożądany gatunek!");
-        }
-    }
+            float boostHipHop = 0f, boostDisco = 0f, boostRock = 0f, boostMetal = 0f;
 
-    requestedCassette = null;
-    requestedGenre = "";
-}
+            if (successfullyPlayedGenre == "hiphop" || successfullyPlayedGenre == "hip hop") boostHipHop = requestedCassetteBoost;
+            else if (successfullyPlayedGenre == "disco") boostDisco = requestedCassetteBoost;
+            else if (successfullyPlayedGenre == "rock") boostRock = requestedCassetteBoost;
+            else if (successfullyPlayedGenre == "pop") boostMetal = requestedCassetteBoost;
+            else
+            {
+                // Fallback for specific cassette request without genre specified
+                boostHipHop = requestedCassetteBoost;
+                boostDisco = requestedCassetteBoost;
+                boostRock = requestedCassetteBoost;
+                boostMetal = requestedCassetteBoost;
+            }
+
+            Debug.Log("Zagrałeś pożądaną piosenkę/gatunek! Boost do słuchaczy!");
+            radioStation.AddHourlyListenersModifier(boostHipHop, boostDisco, boostRock, boostMetal);
+
+            if (MiniGameSystem.Instance != null)
+            {
+                MiniGameSystem.Instance.ShowPopup("Sukces", "Zagrałeś pożądany gatunek!");
+            }
+        }
+
+        requestedCassette = null;
+        requestedGenre = "";
+    }
 }

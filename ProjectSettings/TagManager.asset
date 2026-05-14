@@ -10,6 +10,8 @@ TagManager:
   - Unselectable
   - Button
   - Slot
+  - SlotHitBox
+  - Shelf
   layers:
   - Default
   - TransparentFX
