@@ -85,7 +85,7 @@ public class DaySummarySceneManager : MonoBehaviour
         if (moneyDiffText != null)
         {
             moneyDiffText.text = FormatDiff(DaySummaryData.MoneyDiff, "F2", "$");
-            moneyDiffText.color = DiffColor(DaySummaryData.MoneyDiff);
+            // moneyDiffText.color = DiffColor(DaySummaryData.MoneyDiff);
         }
 
         if (hipHopFinalText != null) hipHopFinalText.text = $"{DaySummaryData.HipHop}";
@@ -96,22 +96,22 @@ public class DaySummarySceneManager : MonoBehaviour
         if (hipHopDiffText != null)
         {
             hipHopDiffText.text = FormatDiff(DaySummaryData.HipHopDiff);
-            hipHopDiffText.color = DiffColor(DaySummaryData.HipHopDiff);
+            // hipHopDiffText.color = DiffColor(DaySummaryData.HipHopDiff);
         }
         if (discoDiffText != null)
         {
             discoDiffText.text = FormatDiff(DaySummaryData.DiscoDiff);
-            discoDiffText.color = DiffColor(DaySummaryData.DiscoDiff);
+            // discoDiffText.color = DiffColor(DaySummaryData.DiscoDiff);
         }
         if (rockDiffText != null)
         {
             rockDiffText.text = FormatDiff(DaySummaryData.RockDiff);
-            rockDiffText.color = DiffColor(DaySummaryData.RockDiff);
+            // rockDiffText.color = DiffColor(DaySummaryData.RockDiff);
         }
         if (popDiffText != null)
         {
             popDiffText.text = FormatDiff(DaySummaryData.PopDiff);
-            popDiffText.color = DiffColor(DaySummaryData.PopDiff);
+            // popDiffText.color = DiffColor(DaySummaryData.PopDiff);
         }
     }
 

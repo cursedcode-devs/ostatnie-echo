@@ -58,7 +58,7 @@ public class DaySummaryScreen : MonoBehaviour
         kawalerka_studiaText.text = $"{studia_fee:F2}$";
         moneyFinalText.text = $"{finalMoney:F2}$";
         moneyDiffText.text = FormatDiff(moneyDiff, "F2", "$");
-        moneyDiffText.color = DiffColor(moneyDiff);
+        // moneyDiffText.color = DiffColor(moneyDiff);
 
         hipHopFinalText.text = $"{hipHop}";
         discoFinalText.text = $"{disco}";
@@ -70,10 +70,10 @@ public class DaySummaryScreen : MonoBehaviour
         rockDiffText.text = FormatDiff(rockDiff);
         popDiffText.text = FormatDiff(popDiff);
 
-        hipHopDiffText.color = DiffColor(hipHopDiff);
-        discoDiffText.color = DiffColor(discoDiff);
-        rockDiffText.color = DiffColor(rockDiff);
-        popDiffText.color = DiffColor(popDiff);
+        // hipHopDiffText.color = DiffColor(hipHopDiff);
+        // discoDiffText.color = DiffColor(discoDiff);
+        // rockDiffText.color = DiffColor(rockDiff);
+        // popDiffText.color = DiffColor(popDiff);
 
         canvas.SetActive(true);
         Time.timeScale = 0f;
@@ -128,30 +128,30 @@ public class DaySummaryScreen : MonoBehaviour
         0.5f, 0.5f, 780, 2, 0, 290);
 
     // Headers
-    MakeHeaderLabel(ct, "HdrStat", "STATYSTYKA", -300, 255);
-    MakeHeaderLabel(ct, "HdrCurrent", "TERAZ", 100, 255);
-    MakeHeaderLabel(ct, "HdrChange", "ZMIANA", 340, 255);
+    MakeHeaderLabel(ct, "HdrStat", "STATYSTYKA", -300, 260);
+    MakeHeaderLabel(ct, "HdrCurrent", "TERAZ", 100, 260);
+    MakeHeaderLabel(ct, "HdrChange", "ZMIANA", 340, 260);
 
     SR(MakeImage(ct, "Div1", new Color32(35, 48, 65, 255)),
         0.5f, 0.5f, 780, 1, 0, 230);
 
 
-    float y = 190;
-    float step = 50;
+    float y = 195;
+    float step = 46;
 
     MakeRowLabel(ct, "FeeRentLbl", "CZYNSZ", -300, y);
     kawalerka_feeText = MakeValueText(ct, "FeeRentVal", "0.00$", 100, y);
-    kawalerka_feeText.color = Color.red;
+    // kawalerka_feeText.color = Color.red;
 
     y -= step;
     MakeRowLabel(ct, "FeeFoodLbl", "JEDZENIE", -300, y);
     kawalerka_jedzenieText = MakeValueText(ct, "FeeFoodVal", "0.00$", 100, y);
-    kawalerka_jedzenieText.color = Color.red;
+    // kawalerka_jedzenieText.color = Color.red;
 
     y -= step;
     MakeRowLabel(ct, "FeeStudyLbl", "STUDIA", -300, y);
     kawalerka_studiaText = MakeValueText(ct, "FeeStudyVal", "0.00$", 100, y);
-    kawalerka_studiaText.color = Color.red;
+    // kawalerka_studiaText.color = Color.red;
 
     // separator
     y -= 35;
@@ -160,13 +160,13 @@ public class DaySummaryScreen : MonoBehaviour
 
 
 
-    y -= 50;
+    y -= 35;
     MakeRowLabel(ct, "MoneyLbl", "BUDŻET", -300, y);
     moneyFinalText = MakeValueText(ct, "MoneyFinal", "0.00$", 100, y);
     moneyDiffText = MakeDiffText(ct, "MoneyDiff", "+0.00$", 340, y);
 
     // separator
-    y -= 40;
+    y -= 35;
     SR(MakeImage(ct, "Div2", new Color32(35, 48, 65, 255)),
         0.5f, 0.5f, 780, 1, 0, y);
 
@@ -179,7 +179,8 @@ public class DaySummaryScreen : MonoBehaviour
 
     for (int i = 0; i < 4; i++)
     {
-        y -= 45;
+        if (i == 0) y -= 35;
+        else y -= 46;
 
         MakeRowLabel(ct, $"Genre_{i}", genres[i], -300, y);
         finals[i] = MakeValueText(ct, $"Final_{i}", "0", 100, y);
@@ -188,7 +189,7 @@ public class DaySummaryScreen : MonoBehaviour
         if (i < 3)
         {
             SR(MakeImage(ct, $"DivR{i}", new Color32(25, 35, 50, 255)),
-                0.5f, 0.5f, 780, 1, 0, y - 25);
+                0.5f, 0.5f, 780, 1, 0, y - 23);
         }
     }
 
@@ -203,7 +204,7 @@ public class DaySummaryScreen : MonoBehaviour
     popDiffText = diffs[3];
 
     // Bottom divider
-    y -= 40;
+    y -= 35;
     SR(MakeImage(ct, "Div3", new Color32(50, 65, 90, 255)),
         0.5f, 0.5f, 780, 2, 0, y);
 
@@ -212,7 +213,7 @@ public class DaySummaryScreen : MonoBehaviour
     // =========================
 
     var continueBtn = MakeButton(ct, "ContinueBtn", "DALEJ →");
-    SR(continueBtn, 0.5f, 0.5f, 260, 60, 0, y - 70);
+    SR(continueBtn, 0.5f, 0.5f, 260, 60, 0, y - 60);
 
     continueBtn.GetComponent<Button>().onClick.AddListener(Hide);
 

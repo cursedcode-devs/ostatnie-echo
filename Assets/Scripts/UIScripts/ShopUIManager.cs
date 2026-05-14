@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-
 /// <summary>
 /// Menedżer UI sklepu wewnątrz ekranu podsumowania.
 /// Łączy przyciski z instancją DayEndHandler.
@@ -8,6 +7,7 @@ using UnityEngine.UI;
 public class ShopUIManager : MonoBehaviour
 {
     [Header("Przyciski")]
+
     public Button buyBtn1;
     public Button buyBtn2;
     public Button buyBtn3;
