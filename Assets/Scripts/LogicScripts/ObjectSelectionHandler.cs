@@ -1,25 +1,70 @@
 using UnityEngine;
 
 [System.Serializable]
-public class ObjectSelectionHandler
+public class ObjectSelectionHandler : MonoBehaviour
 {
-    private float selectTransformValue = 0.3f;
-    private float deselectTransformValue = -0.3f;
     [SerializeField] private GameObject selectedObject = null;
+    public GameObject selectedObjPos;
     private GameObject lastSelectedObject = null;
+    private Vector3 deselectPos = Vector3.zero;
+    private Quaternion deselectRot = Quaternion.identity;
 
     public ObjectSelectionHandler()
     {
         selectedObject = null;
     }
 
-    private void TransformSelectedObject(float transformValue)
+    public Vector3 GetDesPos()
+    {
+        return deselectPos;
+    }
+
+    public Quaternion GetDesRot()
+    {
+        return deselectRot;
+    }
+
+    public void SetSelectedObjPos(GameObject obj)
+    {
+        selectedObjPos = obj;
+    }
+
+    public void SetDeselectPos(Vector3 pos)
+    {
+        deselectPos = pos;
+    }
+
+    public void SetDeselectRot(Quaternion rot)
+    {
+        deselectRot = rot;
+    }
+
+    private void TransformSelectedObject()
     {
         if (selectedObject == null)
             return;
-        if(selectedObject.CompareTag("CassettePlayer"))
+        if (selectedObject.CompareTag("CassettePlayer"))
             return;
-            selectedObject.transform.position += new Vector3(0f, transformValue, 0f);
+        if (selectedObject.CompareTag("Slot"))
+            return;
+        //selectedObject.transform.position += new Vector3(0f, transformValue, 0f);
+        SetDeselectPos(selectedObject.transform.position);
+        SetDeselectRot(selectedObject.transform.rotation);
+        selectedObject.transform.position = selectedObjPos.transform.position;
+
+        if (selectedObject.CompareTag("Playable"))
+            selectedObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+    }
+
+    private void TransformDeselectObj()
+    {
+        if (selectedObject == null)
+            return;
+        if (selectedObject.CompareTag("CassettePlayer"))
+            return;
+        if (selectedObject.CompareTag("Slot"))
+            return;
+        selectedObject.transform.position = deselectPos;
     }
 
     public GameObject GetSelectedObject()
@@ -29,7 +74,7 @@ public class ObjectSelectionHandler
 
     public bool IsAnObjectSelected()
     {
-        if(selectedObject == null) return false;
+        if (selectedObject == null) return false;
         return true;
     }
 
@@ -38,14 +83,16 @@ public class ObjectSelectionHandler
         if (!IsAnObjectSelected()) return false;
 
         if (selectedObject.CompareTag("Playable")) return true;
-            
+
         return false;
     }
 
-    public void DeselectedObject()
+    public void DeselectedObject(bool returnToPrevPos = true, bool returnDefaultRot = true)
     {
-        TransformSelectedObject(deselectTransformValue);
-        SetDefaultRotation();
+        if (returnToPrevPos == true)
+            TransformDeselectObj();
+        if (returnDefaultRot == true)
+            SetDefaultRotation();
         lastSelectedObject = selectedObject;
         selectedObject = null;
     }
@@ -73,7 +120,7 @@ public class ObjectSelectionHandler
             DeselectedObject();
         }
         selectedObject = clickedObject;
-        TransformSelectedObject(selectTransformValue);
+        TransformSelectedObject();
     }
 
 
@@ -83,13 +130,22 @@ public class ObjectSelectionHandler
             return;
         if (selectedObject.CompareTag("CassettePlayer"))
             return;
+        if (selectedObject.CompareTag("Slot"))
+            return;
+
+        selectedObject.transform.rotation = deselectRot;
         //obiekt wyrówna siê do globalnej osi xyz lub do lokalnej swojego rodzica
-        selectedObject.transform.rotation = Quaternion.identity;
+        //selectedObject.transform.rotation = Quaternion.identity;
     }
 
     public void RotateObject(float x, float y, float z)
     {
-        if (selectedObject == null) return;
+        if (selectedObject == null)
+            return;
+        if (selectedObject.CompareTag("CassettePlayer"))
+            return;
+        if (selectedObject.CompareTag("Slot"))
+            return;
 
         selectedObject.transform.Rotate(x, y, z);
     }
