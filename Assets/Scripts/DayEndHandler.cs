@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class DayEndHandler : MonoBehaviour
 {
     public GameManager gameManager;
@@ -21,8 +22,14 @@ public class DayEndHandler : MonoBehaviour
     private float jedzenie_fee;
     private float studia_fee;
 
+    public static DayEndHandler Instance { get; private set; }
 
     // ------------------------------------------------------------------
+    void Awake()
+    {
+        Instance = this;
+    }
+
     void Start()
     {
 
@@ -92,44 +99,48 @@ public class DayEndHandler : MonoBehaviour
 
         Debug.Log($"Day ended! HipHop:{hipHopDiff}, Disco:{discoDiff}, Rock:{rockDiff}, Metal:{popDiff}, Money:{moneyDiff}");
 
-        // Show day summary — generate next daily offer after player clicks continue
-        if (summaryScreen == null)
-            summaryScreen = gameObject.AddComponent<DaySummaryScreen>();
+        // Przekazujemy statystyki do statycznej klasy transferowej
+        DaySummaryData.Day = timeHandler.CurrentDay;
+        DaySummaryData.RentFee = kawalerka_fee;
+        DaySummaryData.FoodFee = jedzenie_fee;
+        DaySummaryData.StudiesFee = studia_fee;
+        DaySummaryData.FinalMoney = radioStation.GetCurrentMoney();
+        DaySummaryData.MoneyDiff = moneyDiff;
 
-        summaryScreen.Show(
-            day: timeHandler.CurrentDay,
-            kawalerka_fee: kawalerka_fee,
-            jedzenie_fee: jedzenie_fee,
-            studia_fee: studia_fee,
-            finalMoney: radioStation.GetCurrentMoney(),
-            moneyDiff: moneyDiff,
-            hipHop: radioStation.currentListeners.hipHop,
-            hipHopDiff: hipHopDiff,
-            disco: radioStation.currentListeners.disco,
-            discoDiff: discoDiff,
-            rock: radioStation.currentListeners.rock,
-            rockDiff: rockDiff,
-            pop: radioStation.currentListeners.pop,
-            popDiff: popDiff,
-            onContinueCallback: () =>
-            {
-                // Update snapshots and generate offer only after player dismisses summary
-                startListeners.hipHop = radioStation.currentListeners.hipHop;
-                startListeners.disco = radioStation.currentListeners.disco;
-                startListeners.rock = radioStation.currentListeners.rock;
-                startListeners.pop = radioStation.currentListeners.pop;
-                startMoney = radioStation.GetCurrentMoney();
+        DaySummaryData.HipHop = radioStation.currentListeners.hipHop;
+        DaySummaryData.HipHopDiff = hipHopDiff;
+        DaySummaryData.Disco = radioStation.currentListeners.disco;
+        DaySummaryData.DiscoDiff = discoDiff;
+        DaySummaryData.Rock = radioStation.currentListeners.rock;
+        DaySummaryData.RockDiff = rockDiff;
+        DaySummaryData.Pop = radioStation.currentListeners.pop;
+        DaySummaryData.PopDiff = popDiff;
 
+        Camera mainCam = gameManager.mainCamera;
 
-                // GenerateDailyOffer();
+        // Określamy co ma się stać, gdy gracz kliknie "Dalej" na nowej scenie
+        DaySummaryData.OnSummaryClosed = () =>
+        {
+            // Aktualizacja snapshotów stanu przed wygenerowaniem nowego dnia
+            startListeners.hipHop = radioStation.currentListeners.hipHop;
+            startListeners.disco = radioStation.currentListeners.disco;
+            startListeners.rock = radioStation.currentListeners.rock;
+            startListeners.pop = radioStation.currentListeners.pop;
+            startMoney = radioStation.GetCurrentMoney();
 
-                gameManager.SetInputEnabled(true);
-                if (timeHandler.getDay() >= 2)
-                {
-                    ShopButton.gameObject.SetActive(true);
-                }
-            }
-        );
+            // Aktywujemy kamerę główną z powrotem
+            if (mainCam != null)
+                mainCam.gameObject.SetActive(true);
+
+            gameManager.SetInputEnabled(true);
+        };
+
+        // Wyłączamy główną kamerę, aby podsumowanie było na czystym czarnym tle (lub zależało wyłącznie od kamery z nowej sceny)
+        if (mainCam != null)
+            mainCam.gameObject.SetActive(false);
+
+        // Ładujemy scenę podsumowania w trybie Additive, aby obecna scena trwała w tle i nie traciła stanu
+        SceneManager.LoadScene("DaySummaryScene", LoadSceneMode.Additive);
     }
 
     void HandleGameFinished()
@@ -189,9 +200,11 @@ public class DayEndHandler : MonoBehaviour
         dailyOffer = new Cassette[3];
     }
 
-    public void GenerateDailyOffer()
+    private Transform currentShopUI;
+
+    public void GenerateDailyOffer(Transform shopUI)
     {
-        gameManager.SetInputEnabled(false);
+        currentShopUI = shopUI;
         if (allCassettes.Length < 3)
         {
             Debug.Log("Not enough cassettes to generate daily offer!");
@@ -216,7 +229,7 @@ public class DayEndHandler : MonoBehaviour
 
         for (int i = 1; i <= dailyOffer.Length; i++)
         {
-            Transform slot = ShopUI.transform.GetChild(i);
+            Transform slot = currentShopUI.GetChild(i);
 
             TextMeshProUGUI name = slot.Find("NAZWA")
                                     .GetComponent<TextMeshProUGUI>();
@@ -232,11 +245,8 @@ public class DayEndHandler : MonoBehaviour
             price.text = dailyOffer[i - 1].price.ToString() + " ZŁ";
             stats.text = dailyOffer[i - 1].GetCassetteValues().ToString();
         }
-        // foreach (var c in dailyOffer)
-        //     Debug.Log("Offered cassette: " + c.name);
 
-
-        ShopUI.gameObject.SetActive(true);
+        currentShopUI.gameObject.SetActive(true);
     }
 
     public void AddCassetteToOffer(Cassette cassette)
@@ -252,6 +262,7 @@ public class DayEndHandler : MonoBehaviour
 
     public void BuyCassette(int offerIndex)
     {
+        if (currentShopUI == null) return;
         Cassette cassetteToBuy = dailyOffer[offerIndex];
         float yourMoney = radioStation.GetCurrentMoney();
         float cassettePrice = cassetteToBuy.price;
@@ -259,25 +270,25 @@ public class DayEndHandler : MonoBehaviour
         {
             radioStation.SetCurrentMoney(yourMoney - cassettePrice);
             UpdateMoneySlotInShop();
-            Transform slot = ShopUI.transform.GetChild(offerIndex + 1);
+            Transform slot = currentShopUI.GetChild(offerIndex + 1);
             slot.gameObject.SetActive(false);
         }
-
-
-
     }
 
     public void UpdateMoneySlotInShop()
     {
-        Transform yourMoneySlot = ShopUI.transform.GetChild(5);
+        if (currentShopUI == null) return;
+        Transform yourMoneySlot = currentShopUI.GetChild(5);
         TextMeshProUGUI yourMoney = yourMoneySlot.GetComponent<TextMeshProUGUI>();
         yourMoney.text = radioStation.GetCurrentMoney().ToString();
     }
 
     public void ExitShop()
     {
-        ShopUI.gameObject.SetActive(false);
-        ShopButton.gameObject.SetActive(false);
+        if (currentShopUI != null)
+            currentShopUI.gameObject.SetActive(false);
+        if (ShopButton != null)
+            ShopButton.gameObject.SetActive(false);
         gameManager.SetInputEnabled(true);
     }
 }
