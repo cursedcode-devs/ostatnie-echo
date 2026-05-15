@@ -9,8 +9,8 @@ public class RadioStation
 {
     public GenreValues currentListeners;
 
-    [SerializeField] private int startListeners = 5;
-    [SerializeField] private float currentMoney = 0.00f;
+    [SerializeField] private int startListeners;
+    [SerializeField] private float currentMoney;
     [SerializeField] private GenreValuesModifier hourlyListenersModifier;
     [SerializeField] private GenreValuesModifier hourlyRevenueModifier;
     [SerializeField] private GenreValuesModifier dailyListenersModifier;
@@ -45,6 +45,7 @@ public class RadioStation
     public SegmentChangeVal CalculateSegment(PlayableContent[] cassettes)
     {
         SegmentChangeVal val = new SegmentChangeVal();
+
 
         val.hipHop = 0;
         val.disco = 0;

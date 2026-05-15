@@ -227,9 +227,10 @@ public class DayEndHandler : MonoBehaviour
 
         UpdateMoneySlotInShop();
 
-        for (int i = 1; i <= dailyOffer.Length; i++)
+        for (int i = 0; i < dailyOffer.Length; i++)
         {
-            Transform slot = currentShopUI.GetChild(i);
+            Transform slot = currentShopUI.Find($"Kaseta{i + 1}");
+            if (slot == null) continue;
 
             TextMeshProUGUI name = slot.Find("NAZWA")
                                     .GetComponent<TextMeshProUGUI>();
@@ -240,10 +241,10 @@ public class DayEndHandler : MonoBehaviour
             TextMeshProUGUI stats = slot.Find("STATYSTYKI")
                                         .GetComponent<TextMeshProUGUI>();
 
-            name.text = dailyOffer[i - 1].name;
-            dailyOffer[i - 1].price = Random.Range(10, 100);
-            price.text = dailyOffer[i - 1].price.ToString() + " ZŁ";
-            stats.text = dailyOffer[i - 1].GetCassetteValues().ToString();
+            name.text = dailyOffer[i].name;
+            dailyOffer[i].price = Random.Range(10, 100);
+            price.text = dailyOffer[i].price.ToString() + " ZŁ";
+            stats.text = dailyOffer[i].GetCassetteValues().ToString();
         }
 
         currentShopUI.gameObject.SetActive(true);
@@ -270,17 +271,25 @@ public class DayEndHandler : MonoBehaviour
         {
             radioStation.SetCurrentMoney(yourMoney - cassettePrice);
             UpdateMoneySlotInShop();
-            Transform slot = currentShopUI.GetChild(offerIndex + 1);
-            slot.gameObject.SetActive(false);
+            Transform slot = currentShopUI.Find($"Kaseta{offerIndex + 1}");
+            if (slot != null) slot.gameObject.SetActive(false);
         }
     }
 
     public void UpdateMoneySlotInShop()
     {
         if (currentShopUI == null) return;
-        Transform yourMoneySlot = currentShopUI.GetChild(5);
-        TextMeshProUGUI yourMoney = yourMoneySlot.GetComponent<TextMeshProUGUI>();
-        yourMoney.text = radioStation.GetCurrentMoney().ToString();
+        Transform yourMoneySlot = currentShopUI.Find("Money (wartość)");
+        if (yourMoneySlot == null) yourMoneySlot = currentShopUI.Find("Money (wartosc)"); // Fallback
+
+        if (yourMoneySlot != null)
+        {
+            TextMeshProUGUI yourMoney = yourMoneySlot.GetComponent<TextMeshProUGUI>();
+            if (yourMoney != null)
+            {
+                yourMoney.text = radioStation.GetCurrentMoney().ToString() + " ZŁ";
+            }
+        }
     }
 
     public void ExitShop()

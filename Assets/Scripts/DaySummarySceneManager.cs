@@ -45,6 +45,16 @@ public class DaySummarySceneManager : MonoBehaviour
 
     void Start()
     {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        if (UnityEngine.Object.FindAnyObjectByType<UnityEngine.EventSystems.EventSystem>() == null)
+        {
+            var eventSystem = new GameObject("DebugEventSystem");
+            eventSystem.AddComponent<UnityEngine.EventSystems.EventSystem>();
+            eventSystem.AddComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
+            Debug.Log("[DEBUG] Utworzono EventSystem (dla testów), ponieważ żaden nie istniał w scenie.");
+        }
+#endif
+
         // Zatrzymujemy upływ czasu w grze
         Time.timeScale = 0f;
         
@@ -124,6 +134,26 @@ public class DaySummarySceneManager : MonoBehaviour
             if (DayEndHandler.Instance != null)
             {
                 DayEndHandler.Instance.GenerateDailyOffer(shopPanel.transform);
+            }
+            else
+            {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+                Debug.Log("[DEBUG] Brak DayEndHandler. Generowanie placeholderów w sklepie.");
+                for (int i = 0; i < 3; i++)
+                {
+                    Transform kaseta = shopPanel.transform.Find($"Kaseta{i + 1}");
+                    if (kaseta != null)
+                    {
+                        var title = kaseta.Find("NAZWA")?.GetComponent<TextMeshProUGUI>();
+                        var price = kaseta.Find("CENA")?.GetComponent<TextMeshProUGUI>();
+                        var stats = kaseta.Find("STATYSTYKI")?.GetComponent<TextMeshProUGUI>();
+                        
+                        if (title != null) title.text = $"DEBUG KASETA {i + 1}";
+                        if (price != null) price.text = $"{(i + 1) * 15}$";
+                        if (stats != null) stats.text = "+10 Zadowolenia";
+                    }
+                }
+#endif
             }
         }
     }
