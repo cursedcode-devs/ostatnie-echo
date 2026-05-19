@@ -35,12 +35,13 @@ public class GameManager : MonoBehaviour
     public Airtime airtime;
     public ChoosingCassetteUI choosingCassetteUI;
     public AudioQueueManager audioQueueManager;
+    public CassetteSlotHandler[] cassetteSlots;
 
     void Start()
     {
         actionManager = new ActionManager(mainCamera);
         radioStation = new RadioStation();
-        timeHandler = new TimeHandler(startHour, startDay);
+        timeHandler = new TimeHandler(startHour, startDay, airtime, cassetteSlots);
 
         audioQueueManager.SetTimeHandler(timeHandler);
 
@@ -85,13 +86,16 @@ public class GameManager : MonoBehaviour
             case ActionTypes.LeftClickOnPlayingObject:
                 Debug.Log("GetActionType - LeftClickOnPlayingObject");
 
-                if (selectionHandler.IsSelectedObjectPlayable() || playing)
+                if (selectionHandler.IsObjectPlayable() || playing)
                 {
                     FMODUnity.RuntimeManager.PlayOneShot(putCasetteInSound, this.transform.position);
                 }
                 else
                 {
-                    selectionHandler.SelectObject(clickedObject);
+                    //Na razie nie da się selectować odtwarzacza, bo to robi problemy z selectowanie kaset w slotach. 
+                    //Jak będzie czas coś można przykminić
+
+                    //selectionHandler.SelectObject(clickedObject);
                 }
                 choosingCassetteUI.ToggleVisibility(audioQueueManager.IsPlaying());
                 break;
@@ -180,7 +184,7 @@ public class GameManager : MonoBehaviour
                 audioQueueManager.EnqueueClips(airtime.GetCassettesAudio());
                 audioQueueManager.PlayClipsSequence();
                 CheckForRequestedCassette();
-                airtime.emptyAllSlots();
+                //airtime.emptyAllSlots();
                // choosingCassetteUI.ResetSlotText();
                 choosingCassetteUI.UpdatePredictions();
                 choosingCassetteUI.Hide();

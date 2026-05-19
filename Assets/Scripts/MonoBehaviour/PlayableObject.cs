@@ -15,6 +15,8 @@ public class PlayableObject : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         {
             gameObject.tag = "Playable";
             Debug.Log("To jest fizyczna kopia kasety: " + data.name);
+            data.ResetTimesUsed();
+            data.ResetLastValues();
         }
 
         hoverUIScriptObject = GameObject.Find("CassetteHoverScript");

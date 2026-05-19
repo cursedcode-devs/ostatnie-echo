@@ -861,6 +861,8 @@ MonoBehaviour:
   timeHandler:
     Hour: 0
     Day: 0
+    airtime: {fileID: 1296084681}
+    slots: []
     lastDay: 0
   selectionHandler: {fileID: 1261433972}
   amplitudeSlider: {fileID: 2020246816}
@@ -883,6 +885,10 @@ MonoBehaviour:
   airtime: {fileID: 1296084681}
   choosingCassetteUI: {fileID: 1596736046}
   audioQueueManager: {fileID: 330912644}
+  cassetteSlots:
+  - {fileID: 67227982}
+  - {fileID: 1596801362}
+  - {fileID: 1101456394}
   requestedGenre: 
   requestedCassette: {fileID: 0}
   requestedCassetteBoost: 0.1
@@ -2139,6 +2145,8 @@ MonoBehaviour:
   timeHandler:
     Hour: 0
     Day: 0
+    airtime: {fileID: 1296084681}
+    slots: []
     lastDay: 0
 --- !u!4 &330912645
 Transform:
@@ -11400,6 +11408,8 @@ MonoBehaviour:
   timeHandler:
     Hour: 0
     Day: 0
+    airtime: {fileID: 1296084681}
+    slots: []
     lastDay: 3
   ShopUI: {fileID: 1890631365}
   ShopButton: {fileID: 1970925079}
@@ -11417,7 +11427,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 42682f1d2331f84479f47092a8f6a958, type: 2}
   - {fileID: 11400000, guid: 4257a630e8bd87f4285111a0212b6837, type: 2}
   - {fileID: 11400000, guid: ab5c37b1f9094094a9d54dd2252877eb, type: 2}
-  - {fileID: 11400000, guid: ff7e06384e84bc5439ebbae593159fd1, type: 2}
+  - {fileID: 11400000, guid: b721014c1884dd14b9fe39a704069d31, type: 2}
   - {fileID: 11400000, guid: ff7e06384e84bc5439ebbae593159fd1, type: 2}
   - {fileID: 11400000, guid: cc859ce1e4ce8b7408e5d8295d0e8ed8, type: 2}
   allAds:

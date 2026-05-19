@@ -78,7 +78,7 @@ public class ObjectSelectionHandler : MonoBehaviour
         return true;
     }
 
-    public bool IsSelectedObjectPlayable()
+    public bool IsObjectPlayable()
     {
         if (!IsAnObjectSelected()) return false;
 
