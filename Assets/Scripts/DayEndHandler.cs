@@ -14,6 +14,8 @@ public class DayEndHandler : MonoBehaviour
     private RadioStation radioStation;
     private DaySummaryScreen summaryScreen;
     private GameEndScreen endScreen;
+    public FMODUnity.EventReference buyingSound;
+    public FMODUnity.EventReference yawnSound;
     public float[] kawalerka_fees;
     public float[] jedzenie_fees;
     public float[] studia_fees;
@@ -51,7 +53,9 @@ public class DayEndHandler : MonoBehaviour
     }
 
     void HandleDayStart()
-    {
+    {   
+        FMODUnity.RuntimeManager.PlayOneShot(yawnSound, this.transform.position);
+
         if (timeHandler.getDay() > 1)
         {
 
@@ -91,7 +95,7 @@ public class DayEndHandler : MonoBehaviour
         float moneyDiff = radioStation.GetCurrentMoney() - startMoney;
 
         Debug.Log($"Day ended! HipHop:{hipHopDiff}, Disco:{discoDiff}, Rock:{rockDiff}, Metal:{popDiff}, Money:{moneyDiff}");
-
+        
         // Show day summary — generate next daily offer after player clicks continue
         if (summaryScreen == null)
             summaryScreen = gameObject.AddComponent<DaySummaryScreen>();
@@ -261,8 +265,9 @@ public class DayEndHandler : MonoBehaviour
             UpdateMoneySlotInShop();
             Transform slot = ShopUI.transform.GetChild(offerIndex + 1);
             slot.gameObject.SetActive(false);
+            FMODUnity.RuntimeManager.PlayOneShot(buyingSound, this.transform.position);
         }
-
+        
 
 
     }

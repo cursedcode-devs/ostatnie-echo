@@ -23,6 +23,10 @@ public class GameManager : MonoBehaviour
     public ConsoleSliderObject frequencySlider;
     public FMODUnity.EventReference clickSound;
     public FMODUnity.EventReference putCasetteInSound;
+    public FMODUnity.EventReference ambient;
+    public FMODUnity.EventReference enterRadioSound;
+    public FMODUnity.EventReference takeCassetteSound;
+    public FMODUnity.EventReference putDownCassetteSound;
     private int startHour = 14;
     private int startDay = 1;
     private const float startingModifier = 0f;
@@ -37,11 +41,13 @@ public class GameManager : MonoBehaviour
     public AudioQueueManager audioQueueManager;
 
     void Start()
-    {
+    {   
+        FMODUnity.RuntimeManager.PlayOneShot(enterRadioSound, this.transform.position);
+
         actionManager = new ActionManager(mainCamera);
         radioStation = new RadioStation();
         timeHandler = new TimeHandler(startHour, startDay);
-
+        FMODUnity.RuntimeManager.PlayOneShot(ambient, this.transform.position);
         audioQueueManager.SetTimeHandler(timeHandler);
 
         radioStation.SetHourlyListenersModifier(startingModifier, startingModifier, startingModifier, startingModifier);
@@ -79,7 +85,13 @@ public class GameManager : MonoBehaviour
         {
             case ActionTypes.LeftClickOnPlayableObject:
                 Debug.Log("GetActionType - LeftClickOnPlayableObject");
-                FMODUnity.RuntimeManager.PlayOneShot(clickSound, this.transform.position);
+                if (selectionHandler.IsAnObjectSelected()){
+                    FMODUnity.RuntimeManager.PlayOneShot(putDownCassetteSound, this.transform.position);
+                }
+                else{
+                    FMODUnity.RuntimeManager.PlayOneShot(takeCassetteSound, this.transform.position);
+                }
+                
                 selectionHandler.SelectObject(clickedObject);
                 break;
             case ActionTypes.LeftClickOnPlayingObject:
