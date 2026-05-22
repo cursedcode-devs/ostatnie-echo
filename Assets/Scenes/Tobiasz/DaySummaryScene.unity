@@ -972,7 +972,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1057708567897922308, guid: 58f12c75e154312468d1af920e1975d4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1090749645161367616, guid: 58f12c75e154312468d1af920e1975d4, type: 3}
       propertyPath: m_Layer
@@ -2056,7 +2056,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6317214884891686824, guid: 58f12c75e154312468d1af920e1975d4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6552363645580670996, guid: 58f12c75e154312468d1af920e1975d4, type: 3}
       propertyPath: m_Layer
@@ -2788,6 +2788,7 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 2299297504963086893, guid: 58f12c75e154312468d1af920e1975d4, type: 3}
     - {fileID: 8624026362668944216, guid: 58f12c75e154312468d1af920e1975d4, type: 3}
+    - {fileID: 1410742524015801119, guid: 58f12c75e154312468d1af920e1975d4, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1495296193544243095, guid: 58f12c75e154312468d1af920e1975d4, type: 3}
       insertIndex: -1

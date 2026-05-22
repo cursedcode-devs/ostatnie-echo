@@ -43,7 +43,7 @@ public class DaySummarySceneManager : MonoBehaviour
     public Button shopContinueButton;
     public Button newspaperContinueButton;
 
-    void Start()
+void Start()
     {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         if (UnityEngine.Object.FindAnyObjectByType<UnityEngine.EventSystems.EventSystem>() == null)
@@ -55,14 +55,12 @@ public class DaySummarySceneManager : MonoBehaviour
         }
 #endif
 
-        // Zatrzymujemy upływ czasu w grze
         Time.timeScale = 0f;
         
         BindDataToUI();
 
         if (summaryPanel != null) summaryPanel.SetActive(true);
         if (shopPanel != null) shopPanel.SetActive(false);
-        if (newspaperPanel != null) newspaperPanel.SetActive(false);
 
         if (continueButton != null)
         {
@@ -74,12 +72,6 @@ public class DaySummarySceneManager : MonoBehaviour
         {
             shopContinueButton.onClick.RemoveAllListeners();
             shopContinueButton.onClick.AddListener(OnShopContinueClicked);
-        }
-
-        if (newspaperContinueButton != null)
-        {
-            newspaperContinueButton.onClick.RemoveAllListeners();
-            newspaperContinueButton.onClick.AddListener(OnNewspaperContinueClicked);
         }
     }
 
@@ -95,7 +87,6 @@ public class DaySummarySceneManager : MonoBehaviour
         if (moneyDiffText != null)
         {
             moneyDiffText.text = FormatDiff(DaySummaryData.MoneyDiff, "F2", "$");
-            // moneyDiffText.color = DiffColor(DaySummaryData.MoneyDiff);
         }
 
         if (hipHopFinalText != null) hipHopFinalText.text = $"{DaySummaryData.HipHop}";
@@ -106,17 +97,14 @@ public class DaySummarySceneManager : MonoBehaviour
         if (hipHopDiffText != null)
         {
             hipHopDiffText.text = FormatDiff(DaySummaryData.HipHopDiff);
-            // hipHopDiffText.color = DiffColor(DaySummaryData.HipHopDiff);
         }
         if (discoDiffText != null)
         {
             discoDiffText.text = FormatDiff(DaySummaryData.DiscoDiff);
-            // discoDiffText.color = DiffColor(DaySummaryData.DiscoDiff);
         }
         if (rockDiffText != null)
         {
             rockDiffText.text = FormatDiff(DaySummaryData.RockDiff);
-            // rockDiffText.color = DiffColor(DaySummaryData.RockDiff);
         }
         if (popDiffText != null)
         {
@@ -158,20 +146,25 @@ public class DaySummarySceneManager : MonoBehaviour
         }
     }
 
-    public void OnShopContinueClicked()
+public void OnShopContinueClicked()
     {
         if (shopPanel != null) shopPanel.SetActive(false);
-        if (newspaperPanel != null) newspaperPanel.SetActive(true);
+
+        StartCoroutine(LoadNewspaperAndUnload());
     }
+
+    private System.Collections.IEnumerator LoadNewspaperAndUnload()
+    {
+        var loadOp = SceneManager.LoadSceneAsync("NewspaperScene", LoadSceneMode.Additive);
+        yield return loadOp;
+
+        SceneManager.UnloadSceneAsync("DaySummaryScene");
+    }
+
 
     public void OnNewspaperContinueClicked()
     {
-        Time.timeScale = 1f;
-
-        DaySummaryData.OnSummaryClosed?.Invoke();
-        DaySummaryData.OnSummaryClosed = null;
-
-        SceneManager.UnloadSceneAsync("DaySummaryScene");
+        Debug.LogWarning("[DaySummarySceneManager] OnNewspaperContinueClicked jest przestarzałe — użyj NewspaperSceneManager.");
     }
 
     private string FormatDiff(float diff, string fmt = "F0", string suffix = "")
