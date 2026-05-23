@@ -10,7 +10,7 @@ public class CassetteSlotHandler : MonoBehaviour
     public ObjectSelectionHandler selectionHandler;
     private GameObject cassette;
     private Vector3 startPos = Vector3.zero;
-    private Quaternion startRot = Quaternion.EulerAngles(new Vector3(0f, 0f, 0f));
+    private Quaternion startRot = Quaternion.Euler(new Vector3(0f, 0f, 0f));
     private Vector3 closedRotation = new Vector3(0f, 0f, 0f);
     private Vector3 openRotation = new Vector3(-125f, 0f, 0f);
     public void HandleHinge()
@@ -39,6 +39,12 @@ public class CassetteSlotHandler : MonoBehaviour
         selectionHandler.SetDeselectRot(startRot);
         cassette = null;
         airtime.emptySlot(slotID);
+    }
+
+    public void PutCassetteInShelf()
+    {
+        cassette.transform.position = startPos;
+        cassette.transform.rotation = startRot;
     }
 
     public bool PutCassetteIn(GameObject cassette)
