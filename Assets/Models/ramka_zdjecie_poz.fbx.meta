@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 454b268b91ac541089feeca17121fa64
+guid: 721ca1f3c7ebcd64f99bc14549a51614
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: DeckMaterial
-    second: {fileID: 2100000, guid: f20cb9c602ce26b428d6ea137d57362f, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

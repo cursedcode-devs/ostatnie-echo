@@ -1,19 +1,9 @@
 fileFormatVersion: 2
-guid: 496374541b8ce82469aeb3d7caa3e6c9
+guid: 68d692d71251bdc43a99a6b825e5838f
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: odtwarzacz_ekrany
-    second: {fileID: 2100000, guid: b43d8cc5b1be37a4ca75f730b139bcf7, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: odtwarzacz_ekrany_obudowa
-    second: {fileID: 2100000, guid: e779f121a67073843b6863bfaaac524b, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

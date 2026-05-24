@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 2dd690599fd8384459955f3508c30911
+guid: 34b372a72453e414c9cdca09f8de61a3
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: MikrofonMaterial
-    second: {fileID: 2100000, guid: 5db0f937431780445a15ccba0dce4c83, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
