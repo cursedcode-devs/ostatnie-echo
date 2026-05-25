@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 public class DayEndHandler : MonoBehaviour
 {
     public GameManager gameManager;
@@ -20,6 +21,7 @@ public class DayEndHandler : MonoBehaviour
     private float kawalerka_fee;
     private float jedzenie_fee;
     private float studia_fee;
+    private bool gameFinished = false;
 
 
     // ------------------------------------------------------------------
@@ -54,20 +56,13 @@ public class DayEndHandler : MonoBehaviour
     {
         if (timeHandler.getDay() > 1)
         {
-
-            kawalerka_fee = kawalerka_fees[timeHandler.getDay() - 2];
-            jedzenie_fee = jedzenie_fees[timeHandler.getDay() - 2];
-            studia_fee = studia_fees[timeHandler.getDay() - 2];
+            int index = timeHandler.getDay() - 2;
+            kawalerka_fee = index < kawalerka_fees.Length ? kawalerka_fees[index] : 0f;
+            jedzenie_fee = index < jedzenie_fees.Length ? jedzenie_fees[index] : 0f;
+            studia_fee = index < studia_fees.Length ? studia_fees[index] : 0f;
         }
         gameManager.SetInputEnabled(false);
         radioStation.SetCurrentMoney(radioStation.GetCurrentMoney() - kawalerka_fee - jedzenie_fee - studia_fee);
-
-        //if no money at the beginning of new day game finishes
-        if (radioStation.GetCurrentMoney() <= 0)
-        {
-            HandleGameFinished();
-            return;
-        }
 
 
         foreach (var cassette in allCassettes)
@@ -84,13 +79,22 @@ public class DayEndHandler : MonoBehaviour
         radioStation.SetDailyListenersModifier(0f, 0f, 0f, 0f);
         radioStation.SetDailyRevenueModifier(0f, 0f, 0f, 0f);
 
+        float adsPenalty = 0f;
+        List<AdContractManager.UnplayedAdPenalty> unplayedPenalties = new List<AdContractManager.UnplayedAdPenalty>();
+        var adManager = FindFirstObjectByType<AdContractManager>();
+        if (adManager != null)
+        {
+            adsPenalty = adManager.CalculateAndApplyPenalties();
+            unplayedPenalties = new List<AdContractManager.UnplayedAdPenalty>(adManager.lastDayPenalties);
+        }
+
         int hipHopDiff = radioStation.currentListeners.hipHop - startListeners.hipHop;
         int discoDiff = radioStation.currentListeners.disco - startListeners.disco;
         int rockDiff = radioStation.currentListeners.rock - startListeners.rock;
         int popDiff = radioStation.currentListeners.pop - startListeners.pop;
         float moneyDiff = radioStation.GetCurrentMoney() - startMoney;
 
-        Debug.Log($"Day ended! HipHop:{hipHopDiff}, Disco:{discoDiff}, Rock:{rockDiff}, Metal:{popDiff}, Money:{moneyDiff}");
+        Debug.Log($"Day ended! HipHop:{hipHopDiff}, Disco:{discoDiff}, Rock:{rockDiff}, Metal:{popDiff}, Money:{moneyDiff}, AdsPenalty:{adsPenalty}");
 
         // Show day summary — generate next daily offer after player clicks continue
         if (summaryScreen == null)
@@ -101,6 +105,8 @@ public class DayEndHandler : MonoBehaviour
             kawalerka_fee: kawalerka_fee,
             jedzenie_fee: jedzenie_fee,
             studia_fee: studia_fee,
+            adsPenalty: adsPenalty,
+            unplayedPenalties: unplayedPenalties,
             finalMoney: radioStation.GetCurrentMoney(),
             moneyDiff: moneyDiff,
             hipHop: radioStation.currentListeners.hipHop,
@@ -113,20 +119,38 @@ public class DayEndHandler : MonoBehaviour
             popDiff: popDiff,
             onContinueCallback: () =>
             {
-                // Update snapshots and generate offer only after player dismisses summary
-                startListeners.hipHop = radioStation.currentListeners.hipHop;
-                startListeners.disco = radioStation.currentListeners.disco;
-                startListeners.rock = radioStation.currentListeners.rock;
-                startListeners.pop = radioStation.currentListeners.pop;
-                startMoney = radioStation.GetCurrentMoney();
-
-
-                // GenerateDailyOffer();
-
-                gameManager.SetInputEnabled(true);
-                if (timeHandler.getDay() >= 2)
+                if (gameFinished || radioStation.GetCurrentMoney() <= 0)
                 {
-                    ShopButton.gameObject.SetActive(true);
+                    HandleGameFinished();
+                }
+                else
+                {
+                    // Update snapshots and generate offer only after player dismisses summary
+                    startListeners.hipHop = radioStation.currentListeners.hipHop;
+                    startListeners.disco = radioStation.currentListeners.disco;
+                    startListeners.rock = radioStation.currentListeners.rock;
+                    startListeners.pop = radioStation.currentListeners.pop;
+                    startMoney = radioStation.GetCurrentMoney();
+
+                    var adManager2 = FindFirstObjectByType<AdContractManager>();
+                    if (adManager2 != null)
+                    {
+                        adManager2.ShowContractSelection(() => {
+                            gameManager.SetInputEnabled(true);
+                            if (timeHandler.getDay() >= 2)
+                            {
+                                ShopButton.gameObject.SetActive(true);
+                            }
+                        });
+                    }
+                    else
+                    {
+                        gameManager.SetInputEnabled(true);
+                        if (timeHandler.getDay() >= 2)
+                        {
+                            ShopButton.gameObject.SetActive(true);
+                        }
+                    }
                 }
             }
         );
@@ -176,7 +200,7 @@ public class DayEndHandler : MonoBehaviour
         gameManager = gm;
 
         timeHandler.OnDayStarted += HandleDayStart;
-        timeHandler.OnGameFinished += HandleGameFinished;
+        timeHandler.OnGameFinished += () => { gameFinished = true; };
 
         startListeners = new GenreValues
         {
