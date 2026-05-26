@@ -8,7 +8,7 @@ public class CassetteHoverUI : MonoBehaviour
 {
     public GameObject hoverUI;
     public Camera mainCamera;
-    public TextMeshProUGUI name;
+    public new TextMeshProUGUI name;
     public TextMeshProUGUI author;
     public TextMeshProUGUI stats;
     public GameObject hoverImage;

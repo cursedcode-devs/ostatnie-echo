@@ -43,6 +43,9 @@ public class GameManager : MonoBehaviour
         radioStation = new RadioStation();
         timeHandler = new TimeHandler(startHour, startDay, airtime, cassetteSlots);
 
+        // Auto-create AdContractManager component so it exists in the scene
+        gameObject.AddComponent<AdContractManager>();
+
         audioQueueManager.SetTimeHandler(timeHandler);
 
         radioStation.SetHourlyListenersModifier(startingModifier, startingModifier, startingModifier, startingModifier);
@@ -180,12 +183,19 @@ public class GameManager : MonoBehaviour
                 break;
             case ActionTypes.PressedEnter:
                 Debug.Log("Wcisnieto Enter");
-                radioStation.ApplySegment(airtime.GetCassettes());
+                PlayableContent[] playedCassettes = airtime.GetCassettes();
+                radioStation.ApplySegment(playedCassettes);
                 audioQueueManager.EnqueueClips(airtime.GetCassettesAudio());
                 audioQueueManager.PlayClipsSequence();
                 CheckForRequestedCassette();
-                //airtime.emptyAllSlots();
-               // choosingCassetteUI.ResetSlotText();
+
+                // Destroy physical ad cassettes that were just played
+                var adManager = FindFirstObjectByType<AdContractManager>();
+                if (adManager != null)
+                {
+                    adManager.HandleAdsPlayed(playedCassettes, cassetteSlots);
+                }
+
                 choosingCassetteUI.UpdatePredictions();
                 choosingCassetteUI.Hide();
                 break;
