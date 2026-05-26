@@ -34,7 +34,7 @@ public class ActionManager
             return ActionTypes.PressedQ;
         if (Keyboard.current.eKey.IsPressed())
             return ActionTypes.PressedE;
-        if(Keyboard.current.enterKey.wasPressedThisFrame)
+        if (Keyboard.current.enterKey.wasPressedThisFrame)
             return ActionTypes.PressedEnter;
         if (Keyboard.current.pKey.wasPressedThisFrame)
             return ActionTypes.PressedP;
@@ -70,16 +70,25 @@ public class ActionManager
         Debug.Log("GetActionType - LeftCLick");
         pointedObject = PointedObject(Mouse.current.position.ReadValue());
 
-        if (pointedObject == null) return ActionTypes.LeftClickOutsiedObject;
+        if (pointedObject == null) 
+            return ActionTypes.LeftClickOutsiedObject;
 
-        if (pointedObject.CompareTag("Unselectable")) return ActionTypes.LeftClickOutsiedObject;
+        if (pointedObject.CompareTag("Unselectable"))
+            return ActionTypes.LeftClickOutsiedObject;
 
-        if (pointedObject.CompareTag("Playable")) return ActionTypes.LeftClickOnPlayableObject;
+        if (pointedObject.CompareTag("Playable"))
+            return ActionTypes.LeftClickOnPlayableObject;
 
         if (pointedObject.CompareTag("ConsoleSlider"))
-        {
             return ActionTypes.LeftClickOnSlider;
-        }
+
+        if(pointedObject.CompareTag("Slot"))
+            return ActionTypes.LeftClickOnSlotHinge;
+        if(pointedObject.CompareTag("SlotHitBox"))
+            return ActionTypes.LeftClickOnSlotHitBox;
+        if (pointedObject.CompareTag("Shelf"))
+            return ActionTypes.LeftClickOnShelf;
+
 
         if (pointedObject.CompareTag("CassettePlayer")) return ActionTypes.LeftClickOnPlayingObject;
 

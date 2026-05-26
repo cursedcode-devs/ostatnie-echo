@@ -8,7 +8,7 @@ public class CassetteHoverUI : MonoBehaviour
 {
     public GameObject hoverUI;
     public Camera mainCamera;
-    public TextMeshProUGUI name;
+    public new TextMeshProUGUI name;
     public TextMeshProUGUI author;
     public TextMeshProUGUI stats;
     public GameObject hoverImage;
@@ -23,6 +23,11 @@ public class CassetteHoverUI : MonoBehaviour
 
     public void MouseHover(PlayableContent cassette, PlayableObject playableObject)
     {
+        if(cassette==null)
+            return;
+        if (playableObject == null)
+            return;
+
         Vector3 screenPosition = mainCamera.WorldToScreenPoint(playableObject.transform.position);
         screenPosition.x += 140;
         screenPosition.y -= 90;

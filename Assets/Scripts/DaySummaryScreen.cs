@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// DaySummaryScreen
@@ -31,6 +32,8 @@ public class DaySummaryScreen : MonoBehaviour
     private TextMeshProUGUI discoDiffText;
     private TextMeshProUGUI rockDiffText;
     private TextMeshProUGUI popDiffText;
+    private TextMeshProUGUI adsPenaltyText;
+    private TextMeshProUGUI adsPenaltyBreakdownText;
 
     private Action onContinue;
 
@@ -40,6 +43,8 @@ public class DaySummaryScreen : MonoBehaviour
         float kawalerka_fee,
         float jedzenie_fee,
         float studia_fee,
+        float adsPenalty,
+        List<AdContractManager.UnplayedAdPenalty> unplayedPenalties,
         float finalMoney, float moneyDiff,
         int hipHop, int hipHopDiff,
         int disco, int discoDiff,
@@ -56,6 +61,31 @@ public class DaySummaryScreen : MonoBehaviour
         kawalerka_feeText.text = $"{kawalerka_fee:F2}$";
         kawalerka_jedzenieText.text = $"{jedzenie_fee:F2}$";
         kawalerka_studiaText.text = $"{studia_fee:F2}$";
+        if (adsPenaltyText != null)
+        {
+            adsPenaltyText.text = $"{adsPenalty:F2}$";
+        }
+        
+        // Wyświetlanie szczegółowej listy kar
+        if (adsPenaltyBreakdownText != null)
+        {
+            if (unplayedPenalties != null && unplayedPenalties.Count > 0)
+            {
+                string bText = "Niewyemitowane zlecenia (kara 1/2 zysku):\n";
+                foreach (var p in unplayedPenalties)
+                {
+                    bText += $" • {p.clientName} (\"{p.adTitle}\"): -{p.penaltyAmount:F2}$\n";
+                }
+                adsPenaltyBreakdownText.text = bText;
+                adsPenaltyBreakdownText.gameObject.SetActive(true);
+            }
+            else
+            {
+                adsPenaltyBreakdownText.text = "";
+                adsPenaltyBreakdownText.gameObject.SetActive(false);
+            }
+        }
+        
         moneyFinalText.text = $"{finalMoney:F2}$";
         moneyDiffText.text = FormatDiff(moneyDiff, "F2", "$");
         // moneyDiffText.color = DiffColor(moneyDiff);
@@ -136,8 +166,8 @@ public class DaySummaryScreen : MonoBehaviour
         0.5f, 0.5f, 780, 1, 0, 230);
 
 
-    float y = 195;
-    float step = 46;
+    float y = 190;
+    float step = 45;
 
     MakeRowLabel(ct, "FeeRentLbl", "CZYNSZ", -300, y);
     kawalerka_feeText = MakeValueText(ct, "FeeRentVal", "0.00$", 100, y);
@@ -153,8 +183,19 @@ public class DaySummaryScreen : MonoBehaviour
     kawalerka_studiaText = MakeValueText(ct, "FeeStudyVal", "0.00$", 100, y);
     // kawalerka_studiaText.color = Color.red;
 
-    // separator
-    y -= 35;
+    y -= step;
+    MakeRowLabel(ct, "FeeAdsPenaltyLbl", "KARY ZA REKLAMY", -300, y);
+    adsPenaltyText = MakeValueText(ct, "FeeAdsPenaltyVal", "0.00$", 100, y);
+    adsPenaltyText.color = Color.red;
+
+    // Miejsce na listę kar z reklam
+    var breakdownGO = MakeText(ct, "FeeAdsPenaltyBreakdown", "", 14, new Color32(200, 110, 110, 255));
+    adsPenaltyBreakdownText = breakdownGO.GetComponent<TextMeshProUGUI>();
+    adsPenaltyBreakdownText.alignment = TextAlignmentOptions.TopLeft;
+    SR(breakdownGO, 0.5f, 0.5f, 780, 70, 0, y - 45);
+
+    // separator przesunięty w dół o 60 pikseli, aby zrobić miejsce na tekst listy
+    y -= 75;
     SR(MakeImage(ct, "DivFees", new Color32(35, 48, 65, 255)),
         0.5f, 0.5f, 780, 1, 0, y);
 

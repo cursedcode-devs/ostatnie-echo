@@ -10,34 +10,11 @@ public class ChoosingCassetteUI : MonoBehaviour
     public GameManager gameManager;
     public GameObject cassettePlayer;
     public Airtime airtime;
-    private GameObject selectedObject;
-    private PlayableObject playableObject;
     //public GameObject[] cassetteSlots;
-    public TextMeshProUGUI[] cassetteSlotTexts;
+    //public TextMeshProUGUI[] cassetteSlotTexts;
     public TextMeshProUGUI[] StatTexts;
     public TextMeshProUGUI[] equationTexts;
     private bool active = false;
-    public void clickedSlot(int slot)
-    {
-        // LastSelectedObject bo jak klikniesz lewym na przycisk slotu to kaseta zd¹¿y siê odznaczyæ
-        selectedObject = gameManager.selectionHandler.GetLastSelectedObject();
-
-        if (selectedObject == null || !selectedObject.CompareTag("Playable"))
-        {
-            airtime.emptySlot(slot);
-            PlayCassetteSound();
-        }
-        else if (selectedObject.CompareTag("Playable"))
-        {
-            playableObject = selectedObject.GetComponent<PlayableObject>();
-            airtime.setSlot(playableObject.data, slot);
-            gameManager.selectionHandler.ResetLastSelectedObject();
-            PlayCassetteSound();
-        }
-
-        // Zamiast starego kodu, wywo³ujemy now¹ funkcjê symuluj¹c¹, która obliczy przewidywania dla wszystkich slotów
-        UpdatePredictions();
-    }
 
     public void UpdatePredictions()
     {
@@ -55,7 +32,7 @@ public class ChoosingCassetteUI : MonoBehaviour
         {
             if (cassettes[i] == null)
             {
-                cassetteSlotTexts[i].text = "Slot " + (i + 1);
+               // cassetteSlotTexts[i].text = "Slot " + (i + 1);
                 StatTexts[i].text = "HipHop: \nRock: \nPop: \nDisco: ";
                 continue;
             }
@@ -96,7 +73,9 @@ public class ChoosingCassetteUI : MonoBehaviour
             }
 
             // Aktualizacja UI dla konkretnego slotu
-            cassetteSlotTexts[i].text = c.GetName() + " U¿ycie: " + currentUses;
+
+            // Trzeba wyœwietliæ gdzieœ t¹ informacje, bo przyciski gdzie siê wyœwietla³a zosta³y usuniête
+            //cassetteSlotTexts[i].text = c.GetName() + " U¿ycie: " + currentUses;
 
             if (c.GetType() == CassetteTypes.Ad)
             {
@@ -140,8 +119,8 @@ public class ChoosingCassetteUI : MonoBehaviour
 
     public void Show()
     {
-        UpdatePredictions();
         choosingCassetteCanvas.SetActive(true);
+        UpdatePredictions();
     }
 
     public void Hide()
@@ -149,13 +128,13 @@ public class ChoosingCassetteUI : MonoBehaviour
         choosingCassetteCanvas.SetActive(false);
     }
 
-    public void ResetSlotText()
-    {
-        for (int i = 0; i < cassetteSlotTexts.Length; i++)
-        {
-            cassetteSlotTexts[i].text = "Slot " + (i + 1);
-        }
-    }
+    //public void ResetSlotText()
+    //{
+    //    for (int i = 0; i < cassetteSlotTexts.Length; i++)
+    //    {
+    //        cassetteSlotTexts[i].text = "Slot " + (i + 1);
+    //    }
+    //}
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
