@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public RadioStation radioStation;
     [SerializeField] private AudioSource source;
-    [SerializeField] private Camera mainCamera;
+    [SerializeField] public Camera mainCamera;
     private bool playing = false;
     private ActionTypes mouseActionType;
     private ActionTypes keyboardActionType;
@@ -68,6 +68,15 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        
+        // DEBUG: Wciśnięcie '0' pozwala pominąć główną grę i od razu przejść do końca dnia (podsumowania)
+        if (Keyboard.current != null && Keyboard.current.digit0Key.wasPressedThisFrame)
+        {
+            // Natychmiastowe zakończenie obecnego dnia i pokazanie podsumowania
+            timeHandler.StartDay(); 
+            // Jeżeli chcesz przeskoczyć do ostatniej "godziny" (17), zamiast do podsumowania, użyłbyś:
+        }
+
         if (!inputEnabled) return;
 
         mouseActionType = actionManager.GetActionMouseType();
