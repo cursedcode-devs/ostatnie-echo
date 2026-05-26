@@ -15,9 +15,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Wojtek/WojtekScene.unity
     guid: 669ba09c78ec2af43b23137442d71112
   - enabled: 1
+    path: Assets/Scenes/Tobiasz/TobiaszScene.unity
+    guid: 74affb6614007fa4a9edf8c652f7bab8
+  - enabled: 1
     path: Assets/Scenes/Tobiasz/DaySummaryScene.unity
     guid: 345f7c18e48a2864782823484f18e169
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Tobiasz/NewspaperScene.unity
     guid: 32c3b00e9f448984e92c3d1035304dc4
   m_configObjects:

@@ -46,10 +46,32 @@ public class NewspaperSceneManager : MonoBehaviour
         }
     }
 
+    [Header("Obraz Gazety")]
+    public RawImage newspaperImage;
+
     void BindDataToUI()
     {
+        int dayNumber = DaySummaryData.Day > 0 ? DaySummaryData.Day - 1 : 1;
+        
         if (titleText != null)
-            titleText.text = $"DZIEŃ {(DaySummaryData.Day > 0 ? DaySummaryData.Day - 1 : 1)} — GAZETA";
+            titleText.text = $"DZIEŃ {dayNumber} — GAZETA";
+
+        if (newspaperImage != null)
+        {
+            Texture2D dailyTexture = Resources.Load<Texture2D>($"TelePrasa{dayNumber}");
+
+            if (dailyTexture != null)
+            {
+                newspaperImage.texture = dailyTexture;
+            }
+            else
+            {
+                Texture2D placeholderTexture = Resources.Load<Texture2D>("TelePrasaPlaceholder");
+                if (placeholderTexture != null)
+                    newspaperImage.texture = placeholderTexture;
+                Debug.LogWarning($"[Newspaper] Nie znaleziono obrazka 'TelePrasa{dayNumber}' w folderze Resources! Upewnij się, że grafiki są w Assets/Textures/Resources/");
+            }
+        }
     }
 
     public void OnContinueClicked()
