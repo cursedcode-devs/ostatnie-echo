@@ -2487,7 +2487,7 @@ PrefabInstance:
     - target: {fileID: 8370369373728982741, guid: 58f12c75e154312468d1af920e1975d4, type: 3}
       propertyPath: m_Texture
       value: 
-      objectReference: {fileID: 2800000, guid: 9010d08d2f9cf854fb9374f19372a364, type: 3}
+      objectReference: {fileID: 2800000, guid: 11060fae63c6d2ac8a4ddf3a86f60963, type: 3}
     - target: {fileID: 8462536957145798130, guid: 58f12c75e154312468d1af920e1975d4, type: 3}
       propertyPath: m_Color.a
       value: 0
