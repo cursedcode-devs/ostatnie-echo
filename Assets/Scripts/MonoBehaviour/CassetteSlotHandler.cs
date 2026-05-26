@@ -43,6 +43,8 @@ public class CassetteSlotHandler : MonoBehaviour
 
     public void PutCassetteInShelf()
     {
+        if (cassette == null)
+            return;
         cassette.transform.position = startPos;
         cassette.transform.rotation = startRot;
     }
