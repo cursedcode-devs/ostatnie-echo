@@ -13,6 +13,9 @@ public static class DaySummaryData
     public static float FinalMoney;
     public static float MoneyDiff;
     
+    public static float AdsPenalty;
+    public static System.Collections.Generic.List<AdContractManager.UnplayedAdPenalty> UnplayedPenalties;
+    
     public static int HipHop;
     public static int HipHopDiff;
     public static int Disco;
