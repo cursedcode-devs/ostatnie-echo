@@ -586,6 +586,13 @@ MonoBehaviour:
   hinge: {fileID: 64640353}
   SlotHitBox: {fileID: 1026189350}
   selectionHandler: {fileID: 1261433972}
+  clickSound:
+    Guid:
+      Data1: 251791982
+      Data2: 1094490258
+      Data3: -731245654
+      Data4: -1727328709
+    Path: event:/PutCassetteIn
 --- !u!4 &87856084 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1055843370877094663, guid: 42fbbfffeb97fe34285882342f269942, type: 3}
@@ -863,7 +870,6 @@ MonoBehaviour:
     Day: 0
     airtime: {fileID: 1296084681}
     slots: []
-    lastDay: 0
   selectionHandler: {fileID: 1261433972}
   amplitudeSlider: {fileID: 2020246816}
   lengthSlider: {fileID: 764837579}
@@ -877,11 +883,40 @@ MonoBehaviour:
     Path: event:/PickUp
   putCasetteInSound:
     Guid:
-      Data1: -1528900935
-      Data2: 1260672722
-      Data3: -777628484
-      Data4: 424681781
-    Path: event:/PutCasetteIn
+      Data1: 251791982
+      Data2: 1094490258
+      Data3: -731245654
+      Data4: -1727328709
+    Path: event:/PutCassetteIn
+  ambient:
+    Guid:
+      Data1: 1085386765
+      Data2: 1081776980
+      Data3: -1357412436
+      Data4: 872716176
+    Path: event:/ambient
+  enterRadioSound:
+    Guid:
+      Data1: 1992203668
+      Data2: 1208502757
+      Data3: 69330364
+      Data4: 1411013378
+    Path: event:/EnterRadio
+  takeCassetteSound:
+    Guid:
+      Data1: -1124735859
+      Data2: 1321695092
+      Data3: -826946667
+      Data4: 1229242531
+    Path: event:/TakeCassette
+  putDownCassetteSound:
+    Guid:
+      Data1: -1184606205
+      Data2: 1087938624
+      Data3: 1619839379
+      Data4: 1890931116
+    Path: event:/PutDownCassette
+  daysNr: 3
   airtime: {fileID: 1296084681}
   choosingCassetteUI: {fileID: 1596736046}
   audioQueueManager: {fileID: 330912644}
@@ -2147,7 +2182,6 @@ MonoBehaviour:
     Day: 0
     airtime: {fileID: 1296084681}
     slots: []
-    lastDay: 0
 --- !u!4 &330912645
 Transform:
   m_ObjectHideFlags: 0
@@ -6994,6 +7028,13 @@ MonoBehaviour:
   hinge: {fileID: 165727451}
   SlotHitBox: {fileID: 1892296036}
   selectionHandler: {fileID: 1261433972}
+  clickSound:
+    Guid:
+      Data1: 251791982
+      Data2: 1094490258
+      Data3: -731245654
+      Data4: -1727328709
+    Path: event:/PutCassetteIn
 --- !u!65 &1101456395
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7618,6 +7659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSelectionHandler
   selectedObject: {fileID: 0}
+  gm: {fileID: 111077787}
   selectedObjPos: {fileID: 544625337}
 --- !u!4 &1261433973
 Transform:
@@ -9219,6 +9261,13 @@ MonoBehaviour:
   hinge: {fileID: 88768300}
   SlotHitBox: {fileID: 1442073139}
   selectionHandler: {fileID: 1261433972}
+  clickSound:
+    Guid:
+      Data1: 251791982
+      Data2: 1094490258
+      Data3: -731245654
+      Data4: -1727328709
+    Path: event:/PutCassetteIn
 --- !u!65 &1596801363
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11477,7 +11526,6 @@ MonoBehaviour:
     Day: 0
     airtime: {fileID: 1296084681}
     slots: []
-    lastDay: 3
   ShopUI: {fileID: 1890631365}
   ShopButton: {fileID: 1970925079}
   allCassettes:
@@ -11503,6 +11551,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 86e89e1f7ef7fb941a613427f63db479, type: 2}
   - {fileID: 11400000, guid: 1d7b65b5b0667c44fa1ce6fed8702ef6, type: 2}
   dailyOffer: []
+  buyingSound:
+    Guid:
+      Data1: -605242399
+      Data2: 1126030028
+      Data3: 122680211
+      Data4: 379880121
+    Path: event:/Buying
+  yawnSound:
+    Guid:
+      Data1: 1996501922
+      Data2: 1309695196
+      Data3: 2022919838
+      Data4: 155798253
+    Path: event:/Yawn
   kawalerka_fees:
   - 50
   - 75
@@ -12197,11 +12259,11 @@ MonoBehaviour:
   disableClicksWhenOpen: 1
   successSound:
     Guid:
-      Data1: -1814538602
-      Data2: 1241385260
-      Data3: 7827350
-      Data4: -975880104
-    Path: event:/SuccessMinigame
+      Data1: -227413733
+      Data2: 1320757159
+      Data3: -867914567
+      Data4: 241173806
+    Path: event:/Success
 --- !u!4 &2060187814
 Transform:
   m_ObjectHideFlags: 0

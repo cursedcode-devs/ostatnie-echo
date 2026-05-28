@@ -100,34 +100,26 @@ public class GameManager : MonoBehaviour
         {
             case ActionTypes.LeftClickOnPlayableObject:
                 Debug.Log("GetActionType - LeftClickOnPlayableObject");
-                if (selectionHandler.IsAnObjectSelected()){
+                if (selectionHandler.IsAnObjectSelected() && selectionHandler.IsObjectPlayable())
+                {
                     FMODUnity.RuntimeManager.PlayOneShot(putDownCassetteSound, this.transform.position);
                 }
-                else{
+                {
                     FMODUnity.RuntimeManager.PlayOneShot(takeCassetteSound, this.transform.position);
                 }
-                
+
                 selectionHandler.SelectObject(clickedObject);
                 break;
             case ActionTypes.LeftClickOnPlayingObject:
                 Debug.Log("GetActionType - LeftClickOnPlayingObject");
-
-                if (selectionHandler.IsObjectPlayable() || playing)
-                {
-                    FMODUnity.RuntimeManager.PlayOneShot(putCasetteInSound, this.transform.position);
-                }
-                else
-                {
-                    //Na razie nie da się selectować odtwarzacza, bo to robi problemy z selectowanie kaset w slotach. 
-                    //Jak będzie czas coś można przykminić
-
-                    //selectionHandler.SelectObject(clickedObject);
-                }
                 choosingCassetteUI.ToggleVisibility(audioQueueManager.IsPlaying());
                 break;
             case ActionTypes.LeftClickOnObject:
                 Debug.Log("GetActionType - LeftClickOnObject");
                 FMODUnity.RuntimeManager.PlayOneShot(clickSound, this.transform.position);
+
+                if (selectionHandler.IsAnObjectSelected() && selectionHandler.IsObjectPlayable())
+                    FMODUnity.RuntimeManager.PlayOneShot(putDownCassetteSound, this.transform.position);
                 selectionHandler.SelectObject(clickedObject);
                 break;
             case ActionTypes.LeftClickOnSlider:
@@ -142,7 +134,9 @@ public class GameManager : MonoBehaviour
                 break;
             case ActionTypes.LeftClickOnSlotHinge:
                 Debug.Log("GetActionType - LeftClickOnSlot");
-                //selectionHandler.SelectObject(clickedObject);
+
+                //Tutaj dźwięk otwierania i zamykania metalowego zawiasu na odtwarzaczu
+
                 slotHandler = clickedObject.GetComponent<CassetteSlotHandler>();
                 slotHandler.HandleHinge();
                 break;
@@ -152,14 +146,17 @@ public class GameManager : MonoBehaviour
 
                 if (selectionHandler.GetSelectedObject() == null)
                 {
+                    if(!slotHandler.IsSlotEmpty())
+                        FMODUnity.RuntimeManager.PlayOneShot(putDownCassetteSound, this.transform.position);
                     slotHandler.PutCassetteOut();
                     break;
-                } 
+                }
 
                 if (selectionHandler.GetSelectedObject().CompareTag("Playable"))
                 {
                     GameObject selectedObject = selectionHandler.GetSelectedObject();
-                    if(slotHandler.PutCassetteIn(selectedObject))
+                    FMODUnity.RuntimeManager.PlayOneShot(putCasetteInSound, this.transform.position);
+                    if (slotHandler.PutCassetteIn(selectedObject))
                         selectionHandler.DeselectedObject(false, false);
                 }
                 break;
@@ -167,12 +164,19 @@ public class GameManager : MonoBehaviour
                 if (selectionHandler.GetSelectedObject() == null)
                     break;
                 if (selectionHandler.GetSelectedObject().CompareTag("Playable"))
+                {
                     selectionHandler.DeselectedObject();
+                    FMODUnity.RuntimeManager.PlayOneShot(putDownCassetteSound, this.transform.position);
+                }
                 break;
             case ActionTypes.LeftClickOutsiedObject:
                 Debug.Log("GetActionType - LeftClickOutsiedObject");
                 if (selectionHandler.GetSelectedObject() != null)
+                {
+                    if(selectionHandler.IsObjectPlayable())
+                        FMODUnity.RuntimeManager.PlayOneShot(putDownCassetteSound, this.transform.position);
                     selectionHandler.DeselectedObject();
+                }
                 break;
         }
 

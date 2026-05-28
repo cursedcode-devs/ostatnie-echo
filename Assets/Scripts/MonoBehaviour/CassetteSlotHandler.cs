@@ -30,6 +30,13 @@ public class CassetteSlotHandler : MonoBehaviour
         }
     }
 
+    public bool IsSlotEmpty()
+    {
+        if (cassette == null)
+            return true;
+        return false;
+    }
+
     public void PutCassetteOut()
     {
         if (cassette == null)
