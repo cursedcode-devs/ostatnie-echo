@@ -60,6 +60,8 @@ public class WaveTweakingMiniGame : MonoBehaviour
 
     private void HandleSliderInput()
     {
+        if(Camera.main==null)
+            return;
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());

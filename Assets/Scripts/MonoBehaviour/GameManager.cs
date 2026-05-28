@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public ConsoleSliderObject frequencySlider;
     public FMODUnity.EventReference clickSound;
     public FMODUnity.EventReference putCasetteInSound;
+    public int daysNr;
     private int startHour = 14;
     private int startDay = 1;
     private const float startingModifier = 0f;
@@ -41,7 +42,7 @@ public class GameManager : MonoBehaviour
     {
         actionManager = new ActionManager(mainCamera);
         radioStation = new RadioStation();
-        timeHandler = new TimeHandler(startHour, startDay, airtime, cassetteSlots);
+        timeHandler = new TimeHandler(startHour, startDay, airtime, cassetteSlots, daysNr);
 
         // Auto-create AdContractManager component so it exists in the scene
         gameObject.AddComponent<AdContractManager>();
