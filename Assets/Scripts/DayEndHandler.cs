@@ -17,6 +17,8 @@ public class DayEndHandler : MonoBehaviour
     private RadioStation radioStation;
     private DaySummaryScreen summaryScreen;
     private GameEndScreen endScreen;
+    public FMODUnity.EventReference buyingSound;
+    public FMODUnity.EventReference yawnSound;
     public float[] kawalerka_fees;
     public float[] jedzenie_fees;
     public float[] studia_fees;
@@ -59,7 +61,9 @@ public class DayEndHandler : MonoBehaviour
     }
 
     void HandleDayStart()
-    {
+    {   
+        FMODUnity.RuntimeManager.PlayOneShot(yawnSound, this.transform.position);
+
         if (timeHandler.getDay() > 1)
         {
             int index = timeHandler.getDay() - 2;
@@ -300,7 +304,9 @@ public class DayEndHandler : MonoBehaviour
             UpdateMoneySlotInShop();
             Transform slot = currentShopUI.Find($"Kaseta{offerIndex + 1}");
             if (slot != null) slot.gameObject.SetActive(false);
+            FMODUnity.RuntimeManager.PlayOneShot(buyingSound, this.transform.position);
         }
+
     }
 
     public void UpdateMoneySlotInShop()

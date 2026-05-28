@@ -70,7 +70,8 @@ public class LightsOutMiniGame : MonoBehaviour
     public TextMeshProUGUI statusText;
     public TextMeshProUGUI movesText;
     public Button restartButton;
-
+    [Header("SFX")]
+    public FMODUnity.EventReference clickSound;
     [Header("Kolory świateł")]
     public Color lightOnColor  = new Color(1f, 0.95f, 0.3f);
     public Color lightOffColor = new Color(0.15f, 0.12f, 0.1f);
@@ -153,6 +154,7 @@ public class LightsOutMiniGame : MonoBehaviour
     // ------------------------------------------------------------------
     void OnSwitch(int switchIdx)
     {
+        FMODUnity.RuntimeManager.PlayOneShot(clickSound, this.transform.position);
         if (won || busy) return;
 
         // Animacja dźwigni

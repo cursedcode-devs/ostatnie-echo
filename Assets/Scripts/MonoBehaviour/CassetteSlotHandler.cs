@@ -13,6 +13,7 @@ public class CassetteSlotHandler : MonoBehaviour
     private Quaternion startRot = Quaternion.Euler(new Vector3(0f, 0f, 0f));
     private Vector3 closedRotation = new Vector3(0f, 0f, 0f);
     private Vector3 openRotation = new Vector3(-125f, 0f, 0f);
+    public FMODUnity.EventReference clickSound;
     public void HandleHinge()
     {
         if (!isOpen)
@@ -60,10 +61,11 @@ public class CassetteSlotHandler : MonoBehaviour
             cassette.transform.rotation = Quaternion.Euler(new Vector3(90f, 0f, 0f));
             //cassette.transform.rotation = SlotHitBox.transform.rotation;
             airtime.setSlot(cassette.GetComponent<PlayableObject>().data, slotID);
+            FMODUnity.RuntimeManager.PlayOneShot(clickSound, this.transform.position);
 
             return true;
         }
-        //jeœli slot jest zajêty to nie mo¿na w³o¿yæ kasety
+        //jeï¿½li slot jest zajï¿½ty to nie moï¿½na wï¿½oï¿½yï¿½ kasety
 
         return false;
     }
