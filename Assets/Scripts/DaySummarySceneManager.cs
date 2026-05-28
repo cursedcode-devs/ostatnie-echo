@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 /// <summary>
 /// Menedżer sceny podsumowującej dzień.
@@ -10,13 +11,16 @@ using UnityEngine.SceneManagement;
 public class DaySummarySceneManager : MonoBehaviour
 {
     [Header("Główne")]
-    public TextMeshProUGUI titleText;
-    public Button continueButton;
+    public List<TextMeshProUGUI> titleTexts;
 
     [Header("Koszty")]
     public TextMeshProUGUI rentFeeText;
     public TextMeshProUGUI foodFeeText;
     public TextMeshProUGUI studiesFeeText;
+
+    [Header("Kary z reklam")]
+    public TextMeshProUGUI adsPenaltyText;
+    public TextMeshProUGUI adsPenaltyBreakdownText;
 
     [Header("Pieniądze")]
     public TextMeshProUGUI moneyFinalText;
@@ -35,11 +39,14 @@ public class DaySummarySceneManager : MonoBehaviour
     public TextMeshProUGUI popDiffText;
 
     [Header("Ekrany (Panele)")]
-    public GameObject summaryPanel;
+    public GameObject budgetPanel;
+    public GameObject listenersPanel;
     public GameObject shopPanel;
     public GameObject newspaperPanel;
 
-    [Header("Dodatkowe Przyciski")]
+    [Header("Przyciski Kontynuacji")]
+    public Button budgetContinueButton;
+    public Button listenersContinueButton;
     public Button shopContinueButton;
     public Button newspaperContinueButton;
 
@@ -59,13 +66,20 @@ void Start()
         
         BindDataToUI();
 
-        if (summaryPanel != null) summaryPanel.SetActive(true);
+        if (budgetPanel != null) budgetPanel.SetActive(true);
+        if (listenersPanel != null) listenersPanel.SetActive(false);
         if (shopPanel != null) shopPanel.SetActive(false);
 
-        if (continueButton != null)
+        if (budgetContinueButton != null)
         {
-            continueButton.onClick.RemoveAllListeners();
-            continueButton.onClick.AddListener(OnSummaryContinueClicked);
+            budgetContinueButton.onClick.RemoveAllListeners();
+            budgetContinueButton.onClick.AddListener(OnBudgetContinueClicked);
+        }
+        
+        if (listenersContinueButton != null)
+        {
+            listenersContinueButton.onClick.RemoveAllListeners();
+            listenersContinueButton.onClick.AddListener(OnListenersContinueClicked);
         }
         
         if (shopContinueButton != null)
@@ -77,11 +91,37 @@ void Start()
 
     void BindDataToUI()
     {
-        if (titleText != null) titleText.text = $"KONIEC DNIA {DaySummaryData.Day - 1}";
+        if (titleTexts != null)
+        {
+            foreach (var t in titleTexts)
+            {
+                if (t != null) t.text = $"KONIEC DNIA {DaySummaryData.Day - 1}";
+            }
+        }
 
         if (rentFeeText != null) rentFeeText.text = $"{DaySummaryData.RentFee:F2}$";
         if (foodFeeText != null) foodFeeText.text = $"{DaySummaryData.FoodFee:F2}$";
         if (studiesFeeText != null) studiesFeeText.text = $"{DaySummaryData.StudiesFee:F2}$";
+
+        if (adsPenaltyText != null) adsPenaltyText.text = $"{DaySummaryData.AdsPenalty:F2}$";
+        if (adsPenaltyBreakdownText != null)
+        {
+            if (DaySummaryData.UnplayedPenalties != null && DaySummaryData.UnplayedPenalties.Count > 0)
+            {
+                string bText = "Niewyemitowane zlecenia (kara 1/2 zysku):\n";
+                foreach (var p in DaySummaryData.UnplayedPenalties)
+                {
+                    bText += $" • {p.clientName} (\"{p.adTitle}\"): -{p.penaltyAmount:F2}$\n";
+                }
+                adsPenaltyBreakdownText.text = bText;
+                adsPenaltyBreakdownText.gameObject.SetActive(true);
+            }
+            else
+            {
+                adsPenaltyBreakdownText.text = "";
+                adsPenaltyBreakdownText.gameObject.SetActive(false);
+            }
+        }
 
         if (moneyFinalText != null) moneyFinalText.text = $"{DaySummaryData.FinalMoney:F2}$";
         if (moneyDiffText != null)
@@ -113,9 +153,15 @@ void Start()
         }
     }
 
-    public void OnSummaryContinueClicked()
+    public void OnBudgetContinueClicked()
     {
-        if (summaryPanel != null) summaryPanel.SetActive(false);
+        if (budgetPanel != null) budgetPanel.SetActive(false);
+        if (listenersPanel != null) listenersPanel.SetActive(true);
+    }
+
+    public void OnListenersContinueClicked()
+    {
+        if (listenersPanel != null) listenersPanel.SetActive(false);
         if (shopPanel != null) 
         {
             shopPanel.SetActive(true);

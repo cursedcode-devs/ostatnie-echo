@@ -15,7 +15,7 @@ public class DayEndHandler : MonoBehaviour
     public Ad[] allAds;
     public Cassette[] dailyOffer;
     private RadioStation radioStation;
-    private DaySummaryScreen summaryScreen;
+
     private GameEndScreen endScreen;
     public float[] kawalerka_fees;
     public float[] jedzenie_fees;
