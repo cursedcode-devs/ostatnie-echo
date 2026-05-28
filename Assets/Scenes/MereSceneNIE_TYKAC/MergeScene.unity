@@ -827,10 +827,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   radioStation:
     currentListeners:
-      hipHop: 5
-      disco: 5
-      rock: 5
-      pop: 5
+      hipHop: 0
+      disco: 0
+      rock: 0
+      pop: 0
     startListeners: 5
     currentMoney: 0
     hourlyListenersModifier:
