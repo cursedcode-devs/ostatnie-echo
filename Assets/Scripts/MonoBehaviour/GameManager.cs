@@ -47,7 +47,6 @@ public class GameManager : MonoBehaviour
         FMODUnity.RuntimeManager.PlayOneShot(enterRadioSound, this.transform.position);
 
         actionManager = new ActionManager(mainCamera);
-        radioStation = new RadioStation();
         timeHandler = new TimeHandler(startHour, startDay, airtime, cassetteSlots, daysNr);
         FMODUnity.RuntimeManager.PlayOneShot(ambient, this.transform.position);
         
