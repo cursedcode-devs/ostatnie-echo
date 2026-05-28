@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// DaySummaryScreen
@@ -31,6 +32,8 @@ public class DaySummaryScreen : MonoBehaviour
     private TextMeshProUGUI discoDiffText;
     private TextMeshProUGUI rockDiffText;
     private TextMeshProUGUI popDiffText;
+    private TextMeshProUGUI adsPenaltyText;
+    private TextMeshProUGUI adsPenaltyBreakdownText;
 
     private Action onContinue;
 
@@ -40,6 +43,8 @@ public class DaySummaryScreen : MonoBehaviour
         float kawalerka_fee,
         float jedzenie_fee,
         float studia_fee,
+        float adsPenalty,
+        List<AdContractManager.UnplayedAdPenalty> unplayedPenalties,
         float finalMoney, float moneyDiff,
         int hipHop, int hipHopDiff,
         int disco, int discoDiff,
@@ -56,9 +61,34 @@ public class DaySummaryScreen : MonoBehaviour
         kawalerka_feeText.text = $"{kawalerka_fee:F2}$";
         kawalerka_jedzenieText.text = $"{jedzenie_fee:F2}$";
         kawalerka_studiaText.text = $"{studia_fee:F2}$";
+        if (adsPenaltyText != null)
+        {
+            adsPenaltyText.text = $"{adsPenalty:F2}$";
+        }
+        
+        // Wyświetlanie szczegółowej listy kar
+        if (adsPenaltyBreakdownText != null)
+        {
+            if (unplayedPenalties != null && unplayedPenalties.Count > 0)
+            {
+                string bText = "Niewyemitowane zlecenia (kara 1/2 zysku):\n";
+                foreach (var p in unplayedPenalties)
+                {
+                    bText += $" • {p.clientName} (\"{p.adTitle}\"): -{p.penaltyAmount:F2}$\n";
+                }
+                adsPenaltyBreakdownText.text = bText;
+                adsPenaltyBreakdownText.gameObject.SetActive(true);
+            }
+            else
+            {
+                adsPenaltyBreakdownText.text = "";
+                adsPenaltyBreakdownText.gameObject.SetActive(false);
+            }
+        }
+        
         moneyFinalText.text = $"{finalMoney:F2}$";
         moneyDiffText.text = FormatDiff(moneyDiff, "F2", "$");
-        moneyDiffText.color = DiffColor(moneyDiff);
+        // moneyDiffText.color = DiffColor(moneyDiff);
 
         hipHopFinalText.text = $"{hipHop}";
         discoFinalText.text = $"{disco}";
@@ -70,10 +100,10 @@ public class DaySummaryScreen : MonoBehaviour
         rockDiffText.text = FormatDiff(rockDiff);
         popDiffText.text = FormatDiff(popDiff);
 
-        hipHopDiffText.color = DiffColor(hipHopDiff);
-        discoDiffText.color = DiffColor(discoDiff);
-        rockDiffText.color = DiffColor(rockDiff);
-        popDiffText.color = DiffColor(popDiff);
+        // hipHopDiffText.color = DiffColor(hipHopDiff);
+        // discoDiffText.color = DiffColor(discoDiff);
+        // rockDiffText.color = DiffColor(rockDiff);
+        // popDiffText.color = DiffColor(popDiff);
 
         canvas.SetActive(true);
         Time.timeScale = 0f;
@@ -128,45 +158,56 @@ public class DaySummaryScreen : MonoBehaviour
         0.5f, 0.5f, 780, 2, 0, 290);
 
     // Headers
-    MakeHeaderLabel(ct, "HdrStat", "STATYSTYKA", -300, 255);
-    MakeHeaderLabel(ct, "HdrCurrent", "TERAZ", 100, 255);
-    MakeHeaderLabel(ct, "HdrChange", "ZMIANA", 340, 255);
+    MakeHeaderLabel(ct, "HdrStat", "STATYSTYKA", -300, 260);
+    MakeHeaderLabel(ct, "HdrCurrent", "TERAZ", 100, 260);
+    MakeHeaderLabel(ct, "HdrChange", "ZMIANA", 340, 260);
 
     SR(MakeImage(ct, "Div1", new Color32(35, 48, 65, 255)),
         0.5f, 0.5f, 780, 1, 0, 230);
 
 
     float y = 190;
-    float step = 50;
+    float step = 45;
 
     MakeRowLabel(ct, "FeeRentLbl", "CZYNSZ", -300, y);
     kawalerka_feeText = MakeValueText(ct, "FeeRentVal", "0.00$", 100, y);
-    kawalerka_feeText.color = Color.red;
+    // kawalerka_feeText.color = Color.red;
 
     y -= step;
     MakeRowLabel(ct, "FeeFoodLbl", "JEDZENIE", -300, y);
     kawalerka_jedzenieText = MakeValueText(ct, "FeeFoodVal", "0.00$", 100, y);
-    kawalerka_jedzenieText.color = Color.red;
+    // kawalerka_jedzenieText.color = Color.red;
 
     y -= step;
     MakeRowLabel(ct, "FeeStudyLbl", "STUDIA", -300, y);
     kawalerka_studiaText = MakeValueText(ct, "FeeStudyVal", "0.00$", 100, y);
-    kawalerka_studiaText.color = Color.red;
+    // kawalerka_studiaText.color = Color.red;
 
-    // separator
-    y -= 35;
+    y -= step;
+    MakeRowLabel(ct, "FeeAdsPenaltyLbl", "KARY ZA REKLAMY", -300, y);
+    adsPenaltyText = MakeValueText(ct, "FeeAdsPenaltyVal", "0.00$", 100, y);
+    adsPenaltyText.color = Color.red;
+
+    // Miejsce na listę kar z reklam
+    var breakdownGO = MakeText(ct, "FeeAdsPenaltyBreakdown", "", 14, new Color32(200, 110, 110, 255));
+    adsPenaltyBreakdownText = breakdownGO.GetComponent<TextMeshProUGUI>();
+    adsPenaltyBreakdownText.alignment = TextAlignmentOptions.TopLeft;
+    SR(breakdownGO, 0.5f, 0.5f, 780, 70, 0, y - 45);
+
+    // separator przesunięty w dół o 60 pikseli, aby zrobić miejsce na tekst listy
+    y -= 75;
     SR(MakeImage(ct, "DivFees", new Color32(35, 48, 65, 255)),
         0.5f, 0.5f, 780, 1, 0, y);
 
 
 
-    y -= 50;
+    y -= 35;
     MakeRowLabel(ct, "MoneyLbl", "BUDŻET", -300, y);
     moneyFinalText = MakeValueText(ct, "MoneyFinal", "0.00$", 100, y);
     moneyDiffText = MakeDiffText(ct, "MoneyDiff", "+0.00$", 340, y);
 
     // separator
-    y -= 40;
+    y -= 35;
     SR(MakeImage(ct, "Div2", new Color32(35, 48, 65, 255)),
         0.5f, 0.5f, 780, 1, 0, y);
 
@@ -179,7 +220,8 @@ public class DaySummaryScreen : MonoBehaviour
 
     for (int i = 0; i < 4; i++)
     {
-        y -= 45;
+        if (i == 0) y -= 35;
+        else y -= 46;
 
         MakeRowLabel(ct, $"Genre_{i}", genres[i], -300, y);
         finals[i] = MakeValueText(ct, $"Final_{i}", "0", 100, y);
@@ -188,7 +230,7 @@ public class DaySummaryScreen : MonoBehaviour
         if (i < 3)
         {
             SR(MakeImage(ct, $"DivR{i}", new Color32(25, 35, 50, 255)),
-                0.5f, 0.5f, 780, 1, 0, y - 25);
+                0.5f, 0.5f, 780, 1, 0, y - 23);
         }
     }
 
@@ -203,7 +245,7 @@ public class DaySummaryScreen : MonoBehaviour
     popDiffText = diffs[3];
 
     // Bottom divider
-    y -= 40;
+    y -= 35;
     SR(MakeImage(ct, "Div3", new Color32(50, 65, 90, 255)),
         0.5f, 0.5f, 780, 2, 0, y);
 
@@ -212,7 +254,7 @@ public class DaySummaryScreen : MonoBehaviour
     // =========================
 
     var continueBtn = MakeButton(ct, "ContinueBtn", "DALEJ →");
-    SR(continueBtn, 0.5f, 0.5f, 260, 60, 0, y - 70);
+    SR(continueBtn, 0.5f, 0.5f, 260, 60, 0, y - 60);
 
     continueBtn.GetComponent<Button>().onClick.AddListener(Hide);
 

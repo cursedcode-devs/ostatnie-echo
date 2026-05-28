@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public RadioStation radioStation;
     [SerializeField] private AudioSource source;
-    [SerializeField] private Camera mainCamera;
+    [SerializeField] public Camera mainCamera;
     private bool playing = false;
     private ActionTypes mouseActionType;
     private ActionTypes keyboardActionType;
@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public FMODUnity.EventReference enterRadioSound;
     public FMODUnity.EventReference takeCassetteSound;
     public FMODUnity.EventReference putDownCassetteSound;
+    public int daysNr;
     private int startHour = 14;
     private int startDay = 1;
     private const float startingModifier = 0f;
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
     public Airtime airtime;
     public ChoosingCassetteUI choosingCassetteUI;
     public AudioQueueManager audioQueueManager;
+    public CassetteSlotHandler[] cassetteSlots;
 
     void Start()
     {   
@@ -46,8 +48,12 @@ public class GameManager : MonoBehaviour
 
         actionManager = new ActionManager(mainCamera);
         radioStation = new RadioStation();
-        timeHandler = new TimeHandler(startHour, startDay);
+        timeHandler = new TimeHandler(startHour, startDay, airtime, cassetteSlots, daysNr);
         FMODUnity.RuntimeManager.PlayOneShot(ambient, this.transform.position);
+        
+        // Auto-create AdContractManager component so it exists in the scene
+        gameObject.AddComponent<AdContractManager>();
+
         audioQueueManager.SetTimeHandler(timeHandler);
 
         radioStation.SetHourlyListenersModifier(startingModifier, startingModifier, startingModifier, startingModifier);
@@ -70,6 +76,15 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        
+        // DEBUG: Wciśnięcie '0' pozwala pominąć główną grę i od razu przejść do końca dnia (podsumowania)
+        if (Keyboard.current != null && Keyboard.current.digit0Key.wasPressedThisFrame)
+        {
+            // Natychmiastowe zakończenie obecnego dnia i pokazanie podsumowania
+            timeHandler.StartDay(); 
+            // Jeżeli chcesz przeskoczyć do ostatniej "godziny" (17), zamiast do podsumowania, użyłbyś:
+        }
+
         if (!inputEnabled) return;
 
         mouseActionType = actionManager.GetActionMouseType();
@@ -97,13 +112,16 @@ public class GameManager : MonoBehaviour
             case ActionTypes.LeftClickOnPlayingObject:
                 Debug.Log("GetActionType - LeftClickOnPlayingObject");
 
-                if (selectionHandler.IsSelectedObjectPlayable() || playing)
+                if (selectionHandler.IsObjectPlayable() || playing)
                 {
                     FMODUnity.RuntimeManager.PlayOneShot(putCasetteInSound, this.transform.position);
                 }
                 else
                 {
-                    selectionHandler.SelectObject(clickedObject);
+                    //Na razie nie da się selectować odtwarzacza, bo to robi problemy z selectowanie kaset w slotach. 
+                    //Jak będzie czas coś można przykminić
+
+                    //selectionHandler.SelectObject(clickedObject);
                 }
                 choosingCassetteUI.ToggleVisibility(audioQueueManager.IsPlaying());
                 break;
@@ -188,12 +206,19 @@ public class GameManager : MonoBehaviour
                 break;
             case ActionTypes.PressedEnter:
                 Debug.Log("Wcisnieto Enter");
-                radioStation.ApplySegment(airtime.GetCassettes());
+                PlayableContent[] playedCassettes = airtime.GetCassettes();
+                radioStation.ApplySegment(playedCassettes);
                 audioQueueManager.EnqueueClips(airtime.GetCassettesAudio());
                 audioQueueManager.PlayClipsSequence();
                 CheckForRequestedCassette();
-                airtime.emptyAllSlots();
-               // choosingCassetteUI.ResetSlotText();
+
+                // Destroy physical ad cassettes that were just played
+                var adManager = FindFirstObjectByType<AdContractManager>();
+                if (adManager != null)
+                {
+                    adManager.HandleAdsPlayed(playedCassettes, cassetteSlots);
+                }
+
                 choosingCassetteUI.UpdatePredictions();
                 choosingCassetteUI.Hide();
                 break;

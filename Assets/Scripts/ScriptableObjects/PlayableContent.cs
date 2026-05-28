@@ -61,7 +61,7 @@ public abstract class PlayableContent : ScriptableObject
         return cassetteValues.disco;
     }
 
-    public CassetteTypes GetType()
+    public new CassetteTypes GetType()
     {
         return type;
     }

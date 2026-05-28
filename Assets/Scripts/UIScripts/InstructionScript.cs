@@ -41,9 +41,21 @@ public class InstructionScript : MonoBehaviour
         }
         else
         {
-            gameManager.SetInputEnabled(true);
-            instructionCanvas.SetActive(false);
-            MiniGameSystem.Instance.LaunchRandom();
+            var adManager = FindFirstObjectByType<AdContractManager>();
+            if (adManager != null)
+            {
+                instructionCanvas.SetActive(false);
+                adManager.ShowContractSelection(() => {
+                    gameManager.SetInputEnabled(true);
+                    MiniGameSystem.Instance.LaunchRandom();
+                });
+            }
+            else
+            {
+                gameManager.SetInputEnabled(true);
+                instructionCanvas.SetActive(false);
+                MiniGameSystem.Instance.LaunchRandom();
+            }
         }
     }
 
