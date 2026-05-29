@@ -135,6 +135,42 @@ public class AdContractManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Generuje i zwraca listę ofert na dany dzień, bez wyświetlania UI.
+    /// </summary>
+    public List<Ad> GenerateDailyOffers(int count = 5)
+    {
+        currentDailyOffers.Clear();
+        if (allAds == null || allAds.Count == 0)
+        {
+            Debug.LogError("[AdContractManager] Brak zdefiniowanych reklam w allAds!");
+            return currentDailyOffers;
+        }
+
+        List<Ad> pool = new List<Ad>(allAds);
+        int offersCount = Mathf.Min(count, pool.Count);
+        for (int i = 0; i < offersCount; i++)
+        {
+            int idx = UnityEngine.Random.Range(0, pool.Count);
+            currentDailyOffers.Add(pool[idx]);
+            pool.RemoveAt(idx);
+        }
+        return currentDailyOffers;
+    }
+
+    /// <summary>
+    /// Akceptuje wybrane reklamy z zewnętrznego UI i spawnuje kasety.
+    /// </summary>
+    public void AcceptContracts(List<Ad> selectedAds)
+    {
+        ClearRemainingPhysicalAds();
+        activeContracts.Clear();
+        activeContracts.AddRange(selectedAds);
+        
+        Debug.Log($"[AdContractManager] Zaakceptowano {activeContracts.Count} zleceń reklamowych z nowego UI.");
+        SpawnActiveContractCassettes();
+    }
+
+    /// <summary>
     /// Losuje 5 reklam z puli i wyświetla panel proceduralnego UI wyboru kontraktów.
     /// </summary>
     public void ShowContractSelection(Action onFinished)

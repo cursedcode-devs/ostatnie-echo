@@ -144,24 +144,10 @@ public class DayEndHandler : MonoBehaviour
             if (mainCam != null)
                 mainCam.gameObject.SetActive(true);
 
-            var currentAdManager = FindFirstObjectByType<AdContractManager>();
-            if (currentAdManager != null)
+            gameManager.SetInputEnabled(true);
+            if (timeHandler.getDay() >= 2 && ShopButton != null)
             {
-                currentAdManager.ShowContractSelection(() => {
-                    gameManager.SetInputEnabled(true);
-                    if (timeHandler.getDay() >= 2 && ShopButton != null)
-                    {
-                        ShopButton.gameObject.SetActive(true);
-                    }
-                });
-            }
-            else
-            {
-                gameManager.SetInputEnabled(true);
-                if (timeHandler.getDay() >= 2 && ShopButton != null)
-                {
-                    ShopButton.gameObject.SetActive(true);
-                }
+                ShopButton.gameObject.SetActive(true);
             }
         };
 
