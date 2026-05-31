@@ -131,6 +131,10 @@ public class GameManager : MonoBehaviour
                 if (sliderObject != null)
                     sliderObject.OnMousePressed();
                 break;
+            case ActionTypes.LeftClickOnPlayButton:
+                Debug.Log("GetActionType - LeftClickOnPlayButton");
+                playSegment();
+                break;
             case ActionTypes.LeftClickOnSlotHinge:
                 Debug.Log("GetActionType - LeftClickOnSlot");
 
@@ -210,25 +214,7 @@ public class GameManager : MonoBehaviour
                 break;
             case ActionTypes.PressedEnter:
                 Debug.Log("Wcisnieto Enter");
-                if (!airtime.AreSlotsClosed())
-                    break;
-                if (audioQueueManager.IsPlaying())
-                    break;
-                PlayableContent[] playedCassettes = airtime.GetCassettes();
-                radioStation.ApplySegment(playedCassettes);
-                audioQueueManager.EnqueueClips(airtime.GetCassettesAudio());
-                audioQueueManager.PlayClipsSequence();
-                CheckForRequestedCassette();
-
-                // Destroy physical ad cassettes that were just played
-                var adManager = FindFirstObjectByType<AdContractManager>();
-                if (adManager != null)
-                {
-                    adManager.HandleAdsPlayed(playedCassettes, cassetteSlots);
-                }
-
-                choosingCassetteUI.UpdatePredictions();
-                choosingCassetteUI.Hide();
+                playSegment();
                 break;
             case ActionTypes.PressedP:
                 audioQueueManager.SkipSong();
@@ -237,6 +223,29 @@ public class GameManager : MonoBehaviour
                 addedObjectRotation = Vector3.zero;
                 break;
         }
+    }
+
+    private void playSegment()
+    {
+        if (!airtime.AreSlotsClosed())
+            return;
+        if (audioQueueManager.IsPlaying())
+            return;
+        PlayableContent[] playedCassettes = airtime.GetCassettes();
+        radioStation.ApplySegment(playedCassettes);
+        audioQueueManager.EnqueueClips(airtime.GetCassettesAudio());
+        audioQueueManager.PlayClipsSequence();
+        CheckForRequestedCassette();
+
+        // Destroy physical ad cassettes that were just played
+        var adManager = FindFirstObjectByType<AdContractManager>();
+        if (adManager != null)
+        {
+            adManager.HandleAdsPlayed(playedCassettes, cassetteSlots);
+        }
+
+        choosingCassetteUI.UpdatePredictions();
+        choosingCassetteUI.Hide();
     }
 
     private void FixedUpdate()
