@@ -18,7 +18,7 @@ public class Airtime : MonoBehaviour
 
         for (int i = 0; i < cassetteSlots.Length; i++)
         {
-            if (!cassetteSlots[i].isSlotOpen())
+            if (cassetteSlots[i].isSlotOpen())
                 return false;
         }
         
