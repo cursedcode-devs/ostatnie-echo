@@ -209,6 +209,10 @@ public class GameManager : MonoBehaviour
                 break;
             case ActionTypes.PressedEnter:
                 Debug.Log("Wcisnieto Enter");
+                if (airtime.AreSlotsClosed())
+                    break;
+                if(audioQueueManager.IsPlaying())
+                    break;
                 PlayableContent[] playedCassettes = airtime.GetCassettes();
                 radioStation.ApplySegment(playedCassettes);
                 audioQueueManager.EnqueueClips(airtime.GetCassettesAudio());
