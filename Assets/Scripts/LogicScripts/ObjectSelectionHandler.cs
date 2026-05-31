@@ -4,6 +4,7 @@ using UnityEngine;
 public class ObjectSelectionHandler : MonoBehaviour
 {
     [SerializeField] private GameObject selectedObject = null;
+    public GameManager gm;
     public GameObject selectedObjPos;
     private GameObject lastSelectedObject = null;
     private Vector3 deselectPos = Vector3.zero;
