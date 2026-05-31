@@ -41,22 +41,10 @@ public class InstructionScript : MonoBehaviour
         }
         else
         {
-            var adManager = FindFirstObjectByType<AdContractManager>();
-            if (adManager != null)
-            {
-                instructionCanvas.SetActive(false);
-                adManager.ShowContractSelection(() => {
-                    gameManager.SetInputEnabled(true);
-                    MiniGameSystem.Instance.LaunchRandom();
-                });
-            }
-            else
-            {
-                gameManager.SetInputEnabled(true);
+            gameManager.SetInputEnabled(true);
                 instructionCanvas.SetActive(false);
                 MiniGameSystem.Instance.LaunchRandom();
             }
-        }
     }
 
     public void PrevButtonClicked()
@@ -77,3 +65,4 @@ public class InstructionScript : MonoBehaviour
         activePage.SetActive(true);
     }
 }
+
