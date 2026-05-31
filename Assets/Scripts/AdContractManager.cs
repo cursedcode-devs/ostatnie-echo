@@ -135,179 +135,41 @@ public class AdContractManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Losuje 5 reklam z puli i wyświetla panel proceduralnego UI wyboru kontraktów.
+    /// Generuje i zwraca listę ofert na dany dzień, bez wyświetlania UI.
     /// </summary>
-    public void ShowContractSelection(Action onFinished)
+    public List<Ad> GenerateDailyOffers(int count = 5)
     {
-        onSelectionFinished = onFinished;
-        GameManager gm = FindFirstObjectByType<GameManager>();
-        if (gm != null) gm.SetInputEnabled(false);
-
         currentDailyOffers.Clear();
         if (allAds == null || allAds.Count == 0)
         {
-            Debug.LogError("[AdContractManager] Brak zdefiniowanych reklam w allAds! Upewnij się, że przeniosłeś zlecenia do folderu Resources/Zlecenia.");
-            onFinished?.Invoke();
-            return;
+            Debug.LogError("[AdContractManager] Brak zdefiniowanych reklam w allAds!");
+            return currentDailyOffers;
         }
 
         List<Ad> pool = new List<Ad>(allAds);
-        int offersCount = Mathf.Min(5, pool.Count);
+        int offersCount = Mathf.Min(count, pool.Count);
         for (int i = 0; i < offersCount; i++)
         {
             int idx = UnityEngine.Random.Range(0, pool.Count);
             currentDailyOffers.Add(pool[idx]);
             pool.RemoveAt(idx);
         }
-
-        BuildAndShowSelectionUI();
+        return currentDailyOffers;
     }
 
     /// <summary>
-    /// Proceduralne budowanie ciemnego panelu UI (w stylu DaySummaryScreen).
+    /// Akceptuje wybrane reklamy z zewnętrznego UI i spawnuje kasety.
     /// </summary>
-    private void BuildAndShowSelectionUI()
+    public void AcceptContracts(List<Ad> selectedAds)
     {
-        if (uiCanvas != null) Destroy(uiCanvas);
-
-        uiCanvas = new GameObject("AdContractCanvas");
-        var canvas = uiCanvas.AddComponent<Canvas>();
-        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvas.sortingOrder = 20;
-
-        var scaler = uiCanvas.AddComponent<CanvasScaler>();
-        scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-        scaler.referenceResolution = new Vector2(1920, 1080);
-
-        uiCanvas.AddComponent<GraphicRaycaster>();
-
-        var ct = uiCanvas.transform;
-
-        // Ciemne tło (Overlay)
-        var overlay = MakeImage(ct, "Overlay", new Color(0f, 0f, 0f, 0.75f));
-        StretchFull(overlay);
-
-        // Główny panel
-        var panel = MakeImage(ct, "Panel", new Color32(18, 22, 28, 255));
-        SR(panel, 0.5f, 0.5f, 1100, 860, 0, 0);
-
-        var border = MakeImage(panel.transform, "Border", new Color32(35, 50, 70, 255));
-        SR(border, 0.5f, 0.5f, 1080, 840, 0, 0);
-        border.GetComponent<RectTransform>().SetAsFirstSibling();
-
-        // Tytuły
-        var titleText = MakeText(ct, "Title", "ZLECENIA REKLAMOWE", 38, new Color32(220, 180, 50, 255)).GetComponent<TextMeshProUGUI>();
-        titleText.fontStyle = FontStyles.Bold;
-        SR(titleText.gameObject, 0.5f, 0.5f, 1000, 56, 0, 360);
-
-        var subtitle = MakeText(ct, "Subtitle", "Wybierz dowolną ilość zleceń do wyemitowania w dniu dzisiejszym.", 18, new Color32(140, 160, 190, 255));
-        SR(subtitle, 0.5f, 0.5f, 1000, 34, 0, 315);
-
-        SR(MakeImage(ct, "Div0", new Color32(50, 65, 90, 255)), 0.5f, 0.5f, 1020, 2, 0, 290);
-
-        adToggles.Clear();
-        float y = 210;
-        float step = 115;
-
-        for (int i = 0; i < currentDailyOffers.Count; i++)
-        {
-            Ad ad = currentDailyOffers[i];
-            float payout = CalculatePotentialPayout(ad);
-
-            // Wysoce czytelny kontener (Karta zlecenia)
-            var rowBox = MakeImage(ct, $"RowBox_{i}", new Color32(25, 31, 40, 255));
-            SR(rowBox, 0.5f, 0.5f, 1020, 95, 0, y);
-            rowBox.AddComponent<Outline>().effectColor = new Color32(42, 58, 80, 255);
-
-            var rowTransform = rowBox.transform;
-
-            // Zleceniodawca (Tekst mały, złoty na górze po lewej)
-            var clientTxt = MakeText(rowTransform, "Client", $"ZLECENIODAWCA: {ad.GetAuthor().ToUpper()}", 14, new Color32(220, 180, 50, 255));
-            SR(clientTxt, 0.5f, 0.5f, 550, 24, -200, 20);
-            var tmpClient = clientTxt.GetComponent<TextMeshProUGUI>();
-            tmpClient.alignment = TextAlignmentOptions.Left;
-            tmpClient.fontStyle = FontStyles.Bold;
-
-            // Tytuł reklamy (Duży, biały bold pod zleceniodawcą)
-            var titleTxt = MakeText(rowTransform, "Title", ad.GetName(), 20, new Color32(255, 255, 255, 255));
-            SR(titleTxt, 0.5f, 0.5f, 550, 36, -200, -12);
-            var tmpTitle = titleTxt.GetComponent<TextMeshProUGUI>();
-            tmpTitle.alignment = TextAlignmentOptions.Left;
-            tmpTitle.fontStyle = FontStyles.Bold;
-
-            // Kontener wypłaty (Zielona plakietka cenowa po prawej)
-            var payoutTag = MakeImage(rowTransform, "PayoutTag", new Color32(12, 45, 25, 255));
-            SR(payoutTag, 0.5f, 0.5f, 220, 50, 220, 0);
-            payoutTag.AddComponent<Outline>().effectColor = new Color32(30, 90, 50, 255);
-
-            var payoutTxt = MakeText(payoutTag.transform, "PayoutText", $"EST. ZAROBEK: {payout:F2}$", 16, new Color32(80, 220, 100, 255));
-            StretchFull(payoutTxt);
-            var tmpPayout = payoutTxt.GetComponent<TextMeshProUGUI>();
-            tmpPayout.alignment = TextAlignmentOptions.Center;
-            tmpPayout.fontStyle = FontStyles.Bold;
-
-            // Kontener Checkboxa
-            var toggleGO = new GameObject("Toggle");
-            toggleGO.transform.SetParent(rowTransform, false);
-            SR(toggleGO, 0.5f, 0.5f, 45, 45, 440, 0);
-
-            var toggleBg = MakeImage(toggleGO.transform, "Background", new Color32(20, 25, 35, 255));
-            StretchFull(toggleBg);
-            toggleBg.AddComponent<Outline>().effectColor = new Color32(50, 70, 95, 255);
-
-            var toggleCheck = MakeImage(toggleGO.transform, "Checkmark", new Color32(220, 180, 50, 255));
-            SR(toggleCheck, 0.5f, 0.5f, 28, 28, 0, 0);
-
-            var toggle = toggleGO.AddComponent<Toggle>();
-            toggle.targetGraphic = toggleBg.GetComponent<Image>();
-            toggle.graphic = toggleCheck.GetComponent<Image>();
-            toggle.isOn = false;
-
-            adToggles.Add(toggle);
-
-            y -= step;
-        }
-
-        // Bottom divider
-        SR(MakeImage(ct, "DivBottom", new Color32(50, 65, 90, 255)), 0.5f, 0.5f, 1020, 2, 0, -290);
-
-        // Przycisk akceptacji
-        var acceptBtn = MakeButton(ct, "AcceptBtn", "AKCEPTUJ ZLECENIA");
-        SR(acceptBtn, 0.5f, 0.5f, 320, 60, 0, -350);
-
-        acceptBtn.GetComponent<Button>().onClick.AddListener(OnAcceptClicked);
-
-        Time.timeScale = 0f;
-    }
-
-    private void OnAcceptClicked()
-    {
-        Time.timeScale = 1f;
-
-        // Czyszczenie kaset z poprzedniego dnia na biurku, jeśli jakieś zostały
         ClearRemainingPhysicalAds();
-
         activeContracts.Clear();
-
-        for (int i = 0; i < adToggles.Count; i++)
-        {
-            if (adToggles[i].isOn)
-            {
-                activeContracts.Add(currentDailyOffers[i]);
-            }
-        }
-
-        Debug.Log($"[AdContractManager] Zaakceptowano {activeContracts.Count} zleceń reklamowych.");
-
-        // Spawnowanie kaset
+        activeContracts.AddRange(selectedAds);
+        
+        Debug.Log($"[AdContractManager] Zaakceptowano {activeContracts.Count} zleceń reklamowych z nowego UI.");
         SpawnActiveContractCassettes();
-
-        if (uiCanvas != null) Destroy(uiCanvas);
-
-        onSelectionFinished?.Invoke();
     }
-
-    /// <summary>
+/// <summary>
     /// Spawnuje fizyczne kasety reklamowe na biurku w pozycjach predefiniowanych w edytorze.
     /// </summary>
     private void SpawnActiveContractCassettes()
@@ -532,75 +394,6 @@ public class AdContractManager : MonoBehaviour
         }
         physicalAdObjects.Clear();
     }
-
-    #region UI Helpers
-
-    void MakeHeaderLabel(Transform p, string name, string text, float ox, float oy)
-    {
-        var go = MakeText(p, name, text, 16, new Color32(80, 100, 140, 255));
-        var tmp = go.GetComponent<TextMeshProUGUI>();
-        tmp.fontStyle = FontStyles.Bold;
-        SR(go, 0.5f, 0.5f, 260, 30, ox, oy);
-    }
-
-    GameObject MakeImage(Transform parent, string name, Color color)
-    {
-        var obj = new GameObject(name);
-        obj.transform.SetParent(parent, false);
-        obj.AddComponent<RectTransform>();
-        obj.AddComponent<Image>().color = color;
-        return obj;
-    }
-
-    GameObject MakeText(Transform parent, string name, string text, int size, Color color)
-    {
-        var obj = new GameObject(name);
-        obj.transform.SetParent(parent, false);
-        obj.AddComponent<RectTransform>();
-        var tmp = obj.AddComponent<TextMeshProUGUI>();
-        tmp.text = text;
-        tmp.fontSize = size;
-        tmp.color = color;
-        tmp.alignment = TextAlignmentOptions.Center;
-        return obj;
-    }
-
-    GameObject MakeButton(Transform parent, string name, string label)
-    {
-        var obj = new GameObject(name);
-        obj.transform.SetParent(parent, false);
-        obj.AddComponent<RectTransform>();
-        var img = obj.AddComponent<Image>();
-        img.color = new Color32(30, 55, 90, 255);
-        var btn = obj.AddComponent<Button>();
-        btn.targetGraphic = img;
-        var cb = btn.colors;
-        cb.highlightedColor = new Color32(50, 85, 130, 255);
-        cb.pressedColor = new Color32(220, 180, 50, 255);
-        btn.colors = cb;
-        var lbl = MakeText(obj.transform, "Label", label, 22, new Color32(220, 190, 50, 255));
-        lbl.GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Bold;
-        SR(lbl, 0.5f, 0.5f, 280, 60, 0, 0);
-        return obj;
-    }
-
-    void SR(GameObject obj, float ax, float ay, float w, float h, float ox, float oy)
-    {
-        var rt = obj.GetComponent<RectTransform>();
-        if (!rt) rt = obj.AddComponent<RectTransform>();
-        rt.anchorMin = rt.anchorMax = new Vector2(ax, ay);
-        rt.pivot = new Vector2(0.5f, 0.5f);
-        rt.sizeDelta = new Vector2(w, h);
-        rt.anchoredPosition = new Vector2(ox, oy);
-    }
-
-    void StretchFull(GameObject obj)
-    {
-        var rt = obj.GetComponent<RectTransform>();
-        rt.anchorMin = Vector2.zero;
-        rt.anchorMax = Vector2.one;
-        rt.offsetMin = rt.offsetMax = Vector2.zero;
-    }
-
-    #endregion
 }
+
+
