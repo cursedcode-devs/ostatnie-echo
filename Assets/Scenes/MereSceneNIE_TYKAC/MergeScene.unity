@@ -8044,6 +8044,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Airtime
   cassettes: []
+  cassetteSlots:
+  - {fileID: 67227982}
+  - {fileID: 1596801362}
+  - {fileID: 1101456394}
   cassetteUI: {fileID: 1596736046}
 --- !u!4 &1296084682
 Transform:
@@ -13294,9 +13298,10 @@ GameObject:
   - component: {fileID: 8905428974797226671}
   - component: {fileID: 7975701431549567694}
   - component: {fileID: 695062789949265163}
+  - component: {fileID: 8905428974797226672}
   m_Layer: 0
   m_Name: play_l
-  m_TagString: Untagged
+  m_TagString: PlayButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14137,6 +14142,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 543450652327869565}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8905428974797226672
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3077575478591834732}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0, y: 0.00082000013, z: 0.00040915867}
+  m_Center: {x: 0, y: 0, z: 1.05501385e-10}
 --- !u!4 &8956881382948982832
 Transform:
   m_ObjectHideFlags: 0
