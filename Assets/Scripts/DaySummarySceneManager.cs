@@ -57,7 +57,7 @@ public class DaySummarySceneManager : MonoBehaviour
     private List<Toggle> adToggles = new List<Toggle>();
     private List<Ad> currentDailyOffers = new List<Ad>();
 
-void Start()
+    void Start()
     {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         if (UnityEngine.Object.FindAnyObjectByType<UnityEngine.EventSystems.EventSystem>() == null)
@@ -70,7 +70,7 @@ void Start()
 #endif
 
         Time.timeScale = 0f;
-        
+
         BindDataToUI();
 
         if (budgetPanel != null) budgetPanel.SetActive(true);
@@ -82,13 +82,13 @@ void Start()
             budgetContinueButton.onClick.RemoveAllListeners();
             budgetContinueButton.onClick.AddListener(OnBudgetContinueClicked);
         }
-        
+
         if (listenersContinueButton != null)
         {
             listenersContinueButton.onClick.RemoveAllListeners();
             listenersContinueButton.onClick.AddListener(OnListenersContinueClicked);
         }
-        
+
         if (shopContinueButton != null)
         {
             shopContinueButton.onClick.RemoveAllListeners();
@@ -175,7 +175,7 @@ void Start()
     public void OnListenersContinueClicked()
     {
         if (listenersPanel != null) listenersPanel.SetActive(false);
-        if (shopPanel != null) 
+        if (shopPanel != null)
         {
             shopPanel.SetActive(true);
             if (DayEndHandler.Instance != null)
@@ -194,7 +194,7 @@ void Start()
                         var title = kaseta.Find("NAZWA")?.GetComponent<TextMeshProUGUI>();
                         var price = kaseta.Find("CENA")?.GetComponent<TextMeshProUGUI>();
                         var stats = kaseta.Find("STATYSTYKI")?.GetComponent<TextMeshProUGUI>();
-                        
+
                         if (title != null) title.text = $"DEBUG KASETA {i + 1}";
                         if (price != null) price.text = $"{(i + 1) * 15}$";
                         if (stats != null) stats.text = "+10 Zadowolenia";
@@ -207,17 +207,9 @@ void Start()
 
     public void OnShopContinueClicked()
     {
-        if (shopPanel != null) shopPanel.SetActive(false);
+        if (shopPanel != null)
+            shopPanel.SetActive(false);
 
-        // Pokaż draft ulepszeń, a dopiero po nim załaduj gazetę
-        var upgradeManager = UnityEngine.Object.FindFirstObjectByType<UpgradeManager>();
-        if (upgradeManager != null)
-        {
-            upgradeManager.ShowDraftScreen(() =>
-            {
-                StartCoroutine(LoadNewspaperAndUnload());
-            });
-        }
         if (contractsPanel != null)
         {
             contractsPanel.SetActive(true);
@@ -225,18 +217,20 @@ void Start()
         }
         else
         {
-            StartCoroutine(LoadNewspaperAndUnload());
+            ShowUpgradeOrNewspaper();
         }
     }
 
     public void OnContractsContinueClicked()
     {
-        if (contractsPanel != null) contractsPanel.SetActive(false);
+        if (contractsPanel != null)
+            contractsPanel.SetActive(false);
 
         var adManager = FindFirstObjectByType<AdContractManager>();
         if (adManager != null)
         {
             List<Ad> selectedAds = new List<Ad>();
+
             for (int i = 0; i < adToggles.Count; i++)
             {
                 if (adToggles[i].isOn)
@@ -244,10 +238,28 @@ void Start()
                     selectedAds.Add(currentDailyOffers[i]);
                 }
             }
+
             adManager.AcceptContracts(selectedAds);
         }
 
-        StartCoroutine(LoadNewspaperAndUnload());
+        ShowUpgradeOrNewspaper();
+    }
+
+    private void ShowUpgradeOrNewspaper()
+    {
+        var upgradeManager = FindFirstObjectByType<UpgradeManager>();
+
+        if (upgradeManager != null)
+        {
+            upgradeManager.ShowDraftScreen(() =>
+            {
+                StartCoroutine(LoadNewspaperAndUnload());
+            });
+        }
+        else
+        {
+            StartCoroutine(LoadNewspaperAndUnload());
+        }
     }
 
     private void BuildContractsUI()
