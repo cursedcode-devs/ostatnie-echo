@@ -34,7 +34,7 @@ public class GameEndScreen : MonoBehaviour
         int hipHop, int hipHopDiff,
         int disco, int discoDiff,
         int rock, int rockDiff,
-        int metal, int metalDiff)
+        int pop, int popDiff)
     {
         if (!built) Build();
 
@@ -64,17 +64,17 @@ public class GameEndScreen : MonoBehaviour
         hipHopFinalText.text = $"{hipHop}";
         discoFinalText.text = $"{disco}";
         rockFinalText.text = $"{rock}";
-        metalFinalText.text = $"{metal}";
+        metalFinalText.text = $"{pop}";
 
         hipHopDiffText.text = FormatDiff(hipHopDiff);
         discoDiffText.text = FormatDiff(discoDiff);
         rockDiffText.text = FormatDiff(rockDiff);
-        metalDiffText.text = FormatDiff(metalDiff);
+        metalDiffText.text = FormatDiff(popDiff);
 
         hipHopDiffText.color = DiffColor(hipHopDiff);
         discoDiffText.color = DiffColor(discoDiff);
         rockDiffText.color = DiffColor(rockDiff);
-        metalDiffText.color = DiffColor(metalDiff);
+        metalDiffText.color = DiffColor(popDiff);
 
         canvas.SetActive(true);
         Time.timeScale = 0f;

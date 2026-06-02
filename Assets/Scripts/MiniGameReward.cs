@@ -54,11 +54,11 @@ public class MiniGameReward : ScriptableObject
                     if (listenerModifierDuration == ModifierDuration.Daily)
                         radio.AddDailyListenersModifier(
                             listenersModifier.hipHop, listenersModifier.disco,
-                            listenersModifier.rock,   listenersModifier.metal);
+                            listenersModifier.rock,   listenersModifier.pop);
                     else
                         radio.AddHourlyListenersModifier(
                             listenersModifier.hipHop, listenersModifier.disco,
-                            listenersModifier.rock,   listenersModifier.metal);
+                            listenersModifier.rock,   listenersModifier.pop);
 
                     Debug.Log($"[Reward] Listener modifier applied ({listenerModifierDuration}).");
                 }
@@ -70,11 +70,11 @@ public class MiniGameReward : ScriptableObject
                     if (revenueModifierDuration == ModifierDuration.Daily)
                         radio.AddDailyRevenueModifier(
                             revenueModifier.hipHop, revenueModifier.disco,
-                            revenueModifier.rock,   revenueModifier.metal);
+                            revenueModifier.rock,   revenueModifier.pop);
                     else
                         radio.AddHourlyRevenueModifier(
                             revenueModifier.hipHop, revenueModifier.disco,
-                            revenueModifier.rock,   revenueModifier.metal);
+                            revenueModifier.rock,   revenueModifier.pop);
 
                     Debug.Log($"[Reward] Revenue modifier applied ({revenueModifierDuration}).");
                 }
@@ -107,12 +107,12 @@ public class MiniGameReward : ScriptableObject
             hipHop = radio.currentListeners.hipHop > 0 ? Mathf.RoundToInt((float)flat.hipHop / radio.currentListeners.hipHop * 100f) : 0,
             disco  = radio.currentListeners.disco  > 0 ? Mathf.RoundToInt((float)flat.disco  / radio.currentListeners.disco  * 100f) : 0,
             rock   = radio.currentListeners.rock   > 0 ? Mathf.RoundToInt((float)flat.rock   / radio.currentListeners.rock   * 100f) : 0,
-            metal  = radio.currentListeners.metal  > 0 ? Mathf.RoundToInt((float)flat.metal  / radio.currentListeners.metal  * 100f) : 0,
+            pop  = radio.currentListeners.pop  > 0 ? Mathf.RoundToInt((float)flat.pop  / radio.currentListeners.pop  * 100f) : 0,
         };
     }
 
     private bool HasNonZeroModifier(GenreValuesModifier m)
-        => m.hipHop != 0 || m.disco != 0 || m.rock != 0 || m.metal != 0;
+        => m.hipHop != 0 || m.disco != 0 || m.rock != 0 || m.pop != 0;
 }
 
 // ------------------------------------------------------------------

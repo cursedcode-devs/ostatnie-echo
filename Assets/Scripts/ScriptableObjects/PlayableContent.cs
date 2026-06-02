@@ -28,12 +28,12 @@ public abstract class PlayableContent : ScriptableObject
         lastCassetteValues = cassetteValues;
     }
 
-    public void SetLastValues(int hipHop, int disco, int rock, int metal)
+    public void SetLastValues(int hipHop, int disco, int rock, int pop)
     {
         lastCassetteValues.rock = rock;
         lastCassetteValues.hipHop = hipHop;
         lastCassetteValues.disco = disco;
-        lastCassetteValues.metal = metal;
+        lastCassetteValues.pop = pop;
     }
 
     public GenreValues GetLastValues()
@@ -51,9 +51,9 @@ public abstract class PlayableContent : ScriptableObject
         return cassetteValues.rock;
     }
 
-    public int GetMetal()
+    public int GetPop()
     {
-        return cassetteValues.metal;
+        return cassetteValues.pop;
     }
 
     public int GetDisco()
@@ -61,7 +61,7 @@ public abstract class PlayableContent : ScriptableObject
         return cassetteValues.disco;
     }
 
-    public CassetteTypes GetType()
+    public new CassetteTypes GetType()
     {
         return type;
     }

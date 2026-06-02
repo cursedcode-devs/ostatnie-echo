@@ -5,8 +5,8 @@ using UnityEngine;
 public class Airtime : MonoBehaviour
 {
     [SerializeField] private List<PlayableContent> cassettes = new List<PlayableContent>();
-    [SerializeField] private PlayableContent emptyCassette;
-
+   // [SerializeField] private PlayableContent emptyCassette;
+   public ChoosingCassetteUI cassetteUI;
     void Start()
     {
         addSlot(3);
@@ -32,7 +32,7 @@ public class Airtime : MonoBehaviour
                         total += cassettes[i].GetRock();
                         break;
                     case 2:
-                        total += cassettes[i].GetMetal();
+                        total += cassettes[i].GetPop();
                         break;
                     case 3:
                         total += cassettes[i].GetDisco();
@@ -47,10 +47,10 @@ public class Airtime : MonoBehaviour
     {
         for (int i = 0; i < cassettes.Count; i++)
         {
-            if (cassettes[i] == null)
-            {
-                cassettes[i] = emptyCassette;
-            }
+            //if (cassettes[i] == null)
+            //{
+            //    //cassettes[i] = emptyCassette;
+            //}
         }
 
         return cassettes.ToArray();
@@ -108,11 +108,14 @@ public class Airtime : MonoBehaviour
         }
 
         cassettes[slot] = cassette;
+
+        cassetteUI.UpdatePredictions();
     }
 
     public void emptySlot(int slot)
     {
         cassettes[slot] = null;
+        cassetteUI.UpdatePredictions();
     }
 
     public void emptyAllSlots()
@@ -121,6 +124,7 @@ public class Airtime : MonoBehaviour
         {
             cassettes[i] = null;
         }
+        cassetteUI.UpdatePredictions();
     }
 
 }

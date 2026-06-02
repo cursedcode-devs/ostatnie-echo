@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -9,55 +10,98 @@ public class ChoosingCassetteUI : MonoBehaviour
     public GameManager gameManager;
     public GameObject cassettePlayer;
     public Airtime airtime;
-    private GameObject selectedObject;
-    private PlayableObject playableObject;
     //public GameObject[] cassetteSlots;
-    public TextMeshProUGUI[] cassetteSlotTexts;
+    //public TextMeshProUGUI[] cassetteSlotTexts;
     public TextMeshProUGUI[] StatTexts;
+    public TextMeshProUGUI[] equationTexts;
     private bool active = false;
 
-    public void clickedSlot(int slot)
+    public void UpdatePredictions()
     {
-        //LastSelectedObject bo jak klikniesz na lewym przyciskiem myszy na przycisk slotu to kaseta zd¹¿y siê zdeselectowaæ
-        selectedObject = gameManager.selectionHandler.GetLastSelectedObject();
+        PlayableContent[] cassettes = airtime.GetCassettes();
 
-        if (selectedObject == null || !selectedObject.CompareTag("Playable"))
+        Dictionary<PlayableContent, int> simulatedTimesUsed = new Dictionary<PlayableContent, int>();
+        Dictionary<PlayableContent, GenreValues> simulatedLastValues = new Dictionary<PlayableContent, GenreValues>();
+
+        float sumMusicHipHop = 0f, sumMusicRock = 0f, sumMusicPop = 0f, sumMusicDisco = 0f;
+        float sumAdHipHop = 0f, sumAdRock = 0f, sumAdPop = 0f, sumAdDisco = 0f;
+
+        
+
+        for (int i = 0; i < cassettes.Length; i++)
         {
-            airtime.emptySlot(slot);
-            cassetteSlotTexts[slot].text = "Slot " + (slot + 1);
-            StatTexts[slot].text = "";
-            StatTexts[slot].text = "HipHop: \nRock: \nMetal: \nDisco: ";
-            StatTexts[3].text = "HipHop: " + airtime.GetStatsSum(0) + " " + airtime.GetStatsSum(0, CassetteTypes.Ad) + "z³\nRock: "
-                + airtime.GetStatsSum(1) + " " + airtime.GetStatsSum(1, CassetteTypes.Ad) + "z³\nMetal: "
-                + airtime.GetStatsSum(2) + " " + airtime.GetStatsSum(2, CassetteTypes.Ad) + "z³\nDisco: "
-                + airtime.GetStatsSum(3) + " " + airtime.GetStatsSum(3, CassetteTypes.Ad) + "z³";
-            PlayCassetteSound();
-            return;
-        }
-
-        if (selectedObject.CompareTag("Playable"))
-        {
-            playableObject = selectedObject.GetComponent<PlayableObject>();
-            airtime.setSlot(playableObject.data, slot);
-            cassetteSlotTexts[slot].text = playableObject.data.GetName() + " U¿ycie: " + playableObject.data.GetTimesUsed();
-            GenreValues values = playableObject.data.GetCassetteValues();
-
-            if (playableObject.data.GetType() == CassetteTypes.Ad)
+            if (cassettes[i] == null)
             {
-                StatTexts[slot].text = "HipHop: " + values.hipHop / 100f + "z³" + "\nRock: " + values.rock / 100f + "z³" + "\nMetal: " + values.metal / 100f + "z³" + "\nDisco: " + values.disco / 100f + "z³";
-            }
-            else if (playableObject.data.GetType() == CassetteTypes.Music)
-            {
-                StatTexts[slot].text = "HipHop: " + values.hipHop / 100f + "\nRock: " + values.rock / 100f + "\nMetal: " + values.metal / 100f + "\nDisco: " + values.disco / 100f;
+               // cassetteSlotTexts[i].text = "Slot " + (i + 1);
+                StatTexts[i].text = "HipHop: \nRock: \nPop: \nDisco: ";
+                continue;
             }
 
-            gameManager.selectionHandler.ResetLastSelectedObject();
-            StatTexts[3].text = "HipHop: " + airtime.GetStatsSum(0) + " " + airtime.GetStatsSum(0, CassetteTypes.Ad) + "z³\nRock: "
-                + airtime.GetStatsSum(1) + " " + airtime.GetStatsSum(1, CassetteTypes.Ad) + "z³\nMetal: "
-                + airtime.GetStatsSum(2) + " " + airtime.GetStatsSum(2, CassetteTypes.Ad) + "z³\nDisco: "
-                + airtime.GetStatsSum(3) + " " + airtime.GetStatsSum(3, CassetteTypes.Ad) + "z³";
-            PlayCassetteSound();
+            PlayableContent c = cassettes[i];
+
+            if (!simulatedTimesUsed.ContainsKey(c))
+            {
+                simulatedTimesUsed[c] = c.GetTimesUsed();
+
+                GenreValues initialVals = c.GetTimesUsed() > 0 ? c.GetLastValues() : c.GetCassetteValues();
+
+                simulatedLastValues[c] = new GenreValues
+                {
+                    hipHop = initialVals.hipHop,
+                    rock = initialVals.rock,
+                    pop = initialVals.pop,
+                    disco = initialVals.disco
+                };
+            }
+
+            int currentUses = simulatedTimesUsed[c];
+            GenreValues currentVals = simulatedLastValues[c];
+
+            int h = currentVals.hipHop;
+            int r = currentVals.rock;
+            int p = currentVals.pop;
+            int d = currentVals.disco;
+
+            if (currentUses > 0 && c.GetType() == CassetteTypes.Music)
+            {
+                h = h - Mathf.Abs(h / 2);
+                r = r - Mathf.Abs(r / 2);
+                p = p - Mathf.Abs(p / 2);
+                d = d - Mathf.Abs(d / 2);
+
+                simulatedLastValues[c] = new GenreValues { hipHop = h, rock = r, pop = p, disco = d };
+            }
+
+            // Aktualizacja UI dla konkretnego slotu
+
+            // Trzeba wyœwietliæ gdzieœ t¹ informacje, bo przyciski gdzie siê wyœwietla³a zosta³y usuniête
+            //cassetteSlotTexts[i].text = c.GetName() + " U¿ycie: " + currentUses;
+
+            if (c.GetType() == CassetteTypes.Ad)
+            {
+                StatTexts[i].text = $"HipHop: {h / 100f:0.##}z³\nRock: {r / 100f:0.##}z³\nPop: {p / 100f:0.##}z³\nDisco: {d / 100f:0.##}z³";
+                sumAdHipHop += h / 100f;
+                sumAdRock += r / 100f;
+                sumAdPop += p / 100f;
+                sumAdDisco += d / 100f;
+            }
+            else if (c.GetType() == CassetteTypes.Music)
+            {
+                StatTexts[i].text = $"HipHop: {h / 100f:0.##}\nRock: {r / 100f:0.##}\nPop: {p / 100f:0.##}\nDisco: {d / 100f:0.##}";
+                sumMusicHipHop += h / 100f;
+                sumMusicRock += r / 100f;
+                sumMusicPop += p / 100f;
+                sumMusicDisco += d / 100f;
+            }
+
+            simulatedTimesUsed[c]++;
         }
+
+        // Aktualizacja sumy ca³kowitej w ostatnim polu (zak³adam, ¿e to StatTexts[3])
+        StatTexts[3].text = $"HipHop: {sumMusicHipHop:0.##} {sumAdHipHop:0.##}z³\n" +
+                            $"Rock: {sumMusicRock:0.##} {sumAdRock:0.##}z³\n" +
+                            $"Pop: {sumMusicPop:0.##} {sumAdPop:0.##}z³\n" +
+                            $"Disco: {sumMusicDisco:0.##} {sumAdDisco:0.##}z³";
     }
 
     private void PlayCassetteSound()
@@ -76,6 +120,7 @@ public class ChoosingCassetteUI : MonoBehaviour
     public void Show()
     {
         choosingCassetteCanvas.SetActive(true);
+        UpdatePredictions();
     }
 
     public void Hide()
@@ -83,13 +128,13 @@ public class ChoosingCassetteUI : MonoBehaviour
         choosingCassetteCanvas.SetActive(false);
     }
 
-    public void ResetSlotText()
-    {
-        for (int i = 0; i < cassetteSlotTexts.Length; i++)
-        {
-            cassetteSlotTexts[i].text = "Slot " + (i + 1);
-        }
-    }
+    //public void ResetSlotText()
+    //{
+    //    for (int i = 0; i < cassetteSlotTexts.Length; i++)
+    //    {
+    //        cassetteSlotTexts[i].text = "Slot " + (i + 1);
+    //    }
+    //}
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

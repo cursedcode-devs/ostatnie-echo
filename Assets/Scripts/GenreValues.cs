@@ -6,11 +6,11 @@ public struct GenreValues
     public int hipHop;
     public int disco;
     public int rock;
-    public int metal;
-    public int totalListeners => hipHop + disco + rock + metal;
+    public int pop;
+    public int totalListeners => hipHop + disco + rock + pop;
 
 
     public override string ToString(){
-        return $"Hip Hop: {hipHop}\nDisco: {disco}\nRock: {rock}\nMetal: {metal}";
+        return $"Hip Hop: {hipHop}\nDisco: {disco}\nRock: {rock}\nMetal: {pop}";
     }
 }
