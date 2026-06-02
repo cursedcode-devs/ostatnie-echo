@@ -209,6 +209,15 @@ void Start()
     {
         if (shopPanel != null) shopPanel.SetActive(false);
 
+        // Pokaż draft ulepszeń, a dopiero po nim załaduj gazetę
+        var upgradeManager = UnityEngine.Object.FindFirstObjectByType<UpgradeManager>();
+        if (upgradeManager != null)
+        {
+            upgradeManager.ShowDraftScreen(() =>
+            {
+                StartCoroutine(LoadNewspaperAndUnload());
+            });
+        }
         if (contractsPanel != null)
         {
             contractsPanel.SetActive(true);

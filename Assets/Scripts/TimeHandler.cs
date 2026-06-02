@@ -28,10 +28,12 @@ public class TimeHandler
     {
         Hour++;
 
+        if (UpgradeManager.Instance != null)
+            UpgradeManager.Instance.ResetBack2Back();
+
         if (Hour > 17)
             StartDay();
         else
-            //Teraz minigra nie w³¹cza siê na pocz¹tku nowego dnia
             MiniGameSystem.Instance.LaunchRandom();
     }
 
