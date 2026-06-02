@@ -242,11 +242,20 @@ public class DayEndHandler : MonoBehaviour
             return;
         }
 
+        // --- PATCH: MarketFlood — dynamiczna liczba slotów sklepu ---
+        int shopSlots = 3;
+        if (UpgradeManager.Instance != null)
+            shopSlots += UpgradeManager.Instance.GetExtraShopSlots();
+        shopSlots = Mathf.Min(shopSlots, allCassettes.Length);
+        // --- KONIEC PATCHA ---
+
         int[] usedIndexes = new int[allCassettes.Length];
         for (int i = 0; i < usedIndexes.Length; i++)
             usedIndexes[i] = i;
 
-        for (int i = 0; i < 3; i++)
+        dailyOffer = new Cassette[shopSlots];
+
+        for (int i = 0; i < shopSlots; i++)
         {
             int randomIndex = Random.Range(0, usedIndexes.Length - i);
             dailyOffer[i] = allCassettes[usedIndexes[randomIndex]];
@@ -258,7 +267,7 @@ public class DayEndHandler : MonoBehaviour
 
         UpdateMoneySlotInShop();
 
-        for (int i = 0; i < dailyOffer.Length; i++)
+        for (int i = 0; i < shopSlots && i < dailyOffer.Length; i++)
         {
             Transform slot = currentShopUI.Find($"Kaseta{i + 1}");
             if (slot == null) continue;
@@ -313,7 +322,7 @@ public class DayEndHandler : MonoBehaviour
     {
         if (currentShopUI == null) return;
         Transform yourMoneySlot = currentShopUI.Find("Money (wartość)");
-        if (yourMoneySlot == null) yourMoneySlot = currentShopUI.Find("Money (wartosc)"); // Fallback
+        if (yourMoneySlot == null) yourMoneySlot = currentShopUI.Find("Money (wartosc)");
 
         if (yourMoneySlot != null)
         {

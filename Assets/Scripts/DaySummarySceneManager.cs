@@ -150,7 +150,19 @@ public void OnShopContinueClicked()
     {
         if (shopPanel != null) shopPanel.SetActive(false);
 
-        StartCoroutine(LoadNewspaperAndUnload());
+        // Pokaż draft ulepszeń, a dopiero po nim załaduj gazetę
+        var upgradeManager = UnityEngine.Object.FindFirstObjectByType<UpgradeManager>();
+        if (upgradeManager != null)
+        {
+            upgradeManager.ShowDraftScreen(() =>
+            {
+                StartCoroutine(LoadNewspaperAndUnload());
+            });
+        }
+        else
+        {
+            StartCoroutine(LoadNewspaperAndUnload());
+        }
     }
 
     private System.Collections.IEnumerator LoadNewspaperAndUnload()
