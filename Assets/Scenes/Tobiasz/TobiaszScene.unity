@@ -373,6 +373,13 @@ MonoBehaviour:
   hinge: {fileID: 64640353}
   SlotHitBox: {fileID: 1026189350}
   selectionHandler: {fileID: 1261433972}
+  clickSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!4 &87856084 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1055843370877094663, guid: 42fbbfffeb97fe34285882342f269942, type: 3}
@@ -607,12 +614,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   radioStation:
     currentListeners:
-      hipHop: 5
-      disco: 5
-      rock: 5
-      pop: 5
+      hipHop: 200
+      disco: 200
+      rock: 200
+      pop: 200
     startListeners: 5
-    currentMoney: 0
+    currentMoney: 500
     hourlyListenersModifier:
       hipHop: 0
       disco: 0
@@ -650,7 +657,6 @@ MonoBehaviour:
     Day: 0
     airtime: {fileID: 1296084681}
     slots: []
-    lastDay: 0
   selectionHandler: {fileID: 1261433972}
   amplitudeSlider: {fileID: 2020246816}
   lengthSlider: {fileID: 764837579}
@@ -669,6 +675,35 @@ MonoBehaviour:
       Data3: -777628484
       Data4: 424681781
     Path: event:/PutCasetteIn
+  ambient:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  enterRadioSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  takeCassetteSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  putDownCassetteSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  daysNr: 0
   airtime: {fileID: 1296084681}
   choosingCassetteUI: {fileID: 1596736046}
   audioQueueManager: {fileID: 330912644}
@@ -1183,7 +1218,6 @@ MonoBehaviour:
     Day: 0
     airtime: {fileID: 1296084681}
     slots: []
-    lastDay: 0
 --- !u!4 &330912645
 Transform:
   m_ObjectHideFlags: 0
@@ -5133,6 +5167,13 @@ MonoBehaviour:
   hinge: {fileID: 165727451}
   SlotHitBox: {fileID: 1892296036}
   selectionHandler: {fileID: 1261433972}
+  clickSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!65 &1101456395
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5757,6 +5798,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSelectionHandler
   selectedObject: {fileID: 0}
+  gm: {fileID: 0}
   selectedObjPos: {fileID: 544625337}
 --- !u!4 &1261433973
 Transform:
@@ -6092,6 +6134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Airtime
   cassettes: []
+  cassetteSlots: []
   cassetteUI: {fileID: 1596736046}
 --- !u!4 &1296084682
 Transform:
@@ -7225,6 +7268,13 @@ MonoBehaviour:
   hinge: {fileID: 88768300}
   SlotHitBox: {fileID: 1442073139}
   selectionHandler: {fileID: 1261433972}
+  clickSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!65 &1596801363
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8500,7 +8550,6 @@ MonoBehaviour:
     Day: 0
     airtime: {fileID: 1296084681}
     slots: []
-    lastDay: 3
   ShopUI: {fileID: 0}
   ShopButton: {fileID: 0}
   allCassettes:
@@ -8526,6 +8575,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 86e89e1f7ef7fb941a613427f63db479, type: 2}
   - {fileID: 11400000, guid: 1d7b65b5b0667c44fa1ce6fed8702ef6, type: 2}
   dailyOffer: []
+  buyingSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  yawnSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   kawalerka_fees:
   - 50
   - 75
