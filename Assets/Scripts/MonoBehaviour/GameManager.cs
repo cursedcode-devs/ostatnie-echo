@@ -43,13 +43,13 @@ public class GameManager : MonoBehaviour
     public CassetteSlotHandler[] cassetteSlots;
 
     void Start()
-    {   
+    {
         FMODUnity.RuntimeManager.PlayOneShot(enterRadioSound, this.transform.position);
 
         actionManager = new ActionManager(mainCamera);
         timeHandler = new TimeHandler(startHour, startDay, airtime, cassetteSlots, daysNr);
         FMODUnity.RuntimeManager.PlayOneShot(ambient, this.transform.position);
-        
+
         // Auto-create AdContractManager component so it exists in the scene
         gameObject.AddComponent<AdContractManager>();
 
@@ -75,12 +75,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        
+
         // DEBUG: Wciśnięcie '0' pozwala pominąć główną grę i od razu przejść do końca dnia (podsumowania)
         if (Keyboard.current != null && Keyboard.current.digit0Key.wasPressedThisFrame)
         {
             // Natychmiastowe zakończenie obecnego dnia i pokazanie podsumowania
-            timeHandler.StartDay(); 
+            timeHandler.StartDay();
             // Jeżeli chcesz przeskoczyć do ostatniej "godziny" (17), zamiast do podsumowania, użyłbyś:
         }
 
@@ -131,13 +131,18 @@ public class GameManager : MonoBehaviour
                 if (sliderObject != null)
                     sliderObject.OnMousePressed();
                 break;
+            case ActionTypes.LeftClickOnPlayButton:
+                Debug.Log("GetActionType - LeftClickOnPlayButton");
+                playSegment();
+                break;
             case ActionTypes.LeftClickOnSlotHinge:
                 Debug.Log("GetActionType - LeftClickOnSlot");
 
                 //Tutaj dźwięk otwierania i zamykania metalowego zawiasu na odtwarzaczu
 
                 slotHandler = clickedObject.GetComponent<CassetteSlotHandler>();
-                slotHandler.HandleHinge();
+                if (!audioQueueManager.IsPlaying())
+                    slotHandler.HandleHinge();
                 break;
             case ActionTypes.LeftClickOnSlotHitBox:
                 Debug.Log("GetActionType - LeftClickOnSlotHitBox");
@@ -145,7 +150,7 @@ public class GameManager : MonoBehaviour
 
                 if (selectionHandler.GetSelectedObject() == null)
                 {
-                    if(!slotHandler.IsSlotEmpty())
+                    if (!slotHandler.IsSlotEmpty())
                         FMODUnity.RuntimeManager.PlayOneShot(putDownCassetteSound, this.transform.position);
                     slotHandler.PutCassetteOut();
                     break;
@@ -172,7 +177,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("GetActionType - LeftClickOutsiedObject");
                 if (selectionHandler.GetSelectedObject() != null)
                 {
-                    if(selectionHandler.IsObjectPlayable())
+                    if (selectionHandler.IsObjectPlayable())
                         FMODUnity.RuntimeManager.PlayOneShot(putDownCassetteSound, this.transform.position);
                     selectionHandler.DeselectedObject();
                 }
@@ -209,21 +214,7 @@ public class GameManager : MonoBehaviour
                 break;
             case ActionTypes.PressedEnter:
                 Debug.Log("Wcisnieto Enter");
-                PlayableContent[] playedCassettes = airtime.GetCassettes();
-                radioStation.ApplySegment(playedCassettes);
-                audioQueueManager.EnqueueClips(airtime.GetCassettesAudio());
-                audioQueueManager.PlayClipsSequence();
-                CheckForRequestedCassette();
-
-                // Destroy physical ad cassettes that were just played
-                var adManager = FindFirstObjectByType<AdContractManager>();
-                if (adManager != null)
-                {
-                    adManager.HandleAdsPlayed(playedCassettes, cassetteSlots);
-                }
-
-                choosingCassetteUI.UpdatePredictions();
-                choosingCassetteUI.Hide();
+                playSegment();
                 break;
             case ActionTypes.PressedP:
                 audioQueueManager.SkipSong();
@@ -232,6 +223,29 @@ public class GameManager : MonoBehaviour
                 addedObjectRotation = Vector3.zero;
                 break;
         }
+    }
+
+    private void playSegment()
+    {
+        if (!airtime.AreSlotsClosed())
+            return;
+        if (audioQueueManager.IsPlaying())
+            return;
+        PlayableContent[] playedCassettes = airtime.GetCassettes();
+        radioStation.ApplySegment(playedCassettes);
+        audioQueueManager.EnqueueClips(airtime.GetCassettesAudio());
+        audioQueueManager.PlayClipsSequence();
+        CheckForRequestedCassette();
+
+        // Destroy physical ad cassettes that were just played
+        var adManager = FindFirstObjectByType<AdContractManager>();
+        if (adManager != null)
+        {
+            adManager.HandleAdsPlayed(playedCassettes, cassetteSlots);
+        }
+
+        choosingCassetteUI.UpdatePredictions();
+        choosingCassetteUI.Hide();
     }
 
     private void FixedUpdate()

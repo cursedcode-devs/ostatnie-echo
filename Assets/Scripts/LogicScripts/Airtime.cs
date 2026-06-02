@@ -1,15 +1,28 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class Airtime : MonoBehaviour
 {
-    [SerializeField] private List<PlayableContent> cassettes = new List<PlayableContent>();
-   // [SerializeField] private PlayableContent emptyCassette;
+   [SerializeField] private List<PlayableContent> cassettes = new List<PlayableContent>();
+    public CassetteSlotHandler[] cassetteSlots;
    public ChoosingCassetteUI cassetteUI;
     void Start()
     {
         addSlot(3);
+    }
+
+    public bool AreSlotsClosed()
+    {
+
+        for (int i = 0; i < cassetteSlots.Length; i++)
+        {
+            if (cassetteSlots[i].isSlotOpen())
+                return false;
+        }
+        
+        return true;
     }
 
     public float GetStatsSum(int genre, CassetteTypes type = CassetteTypes.Music)
