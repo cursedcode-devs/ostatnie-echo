@@ -40,7 +40,7 @@ Material:
     - _Gamma: 1.253
     - _Grain: 0.0025
     - _GreenGain: 0.788
-    - _GreenLift: -0.022
+    - _GreenLift: -0.014
     - _HighStr: 0.623
     - _HighlightToneStr: 0.28
     - _HueShift: -0.0137

@@ -560,7 +560,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 1}
+  m_BackGroundColor: {r: 0.19215687, g: 0.12156863, b: 0.07058824, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -6825,6 +6825,8 @@ MonoBehaviour:
   maxBarHeight: 246
   dynamicMaxListeners: 1
   manualMaxListeners: 500
+  animationSpeed: 5
+  animationDelay: 2
   popBar:
     amountText: {fileID: 1240701340}
     barFill: {fileID: 1847027675}
