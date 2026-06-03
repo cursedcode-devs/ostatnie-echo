@@ -21,6 +21,8 @@ public class StatsUI : MonoBehaviour
 
     [Header("Animation")]
     public float animationSpeed = 10f;
+    [Tooltip("Opóźnienie w sekundach przed każdą sekwencją animacji.")]
+    public float animationDelay = 0.25f;
 
     [Header("Genre Bars")]
     public GenreBarUI popBar;
@@ -29,26 +31,51 @@ public class StatsUI : MonoBehaviour
     public GenreBarUI discoBar;
 
     private RadioStation radioStation;
+    
+    private GenreValues targetListeners;
+    private GenreValues lastKnownListeners;
+    private Coroutine animationRoutine;
 
     public void Initialize(RadioStation rs)
     {
         radioStation = rs;
+        targetListeners = rs.currentListeners;
+        lastKnownListeners = rs.currentListeners;
     }
 
     void Update()
     {
         if (radioStation == null) return;
+
+        if (HasChanged(lastKnownListeners, radioStation.currentListeners))
+        {
+            if (animationRoutine != null) StopCoroutine(animationRoutine);
+            animationRoutine = StartCoroutine(AnimateChangesSequentially(targetListeners, radioStation.currentListeners));
+            lastKnownListeners = radioStation.currentListeners;
+        }
+
         UpdateUI();
+    }
+
+    private bool HasChanged(GenreValues a, GenreValues b)
+    {
+        return a.pop != b.pop || a.rock != b.rock || a.hipHop != b.hipHop || a.disco != b.disco;
+    }
+
+    private System.Collections.IEnumerator AnimateChangesSequentially(GenreValues oldValues, GenreValues newValues)
+    {
+        yield return new WaitForSeconds(animationDelay);
+        targetListeners = newValues;
     }
 
     public void UpdateUI()
     {
         budgetText.text = $"BUDŻET: {radioStation.GetCurrentMoney():F0} zł";
 
-        int pop = radioStation.currentListeners.pop;
-        int rock = radioStation.currentListeners.rock;
-        int hipHop = radioStation.currentListeners.hipHop;
-        int disco = radioStation.currentListeners.disco;
+        int pop = targetListeners.pop;
+        int rock = targetListeners.rock;
+        int hipHop = targetListeners.hipHop;
+        int disco = targetListeners.disco;
 
         int currentMax = manualMaxListeners;
         if (dynamicMaxListeners)
