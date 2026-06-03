@@ -19,6 +19,9 @@ public class StatsUI : MonoBehaviour
     public bool dynamicMaxListeners = true;
     public int manualMaxListeners = 500;
 
+    [Header("Animation")]
+    public float animationSpeed = 10f;
+
     [Header("Genre Bars")]
     public GenreBarUI popBar;
     public GenreBarUI rockBar;
@@ -68,7 +71,11 @@ public class StatsUI : MonoBehaviour
         if (bar.barFill != null)
         {
             float fillRatio = Mathf.Clamp01((float)amount / currentMax);
-            bar.barFill.sizeDelta = new Vector2(bar.barFill.sizeDelta.x, fillRatio * maxBarHeight);
+            float targetHeight = fillRatio * maxBarHeight;
+            float currentHeight = bar.barFill.sizeDelta.y;
+            float newHeight = Mathf.Lerp(currentHeight, targetHeight, Time.deltaTime * animationSpeed);
+            
+            bar.barFill.sizeDelta = new Vector2(bar.barFill.sizeDelta.x, newHeight);
         }
     }
 }
