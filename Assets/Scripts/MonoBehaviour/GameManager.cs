@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
         StatsUI statsUI = FindFirstObjectByType<StatsUI>();
         if (statsUI != null)
         {
-            statsUI.Initialize(radioStation);
+            statsUI.Initialize(radioStation, timeHandler);
         }
         var miniGameSystem = FindFirstObjectByType<MiniGameSystem>();
     }

@@ -12,6 +12,7 @@ public class GenreBarUI
 public class StatsUI : MonoBehaviour
 {
     public TextMeshProUGUI budgetText;
+    public TextMeshProUGUI clockText;
     
     [Header("Bars Configuration")]
     public float maxBarHeight = 250f;
@@ -31,16 +32,34 @@ public class StatsUI : MonoBehaviour
     public GenreBarUI discoBar;
 
     private RadioStation radioStation;
+    private TimeHandler timeHandler;
     
     private GenreValues targetListeners;
     private GenreValues lastKnownListeners;
     private Coroutine animationRoutine;
+    
+    private int lastKnownHour = -1;
+    private Coroutine clockAnimationRoutine;
+    
+    private float lastKnownMoney = -1f;
+    private Coroutine budgetAnimationRoutine;
+    private float currentDisplayMoney;
 
-    public void Initialize(RadioStation rs)
+    public void Initialize(RadioStation rs, TimeHandler th)
     {
         radioStation = rs;
+        timeHandler = th;
         targetListeners = rs.currentListeners;
         lastKnownListeners = rs.currentListeners;
+        
+        if (timeHandler != null)
+            lastKnownHour = timeHandler.CurrentHour;
+            
+        if (radioStation != null)
+        {
+            lastKnownMoney = radioStation.GetCurrentMoney();
+            currentDisplayMoney = lastKnownMoney;
+        }
     }
 
     void Update()
@@ -52,6 +71,20 @@ public class StatsUI : MonoBehaviour
             if (animationRoutine != null) StopCoroutine(animationRoutine);
             animationRoutine = StartCoroutine(AnimateChangesSequentially(targetListeners, radioStation.currentListeners));
             lastKnownListeners = radioStation.currentListeners;
+        }
+
+        if (timeHandler != null && lastKnownHour != timeHandler.CurrentHour)
+        {
+            if (clockAnimationRoutine != null) StopCoroutine(clockAnimationRoutine);
+            clockAnimationRoutine = StartCoroutine(AnimateClock(lastKnownHour, timeHandler.CurrentHour));
+            lastKnownHour = timeHandler.CurrentHour;
+        }
+
+        if (radioStation.GetCurrentMoney() != lastKnownMoney)
+        {
+            if (budgetAnimationRoutine != null) StopCoroutine(budgetAnimationRoutine);
+            budgetAnimationRoutine = StartCoroutine(AnimateBudget(currentDisplayMoney, radioStation.GetCurrentMoney()));
+            lastKnownMoney = radioStation.GetCurrentMoney();
         }
 
         UpdateUI();
@@ -68,9 +101,62 @@ public class StatsUI : MonoBehaviour
         targetListeners = newValues;
     }
 
+    private System.Collections.IEnumerator AnimateClock(int fromHour, int toHour)
+    {
+        float currentMinutes = 0f;
+        while (currentMinutes < 60f)
+        {
+            currentMinutes += Time.deltaTime * 30f;
+            if (currentMinutes > 59f) currentMinutes = 59f;
+
+            if (clockText != null)
+            {
+                clockText.text = $"{fromHour}:{(int)currentMinutes:D2}";
+            }
+
+            if (currentMinutes >= 59f) break;
+
+            yield return null;
+        }
+
+        if (clockText != null)
+        {
+            clockText.text = $"{toHour}:00";
+        }
+
+        clockAnimationRoutine = null;
+    }
+
+    private System.Collections.IEnumerator AnimateBudget(float fromMoney, float toMoney)
+    {
+        yield return new WaitForSeconds(animationDelay);
+        float elapsedTime = 0f;
+        float duration = 2f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            currentDisplayMoney = Mathf.Lerp(fromMoney, toMoney, elapsedTime / duration);
+            yield return null;
+        }
+
+        currentDisplayMoney = toMoney;
+        budgetAnimationRoutine = null;
+    }
+
     public void UpdateUI()
     {
-        budgetText.text = $"BUDŻET: {radioStation.GetCurrentMoney():F0} zł";
+        if (budgetAnimationRoutine == null && radioStation != null)
+        {
+            currentDisplayMoney = radioStation.GetCurrentMoney();
+        }
+        
+        budgetText.text = $"Budżet: {currentDisplayMoney:F0} zł";
+        
+        if (clockText != null && timeHandler != null && clockAnimationRoutine == null)
+        {
+            clockText.text = $"{timeHandler.CurrentHour}:00";
+        }
 
         int pop = targetListeners.pop;
         int rock = targetListeners.rock;
