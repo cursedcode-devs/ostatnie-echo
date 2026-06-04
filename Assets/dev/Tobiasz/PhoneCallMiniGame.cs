@@ -23,6 +23,17 @@ public class PhoneCallMiniGame : BaseMiniGame
     public float typeDelay = 0.03f;
     private Coroutine typingCoroutine;
 
+    [Header("Animation Settings")]
+    public float slideDuration = 0.4f;
+    public float slideOffset = -400f; // animacja wsuwania od 400px nizej
+    public AnimationCurve slideCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    
+    private Vector2 optionAOriginalPos;
+    private Vector2 optionBOriginalPos;
+    private Vector2 okayOriginalPos;
+    private bool originalPositionsSaved = false;
+    private List<Button> activeButtonsToSlide = new List<Button>();
+
     [Header("Config")]
     public List<PhoneCallDefinition> dialogPhoneCalls;
     
@@ -147,8 +158,38 @@ private void SetupDialogCall()
     }
 }
 
+    private void SaveOriginalPositions()
+    {
+        if (originalPositionsSaved) return;
+        if (optionAButton != null) optionAOriginalPos = optionAButton.GetComponent<RectTransform>().anchoredPosition;
+        if (optionBButton != null) optionBOriginalPos = optionBButton.GetComponent<RectTransform>().anchoredPosition;
+        if (okayButton != null) okayOriginalPos = okayButton.GetComponent<RectTransform>().anchoredPosition;
+        originalPositionsSaved = true;
+    }
+
+    private Vector2 GetOriginalPos(Button btn)
+    {
+        if (btn == optionAButton) return optionAOriginalPos;
+        if (btn == optionBButton) return optionBOriginalPos;
+        if (btn == okayButton) return okayOriginalPos;
+        return Vector2.zero;
+    }
+
     private void StartTyping(string text)
     {
+        SaveOriginalPositions();
+        activeButtonsToSlide.Clear();
+
+        if (optionAButton != null && optionAButton.gameObject.activeSelf) activeButtonsToSlide.Add(optionAButton);
+        if (optionBButton != null && optionBButton.gameObject.activeSelf) activeButtonsToSlide.Add(optionBButton);
+        if (okayButton != null && okayButton.gameObject.activeSelf) activeButtonsToSlide.Add(okayButton);
+
+        foreach (var btn in activeButtonsToSlide)
+        {
+            btn.GetComponent<RectTransform>().anchoredPosition = GetOriginalPos(btn) + new Vector2(0, slideOffset);
+            btn.interactable = false;
+        }
+
         if (typingCoroutine != null)
         {
             StopCoroutine(typingCoroutine);
@@ -171,6 +212,30 @@ private void SetupDialogCall()
             counter++;
             dialogText.maxVisibleCharacters = counter;
             yield return new WaitForSecondsRealtime(typeDelay);
+        }
+
+        // animacja przyciskow
+        float t = 0;
+        while (t < slideDuration)
+        {
+            t += Time.unscaledDeltaTime;
+            float normalizedTime = Mathf.Clamp01(t / slideDuration);
+            float curveValue = slideCurve.Evaluate(normalizedTime);
+
+            foreach (var btn in activeButtonsToSlide)
+            {
+                var rt = btn.GetComponent<RectTransform>();
+                Vector2 origPos = GetOriginalPos(btn);
+                Vector2 startPos = origPos + new Vector2(0, slideOffset);
+                rt.anchoredPosition = Vector2.LerpUnclamped(startPos, origPos, curveValue);
+            }
+            yield return null;
+        }
+
+        foreach (var btn in activeButtonsToSlide)
+        {
+            btn.GetComponent<RectTransform>().anchoredPosition = GetOriginalPos(btn);
+            btn.interactable = true;
         }
     }
 
