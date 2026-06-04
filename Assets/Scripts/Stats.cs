@@ -111,7 +111,8 @@ public class StatsUI : MonoBehaviour
 
             if (clockText != null)
             {
-                clockText.text = $"{fromHour}:{(int)currentMinutes:D2}";
+                string colon = (Time.time % 2f < 1f) ? ":" : "<color=#00000000>:</color>";
+                clockText.text = $"{fromHour}{colon}{(int)currentMinutes:D2}";
             }
 
             if (currentMinutes >= 59f) break;
@@ -155,7 +156,8 @@ public class StatsUI : MonoBehaviour
         
         if (clockText != null && timeHandler != null && clockAnimationRoutine == null)
         {
-            clockText.text = $"{timeHandler.CurrentHour}:00";
+            string colon = (Time.time % 2f < 1f) ? ":" : "<color=#00000000>:</color>";
+            clockText.text = $"{timeHandler.CurrentHour}{colon}00";
         }
 
         int pop = targetListeners.pop;
