@@ -19,6 +19,10 @@ public class PhoneCallMiniGame : BaseMiniGame
     public Button optionBButton;
     public TextMeshProUGUI optionBText;
 
+    [Header("Typewriter Settings")]
+    public float typeDelay = 0.03f;
+    private Coroutine typingCoroutine;
+
     [Header("Config")]
     public List<PhoneCallDefinition> dialogPhoneCalls;
     
@@ -78,7 +82,7 @@ private void SetupSongRequest()
         default: dialog = $"Hej, puść proszę '{requestedCassette.GetName()}'."; break;
     }
 
-    if (dialogText != null) dialogText.text = dialog;
+    if (dialogText != null) StartTyping(dialog);
 
     if (optionAButton != null)
     {
@@ -110,7 +114,7 @@ private void SetupDialogCall()
         dialogTextString = dialogTextString.Replace("{GENRE}", dynamicallyPickedGenre);
     }
 
-    if (dialogText != null) dialogText.text = dialogTextString;
+    if (dialogText != null) StartTyping(dialogTextString);
 
     if (optionAButton != null)
     {
@@ -142,6 +146,33 @@ private void SetupDialogCall()
         }
     }
 }
+
+    private void StartTyping(string text)
+    {
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+        }
+        
+        dialogText.text = text;
+        dialogText.maxVisibleCharacters = 0;
+        
+        typingCoroutine = StartCoroutine(TypewriterEffect());
+    }
+
+    private System.Collections.IEnumerator TypewriterEffect()
+    {
+        dialogText.ForceMeshUpdate();
+        int totalVisibleCharacters = dialogText.textInfo.characterCount;
+        int counter = 0;
+
+        while (counter < totalVisibleCharacters)
+        {
+            counter++;
+            dialogText.maxVisibleCharacters = counter;
+            yield return new WaitForSecondsRealtime(typeDelay);
+        }
+    }
 
     private void OnOkayClicked()
     {
