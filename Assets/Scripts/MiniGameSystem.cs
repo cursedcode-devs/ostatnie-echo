@@ -119,7 +119,7 @@ public class MiniGameSystem : MonoBehaviour
         currentMiniGame.OnWon    += HandleWin;
         currentMiniGame.OnClosed += HandleClosed;
 
-        if (disableClicksWhenOpen && gameManager != null)
+        if (disableClicksWhenOpen && def.disableClicksWhenOpen && gameManager != null)
             gameManager.SetInputEnabled(false);
 
         currentMiniGame.Launch();
@@ -205,7 +205,7 @@ public class MiniGameSystem : MonoBehaviour
 
     void HandleClosed()
     {
-        if (disableClicksWhenOpen && gameManager != null)
+        if (disableClicksWhenOpen && currentDefinition != null && currentDefinition.disableClicksWhenOpen && gameManager != null)
             gameManager.SetInputEnabled(true);
 
         currentMiniGame   = null;

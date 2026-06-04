@@ -15,6 +15,10 @@ public class MiniGameDefinition : ScriptableObject
     [Tooltip("Prefab z komponentem dziedziczącym BaseMiniGame")]
     public GameObject prefab;
 
+    [Header("Interakcja")]
+    [Tooltip("Czy ta minigra powinna blokować poruszanie/klikanie w tle?")]
+    public bool disableClicksWhenOpen = true;
+
     [Header("Pula nagród")]
     [Tooltip("true  → losuj z globalnej puli MiniGameSystem\n" +
              "false → losuj z własnej puli poniżej")]
