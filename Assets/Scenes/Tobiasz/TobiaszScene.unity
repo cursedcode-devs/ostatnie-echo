@@ -6681,21 +6681,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.94, y: 0.45, z: 1.5}
   m_Center: {x: 0.42, y: 0, z: 0}
---- !u!115 &1096674447
-MonoScript:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  serializedVersion: 7
-  m_DefaultReferences: {}
-  m_Icon: {fileID: 0}
-  m_Type: 0
-  m_ExecutionOrder: 0
-  m_ClassName: StatsUI
-  m_Namespace: 
-  m_AssemblyName: Assembly-CSharp
 --- !u!114 &1101456394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6875,9 +6860,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8ebbd6a6885a0b86e988a0bfe2af78a5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1133372997}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8ebbd6a6885a0b86e988a0bfe2af78a5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1133373000}
   m_SourcePrefab: {fileID: 100100000, guid: 8ebbd6a6885a0b86e988a0bfe2af78a5, type: 3}
 --- !u!4 &1133372995 stripped
 Transform:
@@ -6901,37 +6883,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dae978f3e71806b53bc45cb3836ee9dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatsUI
---- !u!114 &1133373000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1133372996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1096674447}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StatsUI
-  budgetText: {fileID: 1490217473}
-  clockText: {fileID: 463897595}
-  maxBarHeight: 246
+  budgetText: {fileID: 0}
+  clockText: {fileID: 0}
+  maxBarHeight: 250
   dynamicMaxListeners: 1
   manualMaxListeners: 500
-  animationSpeed: 5
-  animationDelay: 2
+  animationSpeed: 10
+  animationDelay: 0.25
   popBar:
-    amountText: {fileID: 1240701340}
-    barFill: {fileID: 1847027675}
+    amountText: {fileID: 0}
+    barFill: {fileID: 0}
   rockBar:
-    amountText: {fileID: 1509872487}
-    barFill: {fileID: 53188333}
+    amountText: {fileID: 0}
+    barFill: {fileID: 0}
   hipHopBar:
-    amountText: {fileID: 490399008}
-    barFill: {fileID: 145095882}
+    amountText: {fileID: 0}
+    barFill: {fileID: 0}
   discoBar:
-    amountText: {fileID: 602823824}
-    barFill: {fileID: 2105860455}
+    amountText: {fileID: 0}
+    barFill: {fileID: 0}
 --- !u!1001 &1137741662
 PrefabInstance:
   m_ObjectHideFlags: 0

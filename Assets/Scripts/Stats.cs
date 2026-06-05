@@ -2,14 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-[System.Serializable]
-public class GenreBarUI
-{
-    public TextMeshProUGUI amountText;
-    public RectTransform barFill;
-}
-
-public class StatsUI : MonoBehaviour
+public class Stats : MonoBehaviour
 {
     public TextMeshProUGUI budgetText;
     public TextMeshProUGUI clockText;
@@ -193,4 +186,11 @@ public class StatsUI : MonoBehaviour
             bar.barFill.sizeDelta = new Vector2(bar.barFill.sizeDelta.x, newHeight);
         }
     }
+}
+
+[System.Serializable]
+public class GenreBarUI
+{
+    public TextMeshProUGUI amountText;
+    public RectTransform barFill;
 }
