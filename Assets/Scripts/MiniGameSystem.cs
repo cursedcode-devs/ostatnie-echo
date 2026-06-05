@@ -119,7 +119,7 @@ public class MiniGameSystem : MonoBehaviour
         currentMiniGame.OnWon    += HandleWin;
         currentMiniGame.OnClosed += HandleClosed;
 
-        if (disableClicksWhenOpen && gameManager != null)
+        if (disableClicksWhenOpen && def.disableClicksWhenOpen && gameManager != null)
             gameManager.SetInputEnabled(false);
 
         currentMiniGame.Launch();
@@ -127,9 +127,36 @@ public class MiniGameSystem : MonoBehaviour
 
     BaseMiniGame SpawnMiniGame(MiniGameDefinition def)
     {
-        var go = Instantiate(def.prefab);
-        go.name = $"MiniGame_{def.miniGameName}";
-        var instance = go.GetComponent<BaseMiniGame>();
+        string expectedName = $"MiniGame_{def.miniGameName}";
+        BaseMiniGame instance = null;
+
+        // Szukaj istniejącego obiektu na scenie (w tym nieaktywnego)
+        BaseMiniGame[] allMiniGames = Resources.FindObjectsOfTypeAll<BaseMiniGame>();
+        foreach (var mg in allMiniGames)
+        {
+            if (mg.gameObject.scene.isLoaded && mg.gameObject.name == expectedName)
+            {
+                instance = mg;
+                break;
+            }
+        }
+
+        GameObject go;
+        if (instance != null)
+        {
+            go = instance.gameObject;
+        }
+        else if (def.prefab != null)
+        {
+            go = Instantiate(def.prefab);
+            go.name = expectedName;
+            instance = go.GetComponent<BaseMiniGame>();
+        }
+        else
+        {
+            Debug.LogError($"[MiniGameSystem] Brak prefabu i obiektu na scenie dla {def.miniGameName}");
+            return null;
+        }
 
         if (instance == null)
         {
@@ -178,7 +205,7 @@ public class MiniGameSystem : MonoBehaviour
 
     void HandleClosed()
     {
-        if (disableClicksWhenOpen && gameManager != null)
+        if (disableClicksWhenOpen && currentDefinition != null && currentDefinition.disableClicksWhenOpen && gameManager != null)
             gameManager.SetInputEnabled(true);
 
         currentMiniGame   = null;
