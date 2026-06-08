@@ -74,12 +74,12 @@ public class ChoosingCassetteUI : MonoBehaviour
 
             // Aktualizacja UI dla konkretnego slotu
 
-            // Trzeba wyœwietliæ gdzieœ t¹ informacje, bo przyciski gdzie siê wyœwietla³a zosta³y usuniête
-            //cassetteSlotTexts[i].text = c.GetName() + " U¿ycie: " + currentUses;
+            // Trzeba wyï¿½wietliï¿½ gdzieï¿½ tï¿½ informacje, bo przyciski gdzie siï¿½ wyï¿½wietlaï¿½a zostaï¿½y usuniï¿½te
+            //cassetteSlotTexts[i].text = c.GetName() + " Uï¿½ycie: " + currentUses;
 
             if (c.GetType() == CassetteTypes.Ad)
             {
-                StatTexts[i].text = $"HipHop: {h / 100f:0.##}z³\nRock: {r / 100f:0.##}z³\nPop: {p / 100f:0.##}z³\nDisco: {d / 100f:0.##}z³";
+                StatTexts[i].text = $"HipHop: {h / 100f:0.##}zï¿½\nRock: {r / 100f:0.##}zï¿½\nPop: {p / 100f:0.##}zï¿½\nDisco: {d / 100f:0.##}zï¿½";
                 sumAdHipHop += h / 100f;
                 sumAdRock += r / 100f;
                 sumAdPop += p / 100f;
@@ -97,11 +97,11 @@ public class ChoosingCassetteUI : MonoBehaviour
             simulatedTimesUsed[c]++;
         }
 
-        // Aktualizacja sumy ca³kowitej w ostatnim polu (zak³adam, ¿e to StatTexts[3])
-        StatTexts[3].text = $"HipHop: {sumMusicHipHop:0.##} {sumAdHipHop:0.##}z³\n" +
-                            $"Rock: {sumMusicRock:0.##} {sumAdRock:0.##}z³\n" +
-                            $"Pop: {sumMusicPop:0.##} {sumAdPop:0.##}z³\n" +
-                            $"Disco: {sumMusicDisco:0.##} {sumAdDisco:0.##}z³";
+        // Aktualizacja sumy caï¿½kowitej w ostatnim polu (zakï¿½adam, ï¿½e to StatTexts[3])
+        StatTexts[3].text = $"HipHop: {sumMusicHipHop:0.##} {sumAdHipHop:0.##}zï¿½\n" +
+                            $"Rock: {sumMusicRock:0.##} {sumAdRock:0.##}zï¿½\n" +
+                            $"Pop: {sumMusicPop:0.##} {sumAdPop:0.##}zï¿½\n" +
+                            $"Disco: {sumMusicDisco:0.##} {sumAdDisco:0.##}zï¿½";
     }
 
     private void PlayCassetteSound()

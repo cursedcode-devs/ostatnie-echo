@@ -574,6 +574,10 @@ MonoBehaviour:
     m_Width: 71
     m_Height: 41
   m_FreeGlyphRects:
+  - m_X: 61
+    m_Y: 81
+    m_Width: 450
+    m_Height: 2
   - m_X: 0
     m_Y: 496
     m_Width: 511
