@@ -3,22 +3,7 @@ guid: b90a78ce140c2434ba10ffeadb9b502c
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material
-    second: {fileID: 2100000, guid: 65a1f1d882e54c54a86b7e6a508cb5af, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.002
-    second: {fileID: 2100000, guid: 69a92ee16309b3b4c8b084c013794aba, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: PopielniczkaMaterial
-    second: {fileID: 2100000, guid: 9452fcda2084e2f4ea06574f6fc89dd8, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
