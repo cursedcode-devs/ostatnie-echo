@@ -32,7 +32,7 @@ public class RadioStation
         currentListeners.rock += changeVal.rock;
         currentListeners.pop += changeVal.pop;
 
-       if(currentListeners.hipHop < 0)
+        if(currentListeners.hipHop < 0)
             currentListeners.hipHop = 0;
         if (currentListeners.disco < 0)
             currentListeners.disco = 0;
@@ -99,6 +99,30 @@ public class RadioStation
                         totalPopListeners += pop;
 
                         cassettes[i].SetLastValues(hipHop, disco, rock, pop);
+                    }
+                    // Back2Back: jeden slot na godzinę mnoży swój wkład x2
+                    if (UpgradeManager.Instance != null && UpgradeManager.Instance.TryConsumeBack2Back())
+                    {
+                        if (cassettes[i].GetTimesUsed() == 0)
+                        {
+                            totalHipHopListeners += cassettes[i].GetCassetteValues().hipHop;
+                            totalDiscoListeners  += cassettes[i].GetCassetteValues().disco;
+                            totalRockListeners   += cassettes[i].GetCassetteValues().rock;
+                            totalPopListeners    += cassettes[i].GetCassetteValues().pop;
+                        }
+                        else
+                        {
+                            int lastHipHop = cassettes[i].GetLastValues().hipHop - Mathf.Abs(cassettes[i].GetLastValues().hipHop / 2);
+                            int lastDisco  = cassettes[i].GetLastValues().disco  - Mathf.Abs(cassettes[i].GetLastValues().disco  / 2);
+                            int lastRock   = cassettes[i].GetLastValues().rock   - Mathf.Abs(cassettes[i].GetLastValues().rock   / 2);
+                            int lastPop    = cassettes[i].GetLastValues().pop    - Mathf.Abs(cassettes[i].GetLastValues().pop    / 2);
+
+                            totalHipHopListeners += lastHipHop;
+                            totalDiscoListeners  += lastDisco;
+                            totalRockListeners   += lastRock;
+                            totalPopListeners    += lastPop;
+                        }
+                        Debug.Log("[Back2Back] Podwojono wkład slotu!");
                     }
                     cassettes[i].IncreaseTimesUsed();
                     break;

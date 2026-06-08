@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     private ActionTypes keyboardActionType;
     public ActionManager actionManager;
     public TimeHandler timeHandler;
-    private StatsUI statsUI;
+    private Stats statsUI;
     private Vector3 addedObjectRotation = Vector3.zero;
     private float rotationSpeed = 3f;
     public ObjectSelectionHandler selectionHandler;
@@ -65,10 +65,10 @@ public class GameManager : MonoBehaviour
         {
             dayEndHandler.Initialize(radioStation, timeHandler, this);
         }
-        StatsUI statsUI = FindFirstObjectByType<StatsUI>();
+        Stats statsUI = FindFirstObjectByType<Stats>();
         if (statsUI != null)
         {
-            statsUI.Initialize(radioStation);
+            statsUI.Initialize(radioStation, timeHandler);
         }
         var miniGameSystem = FindFirstObjectByType<MiniGameSystem>();
     }
