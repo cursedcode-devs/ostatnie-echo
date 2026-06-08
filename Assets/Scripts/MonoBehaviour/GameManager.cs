@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
                 break;
             case ActionTypes.LeftClickOnPlayingObject:
                 Debug.Log("GetActionType - LeftClickOnPlayingObject");
-                choosingCassetteUI.ToggleVisibility(audioQueueManager.IsPlaying());
+                //choosingCassetteUI.ToggleVisibility(audioQueueManager.IsPlaying());
                 break;
             case ActionTypes.LeftClickOnObject:
                 Debug.Log("GetActionType - LeftClickOnObject");

@@ -11,8 +11,8 @@ public class CassetteSlotHandler : MonoBehaviour
     private GameObject cassette;
     private Vector3 startPos = Vector3.zero;
     private Quaternion startRot = Quaternion.Euler(new Vector3(0f, 0f, 0f));
-    private Vector3 closedRotation = new Vector3(0f, 0f, 0f);
-    private Vector3 openRotation = new Vector3(-125f, 0f, 0f);
+    private Vector3 closedRotation = new Vector3(90f, 0f, 0f);
+    private Vector3 openRotation = new Vector3(90f, 105f, 0f);
     public FMODUnity.EventReference clickSound;
     public void HandleHinge()
     {
@@ -70,7 +70,7 @@ public class CassetteSlotHandler : MonoBehaviour
             startPos = selectionHandler.GetDesPos();
             startRot = selectionHandler.GetDesRot();
             cassette.transform.position = SlotHitBox.transform.position;
-            cassette.transform.rotation = Quaternion.Euler(new Vector3(90f, 0f, 0f));
+            cassette.transform.rotation = Quaternion.Euler(new Vector3(90f, -90f, 0f));
             //cassette.transform.rotation = SlotHitBox.transform.rotation;
             airtime.setSlot(cassette.GetComponent<PlayableObject>().data, slotID);
             FMODUnity.RuntimeManager.PlayOneShot(clickSound, this.transform.position);

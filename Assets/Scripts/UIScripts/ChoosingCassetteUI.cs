@@ -109,14 +109,6 @@ public class ChoosingCassetteUI : MonoBehaviour
         FMODUnity.RuntimeManager.PlayOneShot(gameManager.putCasetteInSound, cassettePlayer.transform.position);
     }
 
-    public void ToggleVisibility(bool isPlaying)
-    {
-        if (isPlaying)
-            return;
-        choosingCassetteCanvas.SetActive(!active);
-        active = !active;
-    }
-
     public void Show()
     {
         choosingCassetteCanvas.SetActive(true);
@@ -125,7 +117,7 @@ public class ChoosingCassetteUI : MonoBehaviour
 
     public void Hide()
     {
-        choosingCassetteCanvas.SetActive(false);
+        //choosingCassetteCanvas.SetActive(false);
     }
 
     //public void ResetSlotText()

@@ -11,6 +11,7 @@ public class AdContractManager : MonoBehaviour
     {
         public Vector3 position;
         public Quaternion rotation;
+        public Vector3 scale;
     }
 
     [System.Serializable]
@@ -92,6 +93,7 @@ public class AdContractManager : MonoBehaviour
             "KasetaReklama4"
         };
 
+
         foreach (string name in targetNames)
         {
             GameObject go = GameObject.Find(name);
@@ -99,7 +101,8 @@ public class AdContractManager : MonoBehaviour
             {
                 preplacedSpawnPoints.Add(new TransformData {
                     position = go.transform.position,
-                    rotation = go.transform.rotation
+                    rotation = go.transform.rotation,
+                    scale = go.transform.localScale
                 });
                 
                 // Ukrywamy predefiniowany placeholder ze sceny
@@ -202,12 +205,14 @@ public class AdContractManager : MonoBehaviour
             
             Vector3 spawnPos;
             Quaternion spawnRot;
+            Vector3 spawnScale = Vector3.one;
 
             // Sprawdzamy, czy mamy zarejestrowane pozycje z WojtekScene
             if (i < preplacedSpawnPoints.Count)
             {
                 spawnPos = preplacedSpawnPoints[i].position;
                 spawnRot = preplacedSpawnPoints[i].rotation;
+                spawnScale = preplacedSpawnPoints[i].scale;
                 Debug.Log($"[AdContractManager] Użycie pozycji ze sceny dla nowej reklamy #{i}: {spawnPos}");
             }
             else
@@ -230,6 +235,7 @@ public class AdContractManager : MonoBehaviour
 
             // Klonujemy prefab
             GameObject cassetteGo = Instantiate(prefab, spawnPos, spawnRot);
+            cassetteGo.transform.localScale = spawnScale;
             cassetteGo.name = $"Reklama_{adData.GetName()}";
             cassetteGo.SetActive(true);
 
