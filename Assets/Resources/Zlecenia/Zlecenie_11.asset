@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef629219f6b17c4bbd2d813eecbea14, type: 3}
   m_Name: Zlecenie_11
   m_EditorClassIdentifier: Assembly-CSharp::Ad
-  audio: {fileID: 0}
+  audio: {fileID: 8300000, guid: d82832f5f3c69637bfd9d210449bc7c6, type: 3}
   itemName: "Autokarem po Dolary - Kurs na Zach\xF3d"
   author: Polski Przemytnik
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
@@ -30,3 +30,4 @@ MonoBehaviour:
     pop: 0
   price: 0
   clientName: 
+  content: "Chcesz zobaczy\u0107 \u015bwiat i przy okazji dorobi\u0107? Biuro Podr\u00f3\u017cy \"Polski Przemytnik\" zaprasza na wycieczk\u0119 autokarow\u0105 do Berlina Zachodniego. Gwarantujemy: 48 godzin w rycz\u0105cym Ikarusie, brak postoj\u00f3w na toalet\u0119 i niezapomniane emocje na przej\u015bciu granicznym. W cenie biletu: zestaw pustych toreb podr\u00f3\u017cnych i instrukta\u017c, jak ukry\u0107 karton papieros\u00f3w w kole zapasowym. Nie czekaj a\u017c zamkn\u0105 granice. Jed\u017a z nami, p\u00f3ki celnik ma imieniny!"

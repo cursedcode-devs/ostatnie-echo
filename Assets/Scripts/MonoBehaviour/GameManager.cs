@@ -233,7 +233,9 @@ public class GameManager : MonoBehaviour
             return;
         PlayableContent[] playedCassettes = airtime.GetCassettes();
         radioStation.ApplySegment(playedCassettes);
-        audioQueueManager.EnqueueClips(airtime.GetCassettesAudio());
+        // Kolejkujemy z zawartością kaset, aby reklamy mogły pokazać napisy (treść)
+        // zsynchronizowane z dźwiękiem odczytu podczas emisji.
+        audioQueueManager.EnqueuePlayables(playedCassettes);
         audioQueueManager.PlayClipsSequence();
         CheckForRequestedCassette();
 
