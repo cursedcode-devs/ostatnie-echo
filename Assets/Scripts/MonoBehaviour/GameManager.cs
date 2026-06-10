@@ -135,6 +135,10 @@ public class GameManager : MonoBehaviour
                 Debug.Log("GetActionType - LeftClickOnPlayButton");
                 playSegment();
                 break;
+            case ActionTypes.LeftClickOnSkipButton:
+                Debug.Log("GetActionType - LeftClickOnSkipButton");
+                audioQueueManager.SkipSong();
+                break;
             case ActionTypes.LeftClickOnSlotHinge:
                 Debug.Log("GetActionType - LeftClickOnSlot");
 

@@ -90,6 +90,8 @@ public class ActionManager
             return ActionTypes.LeftClickOnShelf;
         if(pointedObject.CompareTag("PlayButton"))
             return ActionTypes.LeftClickOnPlayButton;
+        if(pointedObject.CompareTag("SkipButton"))
+            return ActionTypes.LeftClickOnSkipButton;
 
 
         if (pointedObject.CompareTag("CassettePlayer")) 
