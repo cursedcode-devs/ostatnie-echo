@@ -837,10 +837,6 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 32e8cfe2c0f41f34baadb9155e897996, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
       value: KasetaMuzyka (1)
@@ -2123,10 +2119,6 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 7f0e96df95142a84eb2271098740802c, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
       value: KasetaMuzyka (8)
@@ -2209,10 +2201,6 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: d47b6e18c8e8ece4085ff7a9887efb65, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
       value: KasetaMuzyka (6)
@@ -2850,10 +2838,6 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: d47b6e18c8e8ece4085ff7a9887efb65, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
       value: KasetaMuzyka (7)
@@ -2936,10 +2920,6 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 32e8cfe2c0f41f34baadb9155e897996, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
       value: KasetaMuzyka
@@ -4024,10 +4004,6 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: d47b6e18c8e8ece4085ff7a9887efb65, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
       value: KasetaMuzyka (5)
@@ -4247,10 +4223,6 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: d47b6e18c8e8ece4085ff7a9887efb65, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
       value: KasetaMuzyka (4)
@@ -4878,10 +4850,6 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 14bfc8f45797d6c42a9ab4ec99651ac4, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
       value: KasetaMuzyka (14)
@@ -5990,10 +5958,6 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 14bfc8f45797d6c42a9ab4ec99651ac4, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
       value: KasetaMuzyka (15)
@@ -7129,7 +7093,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1746533315691396806, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2108342985443868912, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
       propertyPath: m_text
@@ -7401,10 +7365,6 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 14bfc8f45797d6c42a9ab4ec99651ac4, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
       value: KasetaMuzyka (13)
@@ -7536,10 +7496,6 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 7f0e96df95142a84eb2271098740802c, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
       value: KasetaMuzyka (9)
@@ -7765,10 +7721,6 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 32e8cfe2c0f41f34baadb9155e897996, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
       value: KasetaMuzyka (3)
@@ -8003,10 +7955,6 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 7f0e96df95142a84eb2271098740802c, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
       value: KasetaMuzyka (11)
@@ -9237,10 +9185,6 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 14bfc8f45797d6c42a9ab4ec99651ac4, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
       value: KasetaMuzyka (12)
@@ -9759,10 +9703,6 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 32e8cfe2c0f41f34baadb9155e897996, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
       value: KasetaMuzyka (2)
@@ -10003,30 +9943,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 630536880263957199, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 630536880263957199, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 630536880263957199, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 630536880263957199, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 630536880263957199, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2193486652633755598, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3231249763360481408, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -10069,7 +9985,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3231249763360481408, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -8.5
       objectReference: {fileID: 0}
     - target: {fileID: 3231249763360481408, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10089,11 +10005,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3231249763360481408, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -1.6979
       objectReference: {fileID: 0}
     - target: {fileID: 3231249763360481408, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -0.05862
       objectReference: {fileID: 0}
     - target: {fileID: 3231249763360481408, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -10110,10 +10026,6 @@ PrefabInstance:
     - target: {fileID: 4710538789843534460, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: m_Name
       value: MiniGame_Telefon
-      objectReference: {fileID: 0}
-    - target: {fileID: 4710538789843534460, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12486,10 +12398,6 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 7f0e96df95142a84eb2271098740802c, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
       value: KasetaMuzyka (10)

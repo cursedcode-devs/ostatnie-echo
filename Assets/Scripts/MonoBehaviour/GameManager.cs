@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     private int startHour = 14;
     private int startDay = 1;
     private const float startingModifier = 0f;
+    public ZoomHandler zoomHandler;
 
     private bool inputEnabled = false;
 
@@ -47,7 +48,7 @@ public class GameManager : MonoBehaviour
         FMODUnity.RuntimeManager.PlayOneShot(enterRadioSound, this.transform.position);
 
         actionManager = new ActionManager(mainCamera);
-        timeHandler = new TimeHandler(startHour, startDay, airtime, cassetteSlots, daysNr);
+        timeHandler = new TimeHandler(startHour, startDay, airtime, cassetteSlots, zoomHandler, daysNr);
         FMODUnity.RuntimeManager.PlayOneShot(ambient, this.transform.position);
 
         // Auto-create AdContractManager component so it exists in the scene

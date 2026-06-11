@@ -5,9 +5,6 @@ using UnityEngine;
 public class AudioQueueManager : MonoBehaviour
 {
     [SerializeField] private AudioSource audioSource;
-
-    public  TimeHandler timeHandler;
-
     /// <summary>
     /// Element kolejki: klip audio + opcjonalna zawartość kasety (np. reklama),
     /// dzięki czemu wiemy, kiedy podczas emisji pokazać napisy reklamy.
@@ -23,8 +20,8 @@ public class AudioQueueManager : MonoBehaviour
             this.content = content;
         }
     }
-
-    private Queue<QueuedClip> audioQueue = new Queue<QueuedClip>();
+    private  TimeHandler timeHandler;
+    private Queue<AudioClip> audioQueue = new Queue<AudioClip>();
     private bool isPlayingQueue = false;
 
     public void SetTimeHandler(TimeHandler timeHandler)

@@ -25,7 +25,7 @@ public class DayEndHandler : MonoBehaviour
     private float kawalerka_fee;
     private float jedzenie_fee;
     private float studia_fee;
-    
+
     private bool gameFinished = false;
 
     public static DayEndHandler Instance { get; private set; }
