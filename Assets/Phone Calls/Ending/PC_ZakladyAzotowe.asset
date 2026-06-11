@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d45b0f46aa3003d4089d0867c36920e2, type: 3}
+  m_Name: PC_ZakladyAzotowe
+  m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
+  callType: 1
+  callerName: "Dyrektor Zak\u0142ad\xF3w Azotowych"
+  initialDialog: "S\u0142uchaj mnie uwa\u017Cnie, m\u0142ody. M\xF3wi dyrektor Zak\u0142ad\xF3w
+    Azotowych. Wiemy, \u017Ce tw\xF3j informator nagra\u0142 audycj\u0119 o ska\u017Ceniu
+    gleby za naszym ogrodzeniem. Masz tu gotow\u0105 kaset\u0119 o naszej akcji sadzenia
+    drzew. Je\u015Bli jej nie pu\u015Bcisz... c\xF3\u017C, tw\xF3j ojciec wci\u0105\u017C
+    pracuje u nas na etacie, prawda?"
+  dialogOptions:
+  - optionText: "Puszczam wasz\u0105 kaset\u0119 o drzewach, ale macie zostawi\u0107
+      mojego ojca w \u015Bwi\u0119tym spokoju."
+    resultingText: 
+    moneyChange: 0
+    listenersPrecentageChange: 0
+    requestedGenre: 
+    flatListenersChange:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      pop: 0
+    hostDelta: -1
+    listenerDelta: 0
+    governmentDelta: 1
+  - optionText: "Nie dacie rady uciszy\u0107 ca\u0142ego osiedla. Nagranie o ska\u017Ceniu
+      leci w \u015Bwiat, nie dam si\u0119 szanta\u017Cowa\u0107."
+    resultingText: 
+    moneyChange: 0
+    listenersPrecentageChange: 0
+    requestedGenre: 
+    flatListenersChange:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      pop: 0
+    hostDelta: 1
+    listenerDelta: 0
+    governmentDelta: -1

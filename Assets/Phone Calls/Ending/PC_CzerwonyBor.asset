@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d45b0f46aa3003d4089d0867c36920e2, type: 3}
+  m_Name: PC_CzerwonyBor
+  m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
+  callType: 1
+  callerName: Zbieg z Czerwonego Boru
+  initialDialog: "Uciek\u0142em z tajnego garnizonu w Czerwonym Borze. Oni tam montuj\u0105
+    co\u015B, co przyjecha\u0142o z demobilu Armii Czerwonej. Ch\u0142opaki z kompanii
+    ju\u017C choruj\u0105, a dow\xF3dztwo wszystko tuszuje. Podepnij m\xF3j sygna\u0142
+    pod anten\u0119, musz\u0119 ostrzec ludzi, zanim mnie dopadn\u0105!"
+  dialogOptions:
+  - optionText: "Jasne, nadajesz na \u017Cywo. Je\u015Bli to prawda, ludzie powinni
+      to us\u0142ysze\u0107."
+    resultingText: 
+    moneyChange: 0
+    listenersPrecentageChange: 0
+    requestedGenre: 
+    flatListenersChange:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      pop: 0
+    hostDelta: 0
+    listenerDelta: 1
+    governmentDelta: -1
+  - optionText: "Brzmi to jak prowokacja wojskowych s\u0142u\u017Cb, zamkn\u0105
+      nas w pi\u0119\u0107 minut pod zarzutem terroryzmu i wywo\u0142ywania paniki."
+    resultingText: 
+    moneyChange: 0
+    listenersPrecentageChange: 0
+    requestedGenre: 
+    flatListenersChange:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      pop: 0
+    hostDelta: 0
+    listenerDelta: -1
+    governmentDelta: 1

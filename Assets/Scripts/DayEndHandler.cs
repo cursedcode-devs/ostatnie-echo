@@ -181,6 +181,23 @@ public class DayEndHandler : MonoBehaviour
         else if (radioStation.GetTotalListeners() < 55)
             endGameCause = 2;
 
+        // Każdy koniec gry -> narracyjne zakończenie. Wariant (pełne telegazety + "Gratulacje"
+        // vs sam licznik + "Nie osiągnąłeś rozgłosu. Spróbuj jeszcze raz.") zależy od progu
+        // słuchaczy i jest rozstrzygany w EndingSceneManager. Stary ekran statystyk niżej =
+        // tylko fallback, gdy w scenie brakuje EndingSceneManager.
+        EndingData.HostSurvives     = gameManager.GetEndingOutcome(EndingMeter.Host);
+        EndingData.ListenersUnite   = gameManager.GetEndingOutcome(EndingMeter.Listener);
+        EndingData.GovernmentSignal = gameManager.GetEndingOutcome(EndingMeter.Government);
+        EndingData.FinalListeners   = radioStation.GetTotalListeners();
+
+        var ending = FindFirstObjectByType<EndingSceneManager>(FindObjectsInactive.Include);
+        if (ending != null)
+        {
+            ending.Play();
+            return;
+        }
+        Debug.LogWarning("[DayEndHandler] Brak EndingSceneManager w scenie - pokazuję ekran statystyk.");
+
         endScreen.Show(
             endGameCause: endGameCause,
             totalDays: timeHandler.CurrentDay,

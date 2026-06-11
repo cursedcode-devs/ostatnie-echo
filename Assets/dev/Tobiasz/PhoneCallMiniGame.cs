@@ -57,18 +57,38 @@ private void Start()
     }
 }
 
+    // Pula telefonów bez powtórzeń — raz wylosowany telefon znika z niej do końca gry.
+    private List<PhoneCallDefinition> remainingDialogCalls;
+
+    // Inicjuje pulę przy pierwszym użyciu (kopia konfiguracji — nie ruszamy oryginału).
+    private void EnsurePool()
+    {
+        if (remainingDialogCalls == null)
+            remainingDialogCalls = dialogPhoneCalls != null
+                ? new List<PhoneCallDefinition>(dialogPhoneCalls)
+                : new List<PhoneCallDefinition>();
+    }
+
     protected override void OnLaunch()
     {
-        // 50% chance for Song Request, 50% for Dialog Call (or configure it)
-        bool isSongRequest = Random.value > 0.5f;
+        if (gameManager == null) gameManager = FindFirstObjectByType<GameManager>();
+        // Na czas rozmowy blokuj interakcję ze światem (wkładanie/wyjmowanie kaset).
+        if (gameManager != null) gameManager.SetInputEnabled(false);
 
-        if (isSongRequest && playerCassettesPool != null && playerCassettesPool.Count > 0)
+        EnsurePool();
+
+        // Najpierw ZAWSZE telefony narracyjne; prośby o piosenkę dopiero gdy się skończą.
+        if (remainingDialogCalls.Count > 0)
+        {
+            SetupDialogCall();
+        }
+        else if (playerCassettesPool != null && playerCassettesPool.Count > 0)
         {
             SetupSongRequest();
         }
         else
         {
-            SetupDialogCall();
+            Close();
         }
     }
 
@@ -107,15 +127,25 @@ private void SetupSongRequest()
 
 private void SetupDialogCall()
 {
-    if (dialogPhoneCalls == null || dialogPhoneCalls.Count == 0)
+    EnsurePool();
+
+    if (remainingDialogCalls.Count == 0)
     {
+        // Brak nieużytych telefonów — jeśli są kasety, zrób prośbę o piosenkę, inaczej zamknij.
+        if (playerCassettesPool != null && playerCassettesPool.Count > 0)
+        {
+            SetupSongRequest();
+            return;
+        }
         Close();
         return;
     }
 
     requestedCassette = null;
     dynamicallyPickedGenre = "";
-    currentPhoneCall = dialogPhoneCalls[Random.Range(0, dialogPhoneCalls.Count)];
+    int idx = Random.Range(0, remainingDialogCalls.Count);
+    currentPhoneCall = remainingDialogCalls[idx];
+    remainingDialogCalls.RemoveAt(idx); // bez powtórzeń
 
     string dialogTextString = currentPhoneCall.initialDialog;
     if (dialogTextString != null && dialogTextString.Contains("{GENRE}"))
@@ -276,6 +306,14 @@ private void OnOptionClicked(int optionIndex)
         }
     }
 
+    // Wpływ wyboru na endingowe liczniki (osie zakończenia gry)
+    if (gameManager != null)
+    {
+        if (option.hostDelta != 0)       gameManager.ApplyEndingMeter(EndingMeter.Host, option.hostDelta);
+        if (option.listenerDelta != 0)   gameManager.ApplyEndingMeter(EndingMeter.Listener, option.listenerDelta);
+        if (option.governmentDelta != 0) gameManager.ApplyEndingMeter(EndingMeter.Government, option.governmentDelta);
+    }
+
     string genreToSend = option.requestedGenre;
     if (genreToSend == "random" && !string.IsNullOrEmpty(dynamicallyPickedGenre))
     {
@@ -292,4 +330,11 @@ private void OnOptionClicked(int optionIndex)
     TriggerWin();
     Close();
 }
+
+    public override void Close()
+    {
+        // Po zakończeniu rozmowy przywróć sterowanie (wkładanie kaset itd.).
+        if (gameManager != null) gameManager.SetInputEnabled(true);
+        base.Close();
+    }
 }

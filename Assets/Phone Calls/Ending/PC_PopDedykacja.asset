@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d45b0f46aa3003d4089d0867c36920e2, type: 3}
+  m_Name: PC_PopDedykacja
+  m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
+  callType: 1
+  callerName: "Dedykacja dla Ka\u015Bki"
+  initialDialog: "Dzie\u0144 dobry, Ka\u015Bka z IV B siedzi na balkonie z radiem.
+    Par\u0119 dni temu obieca\u0142em jej dedykacj\u0119. Czy m\xF3gliby\u015Bcie
+    pu\u015Bci\u0107 dla niej co\u015B od bardziej skoczliwego jaki\u015B pop?"
+  dialogOptions:
+  - optionText: "No dobra m\u0142ody, m\xF3wisz i masz. Tylko nie zmarnuj tej szansy.
+      Szarp j\u0105 jak Reksio szynk\u0119."
+    resultingText: 
+    moneyChange: 0
+    listenersPrecentageChange: 0
+    requestedGenre: 
+    flatListenersChange:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      pop: 0
+    hostDelta: 1
+    listenerDelta: 1
+    governmentDelta: 0
+  - optionText: "S\u0142uchaj m\u0142ody, czas antenowy to u nas towar deficytowy,
+      na mi\u0142osne sprawy nie ma tu miejsca."
+    resultingText: 
+    moneyChange: 0
+    listenersPrecentageChange: 0
+    requestedGenre: 
+    flatListenersChange:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      pop: 0
+    hostDelta: -1
+    listenerDelta: -1
+    governmentDelta: 0
