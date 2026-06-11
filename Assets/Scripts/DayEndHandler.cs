@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class DayEndHandler : MonoBehaviour
 {
+    public int MinListenersToWin;
     public GameManager gameManager;
     public TimeHandler timeHandler;
     public Canvas ShopUI;
@@ -61,6 +62,11 @@ public class DayEndHandler : MonoBehaviour
     void HandleDayStart()
     {   
         FMODUnity.RuntimeManager.PlayOneShot(yawnSound, this.transform.position);
+
+        if (radioStation.currentListeners.hipHop <= 0 || radioStation.currentListeners.disco <= 0 || radioStation.currentListeners.pop <= 0 || radioStation.currentListeners.rock <= 0)
+        {
+            HandleGameFinished();
+        }
 
         if (timeHandler.getDay() > 1)
         {
@@ -172,7 +178,7 @@ public class DayEndHandler : MonoBehaviour
 
         if (radioStation.GetCurrentMoney() <= 0)
             endGameCause = 1;
-        else if (radioStation.GetTotalListeners() < 55)
+        else if (radioStation.GetTotalListeners() < MinListenersToWin)
             endGameCause = 2;
 
         // Każdy koniec gry -> narracyjne zakończenie. Wariant (pełne telegazety + "Gratulacje"
