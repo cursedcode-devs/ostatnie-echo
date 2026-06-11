@@ -7129,7 +7129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1746533315691396806, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2108342985443868912, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
       propertyPath: m_text
@@ -10003,6 +10003,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 630536880263957199, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 630536880263957199, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 630536880263957199, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 630536880263957199, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 630536880263957199, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2193486652633755598, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3231249763360481408, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -10045,7 +10069,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3231249763360481408, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3231249763360481408, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10065,11 +10089,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3231249763360481408, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -1.6979
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3231249763360481408, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.05862
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3231249763360481408, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -10086,6 +10110,10 @@ PrefabInstance:
     - target: {fileID: 4710538789843534460, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: m_Name
       value: MiniGame_Telefon
+      objectReference: {fileID: 0}
+    - target: {fileID: 4710538789843534460, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
