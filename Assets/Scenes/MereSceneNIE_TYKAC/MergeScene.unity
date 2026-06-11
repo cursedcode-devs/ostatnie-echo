@@ -14152,13 +14152,35 @@ GameObject:
   - component: {fileID: 800234881175211980}
   - component: {fileID: 4402797812876984341}
   - component: {fileID: 2688068352227792380}
+  - component: {fileID: 5665440726557837261}
   m_Layer: 0
   m_Name: odtwarzacz_skip
-  m_TagString: Untagged
+  m_TagString: SkipButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &5665440726557837261
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5665440726557837260}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0074353125, y: 0.018580776, z: 0.015703008}
+  m_Center: {x: 0.0037176432, y: -0.000000014901161, z: -0.000000009778884}
 --- !u!33 &6286030003384807591
 MeshFilter:
   m_ObjectHideFlags: 0
