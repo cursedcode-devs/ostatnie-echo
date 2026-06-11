@@ -184,6 +184,46 @@ public class ZoomHandler : MonoBehaviour
         currentZoomedTarget = null;
     }
 
+    /// <summary>
+    /// Programowe przybliżenie kamery do zadanej pozycji/rotacji (np. na czas minigry).
+    /// Powrót do pozycji wyjściowej: ZoomOut().
+    /// </summary>
+    public void ZoomToTransform(Transform camTarget)
+    {
+        if (camTarget == null) return;
+        if (mainCamera == null) mainCamera = Camera.main;
+        if (mainCamera == null) return;
+
+        // Zapisz pozycję wyjściową TYLKO jeśli nie jesteśmy jeszcze przybliżeni —
+        // żeby ZoomOut wrócił do prawdziwego punktu startowego, nawet gdy gracz był
+        // już przybliżony gdzie indziej.
+        if (!isZoomedIn)
+        {
+            originalCameraPosition = mainCamera.transform.position;
+            originalCameraRotation = mainCamera.transform.rotation;
+        }
+
+        isZoomedIn = true;
+        currentZoomedTarget = null;
+
+        // Wyłącz ewentualny hover
+        if (currentHoveredTarget != null)
+        {
+            if (currentHoveredTarget.outlineComponent != null)
+                currentHoveredTarget.outlineComponent.enabled = false;
+            currentHoveredTarget.onHoverExit?.Invoke();
+            currentHoveredTarget = null;
+        }
+
+        // Przerwij ewentualną trwającą animację i animuj na nowo do konsolety.
+        StopAllCoroutines();
+        isAnimating = false;
+        StartCoroutine(AnimateCamera(camTarget.position, camTarget.rotation));
+    }
+
+    /// <summary>True jeśli kamera jest aktualnie przybliżona.</summary>
+    public bool IsZoomedIn => isZoomedIn;
+
     private IEnumerator AnimateCamera(Vector3 targetPosition, Quaternion targetRotation)
     {
         isAnimating = true;
