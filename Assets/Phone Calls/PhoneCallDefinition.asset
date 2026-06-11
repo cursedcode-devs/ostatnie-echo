@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MiniGameDefinition
   miniGameName: Telefon
   description: 
-  spawnWeight: 5
+  spawnWeight: 1
   prefab: {fileID: 1519347201513289181, guid: 3494f3397fa922443b7b6aae3b570aeb, type: 3}
   disableClicksWhenOpen: 0
   useGlobalRewardPool: 1
