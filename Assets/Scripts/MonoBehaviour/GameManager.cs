@@ -51,8 +51,6 @@ public class GameManager : MonoBehaviour
         timeHandler = new TimeHandler(startHour, startDay, airtime, cassetteSlots, zoomHandler, daysNr);
         FMODUnity.RuntimeManager.PlayOneShot(ambient, this.transform.position);
 
-        // Auto-create AdContractManager component so it exists in the scene
-        gameObject.AddComponent<AdContractManager>();
 
         audioQueueManager.SetTimeHandler(timeHandler);
 

@@ -872,6 +872,7 @@ GameObject:
   - component: {fileID: 111077784}
   - component: {fileID: 111077783}
   - component: {fileID: 111077787}
+  - component: {fileID: 111077788}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1092,6 +1093,25 @@ MonoBehaviour:
   requestedGenre: 
   requestedCassette: {fileID: 0}
   requestedCassetteBoost: 0.1
+--- !u!114 &111077788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111077782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47cebab3f2008fe4989a9bab53c88d4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdContractManager
+  allAds: []
+  adCassettePrefab: {fileID: 0}
+  adMaterial: {fileID: 2100000, guid: c6881a924170de34f8c949f1b228fa76, type: 2}
+  activeContracts: []
+  currentDailyOffers: []
+  preplacedSpawnPoints: []
+  lastDayPenalties: []
 --- !u!1 &113972229
 GameObject:
   m_ObjectHideFlags: 0
