@@ -21,7 +21,7 @@ public class AudioQueueManager : MonoBehaviour
         }
     }
     private  TimeHandler timeHandler;
-    private Queue<AudioClip> audioQueue = new Queue<AudioClip>();
+    private Queue<QueuedClip> audioQueue = new Queue<QueuedClip>();
     private bool isPlayingQueue = false;
 
     public void SetTimeHandler(TimeHandler timeHandler)
