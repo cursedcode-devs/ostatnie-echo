@@ -264,6 +264,39 @@ public class GameManager : MonoBehaviour
         inputEnabled = enabled;
     }
 
+    // ------------------------------------------------------------------
+    // Endingowe liczniki — 3 osie zakończenia gry.
+    // Modyfikowane przez wybory w dialogach telefonów (PhoneCallMiniGame).
+    // Startują od 0; na koniec gry: >=0 -> wariant a), <0 -> wariant b).
+    [Header("Zakończenie — liczniki osi")]
+    public int hostMeter = 0;        // Prowadzący: a) ucieka do bunkra / b) ginie
+    public int listenerMeter = 0;    // Słuchacz:   a) subkultury jednoczą się / b) walki
+    public int governmentMeter = 0;  // Rząd:       a) sygnał ewakuacyjny / b) cisza
+
+    /// <summary>Zmienia wskazany licznik zakończenia o delta. EndingMeter.None ignorowane.</summary>
+    public void ApplyEndingMeter(EndingMeter meter, int delta)
+    {
+        switch (meter)
+        {
+            case EndingMeter.Host:       hostMeter       += delta; break;
+            case EndingMeter.Listener:   listenerMeter   += delta; break;
+            case EndingMeter.Government: governmentMeter += delta; break;
+            case EndingMeter.None:       return;
+        }
+    }
+
+    /// <summary>True = wariant a) (pozytywny), False = wariant b) (negatywny).</summary>
+    public bool GetEndingOutcome(EndingMeter meter)
+    {
+        switch (meter)
+        {
+            case EndingMeter.Host:       return hostMeter       >= 0;
+            case EndingMeter.Listener:   return listenerMeter   >= 0;
+            case EndingMeter.Government: return governmentMeter >= 0;
+            default:                     return true;
+        }
+    }
+
     public string requestedGenre = "";
     public PlayableContent requestedCassette;
     public float requestedCassetteBoost = 0.1f; // 10% boost

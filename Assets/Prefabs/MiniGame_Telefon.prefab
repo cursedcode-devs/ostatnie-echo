@@ -743,8 +743,17 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   dialogPhoneCalls:
-  - {fileID: 11400000, guid: 0e818ffb0b042b14aab006ee1ab5504b, type: 2}
-  - {fileID: 11400000, guid: 78e904edf91650641a8d795e12dcd77c, type: 2}
+  - {fileID: 11400000, guid: 0ab20dce918dab74fa473025d8453904, type: 2}
+  - {fileID: 11400000, guid: 5a5b0d29a60170c46a2535bff5aaba20, type: 2}
+  - {fileID: 11400000, guid: 5221a0d38327efd498b1314835cfa10e, type: 2}
+  - {fileID: 11400000, guid: 782129390a36e734bb11e8f03ffd7550, type: 2}
+  - {fileID: 11400000, guid: 626180bfffbb3e148a4845c969e073f5, type: 2}
+  - {fileID: 11400000, guid: 04cbff2c7654ea64a93daf8d982128e4, type: 2}
+  - {fileID: 11400000, guid: 618e1451c37cd2b47a95acd1c0b532a9, type: 2}
+  - {fileID: 11400000, guid: 97aff5397faf7b14a8aacfcdb9cb5bb1, type: 2}
+  - {fileID: 11400000, guid: 434266d219848594e9bdb47d0b4e81b6, type: 2}
+  - {fileID: 11400000, guid: 319b150465412a845a2a1d7b6efb6c99, type: 2}
+  - {fileID: 11400000, guid: 6cd25fc0b38d3f74d91f94f8d945ce3f, type: 2}
   playerCassettesPool: []
 --- !u!223 &7972358276645142801
 Canvas:

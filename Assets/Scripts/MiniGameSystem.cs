@@ -96,7 +96,31 @@ public class MiniGameSystem : MonoBehaviour
     public void LaunchRandom()
     {
         if (miniGames == null || miniGames.Length == 0) return;
-        LaunchDefinition(miniGames[Random.Range(0, miniGames.Length)]);
+
+        // Losowanie ważone — definicje z większym spawnWeight trafiają się częściej
+        // (np. telefon = 3 vs minigry = 1).
+        int totalWeight = 0;
+        foreach (var def in miniGames)
+            if (def != null) totalWeight += Mathf.Max(0, def.spawnWeight);
+
+        if (totalWeight <= 0)
+        {
+            LaunchDefinition(miniGames[Random.Range(0, miniGames.Length)]);
+            return;
+        }
+
+        int roll = Random.Range(0, totalWeight);
+        int cumulative = 0;
+        foreach (var def in miniGames)
+        {
+            if (def == null) continue;
+            cumulative += Mathf.Max(0, def.spawnWeight);
+            if (roll < cumulative)
+            {
+                LaunchDefinition(def);
+                return;
+            }
+        }
     }
 
     public void CloseCurrent() => currentMiniGame?.Close();
