@@ -164,14 +164,24 @@ public class ZoomHandler : MonoBehaviour
         StartCoroutine(AnimateCamera(targetPos, targetRot));
     }
 
-    private void ZoomOut()
+    public void ZoomOut(bool instantZoom=false)
     {
-        if (isAnimating || !isZoomedIn) return;
+        if (!isZoomedIn) return;
+        
+        if (instantZoom)
+        {
+            mainCamera.transform.position = originalCameraPosition;
+            mainCamera.transform.rotation = originalCameraRotation;
+        }
+        else
+        {
+            if (isAnimating) return;
+
+            StartCoroutine(AnimateCamera(originalCameraPosition, originalCameraRotation));
+        }
 
         isZoomedIn = false;
         currentZoomedTarget = null;
-
-        StartCoroutine(AnimateCamera(originalCameraPosition, originalCameraRotation));
     }
 
     private IEnumerator AnimateCamera(Vector3 targetPosition, Quaternion targetRotation)
