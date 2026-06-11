@@ -447,6 +447,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: aad6b02e03cd32f4388f725dc43ab216, type: 3}
   m_PrefabInstance: {fileID: 26805344}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &29645935 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+  m_PrefabInstance: {fileID: 689657887}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &42912247
 GameObject:
   m_ObjectHideFlags: 0
@@ -847,7 +852,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 32e8cfe2c0f41f34baadb9155e897996, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
-      value: KasetaMuzyka (1)
+      value: Rock3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4219901616719185076, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: data
@@ -2203,7 +2212,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7f0e96df95142a84eb2271098740802c, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
-      value: KasetaMuzyka (8)
+      value: HipHop4
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4219901616719185076, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: data
@@ -2289,7 +2302,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: d47b6e18c8e8ece4085ff7a9887efb65, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
-      value: KasetaMuzyka (6)
+      value: Pop2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4219901616719185076, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: data
@@ -2778,6 +2795,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 332037235}
   m_CullTransparentMesh: 1
+--- !u!1 &332731357 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+  m_PrefabInstance: {fileID: 287062584}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &351894234
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2930,7 +2952,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: d47b6e18c8e8ece4085ff7a9887efb65, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
-      value: KasetaMuzyka (7)
+      value: Pop1
       objectReference: {fileID: 0}
     - target: {fileID: 4219901616719185076, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: data
@@ -3016,7 +3038,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 32e8cfe2c0f41f34baadb9155e897996, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
-      value: KasetaMuzyka
+      value: Rock4
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4219901616719185076, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: data
@@ -4104,7 +4130,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: d47b6e18c8e8ece4085ff7a9887efb65, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
-      value: KasetaMuzyka (5)
+      value: Pop3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4219901616719185076, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: data
@@ -4327,7 +4357,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: d47b6e18c8e8ece4085ff7a9887efb65, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
-      value: KasetaMuzyka (4)
+      value: Pop4
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4219901616719185076, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: data
@@ -4846,7 +4880,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 14bfc8f45797d6c42a9ab4ec99651ac4, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
-      value: KasetaMuzyka (14)
+      value: Disco2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4219901616719185076, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: data
@@ -4861,6 +4899,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
   m_PrefabInstance: {fileID: 689657887}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &701261372 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+  m_PrefabInstance: {fileID: 1074065711}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &704942377
 PrefabInstance:
@@ -5210,6 +5253,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 732054881}
   m_CullTransparentMesh: 1
+--- !u!1 &733035996 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+  m_PrefabInstance: {fileID: 1973416988}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &736346235
 GameObject:
   m_ObjectHideFlags: 0
@@ -5941,7 +5989,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 14bfc8f45797d6c42a9ab4ec99651ac4, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
-      value: KasetaMuzyka (15)
+      value: Disco1
       objectReference: {fileID: 0}
     - target: {fileID: 4219901616719185076, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: data
@@ -7074,7 +7122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1746533315691396806, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2108342985443868912, guid: 1df0ed9b5004d6a42abde6f0be19beb7, type: 3}
       propertyPath: m_text
@@ -7357,7 +7405,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 14bfc8f45797d6c42a9ab4ec99651ac4, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
-      value: KasetaMuzyka (13)
+      value: Disco3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4219901616719185076, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: data
@@ -7492,7 +7544,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7f0e96df95142a84eb2271098740802c, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
-      value: KasetaMuzyka (9)
+      value: HipHop3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4219901616719185076, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: data
@@ -7507,6 +7563,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
   m_PrefabInstance: {fileID: 1111862440}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1119513202 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+  m_PrefabInstance: {fileID: 1519934869}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1133322140
 GameObject:
@@ -7721,7 +7782,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 32e8cfe2c0f41f34baadb9155e897996, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
-      value: KasetaMuzyka (3)
+      value: Rock1
       objectReference: {fileID: 0}
     - target: {fileID: 4219901616719185076, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: data
@@ -7736,6 +7797,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
   m_PrefabInstance: {fileID: 1137741662}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1147565880 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+  m_PrefabInstance: {fileID: 94925249}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1162233929
 PrefabInstance:
@@ -7959,7 +8025,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7f0e96df95142a84eb2271098740802c, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
-      value: KasetaMuzyka (11)
+      value: HipHop1
       objectReference: {fileID: 0}
     - target: {fileID: 4219901616719185076, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: data
@@ -9271,7 +9337,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 14bfc8f45797d6c42a9ab4ec99651ac4, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
-      value: KasetaMuzyka (12)
+      value: Disco4
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4219901616719185076, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: data
@@ -9527,6 +9597,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlotHitBox
   slotHandler: {fileID: 9166785325905138434}
+--- !u!1 &1502727020 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+  m_PrefabInstance: {fileID: 1387039394}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1503231129
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9793,7 +9868,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 32e8cfe2c0f41f34baadb9155e897996, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
-      value: KasetaMuzyka (2)
+      value: Rock2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4219901616719185076, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: data
@@ -9808,6 +9887,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
   m_PrefabInstance: {fileID: 1519934869}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1523121996 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+  m_PrefabInstance: {fileID: 1111862440}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1527002866
 PrefabInstance:
@@ -10740,6 +10824,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1626703015}
   m_CullTransparentMesh: 1
+--- !u!1 &1658937464 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+  m_PrefabInstance: {fileID: 579970869}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1664893917
 GameObject:
   m_ObjectHideFlags: 0
@@ -11005,6 +11094,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1713106357 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+  m_PrefabInstance: {fileID: 253581948}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1732155218
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12346,7 +12440,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7f0e96df95142a84eb2271098740802c, type: 2}
     - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: m_Name
-      value: KasetaMuzyka (10)
+      value: HipHop2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4219901616719185076, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
       propertyPath: data
@@ -12606,28 +12704,25 @@ MonoBehaviour:
     slots: []
   ShopUI: {fileID: 1890631365}
   allCassettes:
-  - {fileID: 11400000, guid: 89da18489831d504a91b81507b984a70, type: 2}
-  - {fileID: 11400000, guid: ec275bb3828210e46897bcd357cc8c78, type: 2}
-  - {fileID: 11400000, guid: ed0d56143c97b4145a68d7d83b8bd50f, type: 2}
-  - {fileID: 11400000, guid: cc859ce1e4ce8b7408e5d8295d0e8ed8, type: 2}
-  - {fileID: 11400000, guid: 6a1c88870bbc14746a3442dea6ad7a5c, type: 2}
-  - {fileID: 11400000, guid: b0528d5df78c4c242831b399fc53688b, type: 2}
-  - {fileID: 11400000, guid: 7ff5527fd0c913b459525cbdfcaaf914, type: 2}
-  - {fileID: 11400000, guid: b9e88c6ff769f2440a1b3c500444dd3f, type: 2}
-  - {fileID: 11400000, guid: 5f35b44e2a7cd824d9fdc50d19dbb773, type: 2}
-  - {fileID: 11400000, guid: b37e4dd3fe6914b44b552bd83fe7d532, type: 2}
-  - {fileID: 11400000, guid: 42682f1d2331f84479f47092a8f6a958, type: 2}
-  - {fileID: 11400000, guid: 4257a630e8bd87f4285111a0212b6837, type: 2}
-  - {fileID: 11400000, guid: ab5c37b1f9094094a9d54dd2252877eb, type: 2}
-  - {fileID: 11400000, guid: b721014c1884dd14b9fe39a704069d31, type: 2}
-  - {fileID: 11400000, guid: ff7e06384e84bc5439ebbae593159fd1, type: 2}
-  - {fileID: 11400000, guid: cc859ce1e4ce8b7408e5d8295d0e8ed8, type: 2}
+  - {fileID: 2003034878}
+  - {fileID: 1713106357}
+  - {fileID: 1147565880}
+  - {fileID: 1523121996}
+  - {fileID: 1119513202}
+  - {fileID: 733035996}
+  - {fileID: 1658937464}
+  - {fileID: 1502727020}
+  - {fileID: 2056640373}
+  - {fileID: 701261372}
+  - {fileID: 332731357}
+  - {fileID: 29645935}
   allAds:
   - {fileID: 11400000, guid: 954ce0b31d1fdf9469b0c07864e8a68c, type: 2}
   - {fileID: 11400000, guid: aafa3a867ee933d41934ff568ccd3145, type: 2}
   - {fileID: 11400000, guid: 86e89e1f7ef7fb941a613427f63db479, type: 2}
   - {fileID: 11400000, guid: 1d7b65b5b0667c44fa1ce6fed8702ef6, type: 2}
-  dailyOffer: []
+  dailyOffer:
+  - {fileID: 0}
   buyingSound:
     Guid:
       Data1: -605242399
@@ -12810,6 +12905,11 @@ PrefabInstance:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 720409682828230544, guid: e7d2d9c5369bee6ccb47515f71f27320, type: 3}
   m_PrefabInstance: {fileID: 1998558440}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2003034878 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+  m_PrefabInstance: {fileID: 393333503}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2012039200
 GameObject:
@@ -13073,6 +13173,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: eb42af9496b3e1745ae8755b8c33aaef, type: 3}
   m_PrefabInstance: {fileID: 2036878324}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2056640373 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 40f3e8a7c6ec6784d9fa61f7036cfe86, type: 3}
+  m_PrefabInstance: {fileID: 553968957}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2060187812
 GameObject:
