@@ -6,7 +6,7 @@ public class AudioQueueManager : MonoBehaviour
 {
     [SerializeField] private AudioSource audioSource;
 
-    public  TimeHandler timeHandler;
+    private  TimeHandler timeHandler;
     private Queue<AudioClip> audioQueue = new Queue<AudioClip>();
     private bool isPlayingQueue = false;
 

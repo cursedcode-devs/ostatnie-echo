@@ -1,11 +1,13 @@
-using UnityEngine;
 using System;
+using Unity.VisualScripting;
+using UnityEngine;
 
 [System.Serializable]
 public class TimeHandler
 {
     [SerializeField] private int Hour;
     [SerializeField] private int Day;
+    public ZoomHandler zoomHandler;
     public Airtime airtime;
     public CassetteSlotHandler[] slots;
 
@@ -15,13 +17,14 @@ public class TimeHandler
     public event Action OnDayStarted;
     public event Action OnGameFinished;
     private int lastDay;
-    public TimeHandler(int startHour, int startDay, Airtime airtime, CassetteSlotHandler[] slots, int dayNr)
+    public TimeHandler(int startHour, int startDay, Airtime airtime, CassetteSlotHandler[] slots, ZoomHandler zoomHandler, int dayNr)
     {
         Hour = startHour;
         Day = startDay;
         this.airtime = airtime;
         this.slots = slots;
         lastDay = dayNr;
+        this.zoomHandler = zoomHandler;
     }
 
     public void NextHour()
@@ -39,6 +42,7 @@ public class TimeHandler
 
     public void StartDay()
     {
+        zoomHandler.ZoomOut(true);
         airtime.emptyAllSlots();
         for (int i = 0; i < slots.Length; i++)
         {
