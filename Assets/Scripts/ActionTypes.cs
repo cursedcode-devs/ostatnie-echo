@@ -12,6 +12,8 @@ public enum ActionTypes
     LeftClickOnSlotHinge,
     LeftClickOnSlotHitBox,
     LeftClickOnShelf,
+    LeftClickOnPlayButton,
+    LeftClickOnSkipButton,
     PressedA,
     PressedD,
     PressedW,

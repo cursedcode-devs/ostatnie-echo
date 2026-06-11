@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef629219f6b17c4bbd2d813eecbea14, type: 3}
   m_Name: Zlecenie_10
   m_EditorClassIdentifier: Assembly-CSharp::Ad
-  audio: {fileID: 0}
+  audio: {fileID: 8300000, guid: 1d73c8ba8d9f9c21810679d9d1ce8e59, type: 3}
   itemName: "M\xF3w jak Pan, a nie jak Cham"
   author: Pagadali i Pajechali
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
@@ -30,3 +30,4 @@ MonoBehaviour:
     pop: 0
   price: 0
   clientName: 
+  content: "Chcesz negocjowa\u0107 z wielk\u0105 firm\u0105 z zachodu, a jedyne co umiesz powiedzie\u0107, to \"welcome to Polska\"? Zapisz si\u0119 na kurs w szkole \"Pagadali i Poijechali\". Uczymy kluczowych zwrot\u00f3w: \"Very cheap price\", \"I don't have passport\" oraz \"No police, please\". Z nami zostaniesz oligarch\u0105 miejskiego targu! Dla student\u00f3w darmowa lekcja: jak poprawnie wym\u00f3wi\u0107 nazw\u0119 \"Cheeseburger\", \u017ceby w McDonaldzie nie dali Ci samej bu\u0142ki."

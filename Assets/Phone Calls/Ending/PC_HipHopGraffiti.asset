@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d45b0f46aa3003d4089d0867c36920e2, type: 3}
+  m_Name: PC_HipHopGraffiti
+  m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
+  callType: 1
+  callerName: Graffiti na komisariacie
+  initialDialog: "Jest akcja, ziomek w\u0142a\u015Bnie ko\u0144czy malowa\u0107 wielkiego
+    \u017Cubra na \u015Bcianie komisariatu, a tu nagle jedzie patrol. Wrzu\u0107
+    na anten\u0119 na \u017Cywo jaki\u015B hip-hop i powiedz, \u017Ce \"farba wysch\u0142a\",
+    to ch\u0142opak zwinie si\u0119 w por\u0119. Uratujesz go, stary."
+  dialogOptions:
+  - optionText: "Jasne, \u017Ce pomo\u017Cemy, swoich si\u0119 nie zostawia. Leci
+      komunikat a tu\u017C po nim wasza piosenka."
+    resultingText: 
+    moneyChange: 0
+    listenersPrecentageChange: 0
+    requestedGenre: 
+    flatListenersChange:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      pop: 0
+    hostDelta: 1
+    listenerDelta: 1
+    governmentDelta: -1
+  - optionText: "Nie mamy zamiaru \u015Bwieci\u0107 oczami w s\u0105dzie przez wasze
+      bazgro\u0142y. Rad\u017Acie sobie sami."
+    resultingText: 
+    moneyChange: 0
+    listenersPrecentageChange: 0
+    requestedGenre: 
+    flatListenersChange:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      pop: 0
+    hostDelta: -1
+    listenerDelta: -1
+    governmentDelta: 1

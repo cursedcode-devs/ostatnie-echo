@@ -7,6 +7,22 @@ public enum PhoneCallType
     DialogOptions
 }
 
+/// <summary>
+/// Trzy osie zakończenia gry. Każda to prosty licznik (int) w GameManager,
+/// inkrementowany/dekrementowany przez wybory w dialogach telefonów.
+///   Host       — Prowadzący: czy widownia pomoże mu uciec do bunkra.
+///   Listener   — Słuchacz: czy subkultury się jednoczą, czy walczą.
+///   Government — Rząd: czy uda się nadać sygnał ewakuacyjny.
+/// None = wybór nie wpływa na żaden licznik.
+/// </summary>
+public enum EndingMeter
+{
+    None,
+    Host,
+    Listener,
+    Government
+}
+
 [System.Serializable]
 public class PhoneCallDialogOption
 {
@@ -18,7 +34,15 @@ public class PhoneCallDialogOption
     public float moneyChange;
     public float listenersPrecentageChange; // e.g. -0.02 for -2%
         public string requestedGenre;
-public GenreValues flatListenersChange; 
+public GenreValues flatListenersChange;
+
+    [Header("Wpływ na zakończenie (osie a/b)")]
+    [Tooltip("Prowadzący. Dodatnie -> wariant a) (przeżywa), ujemne -> b) (ginie).")]
+    public int hostDelta = 0;
+    [Tooltip("Słuchacz. Dodatnie -> a) (subkultury jednoczą się), ujemne -> b) (walki).")]
+    public int listenerDelta = 0;
+    [Tooltip("Rząd. Dodatnie -> a) (sygnał ewakuacyjny), ujemne -> b) (cisza).")]
+    public int governmentDelta = 0;
 }
 
 [CreateAssetMenu(fileName = "New Phone Call", menuName = "Radio/Phone Call")]

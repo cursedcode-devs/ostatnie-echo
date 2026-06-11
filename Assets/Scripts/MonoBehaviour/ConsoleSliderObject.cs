@@ -11,8 +11,8 @@ public class ConsoleSliderObject : MonoBehaviour
     private Vector3 offset;
     private Vector3 startingLocalPos;   //Lokalna pozycja wzgl�dem konsoli
 
-    [SerializeField] private float zOffsetMin = 0.5f;
-    [SerializeField] private float zOffsetMax = 0.5f;
+    public float xOffsetMin = 0.014f;
+    public float xOffsetMax = 0.014f;
 
     [SerializeField] private float currentValue = 0f;
     public FMODUnity.EventReference clickSound;
@@ -54,23 +54,25 @@ public class ConsoleSliderObject : MonoBehaviour
     {
         Debug.Log(currentValue);
         Vector2 mousePos = Mouse.current.position.ReadValue();
+
+        // Głębia jest już naprawiona (screenPoint.z), więc nie będzie teleportów
         Vector3 currentScreenPoint = new Vector3(mousePos.x, mousePos.y, screenPoint.z);
         Vector3 currentPosition = mainCamera.ScreenToWorldPoint(currentScreenPoint) + offset;
 
-        //Zamienia globaln� pozycje gdzie ma by� suwak na pozycje lokaln� wzgl�dem rodzica suwaka (konsoli)
         Vector3 currentLocalPosition = transform.parent.InverseTransformPoint(currentPosition);
 
-        float minZ = startingLocalPos.z - zOffsetMin;
-        float maxZ = startingLocalPos.z + zOffsetMax;
+        // Skoro Z to lewo-prawo, a Y to góra-dół, wracamy do lokalnego X (czyli Twój globalny X)
+        float minX = startingLocalPos.x - xOffsetMin;
+        float maxX = startingLocalPos.x + xOffsetMax;
 
+        float clampedX = Mathf.Clamp(currentLocalPosition.x, minX, maxX);
 
-        //POPRAWA  �EBY SLIDER DZIA�A� W DOWOLNYM MIEJSCY I W NIECO MNIEJSZYM ZAKRESIE MO�E
-        float clampedZ = Mathf.Clamp(currentLocalPosition.z, minZ, maxZ);
+        // Aplikujemy pozycję wyłącznie do parametru X
+        transform.localPosition = new Vector3(clampedX, startingLocalPos.y, startingLocalPos.z);
 
-        transform.localPosition = new Vector3(startingLocalPos.x, startingLocalPos.y, clampedZ);
-
-        currentValue = Mathf.InverseLerp(maxZ, minZ, clampedZ);
-
+        currentValue = Mathf.InverseLerp(maxX, minX, clampedX);
     }
+
+
 
 }

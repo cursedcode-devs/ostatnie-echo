@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     private ActionTypes keyboardActionType;
     public ActionManager actionManager;
     public TimeHandler timeHandler;
-    private StatsUI statsUI;
+    private Stats statsUI;
     private Vector3 addedObjectRotation = Vector3.zero;
     private float rotationSpeed = 3f;
     public ObjectSelectionHandler selectionHandler;
@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     private int startHour = 14;
     private int startDay = 1;
     private const float startingModifier = 0f;
+    public ZoomHandler zoomHandler;
 
     private bool inputEnabled = false;
 
@@ -43,15 +44,13 @@ public class GameManager : MonoBehaviour
     public CassetteSlotHandler[] cassetteSlots;
 
     void Start()
-    {   
+    {
         FMODUnity.RuntimeManager.PlayOneShot(enterRadioSound, this.transform.position);
 
         actionManager = new ActionManager(mainCamera);
-        timeHandler = new TimeHandler(startHour, startDay, airtime, cassetteSlots, daysNr);
+        timeHandler = new TimeHandler(startHour, startDay, airtime, cassetteSlots, zoomHandler, daysNr);
         FMODUnity.RuntimeManager.PlayOneShot(ambient, this.transform.position);
-        
-        // Auto-create AdContractManager component so it exists in the scene
-        gameObject.AddComponent<AdContractManager>();
+
 
         audioQueueManager.SetTimeHandler(timeHandler);
 
@@ -65,22 +64,22 @@ public class GameManager : MonoBehaviour
         {
             dayEndHandler.Initialize(radioStation, timeHandler, this);
         }
-        StatsUI statsUI = FindFirstObjectByType<StatsUI>();
+        Stats statsUI = FindFirstObjectByType<Stats>();
         if (statsUI != null)
         {
-            statsUI.Initialize(radioStation);
+            statsUI.Initialize(radioStation, timeHandler);
         }
         var miniGameSystem = FindFirstObjectByType<MiniGameSystem>();
     }
 
     void Update()
     {
-        
+
         // DEBUG: Wciśnięcie '0' pozwala pominąć główną grę i od razu przejść do końca dnia (podsumowania)
         if (Keyboard.current != null && Keyboard.current.digit0Key.wasPressedThisFrame)
         {
             // Natychmiastowe zakończenie obecnego dnia i pokazanie podsumowania
-            timeHandler.StartDay(); 
+            timeHandler.StartDay();
             // Jeżeli chcesz przeskoczyć do ostatniej "godziny" (17), zamiast do podsumowania, użyłbyś:
         }
 
@@ -111,7 +110,7 @@ public class GameManager : MonoBehaviour
                 break;
             case ActionTypes.LeftClickOnPlayingObject:
                 Debug.Log("GetActionType - LeftClickOnPlayingObject");
-                choosingCassetteUI.ToggleVisibility(audioQueueManager.IsPlaying());
+                //choosingCassetteUI.ToggleVisibility(audioQueueManager.IsPlaying());
                 break;
             case ActionTypes.LeftClickOnObject:
                 Debug.Log("GetActionType - LeftClickOnObject");
@@ -131,13 +130,22 @@ public class GameManager : MonoBehaviour
                 if (sliderObject != null)
                     sliderObject.OnMousePressed();
                 break;
+            case ActionTypes.LeftClickOnPlayButton:
+                Debug.Log("GetActionType - LeftClickOnPlayButton");
+                playSegment();
+                break;
+            case ActionTypes.LeftClickOnSkipButton:
+                Debug.Log("GetActionType - LeftClickOnSkipButton");
+                audioQueueManager.SkipSong();
+                break;
             case ActionTypes.LeftClickOnSlotHinge:
                 Debug.Log("GetActionType - LeftClickOnSlot");
 
                 //Tutaj dźwięk otwierania i zamykania metalowego zawiasu na odtwarzaczu
 
                 slotHandler = clickedObject.GetComponent<CassetteSlotHandler>();
-                slotHandler.HandleHinge();
+                if (!audioQueueManager.IsPlaying())
+                    slotHandler.HandleHinge();
                 break;
             case ActionTypes.LeftClickOnSlotHitBox:
                 Debug.Log("GetActionType - LeftClickOnSlotHitBox");
@@ -145,7 +153,7 @@ public class GameManager : MonoBehaviour
 
                 if (selectionHandler.GetSelectedObject() == null)
                 {
-                    if(!slotHandler.IsSlotEmpty())
+                    if (!slotHandler.IsSlotEmpty())
                         FMODUnity.RuntimeManager.PlayOneShot(putDownCassetteSound, this.transform.position);
                     slotHandler.PutCassetteOut();
                     break;
@@ -172,7 +180,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("GetActionType - LeftClickOutsiedObject");
                 if (selectionHandler.GetSelectedObject() != null)
                 {
-                    if(selectionHandler.IsObjectPlayable())
+                    if (selectionHandler.IsObjectPlayable())
                         FMODUnity.RuntimeManager.PlayOneShot(putDownCassetteSound, this.transform.position);
                     selectionHandler.DeselectedObject();
                 }
@@ -209,21 +217,7 @@ public class GameManager : MonoBehaviour
                 break;
             case ActionTypes.PressedEnter:
                 Debug.Log("Wcisnieto Enter");
-                PlayableContent[] playedCassettes = airtime.GetCassettes();
-                radioStation.ApplySegment(playedCassettes);
-                audioQueueManager.EnqueueClips(airtime.GetCassettesAudio());
-                audioQueueManager.PlayClipsSequence();
-                CheckForRequestedCassette();
-
-                // Destroy physical ad cassettes that were just played
-                var adManager = FindFirstObjectByType<AdContractManager>();
-                if (adManager != null)
-                {
-                    adManager.HandleAdsPlayed(playedCassettes, cassetteSlots);
-                }
-
-                choosingCassetteUI.UpdatePredictions();
-                choosingCassetteUI.Hide();
+                playSegment();
                 break;
             case ActionTypes.PressedP:
                 audioQueueManager.SkipSong();
@@ -232,6 +226,31 @@ public class GameManager : MonoBehaviour
                 addedObjectRotation = Vector3.zero;
                 break;
         }
+    }
+
+    private void playSegment()
+    {
+        if (!airtime.AreSlotsClosed())
+            return;
+        if (audioQueueManager.IsPlaying())
+            return;
+        PlayableContent[] playedCassettes = airtime.GetCassettes();
+        radioStation.ApplySegment(playedCassettes);
+        // Kolejkujemy z zawartością kaset, aby reklamy mogły pokazać napisy (treść)
+        // zsynchronizowane z dźwiękiem odczytu podczas emisji.
+        audioQueueManager.EnqueuePlayables(playedCassettes);
+        audioQueueManager.PlayClipsSequence();
+        CheckForRequestedCassette();
+
+        // Destroy physical ad cassettes that were just played
+        var adManager = FindFirstObjectByType<AdContractManager>();
+        if (adManager != null)
+        {
+            adManager.HandleAdsPlayed(playedCassettes, cassetteSlots);
+        }
+
+        choosingCassetteUI.UpdatePredictions();
+        choosingCassetteUI.Hide();
     }
 
     private void FixedUpdate()
@@ -243,6 +262,39 @@ public class GameManager : MonoBehaviour
     public void SetInputEnabled(bool enabled)
     {
         inputEnabled = enabled;
+    }
+
+    // ------------------------------------------------------------------
+    // Endingowe liczniki — 3 osie zakończenia gry.
+    // Modyfikowane przez wybory w dialogach telefonów (PhoneCallMiniGame).
+    // Startują od 0; na koniec gry: >=0 -> wariant a), <0 -> wariant b).
+    [Header("Zakończenie — liczniki osi")]
+    public int hostMeter = 0;        // Prowadzący: a) ucieka do bunkra / b) ginie
+    public int listenerMeter = 0;    // Słuchacz:   a) subkultury jednoczą się / b) walki
+    public int governmentMeter = 0;  // Rząd:       a) sygnał ewakuacyjny / b) cisza
+
+    /// <summary>Zmienia wskazany licznik zakończenia o delta. EndingMeter.None ignorowane.</summary>
+    public void ApplyEndingMeter(EndingMeter meter, int delta)
+    {
+        switch (meter)
+        {
+            case EndingMeter.Host:       hostMeter       += delta; break;
+            case EndingMeter.Listener:   listenerMeter   += delta; break;
+            case EndingMeter.Government: governmentMeter += delta; break;
+            case EndingMeter.None:       return;
+        }
+    }
+
+    /// <summary>True = wariant a) (pozytywny), False = wariant b) (negatywny).</summary>
+    public bool GetEndingOutcome(EndingMeter meter)
+    {
+        switch (meter)
+        {
+            case EndingMeter.Host:       return hostMeter       >= 0;
+            case EndingMeter.Listener:   return listenerMeter   >= 0;
+            case EndingMeter.Government: return governmentMeter >= 0;
+            default:                     return true;
+        }
     }
 
     public string requestedGenre = "";

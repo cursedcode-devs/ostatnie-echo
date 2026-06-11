@@ -88,9 +88,14 @@ public class ActionManager
             return ActionTypes.LeftClickOnSlotHitBox;
         if (pointedObject.CompareTag("Shelf"))
             return ActionTypes.LeftClickOnShelf;
+        if(pointedObject.CompareTag("PlayButton"))
+            return ActionTypes.LeftClickOnPlayButton;
+        if(pointedObject.CompareTag("SkipButton"))
+            return ActionTypes.LeftClickOnSkipButton;
 
 
-        if (pointedObject.CompareTag("CassettePlayer")) return ActionTypes.LeftClickOnPlayingObject;
+        if (pointedObject.CompareTag("CassettePlayer")) 
+            return ActionTypes.LeftClickOnPlayingObject;
 
         return ActionTypes.LeftClickOnObject;
     }

@@ -11,9 +11,18 @@ public class MiniGameDefinition : ScriptableObject
     public string miniGameName = "Nazwa Minigry";
     [TextArea] public string description;
 
+    [Header("Losowanie")]
+    [Tooltip("Waga przy losowaniu (LaunchRandom). Większa = częściej się trafia. " +
+             "Np. telefon = 3, pozostałe minigry = 1 -> telefon ~3x częściej.")]
+    [Min(0)] public int spawnWeight = 1;
+
     [Header("Prefab minigry")]
     [Tooltip("Prefab z komponentem dziedziczącym BaseMiniGame")]
     public GameObject prefab;
+
+    [Header("Interakcja")]
+    [Tooltip("Czy ta minigra powinna blokować poruszanie/klikanie w tle?")]
+    public bool disableClicksWhenOpen = true;
 
     [Header("Pula nagród")]
     [Tooltip("true  → losuj z globalnej puli MiniGameSystem\n" +

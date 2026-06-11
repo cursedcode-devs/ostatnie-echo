@@ -19,6 +19,21 @@ public class PhoneCallMiniGame : BaseMiniGame
     public Button optionBButton;
     public TextMeshProUGUI optionBText;
 
+    [Header("Typewriter Settings")]
+    public float typeDelay = 0.03f;
+    private Coroutine typingCoroutine;
+
+    [Header("Animation Settings")]
+    public float slideDuration = 0.4f;
+    public float slideOffset = -400f; // animacja wsuwania od 400px nizej
+    public AnimationCurve slideCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    
+    private Vector2 optionAOriginalPos;
+    private Vector2 optionBOriginalPos;
+    private Vector2 okayOriginalPos;
+    private bool originalPositionsSaved = false;
+    private List<Button> activeButtonsToSlide = new List<Button>();
+
     [Header("Config")]
     public List<PhoneCallDefinition> dialogPhoneCalls;
     
@@ -42,18 +57,38 @@ private void Start()
     }
 }
 
+    // Pula telefonów bez powtórzeń — raz wylosowany telefon znika z niej do końca gry.
+    private List<PhoneCallDefinition> remainingDialogCalls;
+
+    // Inicjuje pulę przy pierwszym użyciu (kopia konfiguracji — nie ruszamy oryginału).
+    private void EnsurePool()
+    {
+        if (remainingDialogCalls == null)
+            remainingDialogCalls = dialogPhoneCalls != null
+                ? new List<PhoneCallDefinition>(dialogPhoneCalls)
+                : new List<PhoneCallDefinition>();
+    }
+
     protected override void OnLaunch()
     {
-        // 50% chance for Song Request, 50% for Dialog Call (or configure it)
-        bool isSongRequest = Random.value > 0.5f;
+        if (gameManager == null) gameManager = FindFirstObjectByType<GameManager>();
+        // Na czas rozmowy blokuj interakcję ze światem (wkładanie/wyjmowanie kaset).
+        if (gameManager != null) gameManager.SetInputEnabled(false);
 
-        if (isSongRequest && playerCassettesPool != null && playerCassettesPool.Count > 0)
+        EnsurePool();
+
+        // Najpierw ZAWSZE telefony narracyjne; prośby o piosenkę dopiero gdy się skończą.
+        if (remainingDialogCalls.Count > 0)
+        {
+            SetupDialogCall();
+        }
+        else if (playerCassettesPool != null && playerCassettesPool.Count > 0)
         {
             SetupSongRequest();
         }
         else
         {
-            SetupDialogCall();
+            Close();
         }
     }
 
@@ -78,7 +113,7 @@ private void SetupSongRequest()
         default: dialog = $"Hej, puść proszę '{requestedCassette.GetName()}'."; break;
     }
 
-    if (dialogText != null) dialogText.text = dialog;
+    if (dialogText != null) StartTyping(dialog);
 
     if (optionAButton != null)
     {
@@ -92,15 +127,25 @@ private void SetupSongRequest()
 
 private void SetupDialogCall()
 {
-    if (dialogPhoneCalls == null || dialogPhoneCalls.Count == 0)
+    EnsurePool();
+
+    if (remainingDialogCalls.Count == 0)
     {
+        // Brak nieużytych telefonów — jeśli są kasety, zrób prośbę o piosenkę, inaczej zamknij.
+        if (playerCassettesPool != null && playerCassettesPool.Count > 0)
+        {
+            SetupSongRequest();
+            return;
+        }
         Close();
         return;
     }
 
     requestedCassette = null;
     dynamicallyPickedGenre = "";
-    currentPhoneCall = dialogPhoneCalls[Random.Range(0, dialogPhoneCalls.Count)];
+    int idx = Random.Range(0, remainingDialogCalls.Count);
+    currentPhoneCall = remainingDialogCalls[idx];
+    remainingDialogCalls.RemoveAt(idx); // bez powtórzeń
 
     string dialogTextString = currentPhoneCall.initialDialog;
     if (dialogTextString != null && dialogTextString.Contains("{GENRE}"))
@@ -110,7 +155,7 @@ private void SetupDialogCall()
         dialogTextString = dialogTextString.Replace("{GENRE}", dynamicallyPickedGenre);
     }
 
-    if (dialogText != null) dialogText.text = dialogTextString;
+    if (dialogText != null) StartTyping(dialogTextString);
 
     if (optionAButton != null)
     {
@@ -142,6 +187,87 @@ private void SetupDialogCall()
         }
     }
 }
+
+    private void SaveOriginalPositions()
+    {
+        if (originalPositionsSaved) return;
+        if (optionAButton != null) optionAOriginalPos = optionAButton.GetComponent<RectTransform>().anchoredPosition;
+        if (optionBButton != null) optionBOriginalPos = optionBButton.GetComponent<RectTransform>().anchoredPosition;
+        if (okayButton != null) okayOriginalPos = okayButton.GetComponent<RectTransform>().anchoredPosition;
+        originalPositionsSaved = true;
+    }
+
+    private Vector2 GetOriginalPos(Button btn)
+    {
+        if (btn == optionAButton) return optionAOriginalPos;
+        if (btn == optionBButton) return optionBOriginalPos;
+        if (btn == okayButton) return okayOriginalPos;
+        return Vector2.zero;
+    }
+
+    private void StartTyping(string text)
+    {
+        SaveOriginalPositions();
+        activeButtonsToSlide.Clear();
+
+        if (optionAButton != null && optionAButton.gameObject.activeSelf) activeButtonsToSlide.Add(optionAButton);
+        if (optionBButton != null && optionBButton.gameObject.activeSelf) activeButtonsToSlide.Add(optionBButton);
+        if (okayButton != null && okayButton.gameObject.activeSelf) activeButtonsToSlide.Add(okayButton);
+
+        foreach (var btn in activeButtonsToSlide)
+        {
+            btn.GetComponent<RectTransform>().anchoredPosition = GetOriginalPos(btn) + new Vector2(0, slideOffset);
+            btn.interactable = false;
+        }
+
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+        }
+        
+        dialogText.text = text;
+        dialogText.maxVisibleCharacters = 0;
+        
+        typingCoroutine = StartCoroutine(TypewriterEffect());
+    }
+
+    private System.Collections.IEnumerator TypewriterEffect()
+    {
+        dialogText.ForceMeshUpdate();
+        int totalVisibleCharacters = dialogText.textInfo.characterCount;
+        int counter = 0;
+
+        while (counter < totalVisibleCharacters)
+        {
+            counter++;
+            dialogText.maxVisibleCharacters = counter;
+            yield return new WaitForSecondsRealtime(typeDelay);
+        }
+
+        // animacja przyciskow
+        float t = 0;
+        while (t < slideDuration)
+        {
+            t += Time.unscaledDeltaTime;
+            float normalizedTime = Mathf.Clamp01(t / slideDuration);
+            float curveValue = slideCurve.Evaluate(normalizedTime);
+
+            foreach (var btn in activeButtonsToSlide)
+            {
+                var rt = btn.GetComponent<RectTransform>();
+                Vector2 origPos = GetOriginalPos(btn);
+                Vector2 startPos = origPos + new Vector2(0, slideOffset);
+                rt.anchoredPosition = Vector2.LerpUnclamped(startPos, origPos, curveValue);
+            }
+            yield return null;
+        }
+
+        foreach (var btn in activeButtonsToSlide)
+        {
+            btn.GetComponent<RectTransform>().anchoredPosition = GetOriginalPos(btn);
+            btn.interactable = true;
+        }
+    }
 
     private void OnOkayClicked()
     {
@@ -180,6 +306,14 @@ private void OnOptionClicked(int optionIndex)
         }
     }
 
+    // Wpływ wyboru na endingowe liczniki (osie zakończenia gry)
+    if (gameManager != null)
+    {
+        if (option.hostDelta != 0)       gameManager.ApplyEndingMeter(EndingMeter.Host, option.hostDelta);
+        if (option.listenerDelta != 0)   gameManager.ApplyEndingMeter(EndingMeter.Listener, option.listenerDelta);
+        if (option.governmentDelta != 0) gameManager.ApplyEndingMeter(EndingMeter.Government, option.governmentDelta);
+    }
+
     string genreToSend = option.requestedGenre;
     if (genreToSend == "random" && !string.IsNullOrEmpty(dynamicallyPickedGenre))
     {
@@ -196,4 +330,11 @@ private void OnOptionClicked(int optionIndex)
     TriggerWin();
     Close();
 }
+
+    public override void Close()
+    {
+        // Po zakończeniu rozmowy przywróć sterowanie (wkładanie kaset itd.).
+        if (gameManager != null) gameManager.SetInputEnabled(true);
+        base.Close();
+    }
 }

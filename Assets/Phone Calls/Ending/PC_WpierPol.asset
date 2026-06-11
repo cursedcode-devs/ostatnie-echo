@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d45b0f46aa3003d4089d0867c36920e2, type: 3}
+  m_Name: PC_WpierPol
+  m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
+  callType: 1
+  callerName: Szef WPIER-POLU
+  initialDialog: "No witam, szef WPIER-POLU przy telefonie. Nagrali\u015Bmy na kaset\u0119
+    spot promuj\u0105cy nasze us\u0142ugi. Trzeba to pu\u015Bci\u0107 w najbli\u017Cszym
+    bloku. No i najwa\u017Cniejsze - ma to by\u0107 za darmoszk\u0119, w ramach dobrej
+    wsp\xF3\u0142pracy s\u0105siedzkiej. Chyba nie chcesz pan, \u017Ceby kto\u015B
+    w nocy przypadkiem uszkodzi\u0142 wam te pi\u0119kne anteny?"
+  dialogOptions:
+  - optionText: "J-jasne, puszczam wasz materia\u0142, panowie, nie ma potrzeby na
+      agresj\u0119."
+    resultingText: 
+    moneyChange: 0
+    listenersPrecentageChange: 0
+    requestedGenre: 
+    flatListenersChange:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      pop: 0
+    hostDelta: 1
+    listenerDelta: 0
+    governmentDelta: 0
+  - optionText: "Te wasze us\u0142ugi perswazyjne to ja mam g\u0142\u0119boko w zag\u0142\u0119biu.
+      Nie ma p\u0142atno\u015Bci, nie ma reklamy."
+    resultingText: 
+    moneyChange: 0
+    listenersPrecentageChange: 0
+    requestedGenre: 
+    flatListenersChange:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      pop: 0
+    hostDelta: -1
+    listenerDelta: 0
+    governmentDelta: 0

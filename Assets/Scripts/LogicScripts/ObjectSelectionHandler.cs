@@ -51,10 +51,10 @@ public class ObjectSelectionHandler : MonoBehaviour
         //selectedObject.transform.position += new Vector3(0f, transformValue, 0f);
         SetDeselectPos(selectedObject.transform.position);
         SetDeselectRot(selectedObject.transform.rotation);
-        selectedObject.transform.position = selectedObjPos.transform.position;
+        selectedObject.transform.position = this.transform.position;
 
         if (selectedObject.CompareTag("Playable"))
-            selectedObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+            selectedObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 90f, 0f));
     }
 
     private void TransformDeselectObj()

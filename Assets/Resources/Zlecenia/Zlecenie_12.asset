@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef629219f6b17c4bbd2d813eecbea14, type: 3}
   m_Name: Zlecenie_12
   m_EditorClassIdentifier: Assembly-CSharp::Ad
-  audio: {fileID: 0}
+  audio: {fileID: 8300000, guid: e45653b4d14ec2c6836c002a6ce96d26, type: 3}
   itemName: Elegancja w Ortalionie
   author: Atomowy szyk
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
@@ -30,3 +30,4 @@ MonoBehaviour:
     pop: 0
   price: 0
   clientName: 
+  content: "Idziesz na wesele, a mo\u017ce na ustawk\u0119? Salon Mody \"Atomowy i Rozrywkowy\" zaprasza! Mamy ortaliony we wszystkich kolorach t\u0119czy, od kt\u00f3rych oczy bol\u0105 nawet w nocy. Nasze dresy maj\u0105 po cztery paski, co czyni je o jeden pasek lepszymi od orygina\u0142u! Dla prawdziwych twardzieli mamy kurtki ze sk\u00f3ry ekologicznej, kt\u00f3ra pachnie jak nowa opona. Zapraszamy na osiedle p\u00f3\u0142nocne do lokalu 37."

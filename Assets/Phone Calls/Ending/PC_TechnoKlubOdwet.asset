@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d45b0f46aa3003d4089d0867c36920e2, type: 3}
+  m_Name: PC_TechnoKlubOdwet
+  m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
+  callType: 1
+  callerName: Wezwanie do odwetu
+  initialDialog: "Ch\u0142opaki z techno-klubu pobili wczoraj naszego m\u0142odego,
+    ch\u0142opak le\u017Cy na OIOM-ie. Nagrali\u015Bmy komunikat z wezwaniem do pe\u0142nej
+    mobilizacji i odwetu pod kinem Polonia. Pu\u015B\u0107 to teraz na antenie, musimy
+    skrzykn\u0105\u0107 ca\u0142e miasto i raz na zawsze zrobi\u0107 z nimi porz\u0105dek."
+  dialogOptions:
+  - optionText: "Jasne, pomo\u017Cemy, sprawiedliwo\u015B\u0107 musi by\u0107 po
+      naszej stronie. \u0141apcie komunikat."
+    resultingText: 
+    moneyChange: 0
+    listenersPrecentageChange: 0
+    requestedGenre: 
+    flatListenersChange:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      pop: 0
+    hostDelta: 0
+    listenerDelta: 1
+    governmentDelta: -1
+  - optionText: "Nie ma mowy. Nie b\u0119d\u0119 robi\u0142 z tego radia narz\u0119dzia
+      do krwawej rzezi na ulicach."
+    resultingText: 
+    moneyChange: 0
+    listenersPrecentageChange: 0
+    requestedGenre: 
+    flatListenersChange:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      pop: 0
+    hostDelta: 0
+    listenerDelta: -1
+    governmentDelta: 1

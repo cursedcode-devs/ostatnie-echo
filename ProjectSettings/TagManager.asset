@@ -12,6 +12,8 @@ TagManager:
   - Slot
   - SlotHitBox
   - Shelf
+  - PlayButton
+  - SkipButton
   layers:
   - Default
   - TransparentFX
