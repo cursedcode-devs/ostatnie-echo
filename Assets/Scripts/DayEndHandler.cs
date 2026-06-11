@@ -8,12 +8,11 @@ public class DayEndHandler : MonoBehaviour
     public GameManager gameManager;
     public TimeHandler timeHandler;
     public Canvas ShopUI;
-    public Canvas ShopButton;
     private GenreValues startListeners;
     private float startMoney;
-    public Cassette[] allCassettes;
+    public GameObject[] allCassettes;
     public Ad[] allAds;
-    public Cassette[] dailyOffer;
+    public GameObject[] dailyOffer;
     private RadioStation radioStation;
 
     private GameEndScreen endScreen;
@@ -38,7 +37,6 @@ public class DayEndHandler : MonoBehaviour
     void Start()
     {
         ShopUI.gameObject.SetActive(false);
-        ShopButton.gameObject.SetActive(false);
         startListeners = new GenreValues
         {
             hipHop = radioStation.currentListeners.hipHop,
@@ -50,8 +48,8 @@ public class DayEndHandler : MonoBehaviour
 
         foreach (var cassette in allCassettes)
         {
-            cassette.ResetTimesUsed();
-            cassette.ResetLastValues();
+            cassette.GetComponent<PlayableObject>().data.ResetTimesUsed();
+            cassette.GetComponent<PlayableObject>().data.ResetLastValues();
         }
         foreach (var ad in allAds)
         {
@@ -78,8 +76,8 @@ public class DayEndHandler : MonoBehaviour
 
         foreach (var cassette in allCassettes)
         {
-            cassette.ResetTimesUsed();
-            cassette.ResetLastValues();
+            cassette.GetComponent<PlayableObject>().data.ResetTimesUsed();
+            cassette.GetComponent<PlayableObject>().data.ResetLastValues();
         }
         foreach (var ad in allAds)
         {
@@ -149,10 +147,6 @@ public class DayEndHandler : MonoBehaviour
                 mainCam.gameObject.SetActive(true);
 
             gameManager.SetInputEnabled(true);
-            if (timeHandler.getDay() >= 2 && ShopButton != null)
-            {
-                ShopButton.gameObject.SetActive(true);
-            }
         };
 
         if (mainCam != null)
@@ -214,7 +208,7 @@ public class DayEndHandler : MonoBehaviour
             pop = radioStation.currentListeners.pop
         };
         startMoney = radioStation.GetCurrentMoney();
-        dailyOffer = new Cassette[3];
+        dailyOffer = new GameObject[3];
     }
 
     private Transform currentShopUI;
@@ -222,63 +216,65 @@ public class DayEndHandler : MonoBehaviour
     public void GenerateDailyOffer(Transform shopUI)
     {
         currentShopUI = shopUI;
-        if (allCassettes.Length < 3)
+
+        List<GameObject> availableCassettes = new List<GameObject>();
+        foreach (var cassette in allCassettes)
         {
-            Debug.Log("Not enough cassettes to generate daily offer!");
-            return;
+            if (!cassette.activeSelf) 
+            {
+                availableCassettes.Add(cassette);
+            }
         }
 
         // --- PATCH: MarketFlood — dynamiczna liczba slotów sklepu ---
         int shopSlots = 3;
         if (UpgradeManager.Instance != null)
             shopSlots += UpgradeManager.Instance.GetExtraShopSlots();
-        shopSlots = Mathf.Min(shopSlots, allCassettes.Length);
+        
+        int maxPossibleSlots = shopSlots;
+        shopSlots = Mathf.Min(shopSlots, availableCassettes.Count);
         // --- KONIEC PATCHA ---
 
-        int[] usedIndexes = new int[allCassettes.Length];
-        for (int i = 0; i < usedIndexes.Length; i++)
-            usedIndexes[i] = i;
-
-        dailyOffer = new Cassette[shopSlots];
+        dailyOffer = new GameObject[shopSlots];
 
         for (int i = 0; i < shopSlots; i++)
         {
-            int randomIndex = Random.Range(0, usedIndexes.Length - i);
-            dailyOffer[i] = allCassettes[usedIndexes[randomIndex]];
-
-            int temp = usedIndexes[randomIndex];
-            usedIndexes[randomIndex] = usedIndexes[usedIndexes.Length - 1 - i];
-            usedIndexes[usedIndexes.Length - 1 - i] = temp;
+            int randomIndex = Random.Range(0, availableCassettes.Count);
+            dailyOffer[i] = availableCassettes[randomIndex];
+            availableCassettes.RemoveAt(randomIndex);
         }
 
         UpdateMoneySlotInShop();
 
-        for (int i = 0; i < shopSlots && i < dailyOffer.Length; i++)
+        for (int i = 0; i < maxPossibleSlots; i++)
         {
             Transform slot = currentShopUI.Find($"Kaseta{i + 1}");
             if (slot == null) continue;
 
-            TextMeshProUGUI name = slot.Find("NAZWA")
-                                    .GetComponent<TextMeshProUGUI>();
+            if (i < shopSlots)
+            {
+                slot.gameObject.SetActive(true);
+                TextMeshProUGUI name = slot.Find("NAZWA").GetComponent<TextMeshProUGUI>();
+                TextMeshProUGUI price = slot.Find("CENA").GetComponent<TextMeshProUGUI>();
+                TextMeshProUGUI stats = slot.Find("STATYSTYKI").GetComponent<TextMeshProUGUI>();
 
-            TextMeshProUGUI price = slot.Find("CENA")
-                                        .GetComponent<TextMeshProUGUI>();
-
-            TextMeshProUGUI stats = slot.Find("STATYSTYKI")
-                                        .GetComponent<TextMeshProUGUI>();
-
-            name.text = dailyOffer[i].name;
-            dailyOffer[i].price = Random.Range(10, 100);
-            price.text = dailyOffer[i].price.ToString() + " ZŁ";
-            stats.text = dailyOffer[i].GetCassetteValues().ToString();
+                name.text = dailyOffer[i].name;
+                dailyOffer[i].GetComponent<PlayableObject>().data.price = Random.Range(10, 100);
+                price.text = dailyOffer[i].GetComponent<PlayableObject>().data.price.ToString() + " ZŁ";
+                stats.text = dailyOffer[i].GetComponent<PlayableObject>().data.GetCassetteValues().ToString();
+            }
+            else
+            {
+                slot.gameObject.SetActive(false);
+            }
         }
 
         currentShopUI.gameObject.SetActive(true);
     }
 
-    public void AddCassetteToOffer(Cassette cassette)
+    public void AddCassetteToOffer(GameObject cassette)
     {
-        var newOffer = new Cassette[dailyOffer.Length + 1];
+        var newOffer = new GameObject[dailyOffer.Length + 1];
         newOffer[0] = cassette;
         for (int i = 0; i < dailyOffer.Length; i++)
             newOffer[i + 1] = dailyOffer[i];
@@ -290,9 +286,9 @@ public class DayEndHandler : MonoBehaviour
     public void BuyCassette(int offerIndex)
     {
         if (currentShopUI == null) return;
-        Cassette cassetteToBuy = dailyOffer[offerIndex];
+        GameObject cassetteToBuy = dailyOffer[offerIndex];
         float yourMoney = radioStation.GetCurrentMoney();
-        float cassettePrice = cassetteToBuy.price;
+        float cassettePrice = cassetteToBuy.GetComponent<PlayableObject>().data.price;
         if (yourMoney >= cassettePrice)
         {
             radioStation.SetCurrentMoney(yourMoney - cassettePrice);
@@ -300,6 +296,7 @@ public class DayEndHandler : MonoBehaviour
             Transform slot = currentShopUI.Find($"Kaseta{offerIndex + 1}");
             if (slot != null) slot.gameObject.SetActive(false);
             FMODUnity.RuntimeManager.PlayOneShot(buyingSound, this.transform.position);
+            cassetteToBuy?.SetActive(true);
         }
 
     }
@@ -324,8 +321,7 @@ public class DayEndHandler : MonoBehaviour
     {
         if (currentShopUI != null)
             currentShopUI.gameObject.SetActive(false);
-        if (ShopButton != null)
-            ShopButton.gameObject.SetActive(false);
+
         gameManager.SetInputEnabled(true);
     }
 }

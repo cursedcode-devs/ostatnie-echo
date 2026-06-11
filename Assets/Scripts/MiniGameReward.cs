@@ -32,7 +32,7 @@ public class MiniGameReward : ScriptableObject
     public float moneyAmount = 50f;
 
     [Header("Cassette (RewardType.Cassette)")]
-    public Cassette cassetteToAdd;
+    public GameObject cassetteToAdd;
 
     [Header("Draw weight (higher = more common)")]
     [Range(1, 100)] public int weight = 10;
