@@ -20,9 +20,16 @@ public class WaveTweakingMiniGameAdapter : BaseMiniGame
     [Header("Wave Tweaking settings")]
     public float winDelay = 1.5f;
 
+    [Header("Kamera (przybliżenie podczas minigry)")]
+    [Tooltip("Nazwa obiektu-pozycji kamery, do której przybliżamy na czas minigry.")]
+    public string cameraTargetName = "Pos_konsoleta";
+
     private WaveTweakingMiniGame game;
     private WaveTweakingSceneBuilder builder;
     private bool built = false;
+
+    private ZoomHandler zoomHandler;
+    private Transform cameraTarget;
 
     // Sliders injected by MiniGameSystem (scene objects can't live in prefab)
     private ConsoleSliderObject amplitudeSlider;
@@ -57,6 +64,11 @@ public class WaveTweakingMiniGameAdapter : BaseMiniGame
     {
         if (!built) BuildScene();
 
+        // Przybliż kamerę do konsolety na czas minigry.
+        EnsureZoomRefs();
+        if (zoomHandler != null && cameraTarget != null)
+            zoomHandler.ZoomToTransform(cameraTarget);
+
         if (game != null)
         {
             game.amplitudeSlider = amplitudeSlider;
@@ -64,11 +76,46 @@ public class WaveTweakingMiniGameAdapter : BaseMiniGame
             game.frequencySlider = frequencySlider;
             game.StartGame();
         }
+
+        // Wyróżnij suwaki, którymi gracz steruje osiami.
+        SetSlidersHighlighted(true);
     }
 
     protected override void OnClose()
     {
-        // Nothing extra — canvas hide is handled by BaseMiniGame
+        // Oddal kamerę z powrotem po zamknięciu minigry.
+        if (zoomHandler != null)
+            zoomHandler.ZoomOut();
+
+        SetSlidersHighlighted(false);
+    }
+
+    void SetSlidersHighlighted(bool on)
+    {
+        SetHighlight(amplitudeSlider, on);
+        SetHighlight(lengthSlider, on);
+        SetHighlight(frequencySlider, on);
+    }
+
+    void SetHighlight(ConsoleSliderObject slider, bool on)
+    {
+        if (slider == null) return;
+        var h = slider.GetComponent<SliderHighlighter>();
+        if (h == null) h = slider.gameObject.AddComponent<SliderHighlighter>();
+        h.enabled = on;
+    }
+
+    void EnsureZoomRefs()
+    {
+        if (zoomHandler == null)
+            zoomHandler = FindFirstObjectByType<ZoomHandler>();
+
+        if (cameraTarget == null && !string.IsNullOrEmpty(cameraTargetName))
+        {
+            var go = GameObject.Find(cameraTargetName);
+            if (go != null) cameraTarget = go.transform;
+            else Debug.LogWarning($"[WaveTweakingAdapter] Nie znaleziono obiektu kamery '{cameraTargetName}'.");
+        }
     }
 
     // ------------------------------------------------------------------
