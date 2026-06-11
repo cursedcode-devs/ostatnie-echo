@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef629219f6b17c4bbd2d813eecbea14, type: 3}
   m_Name: Zlecenie_9
   m_EditorClassIdentifier: Assembly-CSharp::Ad
-  audio: {fileID: 0}
+  audio: {fileID: 8300000, guid: bd378bb1754cf3d68f766c3a698099ea, type: 3}
   itemName: Ostatnie Namaszczenie Twojego Kineskopu
   author: Lut w chut
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
@@ -30,3 +30,4 @@ MonoBehaviour:
     pop: 0
   price: 0
   clientName: 
+  content: "Tw\u00f3j telewizor kineskopowy wy\u015bwietla tylko paski, a radio dziadku trzeszczy bardziej ni\u017c stawy komunistycznego sekretarza? Nie bij go wi\u0119cej! Wiemy, \u017ce celne uderzenie pi\u0119\u015bci\u0105 w obudow\u0119 to tradycyjna metoda naprawy, ale czasami nawet najlepsza metoda nie zadzia\u0142a. Serwis \"Lut w chut\" wskrzesi ka\u017cdy sprz\u0119t. Naprawiamy Walkmany, konsole i budziki na \u017cetony. Posiadamy jedyn\u0105 w mie\u015bcie lutownic\u0119, kt\u00f3ra nie wywala kork\u00f3w w ca\u0142ym bloku. Znajdziesz nas w piwnicy bloku nr 4 \u2013 pukaj trzy razy w rur\u0119 od gazu."

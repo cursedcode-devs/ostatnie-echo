@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef629219f6b17c4bbd2d813eecbea14, type: 3}
   m_Name: Zlecenie_16
   m_EditorClassIdentifier: Assembly-CSharp::Ad
-  audio: {fileID: 0}
+  audio: {fileID: 8300000, guid: 5c425e5a523d8d6b9800d8bb4dc26ba0, type: 3}
   itemName: "Tw\xF3j dom to Twoja twierdza"
   author: "\u017Belazna kurtyna"
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
@@ -30,3 +30,4 @@ MonoBehaviour:
     pop: 0
   price: 0
   clientName: 
+  content: "Boisz si\u0119, \u017ce podczas Twojej nieobecno\u015bci s\u0105siedzi wynios\u0105 Ci meblo\u015bciank\u0119 razem z tynkiem? Firma \u201e\u017belazna kurtyna\u201d montuje drzwi z blachy pancernej z odzysku po radzieckich transporterach. Siedem rygli, wizjer z kuloodpornego szk\u0142a i klamka pod napi\u0119ciem. Z naszymi drzwiami mo\u017cesz spa\u0107 spokojnie nawet wtedy, gdy na klatce trwa bitwa mi\u0119dzy metalowcami a fanami disco-polo. Pami\u0119taj, je\u015bli Ty nie mo\u017cesz ich otworzy\u0107 to z\u0142odziej tym bardziej! Nasza siedziba znajduje si\u0119 obok stoczni, po prawej od sk\u0142adowiska azbestu."

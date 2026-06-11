@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     private int startHour = 14;
     private int startDay = 1;
     private const float startingModifier = 0f;
+    public ZoomHandler zoomHandler;
 
     private bool inputEnabled = false;
 
@@ -47,11 +48,9 @@ public class GameManager : MonoBehaviour
         FMODUnity.RuntimeManager.PlayOneShot(enterRadioSound, this.transform.position);
 
         actionManager = new ActionManager(mainCamera);
-        timeHandler = new TimeHandler(startHour, startDay, airtime, cassetteSlots, daysNr);
+        timeHandler = new TimeHandler(startHour, startDay, airtime, cassetteSlots, zoomHandler, daysNr);
         FMODUnity.RuntimeManager.PlayOneShot(ambient, this.transform.position);
 
-        // Auto-create AdContractManager component so it exists in the scene
-        gameObject.AddComponent<AdContractManager>();
 
         audioQueueManager.SetTimeHandler(timeHandler);
 
@@ -237,7 +236,9 @@ public class GameManager : MonoBehaviour
             return;
         PlayableContent[] playedCassettes = airtime.GetCassettes();
         radioStation.ApplySegment(playedCassettes);
-        audioQueueManager.EnqueueClips(airtime.GetCassettesAudio());
+        // Kolejkujemy z zawartością kaset, aby reklamy mogły pokazać napisy (treść)
+        // zsynchronizowane z dźwiękiem odczytu podczas emisji.
+        audioQueueManager.EnqueuePlayables(playedCassettes);
         audioQueueManager.PlayClipsSequence();
         CheckForRequestedCassette();
 

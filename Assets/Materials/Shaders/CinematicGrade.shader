@@ -42,6 +42,27 @@ Shader "OstatnieEcho/CinematicGrade"
         _ScanDensity ("Scanline Density", Range(200, 1500)) = 550
         _ChromAb ("Chromatic Aberration", Range(0, 4)) = 0.65
         _Grain ("Film Grain", Range(0, 0.06)) = 0.008
+
+        [Header(Comic Toon Effect)]
+        _ToonStrength ("Toon Effect Strength", Range(0.0, 1.0)) = 1.0
+        _ToonSteps ("Toon Shading Steps", Range(2, 20)) = 6
+        _ToonSaturation ("Toon Saturation Boost", Range(0.0, 2.0)) = 1.0
+
+        [Header(Comic Outline Effect)]
+        _OutlineStrength ("Overall Outline Strength", Range(0.0, 1.0)) = 1.0
+        _OutlineColor ("Outline Color", Color) = (0, 0, 0, 1)
+        _OutlineWidth ("Outline Width", Range(0.0, 10.0)) = 1.5
+        
+        [Header(Outline Edge Detection)]
+        _DepthSensitivity ("Depth Edge Sensitivity", Range(0.1, 50.0)) = 10.0
+        _DepthThreshold ("Depth Edge Threshold", Range(0.001, 1.0)) = 0.05
+        _NormalSensitivity ("Normal Edge Sensitivity", Range(0.1, 10.0)) = 2.0
+        _NormalThreshold ("Normal Edge Threshold", Range(0.01, 2.0)) = 0.5
+        
+        [Header(Outline Distance Fade)]
+        _OutlineDistanceFade ("Distance Fade Strength", Range(0.0, 1.0)) = 1.0
+        _DistanceFadeStart ("Fade Start Distance", Range(0.0, 100.0)) = 20.0
+        _DistanceFadeEnd ("Fade End Distance", Range(10.0, 500.0)) = 100.0
     }
     
     SubShader
@@ -59,6 +80,8 @@ Shader "OstatnieEcho/CinematicGrade"
             
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareNormalsTexture.hlsl"
             
             CBUFFER_START(UnityPerMaterial)
                 float _Exposure;
@@ -88,6 +111,19 @@ Shader "OstatnieEcho/CinematicGrade"
                 float _ScanDensity;
                 float _ChromAb;
                 float _Grain;
+                float _ToonStrength;
+                float _ToonSteps;
+                float _ToonSaturation;
+                float _OutlineStrength;
+                float4 _OutlineColor;
+                float _OutlineWidth;
+                float _DepthSensitivity;
+                float _DepthThreshold;
+                float _NormalSensitivity;
+                float _NormalThreshold;
+                float _OutlineDistanceFade;
+                float _DistanceFadeStart;
+                float _DistanceFadeEnd;
             CBUFFER_END
             
             float Luma(float3 c) { return dot(c, float3(0.2126, 0.7152, 0.0722)); }
@@ -127,9 +163,9 @@ Shader "OstatnieEcho/CinematicGrade"
             half4 frag(Varyings input) : SV_Target
             {
                 float2 uv = input.texcoord;
+                float2 texel = float2(1.0 / _ScreenParams.x, 1.0 / _ScreenParams.y);
                 
                 // ---- Chromatic Aberration ----
-                float2 texel = float2(1.0 / _ScreenParams.x, 1.0 / _ScreenParams.y);
                 float2 fromCenter = (uv - 0.5) * 2.0;
                 float edgeDist = length(fromCenter) * 0.5;
                 float2 caDir = fromCenter * texel * _ChromAb;
@@ -199,6 +235,13 @@ Shader "OstatnieEcho/CinematicGrade"
                 graded = lerp(graded, graded * _MidColor.rgb * 2.2, midW * _MidStr);
                 graded = lerp(graded, graded * _HighColor.rgb * 1.6, highW * _HighStr);
                 col = graded;
+
+                // ---- Comic Posterization (Toon Shading) ----
+                hsv = RGBtoHSV(max(col, 0.001));
+                float steppedValue = floor(hsv.z * _ToonSteps + 0.5) / _ToonSteps;
+                hsv.z = lerp(hsv.z, steppedValue, _ToonStrength);
+                hsv.y = lerp(hsv.y, saturate(hsv.y * _ToonSaturation), _ToonStrength);
+                col = HSVtoRGB(hsv);
                 
                 // ---- 9. Scanlines ----
                 float scan = sin(uv.y * _ScanDensity * 3.14159) * 0.5 + 0.5;
@@ -207,6 +250,40 @@ Shader "OstatnieEcho/CinematicGrade"
                 // ---- 10. Film grain ----
                 float grain = Hash12(uv * _ScreenParams.xy + frac(_Time.y * 43.0)) * 2.0 - 1.0;
                 col += grain * _Grain;
+                
+                // ---- Comic Edge Detection (Outline) ----
+                float halfWidth = _OutlineWidth;
+                float2 uv0 = uv + float2(-texel.x, -texel.y) * halfWidth;
+                float2 uv1 = uv + float2( texel.x,  texel.y) * halfWidth;
+                float2 uv2 = uv + float2( texel.x, -texel.y) * halfWidth;
+                float2 uv3 = uv + float2(-texel.x,  texel.y) * halfWidth;
+                
+                float d0 = LinearEyeDepth(SampleSceneDepth(uv0), _ZBufferParams);
+                float d1 = LinearEyeDepth(SampleSceneDepth(uv1), _ZBufferParams);
+                float d2 = LinearEyeDepth(SampleSceneDepth(uv2), _ZBufferParams);
+                float d3 = LinearEyeDepth(SampleSceneDepth(uv3), _ZBufferParams);
+                
+                // Depth Edge
+                float depthDiff = abs(d0 - d1) + abs(d2 - d3);
+                float depthEdge = saturate((depthDiff - _DepthThreshold * d0) * _DepthSensitivity);
+                
+                // Normal Edge
+                float3 n0 = SampleSceneNormals(uv0);
+                float3 n1 = SampleSceneNormals(uv1);
+                float3 n2 = SampleSceneNormals(uv2);
+                float3 n3 = SampleSceneNormals(uv3);
+                
+                float normalDiff = distance(n0, n1) + distance(n2, n3);
+                float normalEdge = saturate((normalDiff - _NormalThreshold) * _NormalSensitivity);
+                
+                float edge = saturate(depthEdge + normalEdge) * _OutlineStrength;
+                
+                // Distance Fade
+                float fadeFactor = saturate((d0 - _DistanceFadeStart) / max(0.1, (_DistanceFadeEnd - _DistanceFadeStart)));
+                edge *= lerp(1.0, 1.0 - fadeFactor, _OutlineDistanceFade);
+                
+                // Apply Outline
+                col = lerp(col, _OutlineColor.rgb, edge * _OutlineColor.a);
                 
                 // ---- 11. Vignette ----
                 float2 vUV = uv - 0.5;

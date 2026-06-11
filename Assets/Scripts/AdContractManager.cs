@@ -29,6 +29,7 @@ public class AdContractManager : MonoBehaviour
     [Header("Ustawienia Prefabów")]
     [Tooltip("Prefab fizycznej kasety reklamowej (np. Reklama.prefab)")]
     public GameObject adCassettePrefab;
+    public Material adMaterial;
 
     [Header("Stan Systemu")]
     [SerializeField] private List<Ad> activeContracts = new List<Ad>();
@@ -235,6 +236,7 @@ public class AdContractManager : MonoBehaviour
 
             // Klonujemy prefab
             GameObject cassetteGo = Instantiate(prefab, spawnPos, spawnRot);
+            cassetteGo.GetComponent<MeshRenderer>().material = adMaterial;            
             cassetteGo.transform.localScale = spawnScale;
             cassetteGo.name = $"Reklama_{adData.GetName()}";
             cassetteGo.SetActive(true);

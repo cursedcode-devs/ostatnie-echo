@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef629219f6b17c4bbd2d813eecbea14, type: 3}
   m_Name: Zlecenie_5
   m_EditorClassIdentifier: Assembly-CSharp::Ad
-  audio: {fileID: 0}
+  audio: {fileID: 8300000, guid: ebd50ea216519e9455f51aceb0c155e1, type: 3}
   itemName: "W\u0119giel \u201ESzlachecki\u201D - Wi\u0119cej Kamienia, Wi\u0119cej
     Dumy"
   author: "Polska Hurtownia W\u0119gla Szlachetnego"
-  physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
+  physicalPrefab: {fileID: 0}
   timesUsedInDay: 0
   cassetteValues:
-    hipHop: 20
-    disco: 20
-    rock: 20
+    hipHop: 0
+    disco: 0
+    rock: 0
     pop: 0
   type: 1
   lastCassetteValues:
@@ -31,3 +31,9 @@ MonoBehaviour:
     pop: 0
   price: 0
   clientName: 
+  content: "Czy Twoja piwnica \u015Bwieci pustkami niczym g\u0142owa komunisty? Przedstawiamy
+    polski w\u0119giel odmiany szlacheckiej.Ka\u017Cda bry\u0142ka by\u0142a osobi\u015Bcie
+    polerowana przez adekwatnie op\u0142acanych polityk\xF3w opozycji. Nasz w\u0119giel
+    posiada certyfikowan\u0105 zawarto\u015B\u0107 kamienia w kamieniu na poziomie
+    40%, co gwarantuje, \u017Ce b\u0119dzie rozpala\u0142 si\u0119 szybciej ni\u017C
+    tw\xF3j szwagier zeruje po\u0142\xF3wk\u0119."

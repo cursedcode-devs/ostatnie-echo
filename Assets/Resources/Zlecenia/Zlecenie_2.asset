@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef629219f6b17c4bbd2d813eecbea14, type: 3}
   m_Name: Zlecenie_2
   m_EditorClassIdentifier: Assembly-CSharp::Ad
-  audio: {fileID: 0}
+  audio: {fileID: 8300000, guid: 88d138c2f849c089392d7c72943e30c4, type: 3}
   itemName: "Zak\u0142ad \u201ECzy\u015Bciciel\u201D - Usuwamy Problemy i \u015Alady"
   author: "Zak\u0142ad \u201ECzy\u015Bciciel\u201D"
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
@@ -30,3 +30,4 @@ MonoBehaviour:
     pop: 0
   price: 0
   clientName: 
+  content: "Czujesz w domu dziwne nieprzyjemne zapachy. W nocy s\u0142yszysz d\u017awi\u0119ki w \u015bcianach i na strychu. Dzieci m\u00f3wi\u0105, \u017ce pod \u0142\u00f3\u017ckiem jest potw\u00f3r. Nie dzwo\u0144 po egzorcyst\u0119. Tu potrzebny jest Czy\u015bciciel. Dezynsekcja i deratyzacja to nasza specjalno\u015b\u0107. W twoim domu o ka\u017cdej porze dnia i nocy. Od razu po zg\u0142oszeniu wy\u015blemy Czy\u015bciciela, kt\u00f3ry zajmie si\u0119 twoim problemem. Gwarantujemy zadowolenie klienta. Cena ustalana indywidualnie. Po szczeg\u00f3\u0142y dzwo\u0144 na 91 385 56 40. Zak\u0142ad Deratyzacji i Dezynsekcji Czy\u015bciciel. Wyczy\u015bcimy tw\u00f3j dom."

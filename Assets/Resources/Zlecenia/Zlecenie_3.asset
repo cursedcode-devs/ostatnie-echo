@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef629219f6b17c4bbd2d813eecbea14, type: 3}
   m_Name: Zlecenie_3
   m_EditorClassIdentifier: Assembly-CSharp::Ad
-  audio: {fileID: 0}
+  audio: {fileID: 8300000, guid: b75ce503827c41fcc58a024bd6371ac9, type: 3}
   itemName: "Presti\u017C na P\xF3\u0142ce"
   author: Puszex
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
@@ -30,3 +30,4 @@ MonoBehaviour:
     pop: 0
   price: 0
   clientName: 
+  content: "Obywatelu Areczku! Przyszed\u0142 komitet blokowy, a Twoje p\u00f3\u0142ki \u015bwiec\u0105 pustkami? Nie daj si\u0119 upokorzy\u0107! Nasza firma prezentuje atrapy konserw turystycznych wykonane z wysokiej jako\u015bci amelinum. Nasze puszki wygl\u0105daj\u0105 jak prawdziwe. Dla obywateli z ambicjami mamy te\u017c gumowe p\u0119to kie\u0142basy, kt\u00f3rej nie przegryzie nawet te\u015bciowa. Zadzwo\u0144 3721 7313 215."
