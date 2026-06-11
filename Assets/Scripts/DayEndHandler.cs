@@ -8,7 +8,6 @@ public class DayEndHandler : MonoBehaviour
     public GameManager gameManager;
     public TimeHandler timeHandler;
     public Canvas ShopUI;
-    public Canvas ShopButton;
     private GenreValues startListeners;
     private float startMoney;
     public Cassette[] allCassettes;
@@ -38,7 +37,6 @@ public class DayEndHandler : MonoBehaviour
     void Start()
     {
         ShopUI.gameObject.SetActive(false);
-        ShopButton.gameObject.SetActive(false);
         startListeners = new GenreValues
         {
             hipHop = radioStation.currentListeners.hipHop,
@@ -149,10 +147,6 @@ public class DayEndHandler : MonoBehaviour
                 mainCam.gameObject.SetActive(true);
 
             gameManager.SetInputEnabled(true);
-            if (timeHandler.getDay() >= 2 && ShopButton != null)
-            {
-                ShopButton.gameObject.SetActive(true);
-            }
         };
 
         if (mainCam != null)
@@ -324,8 +318,6 @@ public class DayEndHandler : MonoBehaviour
     {
         if (currentShopUI != null)
             currentShopUI.gameObject.SetActive(false);
-        if (ShopButton != null)
-            ShopButton.gameObject.SetActive(false);
         gameManager.SetInputEnabled(true);
     }
 }

@@ -386,7 +386,7 @@ public class AdContractManager : MonoBehaviour
         }
 
         activeContracts.Clear();
-        physicalAdObjects.Clear();
+        ClearRemainingPhysicalAds();
 
         return totalPenalty;
     }
