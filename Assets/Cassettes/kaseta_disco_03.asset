@@ -15,6 +15,7 @@ MonoBehaviour:
   audio: {fileID: 8300000, guid: 8f294cc69c95db947a7eb24ff3c39405, type: 3}
   itemName: Palermo
   author: Gigi di' Binachi
+  genre: Disco
   physicalPrefab: {fileID: 0}
   timesUsedInDay: 0
   cassetteValues:

@@ -15,6 +15,7 @@ MonoBehaviour:
   audio: {fileID: 8300000, guid: 6a43d509c50045f4a87d1c51d147c411, type: 3}
   itemName: Rozlane whiskey
   author: Mr Punk
+  genre: Rock
   physicalPrefab: {fileID: 0}
   timesUsedInDay: 0
   cassetteValues:

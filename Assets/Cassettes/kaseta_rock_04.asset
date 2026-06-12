@@ -15,6 +15,7 @@ MonoBehaviour:
   audio: {fileID: 8300000, guid: c0c2587f3e4947c48a9fdf72d210eb54, type: 3}
   itemName: Dlaczego ja?
   author: Kantor
+  genre: Rock
   physicalPrefab: {fileID: 0}
   timesUsedInDay: 0
   cassetteValues:

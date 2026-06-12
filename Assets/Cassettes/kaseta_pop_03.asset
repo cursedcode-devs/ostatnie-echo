@@ -15,6 +15,7 @@ MonoBehaviour:
   audio: {fileID: 8300000, guid: c95ebd2a233f47175a874d9697b95a41, type: 3}
   itemName: Volare Cantare
   author: Gazzi
+  genre: Pop
   physicalPrefab: {fileID: 0}
   timesUsedInDay: 0
   cassetteValues:
