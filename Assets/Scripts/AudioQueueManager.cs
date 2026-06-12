@@ -117,15 +117,17 @@ public class AudioQueueManager : MonoBehaviour
             QueuedClip queued = audioQueue.Dequeue();
 
             audioSource.clip = queued.clip;
-            NowPlayingBar.SetActive(true);
-            Transform songTitle = NowPlayingBar.transform.Find("Text");
-            TMP_Text text = songTitle.GetComponent<TMP_Text>();
-            text.text = $"TERAZ GRAMY: {queued.content.GetAuthor()} - {queued.content.GetName()}";
-            songTitle.GetComponent<MarqueeText>().ResetPosition();
-            audioSource.Play();
+            if (queued.clip != null)
+            {
+                NowPlayingBar.SetActive(true);
+                Transform songTitle = NowPlayingBar.transform.Find("Text");
+                TMP_Text text = songTitle.GetComponent<TMP_Text>();
+                text.text = $"TERAZ GRAMY: {queued.content.GetAuthor()} - {queued.content.GetName()}";
+                songTitle.GetComponent<MarqueeText>().ResetPosition();
+                audioSource.Play();
 
-            HandleAdSubtitles(queued);
-
+                HandleAdSubtitles(queued);
+            }
             // Czekamy aż skończy się audio ORAZ napisy reklamy (treść bywa dłuższa niż
             // krótki placeholderowy dźwięk — nie wolno jej uciąć).
             yield return new WaitWhile(() => audioSource.isPlaying || AdSubtitlesActive());
