@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d45b0f46aa3003d4089d0867c36920e2, type: 3}
+  m_Name: PC_AlgeriaInsideJob
+  m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
+  callType: 1
+  callerName: "Dyrektor Zak\u0142ad\xF3w Azotowych"
+  audio: {fileID: 0}
+  initialDialog: "Powiem prosto z mostu. Algeria to nie by\u0142 wypadek. Bomba atomowa
+    tak po prostu nie ulega awarii! To globalne elity chcia\u0142y wtedy doprowadzi\u0107
+    do wojny i dzisiaj jest to samo. Pan widzi co si\u0119 teraz dzieje. Mog\u0119
+    wys\u0142a\u0107 dowody poczt\u0105 i Pan je zaprezentuje s\u0142uchaczom."
+  dialogOptions:
+  - optionText: "No dobra, Pan to wy\u015Ble na adres radia."
+    resultingText: 
+    moneyChange: 0
+    listenersPrecentageChange: 0
+    requestedGenre: 
+    flatListenersChange:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      pop: 0
+    hostDelta: 0
+    listenerDelta: 0
+    governmentDelta: -1
+  - optionText: Nie ma mowy. Co jest z tymi wszystkimi telefonami spiskowymi?
+    resultingText: 
+    moneyChange: 0
+    listenersPrecentageChange: 0
+    requestedGenre: 
+    flatListenersChange:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      pop: 0
+    hostDelta: 0
+    listenerDelta: 0
+    governmentDelta: 1

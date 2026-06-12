@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d45b0f46aa3003d4089d0867c36920e2, type: 3}
+  m_Name: PC_KomuchJurecki
+  m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
+  callType: 1
+  callerName: "Dyrektor Zak\u0142ad\xF3w Azotowych"
+  audio: {fileID: 0}
+  initialDialog: "Dzie\u0144 dobry tu, Stanis\u0142aw czy wie Pan, \u017Ce ten hultaj
+    komuch Jurecki dalej rz\u0105dzi?  Tak, tak. Nie wierzy mi Pan? To sama prawda.
+    Ja jestem emerytowanym urz\u0119dnikiem i wiem. Mam kontakty. Tylko oni tam wszyscy
+    s\u0105 op\u0142aceni. Jestem pewien, \u017Ce drodzy  s\u0142uchacze ch\u0119tnie
+    mnie wys\u0142uchaj\u0105."
+  dialogOptions:
+  - optionText: "Mam Pan racj\u0119, ch\u0119tnie pos\u0142uchamy co ma Pan do powiedzenia."
+    resultingText: 
+    moneyChange: 0
+    listenersPrecentageChange: 0
+    requestedGenre: 
+    flatListenersChange:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      pop: 0
+    hostDelta: 0
+    listenerDelta: 0
+    governmentDelta: -1
+  - optionText: Nasz stacja radiowa to nie miejsce szerzenia teorii spiskowych.
+    resultingText: 
+    moneyChange: 0
+    listenersPrecentageChange: 0
+    requestedGenre: 
+    flatListenersChange:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      pop: 0
+    hostDelta: 0
+    listenerDelta: 0
+    governmentDelta: 1

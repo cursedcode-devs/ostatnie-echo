@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d45b0f46aa3003d4089d0867c36920e2, type: 3}
+  m_Name: PC_Domowka
+  m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
+  callType: 1
+  callerName: "Dyrektor Zak\u0142ad\xF3w Azotowych"
+  audio: {fileID: 0}
+  initialDialog: "Ch\u0142opaki dodzwoni\u0142em si\u0119 do \u017Bubra! Dobra cicho.
+    Cze\u015B\u0107 \u017Bubrze, s\u0142uchaj moi starzy wyjechali na tydzie\u0144
+    i robimy mega dom\xF3wk\u0119. Da\u0142by\u015B og\u0142oszenie na antenie? Zapraszam
+    ka\u017Cdego! Ty te\u017C \u015Bmia\u0142o wbijaj \u017Bubrze. B\u0119dzie rock,
+    disco, pop\u2026 to co \u017Bubry lubi\u0105 najbardziej!"
+  dialogOptions:
+  - optionText: "Pytanie! Jasne, \u017Ce dam og\u0142oszenie. Mo\u017Ce nawet wpadn\u0119."
+    resultingText: 
+    moneyChange: 0
+    listenersPrecentageChange: 0
+    requestedGenre: 
+    flatListenersChange:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      pop: 0
+    hostDelta: 0
+    listenerDelta: 1
+    governmentDelta: 0
+  - optionText: "Twoi rodzice raczej nie b\u0119d\u0105 zadowoleni. Musicie sobie
+      poradzi\u0107 sami."
+    resultingText: 
+    moneyChange: 0
+    listenersPrecentageChange: 0
+    requestedGenre: 
+    flatListenersChange:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      pop: 0
+    hostDelta: 0
+    listenerDelta: -1
+    governmentDelta: 0
