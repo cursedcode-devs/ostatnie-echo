@@ -230,6 +230,8 @@ public class GameManager : MonoBehaviour
 
     private void playSegment()
     {
+        if (airtime.AreSlotsEmpty())
+            return;
         if (!airtime.AreSlotsClosed())
             return;
         if (audioQueueManager.IsPlaying())

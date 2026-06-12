@@ -1,3 +1,4 @@
+using FMODUnity;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -138,6 +139,18 @@ public class Airtime : MonoBehaviour
             cassettes[i] = null;
         }
         cassetteUI.UpdatePredictions();
+    }
+
+    public bool AreSlotsEmpty()
+    {
+
+        for(int i=0;i<cassettes.Count;i++)
+        {
+            if (cassettes[i] != null)
+                return false;
+        }
+
+        return true;
     }
 
 }

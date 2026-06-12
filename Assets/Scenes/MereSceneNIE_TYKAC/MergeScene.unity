@@ -1129,10 +1129,10 @@ MonoBehaviour:
   frequencySlider: {fileID: 786127596}
   clickSound:
     Guid:
-      Data1: 1387345341
-      Data2: 1170242334
-      Data3: 1756865685
-      Data4: 1190915951
+      Data1: 286119640
+      Data2: 1076381445
+      Data3: 17616543
+      Data4: 1181942465
     Path: event:/PickUp
   putCasetteInSound:
     Guid:
@@ -11178,7 +11178,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: clickOptionSound.Path
-      value: event:/Phone
+      value: event:/Click
       objectReference: {fileID: 0}
     - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: phonePickUpSound.Path
@@ -11206,19 +11206,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: clickOptionSound.Guid.Data1
-      value: 805841339
+      value: -194323691
       objectReference: {fileID: 0}
     - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: clickOptionSound.Guid.Data2
-      value: 1105689746
+      value: 1202083573
       objectReference: {fileID: 0}
     - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: clickOptionSound.Guid.Data3
-      value: 874605715
+      value: 523808153
       objectReference: {fileID: 0}
     - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: clickOptionSound.Guid.Data4
-      value: -303683244
+      value: 1743445017
       objectReference: {fileID: 0}
     - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: phonePickUpSound.Guid.Data1
