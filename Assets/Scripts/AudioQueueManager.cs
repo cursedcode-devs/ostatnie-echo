@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class AudioQueueManager : MonoBehaviour
 {
     [SerializeField] private AudioSource audioSource;
+    public GameObject NowPlayingBar;
     /// <summary>
     /// Element kolejki: klip audio + opcjonalna zawartość kasety (np. reklama),
     /// dzięki czemu wiemy, kiedy podczas emisji pokazać napisy reklamy.
@@ -45,23 +46,30 @@ public class AudioQueueManager : MonoBehaviour
         {
             audioSource.Stop();
             HideAdSubtitles();
+            NowPlayingBar.SetActive(false);
         }
 
         if( audioQueue.Count > 0 )
         {
             QueuedClip next = audioQueue.Dequeue();
-
+            NowPlayingBar.SetActive(true);
+            Transform songTitle = NowPlayingBar.transform.Find("Text");
+            TMP_Text text = songTitle.GetComponent<TMP_Text>();
+            text.text = $"TERAZ GRAMY: {next.content.GetAuthor()} - {next.content.GetName()}";
+            songTitle.GetComponent<MarqueeText>().ResetPosition();
             audioSource.clip = next.clip;
             audioSource.Play();
             HideAdSubtitles();
             HandleAdSubtitles(next);
+            
         }
     }
 
     public void PlayClipsSequence()
     {
         if (!isPlayingQueue)
-        {
+        {   
+            
             StartCoroutine(ProcessAudioQueue());
         }
     }
@@ -109,6 +117,11 @@ public class AudioQueueManager : MonoBehaviour
             QueuedClip queued = audioQueue.Dequeue();
 
             audioSource.clip = queued.clip;
+            NowPlayingBar.SetActive(true);
+            Transform songTitle = NowPlayingBar.transform.Find("Text");
+            TMP_Text text = songTitle.GetComponent<TMP_Text>();
+            text.text = $"TERAZ GRAMY: {queued.content.GetAuthor()} - {queued.content.GetName()}";
+            songTitle.GetComponent<MarqueeText>().ResetPosition();
             audioSource.Play();
 
             HandleAdSubtitles(queued);
@@ -119,7 +132,7 @@ public class AudioQueueManager : MonoBehaviour
             HideAdSubtitles();
             yield return new WaitForSeconds(0.5f);
         }
-
+        NowPlayingBar.SetActive(false);
         isPlayingQueue = false;
         timeHandler.NextHour();
     }
@@ -162,7 +175,7 @@ public class AudioQueueManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        NowPlayingBar.SetActive(false);
     }
 
     // Update is called once per frame
