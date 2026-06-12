@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d45b0f46aa3003d4089d0867c36920e2, type: 3}
-  m_Name: PC_HipHopGraffiti
+  m_Name: PC_KomuchJurecki
   m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
   callType: 1
-  callerName: Graffiti na komisariacie
+  callerName: "Dyrektor Zak\u0142ad\xF3w Azotowych"
   audio: {fileID: 0}
-  initialDialog: "Jest akcja, ziomek w\u0142a\u015Bnie ko\u0144czy malowa\u0107 wielkiego
-    \u017Cubra na \u015Bcianie komisariatu, a tu nagle jedzie patrol. Wrzu\u0107
-    na anten\u0119 na \u017Cywo jaki\u015B hip-hop i powiedz, \u017Ce \"farba wysch\u0142a\",
-    to ch\u0142opak zwinie si\u0119 w por\u0119. Uratujesz go, stary."
+  initialDialog: "Dzie\u0144 dobry tu, Stanis\u0142aw czy wie Pan, \u017Ce ten hultaj
+    komuch Jurecki dalej rz\u0105dzi?  Tak, tak. Nie wierzy mi Pan? To sama prawda.
+    Ja jestem emerytowanym urz\u0119dnikiem i wiem. Mam kontakty. Tylko oni tam wszyscy
+    s\u0105 op\u0142aceni. Jestem pewien, \u017Ce drodzy  s\u0142uchacze ch\u0119tnie
+    mnie wys\u0142uchaj\u0105."
   dialogOptions:
-  - optionText: "Jasne, \u017Ce pomo\u017Cemy, swoich si\u0119 nie zostawia. Leci
-      komunikat a tu\u017C po nim wasza piosenka."
+  - optionText: "Mam Pan racj\u0119, ch\u0119tnie pos\u0142uchamy co ma Pan do powiedzenia."
     resultingText: 
     moneyChange: 0
     listenersPrecentageChange: 0
@@ -31,11 +31,10 @@ MonoBehaviour:
       disco: 0
       rock: 0
       pop: 0
-    hostDelta: 1
-    listenerDelta: 1
+    hostDelta: 0
+    listenerDelta: 0
     governmentDelta: -1
-  - optionText: "Nie mamy zamiaru \u015Bwieci\u0107 oczami w s\u0105dzie przez wasze
-      bazgro\u0142y. Rad\u017Acie sobie sami."
+  - optionText: Nasz stacja radiowa to nie miejsce szerzenia teorii spiskowych.
     resultingText: 
     moneyChange: 0
     listenersPrecentageChange: 0
@@ -45,6 +44,6 @@ MonoBehaviour:
       disco: 0
       rock: 0
       pop: 0
-    hostDelta: -1
-    listenerDelta: -1
+    hostDelta: 0
+    listenerDelta: 0
     governmentDelta: 1

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
   callType: 1
   callerName: Poprawiny u szwagra
+  audio: {fileID: 0}
   initialDialog: "Halo, szefie? Uratuj nas pan! Robimy poprawiny u szwagra w gara\u017Cu,
     w\xF3dka si\u0119 ch\u0142odzi, ekipa gotowa, ale magnetofon nam wci\u0105gn\u0105\u0142
     ta\u015Bm\u0119. Ca\u0142e towarzystwo zaraz zacznie trze\u017Awie\u0107 i zaczn\u0105

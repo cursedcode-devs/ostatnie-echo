@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d45b0f46aa3003d4089d0867c36920e2, type: 3}
-  m_Name: PC_HipHopGraffiti
+  m_Name: PC_Domowka
   m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
   callType: 1
-  callerName: Graffiti na komisariacie
+  callerName: "Dyrektor Zak\u0142ad\xF3w Azotowych"
   audio: {fileID: 0}
-  initialDialog: "Jest akcja, ziomek w\u0142a\u015Bnie ko\u0144czy malowa\u0107 wielkiego
-    \u017Cubra na \u015Bcianie komisariatu, a tu nagle jedzie patrol. Wrzu\u0107
-    na anten\u0119 na \u017Cywo jaki\u015B hip-hop i powiedz, \u017Ce \"farba wysch\u0142a\",
-    to ch\u0142opak zwinie si\u0119 w por\u0119. Uratujesz go, stary."
+  initialDialog: "Ch\u0142opaki dodzwoni\u0142em si\u0119 do \u017Bubra! Dobra cicho.
+    Cze\u015B\u0107 \u017Bubrze, s\u0142uchaj moi starzy wyjechali na tydzie\u0144
+    i robimy mega dom\xF3wk\u0119. Da\u0142by\u015B og\u0142oszenie na antenie? Zapraszam
+    ka\u017Cdego! Ty te\u017C \u015Bmia\u0142o wbijaj \u017Bubrze. B\u0119dzie rock,
+    disco, pop\u2026 to co \u017Bubry lubi\u0105 najbardziej!"
   dialogOptions:
-  - optionText: "Jasne, \u017Ce pomo\u017Cemy, swoich si\u0119 nie zostawia. Leci
-      komunikat a tu\u017C po nim wasza piosenka."
+  - optionText: "Pytanie! Jasne, \u017Ce dam og\u0142oszenie. Mo\u017Ce nawet wpadn\u0119."
     resultingText: 
     moneyChange: 0
     listenersPrecentageChange: 0
@@ -31,11 +31,11 @@ MonoBehaviour:
       disco: 0
       rock: 0
       pop: 0
-    hostDelta: 1
+    hostDelta: 0
     listenerDelta: 1
-    governmentDelta: -1
-  - optionText: "Nie mamy zamiaru \u015Bwieci\u0107 oczami w s\u0105dzie przez wasze
-      bazgro\u0142y. Rad\u017Acie sobie sami."
+    governmentDelta: 0
+  - optionText: "Twoi rodzice raczej nie b\u0119d\u0105 zadowoleni. Musicie sobie
+      poradzi\u0107 sami."
     resultingText: 
     moneyChange: 0
     listenersPrecentageChange: 0
@@ -45,6 +45,6 @@ MonoBehaviour:
       disco: 0
       rock: 0
       pop: 0
-    hostDelta: -1
+    hostDelta: 0
     listenerDelta: -1
-    governmentDelta: 1
+    governmentDelta: 0

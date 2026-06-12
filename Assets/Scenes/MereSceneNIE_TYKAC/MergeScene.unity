@@ -4958,6 +4958,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4353756984678456867, guid: 5ef490b88bb85f831a6ba33de2ff1174, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.9999695
+      objectReference: {fileID: 0}
     - target: {fileID: 5050459708129660371, guid: 5ef490b88bb85f831a6ba33de2ff1174, type: 3}
       propertyPath: m_Camera
       value: 
@@ -11437,6 +11441,10 @@ PrefabInstance:
       propertyPath: typeDelay
       value: 0.03
       objectReference: {fileID: 0}
+    - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1292526863}
     - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: zoomHandler
       value: 
