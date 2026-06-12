@@ -7104,6 +7104,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZoomHandler
   mainCamera: {fileID: 330585545}
+  zoomSound:
+    Guid:
+      Data1: -937438695
+      Data2: 1278554891
+      Data3: -643184511
+      Data4: 2001146145
+    Path: event:/Zoom
+  zoomOutSound:
+    Guid:
+      Data1: 1891109708
+      Data2: 1245820111
+      Data3: -486679404
+      Data4: 1846208590
+    Path: event:/ZoomOut
   zoomDuration: 1
   zoomCurve:
     serializedVersion: 2
@@ -11158,6 +11172,86 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: phoneRingSound.Path
+      value: event:/PhoneRing
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: clickOptionSound.Path
+      value: event:/Phone
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: phonePickUpSound.Path
+      value: event:/PhonePickUP
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: phonePutDownSound.Path
+      value: event:/PhonePutDOWN
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: phoneRingSound.Guid.Data1
+      value: -38596385
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: phoneRingSound.Guid.Data2
+      value: 1201161466
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: phoneRingSound.Guid.Data3
+      value: -1499441757
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: phoneRingSound.Guid.Data4
+      value: -2071880108
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: clickOptionSound.Guid.Data1
+      value: 805841339
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: clickOptionSound.Guid.Data2
+      value: 1105689746
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: clickOptionSound.Guid.Data3
+      value: 874605715
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: clickOptionSound.Guid.Data4
+      value: -303683244
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: phonePickUpSound.Guid.Data1
+      value: 1624235482
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: phonePickUpSound.Guid.Data2
+      value: 1107416120
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: phonePickUpSound.Guid.Data3
+      value: 811078547
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: phonePickUpSound.Guid.Data4
+      value: 194759370
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: phonePutDownSound.Guid.Data1
+      value: 1952674498
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: phonePutDownSound.Guid.Data2
+      value: 1136917008
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: phonePutDownSound.Guid.Data3
+      value: -1506979963
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: phonePutDownSound.Guid.Data4
+      value: 2015187685
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14488,13 +14582,6 @@ MonoBehaviour:
   popupDuration: 3
   closeKey: 60
   disableClicksWhenOpen: 1
-  successSound:
-    Guid:
-      Data1: -227413733
-      Data2: 1320757159
-      Data3: -867914567
-      Data4: 241173806
-    Path: event:/Success
 --- !u!4 &2060187814
 Transform:
   m_ObjectHideFlags: 0
@@ -15402,6 +15489,13 @@ MonoBehaviour:
       Data3: -731245654
       Data4: -1727328709
     Path: event:/PutCassetteIn
+  hingeOpenSound:
+    Guid:
+      Data1: -1352576588
+      Data2: 1101935909
+      Data3: -983343948
+      Data4: -1323830841
+    Path: event:/SlotHinge
 --- !u!65 &4727211978635104605
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15642,6 +15736,13 @@ MonoBehaviour:
       Data3: -731245654
       Data4: -1727328709
     Path: event:/PutCassetteIn
+  hingeOpenSound:
+    Guid:
+      Data1: -1352576588
+      Data2: 1101935909
+      Data3: -983343948
+      Data4: -1323830841
+    Path: event:/SlotHinge
 --- !u!65 &7950036444631380149
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15715,6 +15816,13 @@ MonoBehaviour:
       Data3: -731245654
       Data4: -1727328709
     Path: event:/PutCassetteIn
+  hingeOpenSound:
+    Guid:
+      Data1: -1352576588
+      Data2: 1101935909
+      Data3: -983343948
+      Data4: -1323830841
+    Path: event:/SlotHinge
 --- !u!65 &9166785325905138435
 BoxCollider:
   m_ObjectHideFlags: 0
