@@ -87,7 +87,7 @@ public class ChoosingCassetteUI : MonoBehaviour
             }
             else if (c.GetType() == CassetteTypes.Music)
             {
-                StatTexts[i].text = $"HipHop: {h / 100f:0.##}\nRock: {r / 100f:0.##}\nPop: {p / 100f:0.##}\nDisco: {d / 100f:0.##}";
+                StatTexts[i].text = $"HipHop: {h / 100f:0.##%}\nRock: {r / 100f:0.##%}\nPop: {p / 100f:0.##%}\nDisco: {d / 100f:0.##%}";
                 sumMusicHipHop += h / 100f;
                 sumMusicRock += r / 100f;
                 sumMusicPop += p / 100f;
@@ -98,10 +98,10 @@ public class ChoosingCassetteUI : MonoBehaviour
         }
 
         // Aktualizacja sumy ca�kowitej w ostatnim polu (zak�adam, �e to StatTexts[3])
-        StatTexts[3].text = $"HipHop: {sumMusicHipHop:0.##} {sumAdHipHop:0.##}z�\n" +
-                            $"Rock: {sumMusicRock:0.##} {sumAdRock:0.##}z�\n" +
-                            $"Pop: {sumMusicPop:0.##} {sumAdPop:0.##}z�\n" +
-                            $"Disco: {sumMusicDisco:0.##} {sumAdDisco:0.##}z�";
+        StatTexts[3].text = $"HipHop: {sumMusicHipHop:0.##%} {sumAdHipHop:0.##}z�\n" +
+                            $"Rock: {sumMusicRock:0.##%} {sumAdRock:0.##}z�\n" +
+                            $"Pop: {sumMusicPop:0.##%} {sumAdPop:0.##}z�\n" +
+                            $"Disco: {sumMusicDisco:0.##%} {sumAdDisco:0.##}z�";
     }
 
     private void PlayCassetteSound()
