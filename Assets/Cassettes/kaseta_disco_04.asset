@@ -15,6 +15,7 @@ MonoBehaviour:
   audio: {fileID: 8300000, guid: 2d2c18c7b8569c047b0c2cbcc8edf62e, type: 3}
   itemName: Dancing Prince
   author: Boogie Woogie
+  genre: Disco
   physicalPrefab: {fileID: 0}
   timesUsedInDay: 0
   cassetteValues:

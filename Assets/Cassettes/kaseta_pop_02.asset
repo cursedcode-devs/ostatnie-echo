@@ -15,6 +15,7 @@ MonoBehaviour:
   audio: {fileID: 8300000, guid: 162df77db862842948d1658a442ce1b8, type: 3}
   itemName: Get freaky
   author: Das bonk
+  genre: Pop
   physicalPrefab: {fileID: 0}
   timesUsedInDay: 0
   cassetteValues:

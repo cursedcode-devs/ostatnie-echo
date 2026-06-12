@@ -15,6 +15,7 @@ MonoBehaviour:
   audio: {fileID: 8300000, guid: 601295043a3d7284da185e837f18b02b, type: 3}
   itemName: Hot Chick
   author: Funkytown
+  genre: Disco
   physicalPrefab: {fileID: 0}
   timesUsedInDay: 0
   cassetteValues:

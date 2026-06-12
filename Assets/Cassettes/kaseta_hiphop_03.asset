@@ -15,6 +15,7 @@ MonoBehaviour:
   audio: {fileID: 8300000, guid: 229948d043421da42994052873125e7a, type: 3}
   itemName: Na dole
   author: Chudson
+  genre: Hip-Hop
   physicalPrefab: {fileID: 0}
   timesUsedInDay: 0
   cassetteValues:

@@ -15,6 +15,7 @@ MonoBehaviour:
   audio: {fileID: 8300000, guid: 52ee95ffed570de44b1f8939fc93f351, type: 3}
   itemName: In the hood
   author: OG Ben
+  genre: Hip-Hop
   physicalPrefab: {fileID: 0}
   timesUsedInDay: 0
   cassetteValues:

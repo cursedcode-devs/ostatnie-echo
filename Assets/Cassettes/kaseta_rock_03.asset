@@ -15,6 +15,7 @@ MonoBehaviour:
   audio: {fileID: 8300000, guid: 198743b16efde5b41ac323079ae8b142, type: 3}
   itemName: "Nigdy wi\u0119cej"
   author: F.A.N.
+  genre: Rock
   physicalPrefab: {fileID: 0}
   timesUsedInDay: 0
   cassetteValues:
