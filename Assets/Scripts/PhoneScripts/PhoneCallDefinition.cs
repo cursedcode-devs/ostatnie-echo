@@ -50,7 +50,8 @@ public class PhoneCallDefinition : ScriptableObject
 {
     public PhoneCallType callType;
     public string callerName;
-    
+    public AudioClip audio;
+
     [TextArea(3, 10)]
     public string initialDialog;
 
