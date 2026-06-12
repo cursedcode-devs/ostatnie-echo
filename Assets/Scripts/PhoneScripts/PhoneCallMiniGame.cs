@@ -47,6 +47,8 @@ public class PhoneCallMiniGame : BaseMiniGame
     // References to other systems to apply rewards/penalties
     private RadioStation radioStation;
     private GameManager gameManager;
+    public ZoomHandler zoomHandler;
+    public GameObject phoneCameraPos;
 
         private string dynamicallyPickedGenre = "";
 private PlayableContent requestedCassette;
@@ -82,6 +84,8 @@ private void Start()
         if (gameManager != null) gameManager.SetInputEnabled(false);
 
         EnsurePool();
+
+        zoomHandler.ZoomToTransform(phoneCameraPos.transform);
 
         // Najpierw ZAWSZE telefony narracyjne; prośby o piosenkę dopiero gdy się skończą.
         if (remainingDialogCalls.Count > 0)
@@ -343,6 +347,7 @@ private void OnOptionClicked(int optionIndex)
     public override void Close()
     {   
         FMODUnity.RuntimeManager.PlayOneShot(phonePutDownSound, this.transform.position);
+        zoomHandler.ZoomOut();
         // Po zakończeniu rozmowy przywróć sterowanie (wkładanie kaset itd.).
         if (gameManager != null) gameManager.SetInputEnabled(true);
         base.Close();
