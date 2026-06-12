@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef629219f6b17c4bbd2d813eecbea14, type: 3}
   m_Name: Zlecenie_4
   m_EditorClassIdentifier: Assembly-CSharp::Ad
-  audio: {fileID: 8300000, guid: 5c425e5a523d8d6b9800d8bb4dc26ba0, type: 3}
+  audio: {fileID: 8300000, guid: b4da13bc93cffef5ca75f5fcada23ac4, type: 3}
   itemName: "Pajda Chleba i U\u015Bmiech Prezesa"
   author: Januszpol
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
@@ -30,4 +30,10 @@ MonoBehaviour:
     pop: 0
   price: 0
   clientName: 
-  content: "W pracy ci\u0105gle s\u0142yszysz \u201epanie areczku kawa jest dla zarz\u0105du a dla pana jest nadgodzinowa sobota\u201d. Nie daj si\u0119 sprowokowa\u0107 do my\u015blenia o odpoczynku. Pami\u0119taj: zm\u0119czenie to tylko imperialistyczny wymys\u0142. Wpadnij do naszej budki przy bramie nr 4 a dostaniesz such\u0105 pajd\u0119 chleba z zapachem pasztetowej oraz zdj\u0119cie dyrektora na wczasach w Bu\u0142garii, \u017ceby\u015b wiedzia\u0142, na czyje szcz\u0119\u015bcie tak ci\u0119\u017cko pracujesz."
+  content: "W pracy ci\u0105gle s\u0142yszysz \u201Epanie areczku kawa jest dla zarz\u0105du
+    a dla pana jest nadgodzinowa sobota\u201D. Nie daj si\u0119 sprowokowa\u0107
+    do my\u015Blenia o odpoczynku. Pami\u0119taj: zm\u0119czenie to tylko imperialistyczny
+    wymys\u0142. Wpadnij do naszej budki przy bramie nr 4 a dostaniesz such\u0105
+    pajd\u0119 chleba z zapachem pasztetowej oraz zdj\u0119cie dyrektora na wczasach
+    w Bu\u0142garii, \u017Ceby\u015B wiedzia\u0142, na czyje szcz\u0119\u015Bcie
+    tak ci\u0119\u017Cko pracujesz."

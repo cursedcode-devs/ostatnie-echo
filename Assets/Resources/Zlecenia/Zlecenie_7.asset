@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef629219f6b17c4bbd2d813eecbea14, type: 3}
   m_Name: Zlecenie_7
   m_EditorClassIdentifier: Assembly-CSharp::Ad
-  audio: {fileID: 8300000, guid: 41712cd004f7fb43008d8828533684a1, type: 3}
+  audio: {fileID: 8300000, guid: c738de01f9e7f65389c3666219ec6a2d, type: 3}
   itemName: "Znikn\u0105\u0142 Opel?"
   author: WPIER-POL
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
@@ -30,4 +30,8 @@ MonoBehaviour:
     pop: 0
   price: 0
   clientName: 
-  content: "S\u0105siad ukrad\u0142 ci Opla? Firma ubezpieczeniowa m\u00f3wi \u017ce nie maj\u0105 twojego samochodu i \u017ce nic im nie zrobisz? Zadzwo\u0144 do nas, zajmiemy si\u0119 tym szybko i zgodnie ze sztuk\u0105. Gwarantujemy 100% skuteczno\u015b\u0107. Znajdziesz nas na straganie obok g\u0142\u00f3wnego rynku. Szukaj szyldu WPIER-POL: Us\u0142ugi Perswazyjne."
+  content: "S\u0105siad ukrad\u0142 ci Opla? Firma ubezpieczeniowa m\xF3wi \u017Ce
+    nie maj\u0105 twojego samochodu i \u017Ce nic im nie zrobisz? Zadzwo\u0144 do
+    nas, zajmiemy si\u0119 tym szybko i zgodnie ze sztuk\u0105. Gwarantujemy 100%
+    skuteczno\u015B\u0107. Znajdziesz nas na straganie obok g\u0142\xF3wnego rynku.
+    Szukaj szyldu WPIER-POL: Us\u0142ugi Perswazyjne."

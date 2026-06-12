@@ -11173,6 +11173,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: typeDelay
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: phoneRingSound.Path
       value: event:/PhoneRing
       objectReference: {fileID: 0}

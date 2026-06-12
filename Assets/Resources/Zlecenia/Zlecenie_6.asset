@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef629219f6b17c4bbd2d813eecbea14, type: 3}
   m_Name: Zlecenie_6
   m_EditorClassIdentifier: Assembly-CSharp::Ad
-  audio: {fileID: 8300000, guid: 41712cd004f7fb43008d8828533684a1, type: 3}
-  itemName: "WPIER-POL: Us\u0142ugi Perswazyjne - Oddasz z U\u015bmiechem"
+  audio: {fileID: 8300000, guid: 8e4061f8185aa07bfb90e2a17c1982be, type: 3}
+  itemName: "WPIER-POL: Us\u0142ugi Perswazyjne - Oddasz z U\u015Bmiechem"
   author: WPIER-POL
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
   timesUsedInDay: 0
@@ -30,4 +30,9 @@ MonoBehaviour:
     pop: 0
   price: 0
   clientName: 
-  content: "Potrzebujesz ochrony w\u0142asnego biznesu ale jeszcze o tym nie wiesz? A mo\u017ce franczyzobiorca nie chce odda\u0107 cz\u0119\u015bci zysku? Zajmiemy si\u0119 wszystkim od r\u0119ki. Umiemy przekonywa\u0107 ludzi jak nikt inny i dzia\u0142amy w tej bran\u017cy ju\u017c od 20 lat, nic nas nie zaskoczy. Znajdziesz nas na straganie obok g\u0142\u00f3wnego rynku. Szukaj szyldu WPIER-POL: Us\u0142ugi Perswazyjne."
+  content: "Potrzebujesz ochrony w\u0142asnego biznesu ale jeszcze o tym nie wiesz?
+    A mo\u017Ce franczyzobiorca nie chce odda\u0107 cz\u0119\u015Bci zysku? Zajmiemy
+    si\u0119 wszystkim od r\u0119ki. Umiemy przekonywa\u0107 ludzi jak nikt inny
+    i dzia\u0142amy w tej bran\u017Cy ju\u017C od 20 lat, nic nas nie zaskoczy. Znajdziesz
+    nas na straganie obok g\u0142\xF3wnego rynku. Szukaj szyldu WPIER-POL: Us\u0142ugi
+    Perswazyjne."

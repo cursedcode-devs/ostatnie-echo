@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef629219f6b17c4bbd2d813eecbea14, type: 3}
   m_Name: Zlecenie_8
   m_EditorClassIdentifier: Assembly-CSharp::Ad
-  audio: {fileID: 8300000, guid: 46284d84d4cc489bc4092ac16b44ba6d, type: 3}
+  audio: {fileID: 8300000, guid: 664001ff29d41e3fba14dcd0ae469e43, type: 3}
   itemName: "Poczuj Ameryka\u0144ski Sen"
   author: Auto Handel "Wujek George"
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
@@ -30,4 +30,10 @@ MonoBehaviour:
     pop: 0
   price: 0
   clientName: 
-  content: "Masz do\u015b\u0107 klekotu diesla zza Odry? Marzysz o prawdziwej mocy, kt\u00f3ra po\u017cre Twoj\u0105 hiperinflacyjn\u0105 pensj\u0119? Auto-Handel \"Wujek George\" sprowadza legendarne maszyny z USA. Nasze samochody maj\u0105 wi\u0119cej koni mechanicznych ni\u017c dyrektor stoczni dostaje \u0142ap\u00f3wek. Stan? Amerykanin do dzisiaj p\u0142acze w New Jersey. Tapicerka pachnie wolno\u015bci\u0105 i tytoniem bez akcyzy. Zapraszamy na bazar przy wylot\u00f3wce, stoisko obok go\u015bcia z myd\u0142em i powid\u0142em."
+  content: "Masz do\u015B\u0107 klekotu diesla zza Odry? Marzysz o prawdziwej mocy,
+    kt\xF3ra po\u017Cre Twoj\u0105 hiperinflacyjn\u0105 pensj\u0119? Auto-Handel
+    \"Wujek George\" sprowadza legendarne maszyny z USA. Nasze samochody maj\u0105
+    wi\u0119cej koni mechanicznych ni\u017C dyrektor stoczni dostaje \u0142ap\xF3wek.
+    Stan? Amerykanin do dzisiaj p\u0142acze w New Jersey. Tapicerka pachnie wolno\u015Bci\u0105
+    i tytoniem bez akcyzy. Zapraszamy na bazar przy wylot\xF3wce, stoisko obok go\u015Bcia
+    z myd\u0142em i powid\u0142em."

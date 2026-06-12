@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef629219f6b17c4bbd2d813eecbea14, type: 3}
   m_Name: Zlecenie_13
   m_EditorClassIdentifier: Assembly-CSharp::Ad
-  audio: {fileID: 8300000, guid: 4cc0e22e0aa90d8df0545f2cb4e6a461, type: 3}
+  audio: {fileID: 8300000, guid: c7f07c7f756ec434b96861b6268d3faa, type: 3}
   itemName: "Niewidoczna Inwigilacja S\u0105siedzka"
   author: "Niemy jak mim, niewidoczny jak s\u0142o\u0144"
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
@@ -30,4 +30,10 @@ MonoBehaviour:
     pop: 0
   price: 0
   clientName: 
-  content: "Zastanawiasz si\u0119, sk\u0105d s\u0105siad ma pieni\u0105dze na now\u0105 anten\u0119 i dwa kartony Marlboro? Czy to ukryty lojalista, czy mo\u017ce dorobi\u0142 si\u0119 na Januszexie? Pewnie ukrad\u0142, ale biuro detektywistyczne \u201eNiemy jak mim, niewidoczny jak s\u0142o\u0144\u201d rozwieje Twoje w\u0105tpliwo\u015bci. Mamy najlepsze informatorki na osiedlu z wieloletnim sta\u017cem, sprawdzamy wszystkie kosze na \u015bmieci dwa razy dziennie i nas\u0142uchujemy przy rurach kanalizacyjnych. Zadzwo\u0144 337 814 515."
+  content: "Zastanawiasz si\u0119, sk\u0105d s\u0105siad ma pieni\u0105dze na now\u0105
+    anten\u0119 i dwa kartony Marlboro? Czy to ukryty lojalista, czy mo\u017Ce dorobi\u0142
+    si\u0119 na Januszexie? Pewnie ukrad\u0142, ale biuro detektywistyczne \u201ENiemy
+    jak mim, niewidoczny jak s\u0142o\u0144\u201D rozwieje Twoje w\u0105tpliwo\u015Bci.
+    Mamy najlepsze informatorki na osiedlu z wieloletnim sta\u017Cem, sprawdzamy
+    wszystkie kosze na \u015Bmieci dwa razy dziennie i nas\u0142uchujemy przy rurach
+    kanalizacyjnych. Zadzwo\u0144 337 814 515."
