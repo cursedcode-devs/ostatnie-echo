@@ -193,9 +193,64 @@ MonoBehaviour:
   optionAText: {fileID: 947299874982482159}
   optionBButton: {fileID: 5075648021426001715}
   optionBText: {fileID: 332315516319555009}
+  typeDelay: 0.03
+  slideDuration: 0.4
+  slideOffset: -400
+  slideCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   dialogPhoneCalls:
   - {fileID: 11400000, guid: 0e818ffb0b042b14aab006ee1ab5504b, type: 2}
   - {fileID: 11400000, guid: 78e904edf91650641a8d795e12dcd77c, type: 2}
+  phoneRingSound:
+    Guid:
+      Data1: -38596385
+      Data2: 1201161466
+      Data3: -1499441757
+      Data4: -2071880108
+    Path: event:/PhoneRing
+  phonePickUpSound:
+    Guid:
+      Data1: 1624235482
+      Data2: 1107416120
+      Data3: 811078547
+      Data4: 194759370
+    Path: event:/PhonePickUP
+  phonePutDownSound:
+    Guid:
+      Data1: 1952674498
+      Data2: 1136917008
+      Data3: -1506979963
+      Data4: 2015187685
+    Path: event:/PhonePutDOWN
+  clickOptionSound:
+    Guid:
+      Data1: -194323691
+      Data2: 1202083573
+      Data3: 523808153
+      Data4: 1743445017
+    Path: event:/Click
   playerCassettesPool: []
 --- !u!223 &4416070883256726078
 Canvas:

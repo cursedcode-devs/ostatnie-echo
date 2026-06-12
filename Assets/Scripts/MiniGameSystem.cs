@@ -54,7 +54,6 @@ public class MiniGameSystem : MonoBehaviour
     private BaseMiniGame currentMiniGame;
     private MiniGameDefinition currentDefinition;
     private Dictionary<string, BaseMiniGame> spawnedInstances = new();
-    public FMODUnity.EventReference successSound;
     // ------------------------------------------------------------------
     void Awake()
     {
@@ -217,7 +216,6 @@ public class MiniGameSystem : MonoBehaviour
             Debug.LogWarning("[MiniGameSystem] HandleWin fired but currentDefinition was null — rewards skipped.");
             return;
         }
-        FMODUnity.RuntimeManager.PlayOneShot(successSound, this.transform.position);
         var rewards = wonDefinition.DrawRewards(globalRewardPool);
         ApplyRewards(rewards);
 

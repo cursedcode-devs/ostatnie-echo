@@ -19,6 +19,7 @@ public class ZoomTarget
     [Header("Opcjonalne zdarzenia (np. do zmiany koloru, włączenia UI)")]
     public UnityEvent onHoverEnter;
     public UnityEvent onHoverExit;
+    
 }
 
 public class ZoomHandler : MonoBehaviour
@@ -26,7 +27,8 @@ public class ZoomHandler : MonoBehaviour
     [Header("Ustawienia Kamery")]
     [Tooltip("Jeśli puste, użyje Camera.main")]
     public Camera mainCamera;
-    
+    public FMODUnity.EventReference zoomSound;
+    public FMODUnity.EventReference zoomOutSound;
     [Tooltip("Czas trwania animacji przybliżania i oddalania (w sekundach).")]
     public float zoomDuration = 1.0f;
     
@@ -129,7 +131,7 @@ public class ZoomHandler : MonoBehaviour
     private void ZoomIn(ZoomTarget target)
     {
         if (isAnimating || isZoomedIn) return;
-
+        
         // Zapisujemy pozycję i rotację startową kamery, by mieć do czego wracać
         originalCameraPosition = mainCamera.transform.position;
         originalCameraRotation = mainCamera.transform.rotation;
@@ -154,7 +156,7 @@ public class ZoomHandler : MonoBehaviour
             targetPos = objectCenter + directionToCamera * autoZoomDistance;
             targetRot = Quaternion.LookRotation(objectCenter - targetPos);
         }
-
+        FMODUnity.RuntimeManager.PlayOneShot(zoomSound, this.transform.position);
         // Wyłączamy outline podczas "oglądania"
         if (target.outlineComponent != null)
             target.outlineComponent.enabled = false;
@@ -179,7 +181,7 @@ public class ZoomHandler : MonoBehaviour
 
             StartCoroutine(AnimateCamera(originalCameraPosition, originalCameraRotation));
         }
-
+        FMODUnity.RuntimeManager.PlayOneShot(zoomOutSound, this.transform.position);
         isZoomedIn = false;
         currentZoomedTarget = null;
     }
