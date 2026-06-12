@@ -52,6 +52,8 @@ public class AudioQueueManager : MonoBehaviour
         if( audioQueue.Count > 0 )
         {
             QueuedClip next = audioQueue.Dequeue();
+            if (next.clip == null)
+                return;
             NowPlayingBar.SetActive(true);
             Transform songTitle = NowPlayingBar.transform.Find("Text");
             TMP_Text text = songTitle.GetComponent<TMP_Text>();
