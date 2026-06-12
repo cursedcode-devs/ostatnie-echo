@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public FMODUnity.EventReference takeCassetteSound;
     public FMODUnity.EventReference putDownCassetteSound;
     public int daysNr;
+    public int lastHour;
     private int startHour = 14;
     private int startDay = 1;
     private const float startingModifier = 0f;
@@ -48,7 +49,7 @@ public class GameManager : MonoBehaviour
         FMODUnity.RuntimeManager.PlayOneShot(enterRadioSound, this.transform.position);
 
         actionManager = new ActionManager(mainCamera);
-        timeHandler = new TimeHandler(startHour, startDay, airtime, cassetteSlots, zoomHandler, daysNr);
+        timeHandler = new TimeHandler(startHour, startDay, airtime, cassetteSlots, zoomHandler, daysNr, lastHour);
         FMODUnity.RuntimeManager.PlayOneShot(ambient, this.transform.position);
 
 

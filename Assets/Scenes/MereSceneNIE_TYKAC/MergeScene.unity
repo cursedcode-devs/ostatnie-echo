@@ -1170,6 +1170,7 @@ MonoBehaviour:
       Data4: 1890931116
     Path: event:/PutDownCassette
   daysNr: 3
+  lastHour: 16
   zoomHandler: {fileID: 904548056}
   airtime: {fileID: 1296084681}
   choosingCassetteUI: {fileID: 1596736046}
