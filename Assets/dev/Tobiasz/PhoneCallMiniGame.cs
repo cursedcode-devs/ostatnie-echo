@@ -20,7 +20,7 @@ public class PhoneCallMiniGame : BaseMiniGame
     public TextMeshProUGUI optionBText;
 
     [Header("Typewriter Settings")]
-    public float typeDelay = 0.03f;
+    public float typeDelay = 0.01f;
     private Coroutine typingCoroutine;
 
     [Header("Animation Settings")]
