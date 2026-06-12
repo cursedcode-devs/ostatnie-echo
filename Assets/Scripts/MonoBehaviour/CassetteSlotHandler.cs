@@ -14,6 +14,7 @@ public class CassetteSlotHandler : MonoBehaviour
     private Vector3 closedRotation = new Vector3(90f, 0f, 0f);
     private Vector3 openRotation = new Vector3(90f, 105f, 0f);
     public FMODUnity.EventReference clickSound;
+    public FMODUnity.EventReference hingeOpenSound;
     public void HandleHinge()
     {
         if (!isOpen)
@@ -21,12 +22,14 @@ public class CassetteSlotHandler : MonoBehaviour
             hinge.localRotation = Quaternion.Euler(openRotation);
             isOpen = true;
             SlotHitBox.SetActive(true);
+            FMODUnity.RuntimeManager.PlayOneShot(hingeOpenSound, this.transform.position);
         }
         else if (isOpen)
         {
             hinge.localRotation = Quaternion.Euler(closedRotation);
             isOpen = false;
             SlotHitBox.SetActive(false);
+            FMODUnity.RuntimeManager.PlayOneShot(hingeOpenSound, this.transform.position);
         }
     }
 

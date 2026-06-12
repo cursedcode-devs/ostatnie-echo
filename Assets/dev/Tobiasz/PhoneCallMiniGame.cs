@@ -36,6 +36,10 @@ public class PhoneCallMiniGame : BaseMiniGame
 
     [Header("Config")]
     public List<PhoneCallDefinition> dialogPhoneCalls;
+    public FMODUnity.EventReference phoneRingSound;
+    public FMODUnity.EventReference phonePickUpSound;
+    public FMODUnity.EventReference phonePutDownSound;
+    public FMODUnity.EventReference clickOptionSound;
     
     // Zastępstwo dla ekwipunku gracza
     public List<Cassette> playerCassettesPool;
@@ -70,7 +74,9 @@ private void Start()
     }
 
     protected override void OnLaunch()
-    {
+    {   
+        FMODUnity.RuntimeManager.PlayOneShot(phoneRingSound, this.transform.position);
+        FMODUnity.RuntimeManager.PlayOneShot(phonePickUpSound, this.transform.position);
         if (gameManager == null) gameManager = FindFirstObjectByType<GameManager>();
         // Na czas rozmowy blokuj interakcję ze światem (wkładanie/wyjmowanie kaset).
         if (gameManager != null) gameManager.SetInputEnabled(false);
@@ -127,6 +133,8 @@ private void SetupSongRequest()
 
 private void SetupDialogCall()
 {
+
+   
     EnsurePool();
 
     if (remainingDialogCalls.Count == 0)
@@ -272,7 +280,7 @@ private void SetupDialogCall()
     private void OnOkayClicked()
     {
         Debug.Log($"Requested cassette: {requestedCassette?.GetName()}");
-        
+        FMODUnity.RuntimeManager.PlayOneShot(clickOptionSound, this.transform.position);
         if (gameManager != null && requestedCassette != null)
         {
             gameManager.SetRequestedCassette(requestedCassette);
@@ -284,6 +292,7 @@ private void SetupDialogCall()
 
 private void OnOptionClicked(int optionIndex)
 {
+    
     if (currentPhoneCall == null || optionIndex >= currentPhoneCall.dialogOptions.Count) return;
 
     PhoneCallDialogOption option = currentPhoneCall.dialogOptions[optionIndex];
@@ -332,7 +341,8 @@ private void OnOptionClicked(int optionIndex)
 }
 
     public override void Close()
-    {
+    {   
+        FMODUnity.RuntimeManager.PlayOneShot(phonePutDownSound, this.transform.position);
         // Po zakończeniu rozmowy przywróć sterowanie (wkładanie kaset itd.).
         if (gameManager != null) gameManager.SetInputEnabled(true);
         base.Close();
