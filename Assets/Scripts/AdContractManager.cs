@@ -76,6 +76,8 @@ public class AdContractManager : MonoBehaviour
                 adCassettePrefab = Resources.Load<GameObject>("Reklama");
             }
         }
+
+        AcceptContracts();
     }
 
     /// <summary>
@@ -164,8 +166,22 @@ public class AdContractManager : MonoBehaviour
     /// <summary>
     /// Akceptuje wybrane reklamy z zewnętrznego UI i spawnuje kasety.
     /// </summary>
-    public void AcceptContracts(List<Ad> selectedAds)
+    public void AcceptContracts(List<Ad> selectedAds=null)
     {
+        if(selectedAds==null)
+        {
+            selectedAds= new List<Ad>();
+            int[] r= { 0, 0};
+            while (r[0] == r[1])
+            {
+                r[0] = UnityEngine.Random.Range(0, allAds.Count - 1);
+                r[1] = UnityEngine.Random.Range(0, allAds.Count - 1);
+            }
+
+            selectedAds.Add(allAds[r[0]]);
+            selectedAds.Add(allAds[r[1]]);
+        }
+
         ClearRemainingPhysicalAds();
         activeContracts.Clear();
         activeContracts.AddRange(selectedAds);
