@@ -47,16 +47,7 @@ public class DayEndHandler : MonoBehaviour
         };
         startMoney = radioStation.GetCurrentMoney();
 
-        foreach (var cassette in allCassettes)
-        {
-            cassette.GetComponent<PlayableObject>().data.ResetTimesUsed();
-            cassette.GetComponent<PlayableObject>().data.ResetLastValues();
-        }
-        foreach (var ad in allAds)
-        {
-            ad.ResetTimesUsed();
-            ad.ResetLastValues();
-        }
+        ResetAllCassettePenalties();
     }
 
     void HandleDayStart()
@@ -80,16 +71,7 @@ public class DayEndHandler : MonoBehaviour
         radioStation.SetCurrentMoney(radioStation.GetCurrentMoney() - kawalerka_fee - jedzenie_fee - studia_fee);
 
 
-        foreach (var cassette in allCassettes)
-        {
-            cassette.GetComponent<PlayableObject>().data.ResetTimesUsed();
-            cassette.GetComponent<PlayableObject>().data.ResetLastValues();
-        }
-        foreach (var ad in allAds)
-        {
-            ad.ResetTimesUsed();
-            ad.ResetLastValues();
-        }
+        ResetAllCassettePenalties();
 
         radioStation.SetDailyListenersModifier(0f, 0f, 0f, 0f);
         radioStation.SetDailyRevenueModifier(0f, 0f, 0f, 0f);
@@ -346,5 +328,34 @@ public class DayEndHandler : MonoBehaviour
             currentShopUI.gameObject.SetActive(false);
 
         gameManager.SetInputEnabled(true);
+    }
+
+    /// <summary>
+    /// Resetuje dzienne "kary" kaset (timesUsed oraz zdegradowane lastCassetteValues),
+    /// żeby następnego dnia modyfikatory wróciły do wartości bazowych (cassetteValues).
+    /// Szuka wszystkich PlayableObject w scenie (także nieaktywnych, np. kupionych kaset
+    /// czekających w sklepie), więc nie zależy od ręcznie przypisanej tablicy allCassettes
+    /// ani od dynamicznie tworzonych kopii.
+    /// </summary>
+    private void ResetAllCassettePenalties()
+    {
+        var playables = FindObjectsByType<PlayableObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (var p in playables)
+        {
+            if (p == null || p.data == null) continue;
+            p.data.ResetTimesUsed();
+            p.data.ResetLastValues();
+        }
+
+        // Bazowe assety reklam (klony są niszczone osobno na koniec dnia).
+        if (allAds != null)
+        {
+            foreach (var ad in allAds)
+            {
+                if (ad == null) continue;
+                ad.ResetTimesUsed();
+                ad.ResetLastValues();
+            }
+        }
     }
 }
