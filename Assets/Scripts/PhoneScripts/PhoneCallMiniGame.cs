@@ -7,7 +7,7 @@ public class PhoneCallMiniGame : BaseMiniGame
 {
     [Header("Phone Call UI")]
     public TextMeshProUGUI dialogText;
-    
+
     [Header("Song Request UI")]
     public GameObject songRequestPanel;
     public Button okayButton; // For song request, there's only one choice.
@@ -27,7 +27,7 @@ public class PhoneCallMiniGame : BaseMiniGame
     public float slideDuration = 0.4f;
     public float slideOffset = -400f; // animacja wsuwania od 400px nizej
     public AnimationCurve slideCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
-    
+
     private Vector2 optionAOriginalPos;
     private Vector2 optionBOriginalPos;
     private Vector2 okayOriginalPos;
@@ -40,7 +40,7 @@ public class PhoneCallMiniGame : BaseMiniGame
     public FMODUnity.EventReference phonePickUpSound;
     public FMODUnity.EventReference phonePutDownSound;
     public FMODUnity.EventReference clickOptionSound;
-    
+
     // Zastępstwo dla ekwipunku gracza
     public List<Cassette> playerCassettesPool;
 
@@ -49,19 +49,22 @@ public class PhoneCallMiniGame : BaseMiniGame
     private GameManager gameManager;
     public ZoomHandler zoomHandler;
     public GameObject phoneCameraPos;
+    public AudioSource audioSource;
 
-        private string dynamicallyPickedGenre = "";
-private PlayableContent requestedCassette;
+    private string dynamicallyPickedGenre = "";
+    private PlayableContent requestedCassette;
     private PhoneCallDefinition currentPhoneCall;
 
-private void Start()
-{
-    gameManager = FindFirstObjectByType<GameManager>();
-    if (gameManager != null)
+    FMOD.Studio.EventInstance ringInstance;
+
+    private void Start()
     {
-        radioStation = gameManager.radioStation;
+        gameManager = FindFirstObjectByType<GameManager>();
+        if (gameManager != null)
+        {
+            radioStation = gameManager.radioStation;
+        }
     }
-}
 
     // Pula telefonów bez powtórzeń — raz wylosowany telefon znika z niej do końca gry.
     private List<PhoneCallDefinition> remainingDialogCalls;
@@ -76,17 +79,50 @@ private void Start()
     }
 
     protected override void OnLaunch()
-    {   
-        FMODUnity.RuntimeManager.PlayOneShot(phoneRingSound, this.transform.position);
-        FMODUnity.RuntimeManager.PlayOneShot(phonePickUpSound, this.transform.position);
+    {
+        // 1. Zastępujemy stare PlayOneShot odpaleniem naszej korutyny
+        zoomHandler.ZoomToTransform(phoneCameraPos.transform);
+        
         if (gameManager == null) gameManager = FindFirstObjectByType<GameManager>();
+
         // Na czas rozmowy blokuj interakcję ze światem (wkładanie/wyjmowanie kaset).
         if (gameManager != null) gameManager.SetInputEnabled(false);
 
+        StartCoroutine(WaitForPhoneRing());
+    }
+
+    // 2. Dodajesz nową metodę na samym dole (bądź pod OnLaunch), wewnątrz klasy PhoneCallMiniGame
+    private System.Collections.IEnumerator WaitForPhoneRing()
+    {
+        dialogText.text = "";
+        if (optionAButton != null) optionAButton.gameObject.SetActive(false);
+        if (optionBButton != null) optionBButton.gameObject.SetActive(false);
+        if (okayButton != null) okayButton.gameObject.SetActive(false);
+        // Tworzymy i odpalamy dźwięk
+        FMOD.Studio.EventInstance ringInstance = FMODUnity.RuntimeManager.CreateInstance(phoneRingSound);
+        ringInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.gameObject));
+        ringInstance.start();
+        ringInstance.release();
+
+        FMOD.Studio.PLAYBACK_STATE state;
+
+
+
+        // Czekamy na koniec dźwięku
+        do
+        {
+            ringInstance.getPlaybackState(out state);
+            yield return null;
+
+        } while (state != FMOD.Studio.PLAYBACK_STATE.STOPPED);
+        FMODUnity.RuntimeManager.PlayOneShot(phonePickUpSound, this.transform.position);
+        // Po zakończeniu pętli (czyli gdy dźwięk przestanie grać) wykonujemy to, co chciałeś:
+        Debug.Log("Dzwięk sie skonczyl");
         EnsurePool();
 
-        zoomHandler.ZoomToTransform(phoneCameraPos.transform);
-
+        if (optionAButton != null) optionAButton.gameObject.SetActive(true);
+        if (optionBButton != null) optionBButton.gameObject.SetActive(true);
+        if (okayButton != null) okayButton.gameObject.SetActive(true);
         // Najpierw ZAWSZE telefony narracyjne; prośby o piosenkę dopiero gdy się skończą.
         if (remainingDialogCalls.Count > 0)
         {
@@ -100,105 +136,112 @@ private void Start()
         {
             Close();
         }
-    }
 
-private void SetupSongRequest()
-{
-    currentPhoneCall = null;
-    requestedCassette = playerCassettesPool[Random.Range(0, playerCassettesPool.Count)];
-    
-    string genreText = "";
-    if (requestedCassette.GetCassetteValues().hipHop > 0) genreText = "hip hop";
-    else if (requestedCassette.GetCassetteValues().disco > 0) genreText = "disco";
-    else if (requestedCassette.GetCassetteValues().rock > 0) genreText = "rock";
-    else if (requestedCassette.GetCassetteValues().pop > 0) genreText = "pop";
-    
-    string dialog = "";
-    switch(genreText)
-    {
-        case "hip hop": dialog = $"Yo, macie może kasetę '{requestedCassette.GetName()}'? Puśćcie trochę hip hopu!"; break;
-        case "disco": dialog = $"Hej! Zróbcie trochę hałasu i puśćcie '{requestedCassette.GetName()}'!"; break;
-        case "rock": dialog = $"Witam. Chciałbym usłyszeć klasycznego rocka. Może '{requestedCassette.GetName()}'?"; break;
-        case "pop": dialog = $"Dawajcie pop! Puść '{requestedCassette.GetName()}' natychmiast!"; break;
-        default: dialog = $"Hej, puść proszę '{requestedCassette.GetName()}'."; break;
-    }
-
-    if (dialogText != null) StartTyping(dialog);
-
-    if (optionAButton != null)
-    {
-        optionAButton.gameObject.SetActive(true);
-        optionAButton.onClick.RemoveAllListeners();
-        optionAButton.onClick.AddListener(OnOkayClicked);
-        if (optionAText != null) optionAText.text = "OK";
-    }
-    if (optionBButton != null) optionBButton.gameObject.SetActive(false);
-}
-
-private void SetupDialogCall()
-{
-
-   
-    EnsurePool();
-
-    if (remainingDialogCalls.Count == 0)
-    {
-        // Brak nieużytych telefonów — jeśli są kasety, zrób prośbę o piosenkę, inaczej zamknij.
-        if (playerCassettesPool != null && playerCassettesPool.Count > 0)
+        if (currentPhoneCall.audio != null && currentPhoneCall.initialDialog != null)
         {
-            SetupSongRequest();
-            return;
+            dialogText.text = currentPhoneCall.initialDialog;
+            audioSource.clip = currentPhoneCall.audio;
+            audioSource.Play();
         }
-        Close();
-        return;
     }
 
-    requestedCassette = null;
-    dynamicallyPickedGenre = "";
-    int idx = Random.Range(0, remainingDialogCalls.Count);
-    currentPhoneCall = remainingDialogCalls[idx];
-    remainingDialogCalls.RemoveAt(idx); // bez powtórzeń
-
-    string dialogTextString = currentPhoneCall.initialDialog;
-    if (dialogTextString != null && dialogTextString.Contains("{GENRE}"))
+    private void SetupSongRequest()
     {
-        string[] genres = { "hip hop", "disco", "rock", "pop" };
-        dynamicallyPickedGenre = genres[Random.Range(0, genres.Length)];
-        dialogTextString = dialogTextString.Replace("{GENRE}", dynamicallyPickedGenre);
-    }
+        currentPhoneCall = null;
+        requestedCassette = playerCassettesPool[Random.Range(0, playerCassettesPool.Count)];
 
-    if (dialogText != null) StartTyping(dialogTextString);
+        string genreText = "";
+        if (requestedCassette.GetCassetteValues().hipHop > 0) genreText = "hip hop";
+        else if (requestedCassette.GetCassetteValues().disco > 0) genreText = "disco";
+        else if (requestedCassette.GetCassetteValues().rock > 0) genreText = "rock";
+        else if (requestedCassette.GetCassetteValues().pop > 0) genreText = "pop";
 
-    if (optionAButton != null)
-    {
-        optionAButton.onClick.RemoveAllListeners();
-        optionAButton.onClick.AddListener(() => OnOptionClicked(0));
-        if (currentPhoneCall.dialogOptions.Count > 0)
+        string dialog = "";
+        switch (genreText)
+        {
+            case "hip hop": dialog = $"Yo, macie może kasetę '{requestedCassette.GetName()}'? Puśćcie trochę hip hopu!"; break;
+            case "disco": dialog = $"Hej! Zróbcie trochę hałasu i puśćcie '{requestedCassette.GetName()}'!"; break;
+            case "rock": dialog = $"Witam. Chciałbym usłyszeć klasycznego rocka. Może '{requestedCassette.GetName()}'?"; break;
+            case "pop": dialog = $"Dawajcie pop! Puść '{requestedCassette.GetName()}' natychmiast!"; break;
+            default: dialog = $"Hej, puść proszę '{requestedCassette.GetName()}'."; break;
+        }
+
+        if (dialogText != null) StartTyping(dialog);
+
+        if (optionAButton != null)
         {
             optionAButton.gameObject.SetActive(true);
-            if (optionAText != null) optionAText.text = currentPhoneCall.dialogOptions[0].optionText;
+            optionAButton.onClick.RemoveAllListeners();
+            optionAButton.onClick.AddListener(OnOkayClicked);
+            if (optionAText != null) optionAText.text = "OK";
         }
-        else
-        {
-            optionAButton.gameObject.SetActive(false);
-        }
+        if (optionBButton != null) optionBButton.gameObject.SetActive(false);
     }
 
-    if (optionBButton != null)
+    private void SetupDialogCall()
     {
-        optionBButton.onClick.RemoveAllListeners();
-        optionBButton.onClick.AddListener(() => OnOptionClicked(1));
-        if (currentPhoneCall.dialogOptions.Count > 1)
+
+
+        EnsurePool();
+
+        if (remainingDialogCalls.Count == 0)
         {
-            optionBButton.gameObject.SetActive(true);
-            if (optionBText != null) optionBText.text = currentPhoneCall.dialogOptions[1].optionText;
+            // Brak nieużytych telefonów — jeśli są kasety, zrób prośbę o piosenkę, inaczej zamknij.
+            if (playerCassettesPool != null && playerCassettesPool.Count > 0)
+            {
+                SetupSongRequest();
+                return;
+            }
+            Close();
+            return;
         }
-        else
+
+        requestedCassette = null;
+        dynamicallyPickedGenre = "";
+        int idx = Random.Range(0, remainingDialogCalls.Count);
+        currentPhoneCall = remainingDialogCalls[idx];
+        remainingDialogCalls.RemoveAt(idx); // bez powtórzeń
+
+        string dialogTextString = currentPhoneCall.initialDialog;
+        if (dialogTextString != null && dialogTextString.Contains("{GENRE}"))
         {
-            optionBButton.gameObject.SetActive(false);
+            string[] genres = { "hip hop", "disco", "rock", "pop" };
+            dynamicallyPickedGenre = genres[Random.Range(0, genres.Length)];
+            dialogTextString = dialogTextString.Replace("{GENRE}", dynamicallyPickedGenre);
+        }
+
+        if (dialogText != null) StartTyping(dialogTextString);
+
+        if (optionAButton != null)
+        {
+            optionAButton.onClick.RemoveAllListeners();
+            optionAButton.onClick.AddListener(() => OnOptionClicked(0));
+            if (currentPhoneCall.dialogOptions.Count > 0)
+            {
+                optionAButton.gameObject.SetActive(true);
+                if (optionAText != null) optionAText.text = currentPhoneCall.dialogOptions[0].optionText;
+            }
+            else
+            {
+                optionAButton.gameObject.SetActive(false);
+            }
+        }
+
+        if (optionBButton != null)
+        {
+            optionBButton.onClick.RemoveAllListeners();
+            optionBButton.onClick.AddListener(() => OnOptionClicked(1));
+            if (currentPhoneCall.dialogOptions.Count > 1)
+            {
+                optionBButton.gameObject.SetActive(true);
+                if (optionBText != null) optionBText.text = currentPhoneCall.dialogOptions[1].optionText;
+            }
+            else
+            {
+                optionBButton.gameObject.SetActive(false);
+            }
         }
     }
-}
 
     private void SaveOriginalPositions()
     {
@@ -236,10 +279,10 @@ private void SetupDialogCall()
         {
             StopCoroutine(typingCoroutine);
         }
-        
+
         dialogText.text = text;
         dialogText.maxVisibleCharacters = 0;
-        
+
         typingCoroutine = StartCoroutine(TypewriterEffect());
     }
 
@@ -289,63 +332,64 @@ private void SetupDialogCall()
         {
             gameManager.SetRequestedCassette(requestedCassette);
         }
-        
+
         TriggerWin();
         Close();
     }
 
-private void OnOptionClicked(int optionIndex)
-{
-    
-    if (currentPhoneCall == null || optionIndex >= currentPhoneCall.dialogOptions.Count) return;
-
-    PhoneCallDialogOption option = currentPhoneCall.dialogOptions[optionIndex];
-
-    if (radioStation != null)
+    private void OnOptionClicked(int optionIndex)
     {
-        radioStation.AddMoney(option.moneyChange);
-        
-        if (option.listenersPrecentageChange != 0f)
+
+        if (currentPhoneCall == null || optionIndex >= currentPhoneCall.dialogOptions.Count) return;
+
+        PhoneCallDialogOption option = currentPhoneCall.dialogOptions[optionIndex];
+
+        if (radioStation != null)
         {
-            radioStation.RemoveListenersPr(-option.listenersPrecentageChange);
+            radioStation.AddMoney(option.moneyChange);
+
+            if (option.listenersPrecentageChange != 0f)
+            {
+                radioStation.RemoveListenersPr(-option.listenersPrecentageChange);
+            }
+
+            if (option.flatListenersChange.totalListeners != 0)
+            {
+                radioStation.currentListeners.hipHop += option.flatListenersChange.hipHop;
+                radioStation.currentListeners.disco += option.flatListenersChange.disco;
+                radioStation.currentListeners.rock += option.flatListenersChange.rock;
+                radioStation.currentListeners.pop += option.flatListenersChange.pop;
+            }
         }
 
-        if (option.flatListenersChange.totalListeners != 0)
+        // Wpływ wyboru na endingowe liczniki (osie zakończenia gry)
+        if (gameManager != null)
         {
-            radioStation.currentListeners.hipHop += option.flatListenersChange.hipHop;
-            radioStation.currentListeners.disco += option.flatListenersChange.disco;
-            radioStation.currentListeners.rock += option.flatListenersChange.rock;
-            radioStation.currentListeners.pop += option.flatListenersChange.pop;
+            if (option.hostDelta != 0) gameManager.ApplyEndingMeter(EndingMeter.Host, option.hostDelta);
+            if (option.listenerDelta != 0) gameManager.ApplyEndingMeter(EndingMeter.Listener, option.listenerDelta);
+            if (option.governmentDelta != 0) gameManager.ApplyEndingMeter(EndingMeter.Government, option.governmentDelta);
         }
+
+        string genreToSend = option.requestedGenre;
+        if (genreToSend == "random" && !string.IsNullOrEmpty(dynamicallyPickedGenre))
+        {
+            genreToSend = dynamicallyPickedGenre;
+        }
+
+        if (!string.IsNullOrEmpty(genreToSend) && gameManager != null)
+        {
+            gameManager.SetRequestedGenre(genreToSend);
+        }
+
+        Debug.Log($"Dialog resulting text: {option.resultingText}");
+        audioSource.Stop();
+
+        TriggerWin();
+        Close();
     }
-
-    // Wpływ wyboru na endingowe liczniki (osie zakończenia gry)
-    if (gameManager != null)
-    {
-        if (option.hostDelta != 0)       gameManager.ApplyEndingMeter(EndingMeter.Host, option.hostDelta);
-        if (option.listenerDelta != 0)   gameManager.ApplyEndingMeter(EndingMeter.Listener, option.listenerDelta);
-        if (option.governmentDelta != 0) gameManager.ApplyEndingMeter(EndingMeter.Government, option.governmentDelta);
-    }
-
-    string genreToSend = option.requestedGenre;
-    if (genreToSend == "random" && !string.IsNullOrEmpty(dynamicallyPickedGenre))
-    {
-        genreToSend = dynamicallyPickedGenre;
-    }
-
-    if (!string.IsNullOrEmpty(genreToSend) && gameManager != null)
-    {
-        gameManager.SetRequestedGenre(genreToSend);
-    }
-
-    Debug.Log($"Dialog resulting text: {option.resultingText}");
-
-    TriggerWin();
-    Close();
-}
 
     public override void Close()
-    {   
+    {
         FMODUnity.RuntimeManager.PlayOneShot(phonePutDownSound, this.transform.position);
         zoomHandler.ZoomOut();
         // Po zakończeniu rozmowy przywróć sterowanie (wkładanie kaset itd.).

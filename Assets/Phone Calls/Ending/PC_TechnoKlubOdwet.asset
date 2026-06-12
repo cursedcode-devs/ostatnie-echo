@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
   callType: 1
   callerName: Wezwanie do odwetu
+  audio: {fileID: 0}
   initialDialog: "Ch\u0142opaki z techno-klubu pobili wczoraj naszego m\u0142odego,
     ch\u0142opak le\u017Cy na OIOM-ie. Nagrali\u015Bmy komunikat z wezwaniem do pe\u0142nej
     mobilizacji i odwetu pod kinem Polonia. Pu\u015B\u0107 to teraz na antenie, musimy

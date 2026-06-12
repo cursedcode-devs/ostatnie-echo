@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
   callType: 1
   callerName: Zbieg z Czerwonego Boru
+  audio: {fileID: 0}
   initialDialog: "Uciek\u0142em z tajnego garnizonu w Czerwonym Borze. Oni tam montuj\u0105
     co\u015B, co przyjecha\u0142o z demobilu Armii Czerwonej. Ch\u0142opaki z kompanii
     ju\u017C choruj\u0105, a dow\xF3dztwo wszystko tuszuje. Podepnij m\xF3j sygna\u0142
