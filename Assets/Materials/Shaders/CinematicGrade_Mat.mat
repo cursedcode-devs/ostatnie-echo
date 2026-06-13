@@ -27,9 +27,9 @@ Material:
     m_Floats:
     - _BlackFloor: 0.0328
     - _BlackPoint: 0.015
-    - _BlueGain: 0.949
-    - _BlueLift: -0.018
-    - _ChromAb: 2.3
+    - _BlueGain: 0.957
+    - _BlueLift: -0.016
+    - _ChromAb: 0
     - _ChromAberr: 0.7
     - _Contrast: 1.24
     - _CoolPreserve: 1.3
@@ -43,8 +43,8 @@ Material:
     - _FilmGrain: 0.008
     - _Gamma: 1.44
     - _Grain: 0.0085
-    - _GreenGain: 0.696
-    - _GreenLift: -0.019
+    - _GreenGain: 0.72
+    - _GreenLift: -0.017
     - _HighStr: 0.134
     - _HighlightToneStr: 0.28
     - _HueShift: -0.022
@@ -55,7 +55,7 @@ Material:
     - _OutlineStrength: 1
     - _OutlineWidth: 2
     - _RedGain: 1.067
-    - _RedLift: -0.048
+    - _RedLift: -0.043
     - _Saturation: 1.01
     - _ScanDensity: 1359
     - _ScanStr: 0.143
