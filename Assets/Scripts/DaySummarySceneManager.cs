@@ -57,6 +57,12 @@ public class DaySummarySceneManager : MonoBehaviour
     private List<Toggle> adToggles = new List<Toggle>();
     private List<Ad> currentDailyOffers = new List<Ad>();
 
+    // Sklep ulepszeń (panel budowany w czasie działania, w stylu ekranu kontraktów)
+    private UpgradeManager upgradeManager;
+    private List<UpgradeDefinition> upgradeOptions;
+    private GameObject upgradePanel;
+    private TextMeshProUGUI upgradeMoneyText;
+
     void Start()
     {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -247,20 +253,258 @@ public class DaySummarySceneManager : MonoBehaviour
 
     private void ShowUpgradeOrNewspaper()
     {
-        var upgradeManager = FindFirstObjectByType<UpgradeManager>();
+        upgradeManager = FindFirstObjectByType<UpgradeManager>();
+        upgradeOptions = upgradeManager != null ? upgradeManager.GetOrCreateDraftOptions() : null;
 
-        if (upgradeManager != null)
+        // Brak ulepszeń do zaoferowania (np. wszystkie kupione) — pomijamy ekran.
+        if (upgradeManager == null || upgradeOptions == null || upgradeOptions.Count == 0)
         {
-            upgradeManager.ShowDraftScreen(() =>
-            {
-                StartCoroutine(LoadNewspaperAndUnload());
-            });
+            StartCoroutine(LoadNewspaperAndUnload());
+            return;
+        }
+
+        BuildUpgradesUI();
+    }
+
+    // ------------------------------------------------------------------
+    #region Sklep ulepszeń (wygląd 1:1 ze sklepem kaset)
+
+    // Ekran ulepszeń jest DZIECKIEM DaySummaryCanvas (ScreenSpaceCamera przez kamerę z
+    // VideoPlayerem i filtrem CRT) — dziedziczy tło-wideo, filtr i czcionkę, jak sklep kaset.
+    // Współrzędne w przestrzeni 1920x1080 (środek = 0,0). Teksty/przyciski są jasne —
+    // pomarańczowy klimat nadaje filtr kamery, więc nie ustawiamy go ręcznie.
+    private static readonly Color32 ShopWhite = new Color32(245, 240, 232, 255);
+    private static readonly Color32 ShopGreen = new Color32(70, 230, 95, 255);
+    private static readonly Color32 ShopRed   = new Color32(220, 110, 95, 255);
+    private static readonly Color32 ShopDim   = new Color32(205, 195, 182, 255);
+    private static readonly Color32 ShopLine  = new Color32(235, 150, 60, 255);
+    private const float SlotSpacing = 560f;
+
+    private TMPro.TMP_FontAsset upgradeFont;  // czcionka pobrana ze sklepu kaset
+    private Material upgradeFontMat;          // materiał (poświata) tej czcionki
+
+    private void BuildUpgradesUI()
+    {
+        CacheShopAssets();
+
+        Transform canvas = GetSummaryCanvas();
+
+        // Panel rozciągnięty na cały DaySummaryCanvas (środek = 0,0), BEZ własnego tła —
+        // dzięki temu widać tło-wideo + filtr kamery, identycznie jak w sklepie kaset.
+        upgradePanel = new GameObject("UpgradePanel");
+        upgradePanel.transform.SetParent(canvas, false);
+        var rt = upgradePanel.AddComponent<RectTransform>();
+        rt.anchorMin = Vector2.zero; rt.anchorMax = Vector2.one;
+        rt.offsetMin = rt.offsetMax = Vector2.zero;
+        rt.localScale = Vector3.one;
+        upgradePanel.transform.SetAsLastSibling();
+
+        Transform root = upgradePanel.transform;
+
+        // Tytuł (biały — filtr kamery zabarwia go na pomarańczowo, jak "SKLEP")
+        var title = MakeShopText(root, "TYTUL", "ULEPSZENIA", 64, ShopWhite, TextAlignmentOptions.Center);
+        SR(title.gameObject, 0.5f, 0.5f, 1000, 90, 0, 445);
+
+        // Kasa (prawy-górny)
+        upgradeMoneyText = MakeShopText(root, "Kasa", "", 40, ShopWhite, TextAlignmentOptions.Right);
+        SR(upgradeMoneyText.gameObject, 0.5f, 0.5f, 600, 56, 600, 445);
+
+        // Linie oddzielające (góra/dół) jak w sklepie kaset
+        SR(MakeImage(root, "LiniaGora", ShopLine), 0.5f, 0.5f, 1720, 4, 0, 385);
+        SR(MakeImage(root, "LiniaDol", ShopLine), 0.5f, 0.5f, 1720, 4, 0, -345);
+
+        // Podpowiedź
+        var hint = MakeShopText(root, "Hint", "Każde ulepszenie możesz kupić tylko raz.", 26, ShopDim, TextAlignmentOptions.Center);
+        SR(hint.gameObject, 0.5f, 0.5f, 1200, 36, 0, 335);
+
+        // Sloty (przebudowywane po każdym zakupie)
+        var slotsRoot = new GameObject("Sloty");
+        slotsRoot.transform.SetParent(root, false);
+        SR(slotsRoot, 0.5f, 0.5f, 1800, 700, 0, -10);
+
+        // Przycisk DALEJ (biały prostokąt jak ShopPanel/Dalej; filtr nada pomarańcz)
+        var continueBtn = MakeShopButton(root, "Dalej", "DALEJ", ShopWhite, new Color32(40, 25, 15, 255));
+        SR(continueBtn, 0.5f, 0.5f, 340, 78, 0, -450);
+        continueBtn.GetComponent<Button>().onClick.AddListener(OnUpgradesContinue);
+
+        RebuildUpgradeCards(slotsRoot.transform);
+    }
+
+    private Transform GetSummaryCanvas()
+    {
+        if (contractsPanel != null) return contractsPanel.transform.parent;
+        if (shopPanel != null) return shopPanel.transform.parent;
+        if (budgetPanel != null) return budgetPanel.transform.parent;
+        return transform;
+    }
+
+    /// <summary>Pobiera czcionkę (z materiałem/poświatą) ze sklepu kaset, by ekran wyglądał identycznie.</summary>
+    private void CacheShopAssets()
+    {
+        TextMeshProUGUI src = null;
+        if (shopPanel != null)
+        {
+            var tytul = shopPanel.transform.Find("TYTUŁ");
+            if (tytul != null) src = tytul.GetComponent<TextMeshProUGUI>();
+            if (src == null) src = shopPanel.GetComponentInChildren<TextMeshProUGUI>(true);
+        }
+        if (src == null && contractsPanel != null)
+            src = contractsPanel.GetComponentInChildren<TextMeshProUGUI>(true);
+
+        if (src != null)
+        {
+            upgradeFont = src.font;
+            upgradeFontMat = src.fontSharedMaterial;
+        }
+    }
+
+    private void RebuildUpgradeCards(Transform slotsRoot)
+    {
+        foreach (Transform c in slotsRoot) Destroy(c.gameObject);
+        RefreshUpgradeMoney();
+
+        int n = upgradeOptions.Count;
+        float startX = -(n - 1) * SlotSpacing / 2f;
+        for (int i = 0; i < n; i++)
+            BuildUpgradeSlot(slotsRoot, upgradeOptions[i], startX + i * SlotSpacing);
+    }
+
+    private void BuildUpgradeSlot(Transform parent, UpgradeDefinition upgrade, float x)
+    {
+        float money = GetCurrentMoneySafe();
+        bool owned = upgradeManager.HasUpgrade(upgrade.type);
+        bool canAfford = !owned && money >= upgrade.cost;
+
+        GetUpgradeInfo(upgrade, out string flavor, out string effectMain, out string effectSub);
+
+        var slot = new GameObject("Slot");
+        slot.transform.SetParent(parent, false);
+        SR(slot, 0.5f, 0.5f, 480, 700, x, 0);
+
+        // Nazwa ulepszenia
+        var name = MakeShopText(slot.transform, "NAZWA", upgrade.upgradeName, 44, ShopWhite, TextAlignmentOptions.Center);
+        SR(name.gameObject, 0.5f, 0.5f, 470, 56, 0, 250);
+
+        // Tag (lepszy target / lepsza antena)
+        var tag = MakeShopText(slot.transform, "TAG", flavor, 26, ShopDim, TextAlignmentOptions.Center);
+        tag.fontStyle = FontStyles.Italic;
+        SR(tag.gameObject, 0.5f, 0.5f, 440, 36, 0, 192);
+
+        // Efekt — klarownie co ulepszenie daje (z %), na zielono
+        var eff = MakeShopText(slot.transform, "EFEKT", effectMain, 50, ShopGreen, TextAlignmentOptions.Center);
+        SR(eff.gameObject, 0.5f, 0.5f, 460, 62, 0, 72);
+
+        var effSub = MakeShopText(slot.transform, "EFEKT_SUB", effectSub, 30, ShopDim, TextAlignmentOptions.Center);
+        SR(effSub.gameObject, 0.5f, 0.5f, 460, 40, 0, 14);
+
+        // Cena (biała)
+        var price = MakeShopText(slot.transform, "CENA", $"{upgrade.cost:F0} ZŁ", 46, ShopWhite, TextAlignmentOptions.Center);
+        SR(price.gameObject, 0.5f, 0.5f, 440, 58, 0, -110);
+
+        // Akcja
+        if (owned)
+        {
+            var b = MakeShopButton(slot.transform, "Kupiono", "KUPIONO", ShopGreen, new Color32(20, 40, 25, 255));
+            b.GetComponent<Button>().interactable = false;
+            SR(b, 0.5f, 0.5f, 320, 72, 0, -240);
+        }
+        else if (canAfford)
+        {
+            var buy = MakeShopButton(slot.transform, "KUP", "KUP", ShopWhite, new Color32(40, 25, 15, 255));
+            SR(buy, 0.5f, 0.5f, 320, 72, 0, -240);
+            UpgradeDefinition def = upgrade;
+            Transform rootT = parent;
+            buy.GetComponent<Button>().onClick.AddListener(() => OnUpgradeBuyClicked(def, rootT));
         }
         else
         {
-            StartCoroutine(LoadNewspaperAndUnload());
+            var b = MakeShopButton(slot.transform, "Brak", "BRAK ŚRODKÓW", ShopRed, ShopWhite);
+            b.GetComponent<Button>().interactable = false;
+            SR(b, 0.5f, 0.5f, 320, 72, 0, -240);
         }
     }
+
+    /// <summary>Klarowny opis efektu (tag + „+X% mnożnika" + kategoria) dla danego ulepszenia.</summary>
+    private void GetUpgradeInfo(UpgradeDefinition u, out string flavor, out string effectMain, out string effectSub)
+    {
+        switch (u.type)
+        {
+            case UpgradeType.DiscoNight:
+                flavor = "Lepszy target"; effectMain = $"+{u.genreBonus:F0}% mnożnika"; effectSub = "do kategorii Disco"; break;
+            case UpgradeType.PopStars:
+                flavor = "Lepszy target"; effectMain = $"+{u.genreBonus:F0}% mnożnika"; effectSub = "do kategorii Pop"; break;
+            case UpgradeType.ComptonVibes:
+                flavor = "Lepszy target"; effectMain = $"+{u.genreBonus:F0}% mnożnika"; effectSub = "do kategorii Hip-Hop"; break;
+            case UpgradeType.RockAndRoll:
+                flavor = "Lepszy target"; effectMain = $"+{u.genreBonus:F0}% mnożnika"; effectSub = "do kategorii Rock"; break;
+            case UpgradeType.NewHorizons:
+                flavor = "Lepsza antena"; effectMain = $"+{u.newHorizonsBonus:F0}% mnożnika"; effectSub = "do każdej kategorii"; break;
+            default:
+                flavor = ""; effectMain = u.description; effectSub = ""; break;
+        }
+    }
+
+    private void OnUpgradeBuyClicked(UpgradeDefinition upgrade, Transform slotsRoot)
+    {
+        if (upgradeManager != null && upgradeManager.TryPurchase(upgrade))
+            RebuildUpgradeCards(slotsRoot);
+    }
+
+    private void OnUpgradesContinue()
+    {
+        if (upgradeManager != null) upgradeManager.ClearDraftOptions();
+        if (upgradePanel != null) Destroy(upgradePanel);
+        StartCoroutine(LoadNewspaperAndUnload());
+    }
+
+    private void RefreshUpgradeMoney()
+    {
+        if (upgradeMoneyText != null)
+            upgradeMoneyText.text = $"KASA: {GetCurrentMoneySafe():F0} ZŁ";
+    }
+
+    private float GetCurrentMoneySafe()
+    {
+        var gm = FindFirstObjectByType<GameManager>();
+        return (gm != null && gm.radioStation != null) ? gm.radioStation.GetCurrentMoney() : 0f;
+    }
+
+    /// <summary>Tekst TMP z czcionką sklepu kaset (poświata) i wyrównaniem.</summary>
+    private TextMeshProUGUI MakeShopText(Transform parent, string name, string text, int size, Color color, TextAlignmentOptions align)
+    {
+        var go = MakeText(parent, name, text, size, color);
+        var tmp = go.GetComponent<TextMeshProUGUI>();
+        tmp.alignment = align;
+        tmp.fontStyle = FontStyles.Bold;
+        if (upgradeFont != null) tmp.font = upgradeFont;
+        if (upgradeFontMat != null) tmp.fontSharedMaterial = upgradeFontMat;
+        return tmp;
+    }
+
+    /// <summary>Przycisk jak ShopPanel/Dalej: biały prostokąt (filtr kamery nadaje kolor).</summary>
+    private GameObject MakeShopButton(Transform parent, string name, string label, Color32 bg, Color32 textColor)
+    {
+        var obj = new GameObject(name);
+        obj.transform.SetParent(parent, false);
+        obj.AddComponent<RectTransform>();
+        var img = obj.AddComponent<Image>();
+        img.color = bg;
+        var btn = obj.AddComponent<Button>();
+        btn.targetGraphic = img;
+        var cb = btn.colors;
+        cb.normalColor = Color.white;
+        cb.highlightedColor = new Color(0.9f, 0.9f, 0.9f, 1f);
+        cb.selectedColor = Color.white;
+        cb.pressedColor = new Color(0.78f, 0.78f, 0.78f, 1f);
+        cb.disabledColor = Color.white;
+        cb.fadeDuration = 0.08f;
+        btn.colors = cb;
+        var lbl = MakeShopText(obj.transform, "Label", label, 30, textColor, TextAlignmentOptions.Center);
+        StretchFull(lbl.gameObject);
+        return obj;
+    }
+
+    #endregion
 
     private void BuildContractsUI()
     {

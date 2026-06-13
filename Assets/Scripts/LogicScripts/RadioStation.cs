@@ -15,6 +15,10 @@ public class RadioStation
     [SerializeField] private GenreValuesModifier hourlyRevenueModifier;
     [SerializeField] private GenreValuesModifier dailyListenersModifier;
     [SerializeField] private GenreValuesModifier dailyRevenueModifier;
+    // Trwały modyfikator z ulepszeń sklepu — NIE jest zerowany co dzień (w przeciwieństwie
+    // do daily/hourly). Akumuluje bonusy z jednorazowo kupionych ulepszeń (DiscoNight,
+    // NewHorizons itp.) na całą rozgrywkę.
+    [SerializeField] private GenreValuesModifier upgradeListenersModifier;
     private float defaultModifier = 1f;
     private float defaultHourlyAndDailyModifier = 0f;
     [SerializeField] private GenreValuesModifier totalListenerModifer;
@@ -220,6 +224,11 @@ public class RadioStation
         dailyRevenueModifier.rock = defaultHourlyAndDailyModifier;
         dailyRevenueModifier.pop = defaultHourlyAndDailyModifier;
 
+        upgradeListenersModifier.hipHop = defaultHourlyAndDailyModifier;
+        upgradeListenersModifier.disco = defaultHourlyAndDailyModifier;
+        upgradeListenersModifier.rock = defaultHourlyAndDailyModifier;
+        upgradeListenersModifier.pop = defaultHourlyAndDailyModifier;
+
         totalListenerModifer.rock = defaultModifier;
         totalListenerModifer.pop = defaultModifier;
         totalListenerModifer.disco = defaultModifier;
@@ -312,12 +321,27 @@ public class RadioStation
         UpdateTotalRevenueModifiers();
     }
 
+    /// <summary>
+    /// Dodaje trwały bonus do bazowego mnożnika słuchaczy danej kategorii (z ulepszeń sklepu).
+    /// W przeciwieństwie do daily/hourly NIE jest zerowany na początku dnia, więc efekt
+    /// jednorazowo kupionego ulepszenia działa przez całą rozgrywkę.
+    /// </summary>
+    public void AddUpgradeListenersModifier(float hipHop, float disco, float rock, float pop)
+    {
+        upgradeListenersModifier.hipHop += hipHop;
+        upgradeListenersModifier.disco += disco;
+        upgradeListenersModifier.rock += rock;
+        upgradeListenersModifier.pop += pop;
+
+        UpdateTotalListenersModifiers();
+    }
+
     private void UpdateTotalListenersModifiers()
     {
-        totalListenerModifer.disco = defaultModifier + hourlyListenersModifier.disco + dailyListenersModifier.disco;
-        totalListenerModifer.hipHop = defaultModifier + hourlyListenersModifier.hipHop + dailyListenersModifier.hipHop;
-        totalListenerModifer.rock = defaultModifier + hourlyListenersModifier.rock + dailyListenersModifier.rock;
-        totalListenerModifer.pop = defaultModifier + hourlyListenersModifier.pop + dailyListenersModifier.pop;
+        totalListenerModifer.disco = defaultModifier + hourlyListenersModifier.disco + dailyListenersModifier.disco + upgradeListenersModifier.disco;
+        totalListenerModifer.hipHop = defaultModifier + hourlyListenersModifier.hipHop + dailyListenersModifier.hipHop + upgradeListenersModifier.hipHop;
+        totalListenerModifer.rock = defaultModifier + hourlyListenersModifier.rock + dailyListenersModifier.rock + upgradeListenersModifier.rock;
+        totalListenerModifer.pop = defaultModifier + hourlyListenersModifier.pop + dailyListenersModifier.pop + upgradeListenersModifier.pop;
     }
 
     private void UpdateTotalRevenueModifiers()
