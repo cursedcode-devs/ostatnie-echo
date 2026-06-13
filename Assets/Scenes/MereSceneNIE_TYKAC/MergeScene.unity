@@ -1084,7 +1084,7 @@ MonoBehaviour:
       rock: 5
       pop: 5
     startListeners: 5
-    currentMoney: 10000
+    currentMoney: 5
     hourlyListenersModifier:
       hipHop: 0
       disco: 0
