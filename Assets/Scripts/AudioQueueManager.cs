@@ -121,11 +121,15 @@ public class AudioQueueManager : MonoBehaviour
             audioSource.clip = queued.clip;
             if (queued.clip != null)
             {
-                NowPlayingBar.SetActive(true);
-                Transform songTitle = NowPlayingBar.transform.Find("Text");
-                TMP_Text text = songTitle.GetComponent<TMP_Text>();
-                text.text = $"TERAZ GRAMY: {queued.content.GetAuthor()} - {queued.content.GetName()}";
-                songTitle.GetComponent<MarqueeText>().ResetPosition();
+                NowPlayingBar.SetActive(false);
+                if (queued.content.GetType() == CassetteTypes.Music)
+                {
+                    NowPlayingBar.SetActive(true);
+                    Transform songTitle = NowPlayingBar.transform.Find("Text");
+                    TMP_Text text = songTitle.GetComponent<TMP_Text>();
+                    text.text = $"TERAZ GRAMY: {queued.content.GetAuthor()} - {queued.content.GetName()}";
+                    songTitle.GetComponent<MarqueeText>().ResetPosition();
+                }
                 audioSource.Play();
 
                 HandleAdSubtitles(queued);
