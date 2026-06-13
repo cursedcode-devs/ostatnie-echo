@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using JetBrains.Annotations;
+using Unity.VisualScripting;
 
 /// <summary>
 /// Wyświetla treść reklamy jako napisy (subtitle) podczas emisji na antenie.
@@ -194,6 +196,8 @@ public class AdSubtitleDisplay : MonoBehaviour
         hiddenForAd.Clear();
     }
 
+    public float DurationPrecent;
+
     private IEnumerator PlaySubtitles(string content, float audioDuration)
     {
         List<string> lines = SplitIntoLines(content);
@@ -219,8 +223,9 @@ public class AdSubtitleDisplay : MonoBehaviour
         // rozciągnij napisy, by zgrać się z audio. W przeciwnym razie zostaw naturalne tempo
         // (tekst nie zostanie ucięty przez krótki placeholder).
         float scale = 1f;
+        float targetDuration = audioDuration * DurationPrecent;
         if (audioDuration > naturalTotal && naturalTotal > 0f)
-            scale = audioDuration / naturalTotal;
+            scale = targetDuration / naturalTotal;
 
         for (int i = 0; i < lines.Count; i++)
         {
