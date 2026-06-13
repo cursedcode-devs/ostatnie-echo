@@ -34,7 +34,7 @@ public class ChoosingCassetteUI : MonoBehaviour
             if (cassettes[i] == null)
             {
                // cassetteSlotTexts[i].text = "Slot " + (i + 1);
-                StatTexts[i].text = "HipHop: \nRock: \nPop: \nDisco: ";
+                StatTexts[i].text = "Hip Hop: \nRock: \nPop: \nDisco Polo: ";
                 continue;
             }
 
@@ -73,14 +73,11 @@ public class ChoosingCassetteUI : MonoBehaviour
                 simulatedLastValues[c] = new GenreValues { hipHop = h, rock = r, pop = p, disco = d };
             }
 
-            // Aktualizacja UI dla konkretnego slotu
 
-            // Trzeba wy�wietli� gdzie� t� informacje, bo przyciski gdzie si� wy�wietla�a zosta�y usuni�te
-            //cassetteSlotTexts[i].text = c.GetName() + " U�ycie: " + currentUses;
 
             if (c.GetType() == CassetteTypes.Ad)
             {
-                StatTexts[i].text = $"HipHop: {h / 100f:0.##}z�\nRock: {r / 100f:0.##}z�\nPop: {p / 100f:0.##}z�\nDisco: {d / 100f:0.##}z�";
+                StatTexts[i].text = $"Hip Hop: {h / 100f:0.##}zł\nRock: {r / 100f:0.##}zł\nPop: {p / 100f:0.##}zł\nDisco Polo: {d / 100f:0.##}zł";
                 sumAdHipHop += h / 100f;
                 sumAdRock += r / 100f;
                 sumAdPop += p / 100f;
@@ -88,7 +85,7 @@ public class ChoosingCassetteUI : MonoBehaviour
             }
             else if (c.GetType() == CassetteTypes.Music)
             {
-                StatTexts[i].text = $"HipHop: {h / 100f:0.##%}\nRock: {r / 100f:0.##%}\nPop: {p / 100f:0.##%}\nDisco: {d / 100f:0.##%}";
+                StatTexts[i].text = $"Hip Hop: {h / 100f:0.##%}\nRock: {r / 100f:0.##%}\nPop: {p / 100f:0.##%}\nDisco Polo: {d / 100f:0.##%}";
                 sumMusicHipHop += h / 100f;
                 sumMusicRock += r / 100f;
                 sumMusicPop += p / 100f;
@@ -98,11 +95,10 @@ public class ChoosingCassetteUI : MonoBehaviour
             simulatedTimesUsed[c]++;
         }
 
-        // Aktualizacja sumy ca�kowitej w ostatnim polu (zak�adam, �e to StatTexts[3])
-        StatTexts[3].text = $"HipHop: {sumMusicHipHop:0.##%} {sumAdHipHop:0.##}z�\n" +
-                            $"Rock: {sumMusicRock:0.##%} {sumAdRock:0.##}z�\n" +
-                            $"Pop: {sumMusicPop:0.##%} {sumAdPop:0.##}z�\n" +
-                            $"Disco: {sumMusicDisco:0.##%} {sumAdDisco:0.##}z�";
+        StatTexts[3].text = $"Hip Hop: {sumMusicHipHop:0.##%} {sumAdHipHop:0.##}zł\n" +
+                            $"Rock: {sumMusicRock:0.##%} {sumAdRock:0.##}zł\n" +
+                            $"Pop: {sumMusicPop:0.##%} {sumAdPop:0.##}zł\n" +
+                            $"Disco Polo: {sumMusicDisco:0.##%} {sumAdDisco:0.##}zł";
     }
 
     private void PlayCassetteSound()
