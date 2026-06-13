@@ -47,7 +47,7 @@ public class MiniGameSystem : MonoBehaviour
     public float popupDuration = 3f;
 
     [Header("Ustawienia")]
-    public Key closeKey = Key.Escape;
+    public Key closeKey = Key.Q;
     public bool disableClicksWhenOpen = true;
 
     // ------------------------------------------------------------------

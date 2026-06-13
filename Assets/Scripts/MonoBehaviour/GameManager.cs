@@ -70,7 +70,8 @@ public class GameManager : MonoBehaviour
         {
             statsUI.Initialize(radioStation, timeHandler);
         }
-        var miniGameSystem = FindFirstObjectByType<MiniGameSystem>();
+        
+        SetInputEnabled(true);
     }
 
     void Update()
@@ -82,6 +83,11 @@ public class GameManager : MonoBehaviour
             // Natychmiastowe zakończenie obecnego dnia i pokazanie podsumowania
             timeHandler.StartDay();
             // Jeżeli chcesz przeskoczyć do ostatniej "godziny" (17), zamiast do podsumowania, użyłbyś:
+        }
+
+        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            TogglePause();
         }
 
         if (!inputEnabled) return;
@@ -227,6 +233,37 @@ public class GameManager : MonoBehaviour
                 addedObjectRotation = Vector3.zero;
                 break;
         }
+    }
+
+    private bool isPaused = false;
+    
+    public void TogglePause()
+    {
+        if (isPaused)
+        {
+            MainMenu menu = FindFirstObjectByType<MainMenu>();
+            if (menu != null)
+            {
+                menu.ResumeGame();
+            }
+            else
+            {
+                SetUnpaused();
+                UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("MainMenu");
+            }
+        }
+        else
+        {
+            isPaused = true;
+            Time.timeScale = 0f;
+            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("MainMenu", UnityEngine.SceneManagement.LoadSceneMode.Additive);
+        }
+    }
+
+    public void SetUnpaused()
+    {
+        isPaused = false;
+        Time.timeScale = 1f;
     }
 
     private void playSegment()
