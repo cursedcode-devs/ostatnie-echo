@@ -18,6 +18,11 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private string masterBusPath = "bus:/";
     private FMOD.Studio.Bus masterBus;
 
+    [Header("Muzyka w Menu")]
+    [SerializeField] private AudioClip menuMusicClip;
+    [SerializeField] private float musicFadeInDuration = 1.0f;
+    private AudioSource menuAudioSource;
+
     [Header("Instrukcje (Jak grać)")]
     [SerializeField] private GameObject howToPlayPanel;
     [SerializeField] private TMPro.TextMeshProUGUI howToPlayText;
@@ -39,7 +44,6 @@ public class MainMenu : MonoBehaviour
         Canvas canvas = GetComponent<Canvas>();
         if (canvas != null && isPaused)
         {
-            // Zapewnia, że Canvas MainMenu wyświetla się całkowicie NA WIERZCHU, zasłaniając UI z MergeScene
             canvas.sortingOrder = 100;
         }
 
@@ -63,7 +67,7 @@ public class MainMenu : MonoBehaviour
 
         if (settingsPanel != null)
         {
-            settingsPanel.SetActive(false); // Domyślnie ukrywamy ustawienia
+            settingsPanel.SetActive(false);
         }
 
         if (backFromSettingsButton != null)
@@ -89,6 +93,7 @@ public class MainMenu : MonoBehaviour
             float currentVolume;
             masterBus.getVolume(out currentVolume);
             volumeSlider.value = currentVolume;
+            AudioListener.volume = currentVolume;
             volumeSlider.onValueChanged.AddListener(SetVolume);
         }
 
@@ -102,21 +107,20 @@ public class MainMenu : MonoBehaviour
                     Camera cam = obj.GetComponent<Camera>();
                     if (cam != null)
                     {
-                        cam.enabled = false; // Wyłączamy kamerę, by nie renderowała się pod UI
+                        cam.enabled = false;
                     }
                 }
             }
 
             if (videoPlayer != null)
             {
-                // Tworzymy dynamicznie teksturę pod wideo, aby wyświetlić je wewnątrz UI Canvasu na samym wierzchu
                 RenderTexture rt = new RenderTexture(Screen.width, Screen.height, 0);
                 videoPlayer.renderMode = UnityEngine.Video.VideoRenderMode.RenderTexture;
                 videoPlayer.targetTexture = rt;
 
                 GameObject rawImageObj = new GameObject("VideoRawImage");
                 rawImageObj.transform.SetParent(transform, false);
-                rawImageObj.transform.SetAsFirstSibling(); // Tło wideo pod przyciskami
+                rawImageObj.transform.SetAsFirstSibling();
                 
                 UnityEngine.UI.RawImage videoRawImage = rawImageObj.AddComponent<UnityEngine.UI.RawImage>();
                 videoRawImage.texture = rt;
@@ -130,7 +134,41 @@ public class MainMenu : MonoBehaviour
             canvasGroup = GetComponent<CanvasGroup>();
             if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
 
-            StartCoroutine(FadeIn());
+            canvasGroup.alpha = 1f;
+        }
+
+        if (menuMusicClip != null)
+        {
+            if (FindFirstObjectByType<AudioListener>() == null)
+            {
+                gameObject.AddComponent<AudioListener>();
+            }
+
+            menuAudioSource = gameObject.AddComponent<AudioSource>();
+            menuAudioSource.clip = menuMusicClip;
+            menuAudioSource.loop = true;
+            menuAudioSource.ignoreListenerPause = true;
+            menuAudioSource.volume = 0f;
+            menuAudioSource.Play();
+            StartCoroutine(FadeInMusic());
+        }
+    }
+
+    private System.Collections.IEnumerator FadeInMusic()
+    {
+        float elapsed = 0f;
+        while (elapsed < musicFadeInDuration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            if (menuAudioSource != null)
+            {
+                menuAudioSource.volume = elapsed / musicFadeInDuration;
+            }
+            yield return null;
+        }
+        if (menuAudioSource != null)
+        {
+            menuAudioSource.volume = 1f;
         }
     }
 
@@ -142,27 +180,32 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    private System.Collections.IEnumerator FadeIn()
+    public void StartNewGame()
+    {
+        if (isFading) return;
+        StartCoroutine(FadeOutAndLoadNewGame());
+    }
+
+    private System.Collections.IEnumerator FadeOutAndLoadNewGame()
     {
         isFading = true;
+        if (canvasGroup == null)
+        {
+            canvasGroup = GetComponent<CanvasGroup>();
+            if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
+        }
+
         float duration = 0.3f;
         float elapsed = 0f;
-        
-        canvasGroup.alpha = 0f;
         
         while (elapsed < duration)
         {
             elapsed += Time.unscaledDeltaTime;
-            canvasGroup.alpha = elapsed / duration;
+            if (canvasGroup != null) canvasGroup.alpha = 1f - (elapsed / duration);
+            if (menuAudioSource != null) menuAudioSource.volume = 1f - (elapsed / duration);
             yield return null;
         }
         
-        canvasGroup.alpha = 1f;
-        isFading = false;
-    }
-
-    public void StartNewGame()
-    {
         Time.timeScale = 1f;
         SceneManager.LoadScene("MergeScene");
     }
@@ -190,6 +233,7 @@ public class MainMenu : MonoBehaviour
         {
             elapsed += Time.unscaledDeltaTime;
             if (canvasGroup != null) canvasGroup.alpha = 1f - (elapsed / duration);
+            if (menuAudioSource != null) menuAudioSource.volume = 1f - (elapsed / duration);
             yield return null;
         }
         
@@ -279,6 +323,7 @@ public class MainMenu : MonoBehaviour
     public void SetVolume(float volume)
     {
         masterBus.setVolume(volume);
+        AudioListener.volume = volume;
     }
 
     private void ToggleMainButtons(bool active)

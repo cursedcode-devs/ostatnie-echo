@@ -256,6 +256,8 @@ public class GameManager : MonoBehaviour
         {
             isPaused = true;
             Time.timeScale = 0f;
+            FMODUnity.RuntimeManager.PauseAllEvents(true);
+            AudioListener.pause = true;
             UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("MainMenu", UnityEngine.SceneManagement.LoadSceneMode.Additive);
         }
     }
@@ -264,6 +266,8 @@ public class GameManager : MonoBehaviour
     {
         isPaused = false;
         Time.timeScale = 1f;
+        FMODUnity.RuntimeManager.PauseAllEvents(false);
+        AudioListener.pause = false;
     }
 
     private void playSegment()

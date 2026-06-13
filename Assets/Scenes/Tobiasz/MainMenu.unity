@@ -1271,7 +1271,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 113.6, y: -415}
+  m_AnchoredPosition: {x: 113.6, y: -400}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &707743304
@@ -1292,7 +1292,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 40
+  m_Spacing: 30
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -2611,6 +2611,8 @@ MonoBehaviour:
   volumeSlider: {fileID: 1779277678}
   backFromSettingsButton: {fileID: 868367464}
   masterBusPath: bus:/
+  menuMusicClip: {fileID: 8300000, guid: 81d26ae7db340ee0588e49951813190b, type: 3}
+  musicFadeInDuration: 3
   howToPlayPanel: {fileID: 598632452}
   howToPlayText: {fileID: 158333710}
   howToPlayNextBtn: {fileID: 286366898}
@@ -2856,7 +2858,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1788589338}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 9b1a530ea74f80f419d10f30f7de64f6, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: b068c6bfe135a4740857db23bec34ccd, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 1788589340}
