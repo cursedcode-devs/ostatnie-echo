@@ -47,14 +47,13 @@ public class MiniGameSystem : MonoBehaviour
     public float popupDuration = 3f;
 
     [Header("Ustawienia")]
-    public Key closeKey = Key.Escape;
+    public Key closeKey = Key.Q;
     public bool disableClicksWhenOpen = true;
 
     // ------------------------------------------------------------------
     private BaseMiniGame currentMiniGame;
     private MiniGameDefinition currentDefinition;
     private Dictionary<string, BaseMiniGame> spawnedInstances = new();
-    public FMODUnity.EventReference successSound;
     // ------------------------------------------------------------------
     void Awake()
     {
@@ -217,7 +216,6 @@ public class MiniGameSystem : MonoBehaviour
             Debug.LogWarning("[MiniGameSystem] HandleWin fired but currentDefinition was null — rewards skipped.");
             return;
         }
-        FMODUnity.RuntimeManager.PlayOneShot(successSound, this.transform.position);
         var rewards = wonDefinition.DrawRewards(globalRewardPool);
         ApplyRewards(rewards);
 

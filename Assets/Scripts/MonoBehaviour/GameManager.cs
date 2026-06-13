@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public FMODUnity.EventReference takeCassetteSound;
     public FMODUnity.EventReference putDownCassetteSound;
     public int daysNr;
+    public int lastHour;
     private int startHour = 14;
     private int startDay = 1;
     private const float startingModifier = 0f;
@@ -48,7 +49,7 @@ public class GameManager : MonoBehaviour
         FMODUnity.RuntimeManager.PlayOneShot(enterRadioSound, this.transform.position);
 
         actionManager = new ActionManager(mainCamera);
-        timeHandler = new TimeHandler(startHour, startDay, airtime, cassetteSlots, zoomHandler, daysNr);
+        timeHandler = new TimeHandler(startHour, startDay, airtime, cassetteSlots, zoomHandler, daysNr, lastHour);
         FMODUnity.RuntimeManager.PlayOneShot(ambient, this.transform.position);
 
 
@@ -69,7 +70,8 @@ public class GameManager : MonoBehaviour
         {
             statsUI.Initialize(radioStation, timeHandler);
         }
-        var miniGameSystem = FindFirstObjectByType<MiniGameSystem>();
+        
+        SetInputEnabled(true);
     }
 
     void Update()
@@ -81,6 +83,11 @@ public class GameManager : MonoBehaviour
             // Natychmiastowe zakończenie obecnego dnia i pokazanie podsumowania
             timeHandler.StartDay();
             // Jeżeli chcesz przeskoczyć do ostatniej "godziny" (17), zamiast do podsumowania, użyłbyś:
+        }
+
+        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            TogglePause();
         }
 
         if (!inputEnabled) return;
@@ -228,8 +235,45 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private bool isPaused = false;
+    
+    public void TogglePause()
+    {
+        if (isPaused)
+        {
+            MainMenu menu = FindFirstObjectByType<MainMenu>();
+            if (menu != null)
+            {
+                menu.ResumeGame();
+            }
+            else
+            {
+                SetUnpaused();
+                UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("MainMenu");
+            }
+        }
+        else
+        {
+            isPaused = true;
+            Time.timeScale = 0f;
+            FMODUnity.RuntimeManager.PauseAllEvents(true);
+            AudioListener.pause = true;
+            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("MainMenu", UnityEngine.SceneManagement.LoadSceneMode.Additive);
+        }
+    }
+
+    public void SetUnpaused()
+    {
+        isPaused = false;
+        Time.timeScale = 1f;
+        FMODUnity.RuntimeManager.PauseAllEvents(false);
+        AudioListener.pause = false;
+    }
+
     private void playSegment()
     {
+        if (airtime.AreSlotsEmpty())
+            return;
         if (!airtime.AreSlotsClosed())
             return;
         if (audioQueueManager.IsPlaying())

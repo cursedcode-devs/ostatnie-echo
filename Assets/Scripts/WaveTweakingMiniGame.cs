@@ -17,8 +17,8 @@ public class WaveTweakingMiniGame : MonoBehaviour
     public const float BandMax = 1f;
 
     [Header("Win tolerance (raw 0-1 units)")]
-    [Tooltip("0.0001 ≈ 0.01 on the displayed 10-0 scale.")]
-    public float tolerance = 0.01f;
+    [Tooltip("Większa = łatwiej. 0.03 ≈ 0.3 na skali 10-0.")]
+    public float tolerance = 0.03f;
 
     [Header("References (set by WaveTweakingSceneBuilder)")]
     public ConsoleSliderObject amplitudeSlider;

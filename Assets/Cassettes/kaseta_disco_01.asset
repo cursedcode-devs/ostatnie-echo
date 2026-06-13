@@ -15,6 +15,7 @@ MonoBehaviour:
   audio: {fileID: 8300000, guid: 40fc81acc9c849744a34a1401c8b1a2c, type: 3}
   itemName: All You Need Is Dance
   author: Bay-b
+  genre: Disco
   physicalPrefab: {fileID: 0}
   timesUsedInDay: 0
   cassetteValues:

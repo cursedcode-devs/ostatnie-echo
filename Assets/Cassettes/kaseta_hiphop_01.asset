@@ -15,6 +15,7 @@ MonoBehaviour:
   audio: {fileID: 8300000, guid: 84cc152ada873a74da791f09136d17f6, type: 3}
   itemName: "Nie patrz\u0119 wstecz"
   author: "Nab\xF3j .45"
+  genre: Hip-Hop
   physicalPrefab: {fileID: 0}
   timesUsedInDay: 0
   cassetteValues:

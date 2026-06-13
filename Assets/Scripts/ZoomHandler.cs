@@ -19,6 +19,7 @@ public class ZoomTarget
     [Header("Opcjonalne zdarzenia (np. do zmiany koloru, włączenia UI)")]
     public UnityEvent onHoverEnter;
     public UnityEvent onHoverExit;
+    
 }
 
 public class ZoomHandler : MonoBehaviour
@@ -26,7 +27,8 @@ public class ZoomHandler : MonoBehaviour
     [Header("Ustawienia Kamery")]
     [Tooltip("Jeśli puste, użyje Camera.main")]
     public Camera mainCamera;
-    
+    public FMODUnity.EventReference zoomSound;
+    public FMODUnity.EventReference zoomOutSound;
     [Tooltip("Czas trwania animacji przybliżania i oddalania (w sekundach).")]
     public float zoomDuration = 1.0f;
     
@@ -129,7 +131,7 @@ public class ZoomHandler : MonoBehaviour
     private void ZoomIn(ZoomTarget target)
     {
         if (isAnimating || isZoomedIn) return;
-
+        
         // Zapisujemy pozycję i rotację startową kamery, by mieć do czego wracać
         originalCameraPosition = mainCamera.transform.position;
         originalCameraRotation = mainCamera.transform.rotation;
@@ -154,7 +156,7 @@ public class ZoomHandler : MonoBehaviour
             targetPos = objectCenter + directionToCamera * autoZoomDistance;
             targetRot = Quaternion.LookRotation(objectCenter - targetPos);
         }
-
+        FMODUnity.RuntimeManager.PlayOneShot(zoomSound, this.transform.position);
         // Wyłączamy outline podczas "oglądania"
         if (target.outlineComponent != null)
             target.outlineComponent.enabled = false;
@@ -179,10 +181,50 @@ public class ZoomHandler : MonoBehaviour
 
             StartCoroutine(AnimateCamera(originalCameraPosition, originalCameraRotation));
         }
-
+        FMODUnity.RuntimeManager.PlayOneShot(zoomOutSound, this.transform.position);
         isZoomedIn = false;
         currentZoomedTarget = null;
     }
+
+    /// <summary>
+    /// Programowe przybliżenie kamery do zadanej pozycji/rotacji (np. na czas minigry).
+    /// Powrót do pozycji wyjściowej: ZoomOut().
+    /// </summary>
+    public void ZoomToTransform(Transform camTarget)
+    {
+        if (camTarget == null) return;
+        if (mainCamera == null) mainCamera = Camera.main;
+        if (mainCamera == null) return;
+
+        // Zapisz pozycję wyjściową TYLKO jeśli nie jesteśmy jeszcze przybliżeni —
+        // żeby ZoomOut wrócił do prawdziwego punktu startowego, nawet gdy gracz był
+        // już przybliżony gdzie indziej.
+        if (!isZoomedIn)
+        {
+            originalCameraPosition = mainCamera.transform.position;
+            originalCameraRotation = mainCamera.transform.rotation;
+        }
+
+        isZoomedIn = true;
+        currentZoomedTarget = null;
+
+        // Wyłącz ewentualny hover
+        if (currentHoveredTarget != null)
+        {
+            if (currentHoveredTarget.outlineComponent != null)
+                currentHoveredTarget.outlineComponent.enabled = false;
+            currentHoveredTarget.onHoverExit?.Invoke();
+            currentHoveredTarget = null;
+        }
+
+        // Przerwij ewentualną trwającą animację i animuj na nowo do konsolety.
+        StopAllCoroutines();
+        isAnimating = false;
+        StartCoroutine(AnimateCamera(camTarget.position, camTarget.rotation));
+    }
+
+    /// <summary>True jeśli kamera jest aktualnie przybliżona.</summary>
+    public bool IsZoomedIn => isZoomedIn;
 
     private IEnumerator AnimateCamera(Vector3 targetPosition, Quaternion targetRotation)
     {

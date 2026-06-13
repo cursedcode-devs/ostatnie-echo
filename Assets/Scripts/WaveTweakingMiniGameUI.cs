@@ -8,9 +8,9 @@ using UnityEngine;
 /// </summary>
 public class WaveTweakingMiniGameUI : MonoBehaviour
 {
-    [SerializeField] public TextMeshProUGUI requiredValuesText;
     [SerializeField] public TextMeshProUGUI actualValuesText;
     [SerializeField] public TextMeshProUGUI statusText;
+    [SerializeField] public WaveTweakingGraph waveGraph;
 
     private ConsoleSliderObject amplitudeSlider;
     private ConsoleSliderObject lengthSlider;
@@ -35,14 +35,14 @@ public class WaveTweakingMiniGameUI : MonoBehaviour
 
         active = true;
 
-        if (requiredValuesText != null)
-            requiredValuesText.text = FormatValues(requiredAmplitude, requiredLength, requiredFrequency);
-
         if (actualValuesText != null)
             actualValuesText.text = "5.0, 5.0, 5.0";
 
         if (statusText != null)
             statusText.text = "DOPASUJ FALE";
+
+        if (waveGraph != null)
+            waveGraph.SetTarget(requiredAmplitude, requiredLength, requiredFrequency);
     }
 
     public void ShowWin()
@@ -60,11 +60,15 @@ public class WaveTweakingMiniGameUI : MonoBehaviour
         if (!active) return;
         if (amplitudeSlider == null || lengthSlider == null || frequencySlider == null) return;
 
+        float a = amplitudeSlider.GetCurrentValue();
+        float l = lengthSlider.GetCurrentValue();
+        float f = frequencySlider.GetCurrentValue();
+
         if (actualValuesText != null)
-            actualValuesText.text = FormatValues(
-                amplitudeSlider.GetCurrentValue(),
-                lengthSlider.GetCurrentValue(),
-                frequencySlider.GetCurrentValue());
+            actualValuesText.text = FormatValues(a, l, f);
+
+        if (waveGraph != null)
+            waveGraph.SetCurrent(a, l, f);
     }
 
     private string FormatValues(float a, float b, float c)

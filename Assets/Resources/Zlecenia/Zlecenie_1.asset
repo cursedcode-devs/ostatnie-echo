@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef629219f6b17c4bbd2d813eecbea14, type: 3}
   m_Name: Zlecenie_1
   m_EditorClassIdentifier: Assembly-CSharp::Ad
-  audio: {fileID: 8300000, guid: 4cc0e22e0aa90d8df0545f2cb4e6a461, type: 3}
+  audio: {fileID: 8300000, guid: fa6df06f46c63d44bb7693cc1dc18724, type: 3}
   itemName: "E.V.A. - Twoja Przysz\u0142o\u015B\u0107 w Piwnicy Nauki"
   author: E.V.A.
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
@@ -30,4 +30,14 @@ MonoBehaviour:
     pop: 0
   price: 0
   clientName: 
-  content: "Siemasz! Jeste\u015bmy m\u0142odym i dynamicznym zespo\u0142em, kt\u00f3ry poszukuje uzdolnionych nieboj\u0105cych si\u0119 ci\u0119\u017ckiej pracy ludzi do rozwoju naszej sztucznej inteligencji, kt\u00f3r\u0105 nazwali\u015bmy E.V.A. Klient b\u0119dzie m\u00f3g\u0142 j\u0105 dostosowa\u0107 pod swoje indywidualne potrzeby w jaki spos\u00f3b sobie tylko \u017cyczy. Potencja\u0142 tej technologii jest niemal\u017ce niesko\u0144czony. Ju\u017c dzi\u015b E.V.A zdo\u0142a\u0142a pokona\u0107 w warcaby najlepszego gracza na \u015bwiecie! Je\u015bli chcesz zosta\u0107 jednym z ojc\u00f3w sztucznej inteligencji przyjd\u017a do naszego biura na ulicy Odwa\u017cnej 15. Sztuczna inteligencja daje nam nadziej\u0119 na lepsze jutro. Do\u0142\u0105cz do Sztucznej nadziei. (Badania sponsorowane przez Private Institute of Weaponary Research)."
+  content: "Siemasz! Jeste\u015Bmy m\u0142odym i dynamicznym zespo\u0142em, kt\xF3ry
+    poszukuje uzdolnionych nieboj\u0105cych si\u0119 ci\u0119\u017Ckiej pracy ludzi
+    do rozwoju naszej sztucznej inteligencji, kt\xF3r\u0105 nazwali\u015Bmy E.V.A.
+    Klient b\u0119dzie m\xF3g\u0142 j\u0105 dostosowa\u0107 pod swoje indywidualne
+    potrzeby w jaki spos\xF3b sobie tylko \u017Cyczy. Potencja\u0142 tej technologii
+    jest niemal\u017Ce niesko\u0144czony. Ju\u017C dzi\u015B E.V.A zdo\u0142a\u0142a
+    pokona\u0107 w warcaby najlepszego gracza na \u015Bwiecie! Je\u015Bli chcesz
+    zosta\u0107 jednym z ojc\xF3w sztucznej inteligencji przyjd\u017A do naszego
+    biura na ulicy Odwa\u017Cnej 15. Sztuczna inteligencja daje nam nadziej\u0119
+    na lepsze jutro. Do\u0142\u0105cz do Sztucznej nadziei. (Badania sponsorowane
+    przez Private Institute of Weaponary Research)."

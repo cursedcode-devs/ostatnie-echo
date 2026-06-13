@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d45b0f46aa3003d4089d0867c36920e2, type: 3}
+  m_Name: PC_RozwalonaChata
+  m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
+  callType: 1
+  callerName: "Dyrektor Zak\u0142ad\xF3w Azotowych"
+  audio: {fileID: 0}
+  initialDialog: "Dzie\u0144 dobry, m\xF3j syn znowu zrobi\u0142 w domu ogromny ba\u0142agan
+    po dom\xF3wce. Drzwi wyj\u0119te z zawias\xF3w, szczur w wannie, nawet toaleta
+    zosta\u0142a wyrwana ze \u015Bciany i nie ma po niej \u015Bladu i inne brudy,
+    o kt\xF3rych na antenie nie przystoi mi m\xF3wi\u0107. Czy zna Pan jak\u0105\u015B
+    dobr\u0105 firm\u0119 sprz\u0105taj\u0105c\u0105, kt\xF3ra mog\u0142aby mi pom\xF3c?
+    By\u0142abym bardzo wdzi\u0119czna."
+  dialogOptions:
+  - optionText: "Ha! By\u0142em tam! To by\u0142a \u015Bwietna dom\xF3wa! Wiedzia\u0142em,
+      \u017Ce metalowcy schowali tam szczura. "
+    resultingText: 
+    moneyChange: 0
+    listenersPrecentageChange: 0
+    requestedGenre: 
+    flatListenersChange:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      pop: 0
+    hostDelta: -1
+    listenerDelta: 1
+    governmentDelta: 0
+  - optionText: "Oczywi\u015Bcie! Firma Czy\u015Bciciel z ch\u0119ci\u0105 pomo\u017Ce.
+      Sam korzysta\u0142em zawsze polecam!"
+    resultingText: 
+    moneyChange: 0
+    listenersPrecentageChange: 0
+    requestedGenre: 
+    flatListenersChange:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      pop: 0
+    hostDelta: 1
+    listenerDelta: 0
+    governmentDelta: 0

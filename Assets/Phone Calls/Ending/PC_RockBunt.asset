@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
   callType: 1
   callerName: Bunt przeciw Jureckiemu
+  audio: {fileID: 0}
   initialDialog: "Cze\u015B\u0107. Zr\xF3bmy ma\u0142y bunt. Puszczaj jaki\u015B
     rock, a ja podkr\u0119c\u0119 na maksa g\u0142o\u015Bniki w oknie bloku, \u017Ceby
     zag\u0142uszy\u0107 przem\xF3wienie tego komucha Jureckiego z megafon\xF3w sp\xF3\u0142dzielni.

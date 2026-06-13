@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
   callType: 1
   callerName: "Dyrektor Zak\u0142ad\xF3w Azotowych"
+  audio: {fileID: 0}
   initialDialog: "S\u0142uchaj mnie uwa\u017Cnie, m\u0142ody. M\xF3wi dyrektor Zak\u0142ad\xF3w
     Azotowych. Wiemy, \u017Ce tw\xF3j informator nagra\u0142 audycj\u0119 o ska\u017Ceniu
     gleby za naszym ogrodzeniem. Masz tu gotow\u0105 kaset\u0119 o naszej akcji sadzenia
