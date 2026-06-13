@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 606b981a3cf97898eae65d0243265213, type: 3}
   m_Name: NewHorizons
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeDefinition
-  upgradeName: Nazwa Ulepszenia
-  description: "Opis dzia\u0142ania ulepszenia"
+  upgradeName: Nowe Horyzonty
+  description: "Lepsza antena: zwi\u0119ksza bazowy mno\u017cnik ka\u017cdej kategorii o 5."
   type: 4
   cost: 50
   marketFloodExtraSlots: 2

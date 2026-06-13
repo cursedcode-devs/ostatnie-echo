@@ -261,63 +261,18 @@ MonoBehaviour:
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
-  - m_Index: 201
+  - m_Index: 317
     m_Metrics:
-      m_Width: 38
-      m_Height: 64
-      m_HorizontalBearingX: 3
-      m_HorizontalBearingY: 63
-      m_HorizontalAdvance: 43
+      m_Width: 48
+      m_Height: 75
+      m_HorizontalBearingX: 2
+      m_HorizontalBearingY: 75
+      m_HorizontalAdvance: 53
     m_GlyphRect:
       m_X: 10
       m_Y: 176
-      m_Width: 38
-      m_Height: 64
-    m_Scale: 1
-    m_AtlasIndex: 0
-    m_ClassDefinitionType: 0
-  - m_Index: 285
-    m_Metrics:
-      m_Width: 38
-      m_Height: 64
-      m_HorizontalBearingX: 2
-      m_HorizontalBearingY: 63
-      m_HorizontalAdvance: 43
-    m_GlyphRect:
-      m_X: 10
-      m_Y: 259
-      m_Width: 38
-      m_Height: 64
-    m_Scale: 1
-    m_AtlasIndex: 0
-    m_ClassDefinitionType: 0
-  - m_Index: 262
-    m_Metrics:
-      m_Width: 38
-      m_Height: 63
-      m_HorizontalBearingX: 5
-      m_HorizontalBearingY: 63
-      m_HorizontalAdvance: 48
-    m_GlyphRect:
-      m_X: 10
-      m_Y: 342
-      m_Width: 38
-      m_Height: 63
-    m_Scale: 1
-    m_AtlasIndex: 0
-    m_ClassDefinitionType: 0
-  - m_Index: 318
-    m_Metrics:
-      m_Width: 36
-      m_Height: 63
-      m_HorizontalBearingX: 3
-      m_HorizontalBearingY: 63
-      m_HorizontalAdvance: 43
-    m_GlyphRect:
-      m_X: 10
-      m_Y: 424
-      m_Width: 36
-      m_Height: 63
+      m_Width: 48
+      m_Height: 75
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
@@ -329,8 +284,8 @@ MonoBehaviour:
       m_HorizontalBearingY: 59
       m_HorizontalAdvance: 48
     m_GlyphRect:
-      m_X: 65
-      m_Y: 424
+      m_X: 74
+      m_Y: 91
       m_Width: 45
       m_Height: 59
     m_Scale: 1
@@ -351,11 +306,11 @@ MonoBehaviour:
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
-  - m_Index: 200
+  - m_Index: 261
     m_Metrics:
-      m_Width: 55
-      m_Height: 75
-      m_HorizontalBearingX: 4
+      m_Width: 49
+      m_Height: 74
+      m_HorizontalBearingX: 7
       m_HorizontalBearingY: 74
       m_HorizontalAdvance: 62
     m_GlyphRect:
@@ -366,13 +321,13 @@ MonoBehaviour:
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
-  - m_Index: 218
+  - m_Index: 318
     m_Metrics:
-      m_Width: 47
-      m_Height: 77
-      m_HorizontalBearingX: 7
-      m_HorizontalBearingY: 59
-      m_HorizontalAdvance: 57
+      m_Width: 36
+      m_Height: 63
+      m_HorizontalBearingX: 3
+      m_HorizontalBearingY: 63
+      m_HorizontalAdvance: 43
     m_GlyphRect:
       m_X: 129
       m_Y: 367
@@ -425,20 +380,8 @@ MonoBehaviour:
     m_GlyphIndex: 260
     m_Scale: 1
   - m_ElementType: 1
-    m_Unicode: 263
-    m_GlyphIndex: 201
-    m_Scale: 1
-  - m_ElementType: 1
-    m_Unicode: 347
-    m_GlyphIndex: 285
-    m_Scale: 1
-  - m_ElementType: 1
-    m_Unicode: 324
-    m_GlyphIndex: 262
-    m_Scale: 1
-  - m_ElementType: 1
-    m_Unicode: 380
-    m_GlyphIndex: 318
+    m_Unicode: 379
+    m_GlyphIndex: 317
     m_Scale: 1
   - m_ElementType: 1
     m_Unicode: 321
@@ -449,12 +392,12 @@ MonoBehaviour:
     m_GlyphIndex: 284
     m_Scale: 1
   - m_ElementType: 1
-    m_Unicode: 262
-    m_GlyphIndex: 200
+    m_Unicode: 323
+    m_GlyphIndex: 261
     m_Scale: 1
   - m_ElementType: 1
-    m_Unicode: 280
-    m_GlyphIndex: 218
+    m_Unicode: 380
+    m_GlyphIndex: 318
     m_Scale: 1
   - m_ElementType: 1
     m_Unicode: 260
@@ -489,22 +432,10 @@ MonoBehaviour:
     m_Height: 81
   - m_X: 0
     m_Y: 166
-    m_Width: 57
-    m_Height: 83
-  - m_X: 0
-    m_Y: 249
-    m_Width: 57
-    m_Height: 83
-  - m_X: 0
-    m_Y: 332
-    m_Width: 57
-    m_Height: 82
-  - m_X: 0
-    m_Y: 414
-    m_Width: 55
-    m_Height: 82
-  - m_X: 55
-    m_Y: 414
+    m_Width: 67
+    m_Height: 94
+  - m_X: 64
+    m_Y: 81
     m_Width: 64
     m_Height: 78
   - m_X: 57
@@ -528,8 +459,16 @@ MonoBehaviour:
     m_Width: 67
     m_Height: 94
   m_FreeGlyphRects:
+  - m_X: 61
+    m_Y: 81
+    m_Width: 3
+    m_Height: 2
+  - m_X: 64
+    m_Y: 159
+    m_Width: 3
+    m_Height: 7
   - m_X: 0
-    m_Y: 496
+    m_Y: 453
     m_Width: 511
     m_Height: 15
   - m_X: 55
