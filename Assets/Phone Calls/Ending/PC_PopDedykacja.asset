@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
   callType: 1
   callerName: "Dedykacja dla Ka\u015Bki"
+  audio: {fileID: 0}
   initialDialog: "Dzie\u0144 dobry, Ka\u015Bka z IV B siedzi na balkonie z radiem.
     Par\u0119 dni temu obieca\u0142em jej dedykacj\u0119. Czy m\xF3gliby\u015Bcie
     pu\u015Bci\u0107 dla niej co\u015B od bardziej skoczliwego jaki\u015B pop?"

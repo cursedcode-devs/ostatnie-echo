@@ -10,12 +10,13 @@ using TMPro;
 ///
 /// Builds:
 ///   WaveTweakingCanvas
-///     ├── PanelBG
-///     ├── Title
-///     ├── RequiredValuesText   (target values)
-///     ├── ActualValuesText     (current slider values)
-///     ├── StatusText           (DOPASUJ FALE / SYGNAŁ STABILNY!)
-///     └── WaveTweakingManager  (WaveTweakingMiniGame component)
+///     └── Content (przesunięty wyżej)
+///         ├── PanelBG / Title
+///         ├── GraphBox -> WaveGraph (wizualizacja: fala-cel + aktualna)
+///         ├── AmpLabel / LenLabel / FreqLabel
+///         ├── ActualValuesText  (TERAZ — bieżące wartości; CEL jest ukryty)
+///         └── StatusText        (DOPASUJ FALE / SYGNAŁ STABILNY!)
+///   WaveTweakingManager (WaveTweakingMiniGame component)
 /// </summary>
 public class WaveTweakingSceneBuilder : MonoBehaviour
 {
@@ -49,45 +50,60 @@ public class WaveTweakingSceneBuilder : MonoBehaviour
         scaler.referenceResolution = new Vector2(1920, 1080);
         canvasGO.AddComponent<GraphicRaycaster>();
 
-        var ct = canvasGO.transform;
+        // Kontener z całym UI — przesunięty trochę wyżej (ekran minigry wyświetla się wyżej).
+        var content = new GameObject("Content", typeof(RectTransform));
+        content.transform.SetParent(canvasGO.transform, false);
+        var contentRT = content.GetComponent<RectTransform>();
+        contentRT.anchorMin = contentRT.anchorMax = new Vector2(0.5f, 0.5f);
+        contentRT.pivot = new Vector2(0.5f, 0.5f);
+        contentRT.sizeDelta = Vector2.zero;
+        contentRT.anchoredPosition = new Vector2(0f, 120f);
+        var ct = content.transform;
 
         // ---- Background panel ----
         var bg = MakeImage(ct, "PanelBG", new Color32(18, 24, 20, 255));
-        SR(bg, 0.5f, 0.5f, 520, 320, 0, 0);
+        SR(bg, 0.5f, 0.5f, 760, 600, 0, 0);
 
         var border = MakeImage(bg.transform, "Border", new Color32(30, 60, 40, 255));
-        SR(border, 0.5f, 0.5f, 500, 300, 0, 0);
+        SR(border, 0.5f, 0.5f, 740, 580, 0, 0);
         border.GetComponent<RectTransform>().SetAsFirstSibling();
 
         // ---- Title ----
-        var title = MakeText(ct, "Title", "KALIBRACJA SYGNAŁU", 26, new Color32(50, 220, 100, 255));
-        SR(title, 0.5f, 0.5f, 500, 44, 0, 120);
+        var title = MakeText(ct, "Title", "KALIBRACJA SYGNAŁU", 30, new Color32(50, 220, 100, 255));
+        SR(title, 0.5f, 0.5f, 700, 48, 0, 260);
+
+        // ---- Wykres fal (cel + aktualna) ----
+        var graphBox = MakeImage(ct, "GraphBox", new Color32(8, 14, 10, 255));
+        SR(graphBox, 0.5f, 0.5f, 700, 340, 0, 65);
+
+        var graphGO = new GameObject("WaveGraph");
+        graphGO.transform.SetParent(graphBox.transform, false);
+        var graphRT = graphGO.AddComponent<RectTransform>();
+        graphRT.anchorMin = Vector2.zero;
+        graphRT.anchorMax = Vector2.one;
+        graphRT.offsetMin = new Vector2(8, 8);
+        graphRT.offsetMax = new Vector2(-8, -8);
+        var waveGraph = graphGO.AddComponent<WaveTweakingGraph>();
+        waveGraph.lineThickness = 5f;
 
         // ---- Labels ----
-        var ampLabel  = MakeText(ct, "AmpLabel",  "AMPLITUDA", 16, new Color32(150, 220, 150, 255));
-        var lenLabel  = MakeText(ct, "LenLabel",  "DŁUGOŚĆ",   16, new Color32(150, 220, 150, 255));
-        var freqLabel = MakeText(ct, "FreqLabel", "CZĘSTOTL.", 16, new Color32(150, 220, 150, 255));
-        SR(ampLabel,  0.5f, 0.5f, 160, 30, -160, 60);
-        SR(lenLabel,  0.5f, 0.5f, 160, 30,    0, 60);
-        SR(freqLabel, 0.5f, 0.5f, 160, 30,  160, 60);
+        var ampLabel  = MakeText(ct, "AmpLabel",  "AMPLITUDA", 20, new Color32(150, 220, 150, 255));
+        var lenLabel  = MakeText(ct, "LenLabel",  "DŁUGOŚĆ",   20, new Color32(150, 220, 150, 255));
+        var freqLabel = MakeText(ct, "FreqLabel", "CZĘSTOTL.", 20, new Color32(150, 220, 150, 255));
+        SR(ampLabel,  0.5f, 0.5f, 200, 30, -230, -130);
+        SR(lenLabel,  0.5f, 0.5f, 200, 30,    0, -130);
+        SR(freqLabel, 0.5f, 0.5f, 200, 30,  230, -130);
 
-        // ---- Required values ----
-        var reqLabel = MakeText(ct, "ReqLabel", "CEL:", 16, new Color32(100, 180, 100, 255));
-        SR(reqLabel, 0.5f, 0.5f, 80, 30, -220, 20);
+        // ---- Actual values (rząd CEL ukryty — wartości docelowe poznajesz po fali) ----
+        var actLabel = MakeText(ct, "ActLabel", "TERAZ:", 18, new Color32(100, 180, 100, 255));
+        SR(actLabel, 0.5f, 0.5f, 100, 30, -260, -185);
 
-        var reqValuesGO = MakeText(ct, "RequiredValuesText", "-.-, -.-, -.-", 22, new Color32(50, 255, 120, 255));
-        SR(reqValuesGO, 0.5f, 0.5f, 460, 36, 20, 20);
-
-        // ---- Actual values ----
-        var actLabel = MakeText(ct, "ActLabel", "TERAZ:", 16, new Color32(100, 180, 100, 255));
-        SR(actLabel, 0.5f, 0.5f, 80, 30, -220, -20);
-
-        var actValuesGO = MakeText(ct, "ActualValuesText", "5.0, 5.0, 5.0", 22, new Color32(200, 255, 200, 255));
-        SR(actValuesGO, 0.5f, 0.5f, 460, 36, 20, -20);
+        var actValuesGO = MakeText(ct, "ActualValuesText", "5.0, 5.0, 5.0", 26, new Color32(200, 255, 200, 255));
+        SR(actValuesGO, 0.5f, 0.5f, 520, 40, 30, -185);
 
         // ---- Status ----
-        var statusGO = MakeText(ct, "StatusText", "DOPASUJ FALE", 20, Color.white);
-        SR(statusGO, 0.5f, 0.5f, 400, 36, 0, -80);
+        var statusGO = MakeText(ct, "StatusText", "DOPASUJ FALE", 24, Color.white);
+        SR(statusGO, 0.5f, 0.5f, 600, 40, 0, -250);
 
         // ---- WaveTweakingMiniGame component ----
         var gmGO = new GameObject("WaveTweakingManager");
@@ -96,9 +112,10 @@ public class WaveTweakingSceneBuilder : MonoBehaviour
 
         // Wire up UI script
         var uiScript = canvasGO.AddComponent<WaveTweakingMiniGameUI>();
-        uiScript.requiredValuesText = reqValuesGO.GetComponent<TextMeshProUGUI>();
+        // Rząd CEL jest ukryty — wartości docelowe poznajesz po fali.
         uiScript.actualValuesText   = actValuesGO.GetComponent<TextMeshProUGUI>();
         uiScript.statusText         = statusGO.GetComponent<TextMeshProUGUI>();
+        uiScript.waveGraph          = waveGraph;
 
         gm.uiScript = uiScript;
 

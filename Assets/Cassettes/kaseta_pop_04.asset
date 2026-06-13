@@ -15,6 +15,7 @@ MonoBehaviour:
   audio: {fileID: 8300000, guid: 47b6f296008e41fb79cbdc574cf9b8d4, type: 3}
   itemName: On The Top
   author: Dj Loco
+  genre: Pop
   physicalPrefab: {fileID: 0}
   timesUsedInDay: 0
   cassetteValues:

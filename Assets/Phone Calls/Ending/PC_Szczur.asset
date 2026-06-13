@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d45b0f46aa3003d4089d0867c36920e2, type: 3}
+  m_Name: PC_Szczur
+  m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
+  callType: 1
+  callerName: "Dyrektor Zak\u0142ad\xF3w Azotowych"
+  audio: {fileID: 0}
+  initialDialog: "Siema stary! S\u0142uchaj zgubili\u015Bmy naszego szczura B\u0142a\u017Ceja.
+    \u015Arednich rozmiar\xF3w z czarn\u0105 plam\u0105 na lewym oku. Popyta\u0142by\u015B
+    si\u0119 tam, da\u0142 og\u0142oszenie? To by\u0142a maskotka naszej kapeli metalowej
+    i bez niej ani rusz. B\u0119dziemy naprawd\u0119 wdzi\u0119czni."
+  dialogOptions:
+  - optionText: "Oczywi\u015Bcie stary, zawsze pomog\u0119."
+    resultingText: 
+    moneyChange: 0
+    listenersPrecentageChange: 0
+    requestedGenre: 
+    flatListenersChange:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      pop: 0
+    hostDelta: 1
+    listenerDelta: 1
+    governmentDelta: 0
+  - optionText: "Nie b\u0119d\u0119 si\u0119 ugania\u0142 za szczurami."
+    resultingText: 
+    moneyChange: 0
+    listenersPrecentageChange: 0
+    requestedGenre: 
+    flatListenersChange:
+      hipHop: 0
+      disco: 0
+      rock: 0
+      pop: 0
+    hostDelta: -1
+    listenerDelta: -1
+    governmentDelta: 0

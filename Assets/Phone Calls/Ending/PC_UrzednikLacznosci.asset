@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
   callType: 1
   callerName: "Urz\u0119dnik od \u0142\u0105czno\u015Bci"
+  audio: {fileID: 0}
   initialDialog: "Dzie\u0144 dobry, \u017Bubrze. M\xF3wi \"urz\u0119dnik\" od spraw
     \u0142\u0105czno\u015Bci. Wasza amatorska zabawa w radio mo\u017Ce zaraz dobiec
     ko\u0144ca, i kto\u015B mo\u017Ce za nied\u0142ugo zapuka\u0107 do waszych drzwi.

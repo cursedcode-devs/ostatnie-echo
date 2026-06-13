@@ -17,7 +17,8 @@ public class TimeHandler
     public event Action OnDayStarted;
     public event Action OnGameFinished;
     private int lastDay;
-    public TimeHandler(int startHour, int startDay, Airtime airtime, CassetteSlotHandler[] slots, ZoomHandler zoomHandler, int dayNr)
+    private int lastHour;
+    public TimeHandler(int startHour, int startDay, Airtime airtime, CassetteSlotHandler[] slots, ZoomHandler zoomHandler, int dayNr, int lastHour=16)
     {
         Hour = startHour;
         Day = startDay;
@@ -25,6 +26,7 @@ public class TimeHandler
         this.slots = slots;
         lastDay = dayNr;
         this.zoomHandler = zoomHandler;
+        this.lastHour = lastHour;
     }
 
     public void NextHour()
@@ -34,7 +36,7 @@ public class TimeHandler
         if (UpgradeManager.Instance != null)
             UpgradeManager.Instance.ResetBack2Back();
 
-        if (Hour > 17)
+        if (Hour > lastHour)
             StartDay();
         else
             MiniGameSystem.Instance.LaunchRandom();
@@ -42,6 +44,7 @@ public class TimeHandler
 
     public void StartDay()
     {
+        lastHour++;
         zoomHandler.ZoomOut(true);
         airtime.emptyAllSlots();
         for (int i = 0; i < slots.Length; i++)

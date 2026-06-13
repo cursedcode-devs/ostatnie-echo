@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
   callType: 1
   callerName: Janusz - hurtownia
+  audio: {fileID: 0}
   initialDialog: "No witam kierownika, Janusz z tej strony, hurtownia materia\u0142\xF3w
     budowlanych. S\u0142uchaj pan, mam tu kaset\u0119 z reklam\u0105 mojego sk\u0142adu.
     Pu\u015B\u0107 mi to pan teraz zaraz, zupe\u0142nie za darmo, a w przysz\u0142o\u015Bci

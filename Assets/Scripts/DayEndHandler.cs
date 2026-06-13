@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class DayEndHandler : MonoBehaviour
 {
+    public int MinListenersToWin;
     public GameManager gameManager;
     public TimeHandler timeHandler;
     public Canvas ShopUI;
@@ -46,21 +47,17 @@ public class DayEndHandler : MonoBehaviour
         };
         startMoney = radioStation.GetCurrentMoney();
 
-        foreach (var cassette in allCassettes)
-        {
-            cassette.GetComponent<PlayableObject>().data.ResetTimesUsed();
-            cassette.GetComponent<PlayableObject>().data.ResetLastValues();
-        }
-        foreach (var ad in allAds)
-        {
-            ad.ResetTimesUsed();
-            ad.ResetLastValues();
-        }
+        ResetAllCassettePenalties();
     }
 
     void HandleDayStart()
     {   
         FMODUnity.RuntimeManager.PlayOneShot(yawnSound, this.transform.position);
+
+        if (radioStation.currentListeners.hipHop <= 0 || radioStation.currentListeners.disco <= 0 || radioStation.currentListeners.pop <= 0 || radioStation.currentListeners.rock <= 0)
+        {
+            HandleGameFinished();
+        }
 
         if (timeHandler.getDay() > 1)
         {
@@ -74,16 +71,7 @@ public class DayEndHandler : MonoBehaviour
         radioStation.SetCurrentMoney(radioStation.GetCurrentMoney() - kawalerka_fee - jedzenie_fee - studia_fee);
 
 
-        foreach (var cassette in allCassettes)
-        {
-            cassette.GetComponent<PlayableObject>().data.ResetTimesUsed();
-            cassette.GetComponent<PlayableObject>().data.ResetLastValues();
-        }
-        foreach (var ad in allAds)
-        {
-            ad.ResetTimesUsed();
-            ad.ResetLastValues();
-        }
+        ResetAllCassettePenalties();
 
         radioStation.SetDailyListenersModifier(0f, 0f, 0f, 0f);
         radioStation.SetDailyRevenueModifier(0f, 0f, 0f, 0f);
@@ -172,7 +160,7 @@ public class DayEndHandler : MonoBehaviour
 
         if (radioStation.GetCurrentMoney() <= 0)
             endGameCause = 1;
-        else if (radioStation.GetTotalListeners() < 55)
+        else if (radioStation.GetTotalListeners() < MinListenersToWin)
             endGameCause = 2;
 
         // Każdy koniec gry -> narracyjne zakończenie. Wariant (pełne telegazety + "Gratulacje"
@@ -271,14 +259,71 @@ public class DayEndHandler : MonoBehaviour
             if (i < shopSlots)
             {
                 slot.gameObject.SetActive(true);
-                TextMeshProUGUI name = slot.Find("NAZWA").GetComponent<TextMeshProUGUI>();
-                TextMeshProUGUI price = slot.Find("CENA").GetComponent<TextMeshProUGUI>();
-                TextMeshProUGUI stats = slot.Find("STATYSTYKI").GetComponent<TextMeshProUGUI>();
+                PlayableContent data = dailyOffer[i].GetComponent<PlayableObject>().data;
 
-                name.text = dailyOffer[i].name;
-                dailyOffer[i].GetComponent<PlayableObject>().data.price = Random.Range(10, 100);
-                price.text = dailyOffer[i].GetComponent<PlayableObject>().data.price.ToString() + " ZŁ";
-                stats.text = dailyOffer[i].GetComponent<PlayableObject>().data.GetCassetteValues().ToString();
+                TextMeshProUGUI name = slot.Find("NAZWA")?.GetComponent<TextMeshProUGUI>();
+                TextMeshProUGUI price = slot.Find("CENA")?.GetComponent<TextMeshProUGUI>();
+                TextMeshProUGUI author = slot.Find("AUTOR")?.GetComponent<TextMeshProUGUI>();
+                TextMeshProUGUI genre = slot.Find("GATUNEK")?.GetComponent<TextMeshProUGUI>();
+
+                data.price = Random.Range(10, 100);
+
+                if (name != null) name.text = $"\"{data.GetName()}\"";
+                if (author != null) author.text = data.GetAuthor();
+                if (genre != null)
+                {
+                    genre.text = data.GetGenre();
+                    genre.color = GetGenreColor(data.GetGenre());
+                }
+                if (price != null) price.text = data.price.ToString() + " ZŁ";
+
+                // Statystyki kasety w procentach: minus na czerwono, zero/plus na zielono.
+                TextMeshProUGUI stats = slot.Find("STATYSTYKI")?.GetComponent<TextMeshProUGUI>();
+                if (stats != null)
+                {
+                    stats.gameObject.SetActive(true);
+                    GenreValues v = data.GetCassetteValues();
+                    stats.text =
+                        StatLine("Hip-Hop", v.hipHop) + "\n" +
+                        StatLine("Disco", v.disco) + "\n" +
+                        StatLine("Rock", v.rock) + "\n" +
+                        StatLine("Pop", v.pop);
+                }
+
+                // --- Spójny wygląd + czytelny układ ---
+                // Czcionkę i materiał kopiujemy z tytułu (NAZWA), żeby wszystkie napisy wyglądały
+                // jednakowo niezależnie od overrideów prefaba. Kolory gatunku i statystyk zostają własne.
+                if (name != null)
+                {
+                    SetAnchoredY(name, -76f); // tytuł niżej, żeby grafika kasety na niego nie nachodziła
+
+                    if (stats != null)
+                    {
+                        stats.font = name.font;
+                        stats.fontSharedMaterial = name.fontSharedMaterial;
+                        stats.color = name.color; // nazwy gatunków w kolorze reszty (pomarańczowym)
+                        stats.fontSize = 19f; // większe statystyki
+                        SetAnchoredY(stats, 120f); // wyżej, by większy 4-liniowy blok zmieścił się nad grafiką
+                    }
+                    if (genre != null)
+                    {
+                        genre.font = name.font;
+                        genre.fontSharedMaterial = name.fontSharedMaterial;
+                        genre.fontSize = 26f; // większy gatunek
+                        genre.alignment = TMPro.TextAlignmentOptions.Center; // wyśrodkowany nad slotem
+                        if (stats != null) genre.rectTransform.anchoredPosition = new Vector2(0f, GetAnchoredY(stats) + 42f);
+                    }
+                    if (author != null)
+                    {
+                        author.font = name.font;
+                        author.fontSharedMaterial = name.fontSharedMaterial;
+                        author.color = name.color; // ten sam kolor co tytuł
+                        author.fontStyle = TMPro.FontStyles.Italic; // autor kursywą, jak tytuł
+                        author.fontSize = 16f;
+                        SetAnchoredY(author, GetAnchoredY(name) - 30f); // pod tytułem
+                    }
+                    if (price != null) SetAnchoredY(price, -130f); // cena na dole, z odstępem od autora
+                }
             }
             else
             {
@@ -340,5 +385,71 @@ public class DayEndHandler : MonoBehaviour
             currentShopUI.gameObject.SetActive(false);
 
         gameManager.SetInputEnabled(true);
+    }
+
+    private static float GetAnchoredY(TMPro.TextMeshProUGUI t)
+    {
+        return t.rectTransform.anchoredPosition.y;
+    }
+
+    private static void SetAnchoredY(TMPro.TextMeshProUGUI t, float y)
+    {
+        var rt = t.rectTransform;
+        rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, y);
+    }
+
+    /// <summary>
+    /// Pojedyncza linia statystyk gatunku w %: ujemna na czerwono, zero/dodatnia na zielono.
+    /// </summary>
+    private static string StatLine(string label, int value)
+    {
+        string color = value < 0 ? "#E74C3C" : "#2ECC71"; // czerwony / zielony
+        // Nazwa gatunku zostaje w bazowym kolorze napisu; kolorowa tylko wartość "liczba %".
+        return $"{label}: <color={color}>{value}%</color>";
+    }
+
+    /// <summary>
+    /// Kolor etykiety gatunku odpowiadający danemu gatunkowi muzycznemu.
+    /// </summary>
+    private static Color GetGenreColor(string genre)
+    {
+        switch ((genre ?? "").Trim().ToLowerInvariant())
+        {
+            case "pop":               return new Color32(255, 79, 163, 255); // róż
+            case "rock":              return new Color32(231, 76, 60, 255);  // czerwony
+            case "hip-hop":
+            case "hiphop":            return new Color32(225, 161, 0, 255);  // złoty
+            case "disco":             return new Color32(155, 89, 182, 255); // fiolet
+            default:                  return Color.white;
+        }
+    }
+
+    /// <summary>
+    /// Resetuje dzienne "kary" kaset (timesUsed oraz zdegradowane lastCassetteValues),
+    /// żeby następnego dnia modyfikatory wróciły do wartości bazowych (cassetteValues).
+    /// Szuka wszystkich PlayableObject w scenie (także nieaktywnych, np. kupionych kaset
+    /// czekających w sklepie), więc nie zależy od ręcznie przypisanej tablicy allCassettes
+    /// ani od dynamicznie tworzonych kopii.
+    /// </summary>
+    private void ResetAllCassettePenalties()
+    {
+        var playables = FindObjectsByType<PlayableObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (var p in playables)
+        {
+            if (p == null || p.data == null) continue;
+            p.data.ResetTimesUsed();
+            p.data.ResetLastValues();
+        }
+
+        // Bazowe assety reklam (klony są niszczone osobno na koniec dnia).
+        if (allAds != null)
+        {
+            foreach (var ad in allAds)
+            {
+                if (ad == null) continue;
+                ad.ResetTimesUsed();
+                ad.ResetLastValues();
+            }
+        }
     }
 }

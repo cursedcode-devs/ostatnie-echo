@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
   callType: 1
   callerName: Szef WPIER-POLU
+  audio: {fileID: 0}
   initialDialog: "No witam, szef WPIER-POLU przy telefonie. Nagrali\u015Bmy na kaset\u0119
     spot promuj\u0105cy nasze us\u0142ugi. Trzeba to pu\u015Bci\u0107 w najbli\u017Cszym
     bloku. No i najwa\u017Cniejsze - ma to by\u0107 za darmoszk\u0119, w ramach dobrej

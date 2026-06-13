@@ -36,13 +36,13 @@ public class AdSubtitleDisplay : MonoBehaviour
 
     [Header("Tempo czytania")]
     [Tooltip("Naturalna prędkość czytania (znaki/sekundę). ~15 = czytanie na głos.")]
-    public float charsPerSecond = 15f;
+    public float charsPerSecond = 85f;
     [Tooltip("Szybsze tempo dla fragmentów w nawiasach (drobny druczek / aside).")]
-    public float fastCharsPerSecond = 34f;
+    public float fastCharsPerSecond = 100f;
     [Tooltip("Krótka pauza po każdej linii (s) — naturalny rytm.")]
-    public float sentencePause = 0.35f;
+    public float sentencePause = 0.10f;
     [Tooltip("Minimalny czas wyświetlania jednej linii (s).")]
-    public float minLineDuration = 1.0f;
+    public float minLineDuration = 0.3f;
     [Tooltip("Docelowa maksymalna długość bloku napisów (znaki). Krótsze zdania pokazywane są w całości (pasek zawija tekst); dłuższe dzielone po przecinkach.")]
     public int maxCharsPerLine = 120;
     [Tooltip("Jeśli po podziale długiego zdania ogon jest krótszy niż tyle znaków, doklejamy go do poprzedniego bloku (żeby końcówka zdania nie wisiała sama).")]

@@ -14,9 +14,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Wojtek/WojtekScene.unity
     guid: 669ba09c78ec2af43b23137442d71112
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Tobiasz/TobiaszScene.unity
     guid: 74affb6614007fa4a9edf8c652f7bab8
+  - enabled: 1
+    path: Assets/Scenes/Tobiasz/MainMenu.unity
+    guid: 288dd287761105b4c8519dd6f74de6ad
+  - enabled: 1
+    path: Assets/Scenes/MereSceneNIE_TYKAC/MergeScene.unity
+    guid: 70bf9c75d357ce641b56af4d7184fc7b
   - enabled: 1
     path: Assets/Scenes/Tobiasz/DaySummaryScene.unity
     guid: 345f7c18e48a2864782823484f18e169

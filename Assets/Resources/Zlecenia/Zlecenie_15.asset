@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef629219f6b17c4bbd2d813eecbea14, type: 3}
   m_Name: Zlecenie_15
   m_EditorClassIdentifier: Assembly-CSharp::Ad
-  audio: {fileID: 8300000, guid: b75ce503827c41fcc58a024bd6371ac9, type: 3}
+  audio: {fileID: 8300000, guid: f8e83e58b7f932d6ab0117aa9e077f4a, type: 3}
   itemName: "Darmowa Faza od S\u0105siada - Twoja W\u0142asna Elektrownia"
   author: "Pogotowie Wpi\u0119ciowe"
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
@@ -30,4 +30,10 @@ MonoBehaviour:
     pop: 0
   price: 0
   clientName: 
-  content: "Masz w domu tyle sprz\u0119tu, \u017ce bezpieczniki krzycz\u0105 o lito\u015b\u0107? Po co p\u0142aci\u0107 elektrowni, skoro s\u0105siad z g\u00f3ry wyjecha\u0142? \u201ePogotowie wpi\u0119ciowe\u201d oferuje profesjonalne wpi\u0119cia w piony i o\u015bwietlenie klatkowe. Robimy to tak cicho, \u017ce nawet osiedlowe emerytki nic nie zauwa\u017c\u0105. W ofercie mamy r\u00f3wnie\u017c maskowanie kabli pod tynkiem i monta\u017c magicznego pstryczka na wypadek kontroli. Pami\u0119taj: dzielenie si\u0119 energi\u0105 to najwy\u017csza forma s\u0105siedzkiej mi\u0142o\u015bci!"
+  content: "Masz w domu tyle sprz\u0119tu, \u017Ce bezpieczniki krzycz\u0105 o lito\u015B\u0107?
+    Po co p\u0142aci\u0107 elektrowni, skoro s\u0105siad z g\xF3ry wyjecha\u0142?
+    \u201EPogotowie wpi\u0119ciowe\u201D oferuje profesjonalne wpi\u0119cia w piony
+    i o\u015Bwietlenie klatkowe. Robimy to tak cicho, \u017Ce nawet osiedlowe emerytki
+    nic nie zauwa\u017C\u0105. W ofercie mamy r\xF3wnie\u017C maskowanie kabli pod
+    tynkiem i monta\u017C magicznego pstryczka na wypadek kontroli. Pami\u0119taj:
+    dzielenie si\u0119 energi\u0105 to najwy\u017Csza forma s\u0105siedzkiej mi\u0142o\u015Bci!"

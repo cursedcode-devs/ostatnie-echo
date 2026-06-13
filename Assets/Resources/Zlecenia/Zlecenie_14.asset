@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef629219f6b17c4bbd2d813eecbea14, type: 3}
   m_Name: Zlecenie_14
   m_EditorClassIdentifier: Assembly-CSharp::Ad
-  audio: {fileID: 8300000, guid: 88d138c2f849c089392d7c72943e30c4, type: 3}
+  audio: {fileID: 8300000, guid: e0509fd3d8d905c4db6a08e6cb3efe17, type: 3}
   itemName: "Miliony pod Zastaw Te\u015Bciowej - Bez Pyta\u0144!"
   author: Kasa ino roz
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
@@ -30,4 +30,10 @@ MonoBehaviour:
     pop: 0
   price: 0
   clientName: 
-  content: "Twoja wyp\u0142ata jest warta mniej ni\u017c papier toaletowy w Domu Partii? Komornik puka do drzwi a dzieci p\u0142acz\u0105, bo do zupy nie ma chleba? Przyjd\u017a do \"Kasa ino roz\". Nie pytamy o za\u015bwiadczenia, nie pytamy o nazwisko. Interesuje nas tylko Tw\u00f3j telewizor, z\u0142ote z\u0119by te\u015bciowej albo akt w\u0142asno\u015bci przegni\u0142ego Poloneza. Oprocentowanie jest dobrane proporcjonalnie do wizji kierownika, sp\u0142acasz terminowo albo poznasz naszych wsp\u00f3lnik\u00f3w z Wpier-Polu."
+  content: "Twoja wyp\u0142ata jest warta mniej ni\u017C papier toaletowy w Domu
+    Partii? Komornik puka do drzwi a dzieci p\u0142acz\u0105, bo do zupy nie ma chleba?
+    Przyjd\u017A do \"Kasa ino roz\". Nie pytamy o za\u015Bwiadczenia, nie pytamy
+    o nazwisko. Interesuje nas tylko Tw\xF3j telewizor, z\u0142ote z\u0119by te\u015Bciowej
+    albo akt w\u0142asno\u015Bci przegni\u0142ego Poloneza. Oprocentowanie jest dobrane
+    proporcjonalnie do wizji kierownika, sp\u0142acasz terminowo albo poznasz naszych
+    wsp\xF3lnik\xF3w z Wpier-Polu."

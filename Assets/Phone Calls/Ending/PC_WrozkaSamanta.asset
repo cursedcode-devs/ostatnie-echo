@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PhoneCallDefinition
   callType: 1
   callerName: "Wr\xF3\u017Cka Samanta"
+  audio: {fileID: 0}
   initialDialog: "Dzie\u0144 dobry, m\xF3wi Wr\xF3\u017Cka Samanta. Gwiazdy m\xF3wi\u0105,
     \u017Ce twoja antena potrzebuje mojej astralnej energii. Musisz pu\u015Bci\u0107
     m\xF3j horoskop w nast\u0119pnym bloku. Je\u015Bli odm\xF3wisz, si\u0142y supernaturalne

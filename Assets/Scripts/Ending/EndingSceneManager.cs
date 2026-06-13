@@ -22,6 +22,7 @@ using System.Collections;
 /// </summary>
 public class EndingSceneManager : MonoBehaviour
 {
+    public GameManager GameManager;
     [Header("Telegazety — Prowadzący (Host)")]
     [Tooltip("a) Widownia pomaga prowadzącemu uciec do bunkra (przeżywa).")]
     public Sprite hostSurvives;
@@ -166,6 +167,12 @@ public class EndingSceneManager : MonoBehaviour
 
         // Próg rozgłosu decyduje o wariancie zakończenia.
         bool success = finalListeners >= fameThreshold;
+
+        //cursed code
+        if (GameManager.radioStation.currentListeners.hipHop <= 0 || GameManager.radioStation.currentListeners.disco <= 0 || GameManager.radioStation.currentListeners.pop <= 0 || GameManager.radioStation.currentListeners.rock <= 0)
+        {
+            success = false;
+        }
 
         if (success)
         {

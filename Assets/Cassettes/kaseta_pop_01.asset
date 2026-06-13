@@ -15,6 +15,7 @@ MonoBehaviour:
   audio: {fileID: 8300000, guid: dcb70e0e99456d7fb855c885b29f2a43, type: 3}
   itemName: It's my car
   author: Dr. Gruzya
+  genre: Pop
   physicalPrefab: {fileID: 0}
   timesUsedInDay: 0
   cassetteValues:

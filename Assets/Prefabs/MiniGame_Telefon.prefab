@@ -754,7 +754,44 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 434266d219848594e9bdb47d0b4e81b6, type: 2}
   - {fileID: 11400000, guid: 319b150465412a845a2a1d7b6efb6c99, type: 2}
   - {fileID: 11400000, guid: 6cd25fc0b38d3f74d91f94f8d945ce3f, type: 2}
+  - {fileID: 11400000, guid: 72d7bdfeca1f1c44490118733c6a2d24, type: 2}
+  - {fileID: 11400000, guid: b22360c575a3d6d479bef373177cb000, type: 2}
+  - {fileID: 11400000, guid: 820fc4df7d63df748897bdbd4757a680, type: 2}
+  - {fileID: 11400000, guid: e3ba31550f94559488d09a1966ada4b8, type: 2}
+  - {fileID: 11400000, guid: 7d84beb5c0e14bf4c8808e7b16bb0cb1, type: 2}
+  - {fileID: 11400000, guid: a95d33a59ffd05c419074fa5439069ea, type: 2}
+  phoneRingSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  phonePickUpSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  phonePutDownSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  clickOptionSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   playerCassettesPool: []
+  zoomHandler: {fileID: 0}
+  phoneCameraPos: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!223 &7972358276645142801
 Canvas:
   m_ObjectHideFlags: 0
