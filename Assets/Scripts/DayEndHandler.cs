@@ -127,11 +127,8 @@ public class DayEndHandler : MonoBehaviour
             gameManager.SetInputEnabled(true);
         };
 
-        if (mainCam != null)
-            mainCam.gameObject.SetActive(false);
-
-        SceneManager.sceneLoaded += OnDaySummarySceneLoaded;
-        SceneManager.LoadScene("DaySummaryScene", LoadSceneMode.Additive);
+        DaySummaryData.OnSummaryClosed?.Invoke();
+        DaySummaryData.OnSummaryClosed = null;
     }
 
     private void OnDaySummarySceneLoaded(Scene scene, LoadSceneMode mode)
