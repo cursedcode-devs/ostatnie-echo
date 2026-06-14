@@ -336,7 +336,7 @@ public class GameManager : MonoBehaviour
         {
             case EndingMeter.Host:       return hostMeter       >= 0;
             case EndingMeter.Listener:   return listenerMeter   >= 0;
-            case EndingMeter.Government: return governmentMeter >= 0;
+            case EndingMeter.Government: return governmentMeter < 0;
             default:                     return true;
         }
     }
