@@ -38,6 +38,19 @@ public class DayEndHandler : MonoBehaviour
     void Start()
     {
         ShopUI.gameObject.SetActive(false);
+        
+        if (radioStation != null)
+        {
+            CacheInitialState();
+        }
+
+        ResetAllCassettePenalties();
+    }
+
+    private void CacheInitialState()
+    {
+        if (radioStation == null) return;
+
         startListeners = new GenreValues
         {
             hipHop = radioStation.currentListeners.hipHop,
@@ -46,30 +59,120 @@ public class DayEndHandler : MonoBehaviour
             disco = radioStation.currentListeners.disco
         };
         startMoney = radioStation.GetCurrentMoney();
+    }
 
+    public void Initialize(RadioStation rs, TimeHandler th, GameManager gm)
+    {
+        radioStation = rs;
+        timeHandler = th;
+        gameManager = gm;
+
+        timeHandler.OnFirstDayStarted += HandleFirstDayStart;
+        timeHandler.OnDayStarted += HandleDayStart;
+        timeHandler.OnGameFinished += () => { gameFinished = true; };
+
+        CacheInitialState();
+        dailyOffer = new GameObject[3];
+
+        if (timeHandler != null && timeHandler.getDay() == 1)
+        {
+            HandleFirstDayStart();
+        }
+    }
+
+    public void HandleFirstDayStart()
+    {
+        if (timeHandler != null)
+        {
+            timeHandler.OnFirstDayStarted -= HandleFirstDayStart;
+        }
+
+        gameManager.SetInputEnabled(false);
         ResetAllCassettePenalties();
+
+        radioStation.SetDailyListenersModifier(0f, 0f, 0f, 0f);
+        radioStation.SetDailyRevenueModifier(0f, 0f, 0f, 0f);
+
+        DaySummaryData.Day = 1; 
+        DaySummaryData.RentFee = 0f;
+        DaySummaryData.FoodFee = 0f;
+        DaySummaryData.StudiesFee = 0f;
+        DaySummaryData.FinalMoney = radioStation.GetCurrentMoney();
+        DaySummaryData.MoneyDiff = 0f;
+        DaySummaryData.AdsPenalty = 0f;
+        DaySummaryData.UnplayedPenalties = new List<AdContractManager.UnplayedAdPenalty>();
+
+        DaySummaryData.HipHop = radioStation.currentListeners.hipHop;
+        DaySummaryData.HipHopDiff = 0;
+        DaySummaryData.Disco = radioStation.currentListeners.disco;
+        DaySummaryData.DiscoDiff = 0;
+        DaySummaryData.Rock = radioStation.currentListeners.rock;
+        DaySummaryData.RockDiff = 0;
+        DaySummaryData.Pop = radioStation.currentListeners.pop;
+        DaySummaryData.PopDiff = 0;
+
+        Camera mainCam = gameManager.mainCamera;
+
+        DaySummaryData.OnSummaryClosed = () =>
+        {
+            startListeners.hipHop = radioStation.currentListeners.hipHop;
+            startListeners.disco = radioStation.currentListeners.disco;
+            startListeners.rock = radioStation.currentListeners.rock;
+            startListeners.pop = radioStation.currentListeners.pop;
+            startMoney = radioStation.GetCurrentMoney();
+
+            if (mainCam != null)
+                mainCam.gameObject.SetActive(true);
+
+            gameManager.SetInputEnabled(true);
+        };
+
+        if (mainCam != null)
+            mainCam.gameObject.SetActive(false);
+
+        SceneManager.sceneLoaded += OnDaySummarySceneLoaded;
+        SceneManager.LoadScene("DaySummaryScene", LoadSceneMode.Additive);
+    }
+
+    private void OnDaySummarySceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "DaySummaryScene")
+        {
+            SceneManager.sceneLoaded -= OnDaySummarySceneLoaded;
+
+            GameObject shopInSummary = GameObject.Find("ShopUI"); 
+            if (shopInSummary == null) shopInSummary = GameObject.Find("Ulepszenia");
+
+            if (shopInSummary != null)
+            {
+                shopInSummary.SetActive(false);
+            }
+        }
     }
 
     void HandleDayStart()
     {   
+        if (timeHandler != null && timeHandler.getDay() <= 1)
+        {
+            Debug.Log("[DayEndHandler] Zablokowano HandleDayStart dla dnia 1, aby uniknąć ulepszeń na starcie.");
+            return; 
+        }
+
         FMODUnity.RuntimeManager.PlayOneShot(yawnSound, this.transform.position);
 
         if (radioStation.currentListeners.hipHop <= 0 || radioStation.currentListeners.disco <= 0 || radioStation.currentListeners.pop <= 0 || radioStation.currentListeners.rock <= 0)
         {
             HandleGameFinished();
+            return; 
         }
 
-        if (timeHandler.getDay() > 1)
-        {
-            int index = timeHandler.getDay() - 2;
-            kawalerka_fee = index < kawalerka_fees.Length ? kawalerka_fees[index] : 0f;
-            jedzenie_fee = index < jedzenie_fees.Length ? jedzenie_fees[index] : 0f;
-            studia_fee = index < studia_fees.Length ? studia_fees[index] : 0f;
-        }
+        int index = timeHandler.getDay() - 2;
+        kawalerka_fee = index < kawalerka_fees.Length && index >= 0 ? kawalerka_fees[index] : 0f;
+        jedzenie_fee = index < jedzenie_fees.Length && index >= 0 ? jedzenie_fees[index] : 0f;
+        studia_fee = index < studia_fees.Length && index >= 0 ? studia_fees[index] : 0f;
         
         gameManager.SetInputEnabled(false);
         radioStation.SetCurrentMoney(radioStation.GetCurrentMoney() - kawalerka_fee - jedzenie_fee - studia_fee);
-
 
         ResetAllCassettePenalties();
 
@@ -163,10 +266,6 @@ public class DayEndHandler : MonoBehaviour
         else if (radioStation.GetTotalListeners() < MinListenersToWin)
             endGameCause = 2;
 
-        // Każdy koniec gry -> narracyjne zakończenie. Wariant (pełne telegazety + "Gratulacje"
-        // vs sam licznik + "Nie osiągnąłeś rozgłosu. Spróbuj jeszcze raz.") zależy od progu
-        // słuchaczy i jest rozstrzygany w EndingSceneManager. Stary ekran statystyk niżej =
-        // tylko fallback, gdy w scenie brakuje EndingSceneManager.
         EndingData.HostSurvives     = gameManager.GetEndingOutcome(EndingMeter.Host);
         EndingData.ListenersUnite   = gameManager.GetEndingOutcome(EndingMeter.Listener);
         EndingData.GovernmentSignal = gameManager.GetEndingOutcome(EndingMeter.Government);
@@ -196,26 +295,6 @@ public class DayEndHandler : MonoBehaviour
         );
     }
 
-    public void Initialize(RadioStation rs, TimeHandler th, GameManager gm)
-    {
-        radioStation = rs;
-        timeHandler = th;
-        gameManager = gm;
-
-        timeHandler.OnDayStarted += HandleDayStart;
-        timeHandler.OnGameFinished += () => { gameFinished = true; };
-
-        startListeners = new GenreValues
-        {
-            hipHop = radioStation.currentListeners.hipHop,
-            disco = radioStation.currentListeners.disco,
-            rock = radioStation.currentListeners.rock,
-            pop = radioStation.currentListeners.pop
-        };
-        startMoney = radioStation.GetCurrentMoney();
-        dailyOffer = new GameObject[3];
-    }
-
     private Transform currentShopUI;
 
     public void GenerateDailyOffer(Transform shopUI)
@@ -231,14 +310,12 @@ public class DayEndHandler : MonoBehaviour
             }
         }
 
-        // --- PATCH: MarketFlood — dynamiczna liczba slotów sklepu ---
         int shopSlots = 3;
         if (UpgradeManager.Instance != null)
             shopSlots += UpgradeManager.Instance.GetExtraShopSlots();
         
         int maxPossibleSlots = shopSlots;
         shopSlots = Mathf.Min(shopSlots, availableCassettes.Count);
-        // --- KONIEC PATCHA ---
 
         dailyOffer = new GameObject[shopSlots];
 
@@ -277,7 +354,6 @@ public class DayEndHandler : MonoBehaviour
                 }
                 if (price != null) price.text = data.price.ToString() + " ZŁ";
 
-                // Statystyki kasety w procentach: minus na czerwono, zero/plus na zielono.
                 TextMeshProUGUI stats = slot.Find("STATYSTYKI")?.GetComponent<TextMeshProUGUI>();
                 if (stats != null)
                 {
@@ -290,39 +366,36 @@ public class DayEndHandler : MonoBehaviour
                         StatLine("Pop", v.pop);
                 }
 
-                // --- Spójny wygląd + czytelny układ ---
-                // Czcionkę i materiał kopiujemy z tytułu (NAZWA), żeby wszystkie napisy wyglądały
-                // jednakowo niezależnie od overrideów prefaba. Kolory gatunku i statystyk zostają własne.
                 if (name != null)
                 {
-                    SetAnchoredY(name, -76f); // tytuł niżej, żeby grafika kasety na niego nie nachodziła
+                    SetAnchoredY(name, -76f);
 
                     if (stats != null)
                     {
                         stats.font = name.font;
                         stats.fontSharedMaterial = name.fontSharedMaterial;
-                        stats.color = name.color; // nazwy gatunków w kolorze reszty (pomarańczowym)
-                        stats.fontSize = 19f; // większe statystyki
-                        SetAnchoredY(stats, 120f); // wyżej, by większy 4-liniowy blok zmieścił się nad grafiką
+                        stats.color = name.color;
+                        stats.fontSize = 19f;
+                        SetAnchoredY(stats, 120f);
                     }
                     if (genre != null)
                     {
                         genre.font = name.font;
                         genre.fontSharedMaterial = name.fontSharedMaterial;
-                        genre.fontSize = 26f; // większy gatunek
-                        genre.alignment = TMPro.TextAlignmentOptions.Center; // wyśrodkowany nad slotem
+                        genre.fontSize = 26f;
+                        genre.alignment = TMPro.TextAlignmentOptions.Center;
                         if (stats != null) genre.rectTransform.anchoredPosition = new Vector2(0f, GetAnchoredY(stats) + 42f);
                     }
                     if (author != null)
                     {
                         author.font = name.font;
                         author.fontSharedMaterial = name.fontSharedMaterial;
-                        author.color = name.color; // ten sam kolor co tytuł
-                        author.fontStyle = TMPro.FontStyles.Italic; // autor kursywą, jak tytuł
+                        author.color = name.color;
+                        author.fontStyle = TMPro.FontStyles.Italic;
                         author.fontSize = 16f;
-                        SetAnchoredY(author, GetAnchoredY(name) - 30f); // pod tytułem
+                        SetAnchoredY(author, GetAnchoredY(name) - 30f);
                     }
-                    if (price != null) SetAnchoredY(price, -130f); // cena na dole, z odstępem od autora
+                    if (price != null) SetAnchoredY(price, -130f);
                 }
             }
             else
@@ -344,7 +417,6 @@ public class DayEndHandler : MonoBehaviour
         Debug.Log($"[DayEndHandler] Dodano '{cassette.name}' do oferty.");
     }
 
-
     public void BuyCassette(int offerIndex)
     {
         if (currentShopUI == null) return;
@@ -360,7 +432,6 @@ public class DayEndHandler : MonoBehaviour
             FMODUnity.RuntimeManager.PlayOneShot(buyingSound, this.transform.position);
             cassetteToBuy?.SetActive(true);
         }
-
     }
 
     public void UpdateMoneySlotInShop()
@@ -398,39 +469,25 @@ public class DayEndHandler : MonoBehaviour
         rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, y);
     }
 
-    /// <summary>
-    /// Pojedyncza linia statystyk gatunku w %: ujemna na czerwono, zero/dodatnia na zielono.
-    /// </summary>
     private static string StatLine(string label, int value)
     {
-        string color = value < 0 ? "#E74C3C" : "#2ECC71"; // czerwony / zielony
-        // Nazwa gatunku zostaje w bazowym kolorze napisu; kolorowa tylko wartość "liczba %".
+        string color = value < 0 ? "#E74C3C" : "#2ECC71";
         return $"{label}: <color={color}>{value}%</color>";
     }
 
-    /// <summary>
-    /// Kolor etykiety gatunku odpowiadający danemu gatunkowi muzycznemu.
-    /// </summary>
     private static Color GetGenreColor(string genre)
     {
         switch ((genre ?? "").Trim().ToLowerInvariant())
         {
-            case "pop":               return new Color32(255, 79, 163, 255); // róż
-            case "rock":              return new Color32(231, 76, 60, 255);  // czerwony
+            case "pop":               return new Color32(255, 79, 163, 255);
+            case "rock":              return new Color32(231, 76, 60, 255);
             case "hip-hop":
-            case "hiphop":            return new Color32(225, 161, 0, 255);  // złoty
-            case "disco":             return new Color32(155, 89, 182, 255); // fiolet
+            case "hiphop":            return new Color32(225, 161, 0, 255);
+            case "disco":             return new Color32(155, 89, 182, 255);
             default:                  return Color.white;
         }
     }
 
-    /// <summary>
-    /// Resetuje dzienne "kary" kaset (timesUsed oraz zdegradowane lastCassetteValues),
-    /// żeby następnego dnia modyfikatory wróciły do wartości bazowych (cassetteValues).
-    /// Szuka wszystkich PlayableObject w scenie (także nieaktywnych, np. kupionych kaset
-    /// czekających w sklepie), więc nie zależy od ręcznie przypisanej tablicy allCassettes
-    /// ani od dynamicznie tworzonych kopii.
-    /// </summary>
     private void ResetAllCassettePenalties()
     {
         var playables = FindObjectsByType<PlayableObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
@@ -441,7 +498,6 @@ public class DayEndHandler : MonoBehaviour
             p.data.ResetLastValues();
         }
 
-        // Bazowe assety reklam (klony są niszczone osobno na koniec dnia).
         if (allAds != null)
         {
             foreach (var ad in allAds)
