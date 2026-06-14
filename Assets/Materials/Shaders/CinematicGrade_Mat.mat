@@ -25,63 +25,65 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _BlackFloor: 0.0281
+    - _BlackFloor: 0.0328
     - _BlackPoint: 0.015
-    - _BlueGain: 1.07
-    - _BlueLift: -0.0503
-    - _ChromAb: 2.3
+    - _BlueGain: 0.949
+    - _BlueLift: -0.025
+    - _ChromAb: 0
     - _ChromAberr: 0.7
-    - _Contrast: 1.005
+    - _Contrast: 0.67
     - _CoolPreserve: 1.3
-    - _CoolSatPreserve: 1.921
-    - _CoolValueBoost: 1.227
-    - _DepthSensitivity: 17
+    - _CoolSatPreserve: 2
+    - _CoolValueBoost: 1.156
+    - _DepthSensitivity: 22.1
     - _DepthThreshold: 0.001
-    - _DistanceFadeEnd: 100
-    - _DistanceFadeStart: 25.8
-    - _Exposure: 1.19
+    - _DistanceFadeEnd: 500
+    - _DistanceFadeStart: 0
+    - _EffectDistanceFade: 500
+    - _Exposure: 1
     - _FilmGrain: 0.008
-    - _Gamma: 1.471
-    - _Grain: 0.0015
-    - _GreenGain: 0.677
-    - _GreenLift: -0.0175
-    - _HighStr: 0.228
+    - _Gamma: 1.44
+    - _Grain: 0.0085
+    - _GreenGain: 0.5
+    - _GreenLift: -0.011
+    - _HighStr: 1
     - _HighlightToneStr: 0.28
-    - _HueShift: -0.02
-    - _MidStr: 0.366
-    - _NormalSensitivity: 3.31
+    - _HueShift: -0.022
+    - _MaxEffectDistance: 678
+    - _MidStr: 0.18
+    - _NormalSensitivity: 2.14
     - _NormalThreshold: 0.88
     - _OutlineDistanceFade: 1
     - _OutlineStrength: 1
-    - _OutlineWidth: 2.42
-    - _RedGain: 1
-    - _RedLift: -0.0383
-    - _Saturation: 1.053
-    - _ScanDensity: 1267
-    - _ScanStr: 0.1088
+    - _OutlineWidth: 2.47
+    - _RedGain: 1.138
+    - _RedLift: -0.04
+    - _Saturation: 0.96
+    - _ScanDensity: 1359
+    - _ScanStr: 0.143
     - _ScanlineDensity: 600
     - _ScanlineStr: 0.035
-    - _ShadowStr: 0.723
+    - _ShadowStr: 0.496
     - _ShadowToneStr: 0.3
     - _Temperature: 0.15
     - _Tint: 0.1
     - _ToneBalance: -0.1
     - _ToonSaturation: 0.913
     - _ToonSteps: 20
-    - _ToonStrength: 0.096
+    - _ToonStrength: 0
     - _VigSoft: 0.697
-    - _VigStr: 0.844
+    - _VigStr: 0.74
     - _VignetteSoft: 0.6
     - _VignetteStr: 0.5
     - _WallTintStr: 0.18
     - _WarmBoost: 0.25
     - _WhitePoint: 1
     m_Colors:
-    - _HighColor: {r: 1, g: 0.41667736, b: 0, a: 1}
+    - _HighColor: {r: 1, g: 1, b: 1, a: 1}
     - _HighlightHue: {r: 1, g: 0.7, b: 0.35, a: 1}
-    - _MidColor: {r: 0.14528894, g: 0, b: 1, a: 1}
-    - _OutlineColor: {r: 0.0018397992, g: 0, b: 0.11320752, a: 1}
-    - _ShadowColor: {r: 0.0085439505, g: 0.14090696, b: 0.6037736, a: 1}
+    - _MidColor: {r: 0, g: 0.016286457, b: 0.5372549, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor: {r: 0.6320754, g: 0.2409375, b: 0.0506853, a: 1}
     - _ShadowHue: {r: 0.28, g: 0.18, b: 0.4, a: 1}
     - _VigColor: {r: 0.02, g: 0.008, b: 0.035, a: 1}
     - _VignetteColor: {r: 0.03, g: 0.015, b: 0.05, a: 1}

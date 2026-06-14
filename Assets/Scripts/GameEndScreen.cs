@@ -82,15 +82,10 @@ public class GameEndScreen : MonoBehaviour
 
     public void Hide()
     {
-        if (canvas != null) canvas.SetActive(false);
+        //if (canvas != null) canvas.SetActive(false);
         Time.timeScale = 1f;
-
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
-#if UNITY_STANDALONE
-        Application.Quit();
-#endif
+        // Załaduj scenę MainMenu od nowa (tryb Single)
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 
     // ------------------------------------------------------------------
