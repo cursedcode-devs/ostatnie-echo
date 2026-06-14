@@ -172,6 +172,8 @@ public class ZoomHandler : MonoBehaviour
         
         if (instantZoom)
         {
+            StopAllCoroutines();
+            isAnimating = false;
             mainCamera.transform.position = originalCameraPosition;
             mainCamera.transform.rotation = originalCameraRotation;
         }
@@ -199,7 +201,7 @@ public class ZoomHandler : MonoBehaviour
         // Zapisz pozycję wyjściową TYLKO jeśli nie jesteśmy jeszcze przybliżeni —
         // żeby ZoomOut wrócił do prawdziwego punktu startowego, nawet gdy gracz był
         // już przybliżony gdzie indziej.
-        if (!isZoomedIn)
+        if (!isZoomedIn && !isAnimating)
         {
             originalCameraPosition = mainCamera.transform.position;
             originalCameraRotation = mainCamera.transform.rotation;

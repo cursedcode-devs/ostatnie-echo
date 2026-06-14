@@ -398,13 +398,9 @@ public class EndingSceneManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SetEnvironmentAudioMuted(false);
-        if (endingRoot != null) endingRoot.SetActive(false);
-
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+        //if (endingRoot != null) endingRoot.SetActive(false);
+        // Załaduj scenę MainMenu od nowa (tryb Single)
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 
     /// <summary>Gwarantuje EventSystem (przyciski UI go wymagają).</summary>
