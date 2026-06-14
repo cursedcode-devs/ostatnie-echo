@@ -63,6 +63,10 @@ Shader "OstatnieEcho/CinematicGrade"
         _OutlineDistanceFade ("Distance Fade Strength", Range(0.0, 1.0)) = 1.0
         _DistanceFadeStart ("Fade Start Distance", Range(0.0, 100.0)) = 20.0
         _DistanceFadeEnd ("Fade End Distance", Range(10.0, 500.0)) = 100.0
+
+        [Header(Effect Distance Masking)]
+        _MaxEffectDistance ("Max Effect Distance", Range(10.0, 5000.0)) = 1000.0
+        _EffectDistanceFade ("Effect Fade Length", Range(0.1, 500.0)) = 100.0
     }
     
     SubShader
@@ -124,6 +128,8 @@ Shader "OstatnieEcho/CinematicGrade"
                 float _OutlineDistanceFade;
                 float _DistanceFadeStart;
                 float _DistanceFadeEnd;
+                float _MaxEffectDistance;
+                float _EffectDistanceFade;
             CBUFFER_END
             
             float Luma(float3 c) { return dot(c, float3(0.2126, 0.7152, 0.0722)); }
@@ -169,6 +175,9 @@ Shader "OstatnieEcho/CinematicGrade"
                 float2 fromCenter = (uv - 0.5) * 2.0;
                 float edgeDist = length(fromCenter) * 0.5;
                 float2 caDir = fromCenter * texel * _ChromAb;
+                
+                float3 rawCol = SAMPLE_TEXTURE2D(_BlitTexture, sampler_LinearClamp, uv).rgb;
+                float depthCenter = LinearEyeDepth(SampleSceneDepth(uv), _ZBufferParams);
                 
                 float cr = SAMPLE_TEXTURE2D(_BlitTexture, sampler_LinearClamp, uv + caDir * edgeDist).r;
                 float cg = SAMPLE_TEXTURE2D(_BlitTexture, sampler_LinearClamp, uv).g;
@@ -291,6 +300,10 @@ Shader "OstatnieEcho/CinematicGrade"
                 float vig = 1.0 - smoothstep(_VigSoft, _VigSoft + 0.55, vD);
                 vig = lerp(1.0, vig, _VigStr);
                 col = lerp(_VigColor.rgb, col, vig);
+                
+                // ---- Global Effect Distance Masking ----
+                float effectMask = 1.0 - saturate((depthCenter - (_MaxEffectDistance - _EffectDistanceFade)) / max(0.1, _EffectDistanceFade));
+                col = lerp(rawCol, col, effectMask);
                 
                 return half4(saturate(col), ca);
             }

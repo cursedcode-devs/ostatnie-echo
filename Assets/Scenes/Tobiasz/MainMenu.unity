@@ -2611,7 +2611,7 @@ MonoBehaviour:
   volumeSlider: {fileID: 1779277678}
   backFromSettingsButton: {fileID: 868367464}
   masterBusPath: bus:/
-  menuMusicClip: {fileID: 8300000, guid: 81d26ae7db340ee0588e49951813190b, type: 3}
+  menuMusicClip: {fileID: 8300000, guid: 78042dfd9907052439778ae5013f087a, type: 3}
   musicFadeInDuration: 3
   howToPlayPanel: {fileID: 598632452}
   howToPlayText: {fileID: 158333710}

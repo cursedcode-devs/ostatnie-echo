@@ -24,6 +24,7 @@ public class AudioQueueManager : MonoBehaviour
     private  TimeHandler timeHandler;
     private Queue<QueuedClip> audioQueue = new Queue<QueuedClip>();
     private bool isPlayingQueue = false;
+    public float musicVolume = 0.9f;
 
     public void SetTimeHandler(TimeHandler timeHandler)
     {
@@ -60,6 +61,13 @@ public class AudioQueueManager : MonoBehaviour
             text.text = $"TERAZ GRAMY: {next.content.GetAuthor()} - {next.content.GetName()}";
             songTitle.GetComponent<MarqueeText>().ResetPosition();
             audioSource.clip = next.clip;
+
+            if(next.content != null && next.content.GetType() == CassetteTypes.Music)
+                audioSource.volume = musicVolume;
+            else
+                audioSource.volume = 1.0f;
+            audioSource.Play();
+
             audioSource.Play();
             HideAdSubtitles();
             HandleAdSubtitles(next);
@@ -130,6 +138,11 @@ public class AudioQueueManager : MonoBehaviour
                     text.text = $"TERAZ GRAMY: {queued.content.GetAuthor()} - {queued.content.GetName()}";
                     songTitle.GetComponent<MarqueeText>().ResetPosition();
                 }
+                if (queued.content != null && queued.content.GetType() == CassetteTypes.Music)
+                    audioSource.volume = musicVolume;
+                else
+                    audioSource.volume = 1.0f;
+
                 audioSource.Play();
 
                 HandleAdSubtitles(queued);
