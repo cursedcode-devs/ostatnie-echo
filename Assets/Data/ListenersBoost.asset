@@ -19,19 +19,19 @@ MonoBehaviour:
     hipHop: 0
     disco: 0
     rock: 0
-    metal: 0
+    pop: 0
   listenersModifier:
-    hipHop: 1.5
-    disco: 1.5
-    rock: 1.5
-    metal: 1.5
-  modifierDurationDays: 1
+    hipHop: 0.4
+    disco: 0.4
+    rock: 0.4
+    pop: 0
+  listenerModifierDuration: 1
   revenueModifier:
     hipHop: 0
     disco: 0
     rock: 0
-    metal: 0
-  revenueModifierDurationDays: 1
+    pop: 0
+  revenueModifierDuration: 1
   moneyAmount: 50
   cassetteToAdd: {fileID: 0}
   weight: 8

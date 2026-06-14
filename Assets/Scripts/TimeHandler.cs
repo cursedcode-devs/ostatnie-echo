@@ -15,10 +15,11 @@ public class TimeHandler
     public int CurrentHour => Hour;
 
     public event Action OnDayStarted;
+    public event Action OnFirstDayStarted;
     public event Action OnGameFinished;
     private int lastDay;
     private int lastHour;
-    public TimeHandler(int startHour, int startDay, Airtime airtime, CassetteSlotHandler[] slots, ZoomHandler zoomHandler, int dayNr, int lastHour=16)
+    public TimeHandler(int startHour, int startDay, Airtime airtime, CassetteSlotHandler[] slots, ZoomHandler zoomHandler, int dayNr, int lastHour = 16)
     {
         Hour = startHour;
         Day = startDay;
@@ -27,6 +28,10 @@ public class TimeHandler
         lastDay = dayNr;
         this.zoomHandler = zoomHandler;
         this.lastHour = lastHour;
+    }
+
+    public void Start() {
+        OnFirstDayStarted?.Invoke();
     }
 
     public void NextHour()

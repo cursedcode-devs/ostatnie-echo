@@ -15,13 +15,14 @@ MonoBehaviour:
   audio: {fileID: 8300000, guid: 8e4061f8185aa07bfb90e2a17c1982be, type: 3}
   itemName: "WPIER-POL: Us\u0142ugi Perswazyjne - Oddasz z U\u015Bmiechem"
   author: WPIER-POL
+  genre: 
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
   timesUsedInDay: 0
   cassetteValues:
-    hipHop: 20
-    disco: 20
-    rock: 20
-    pop: 0
+    hipHop: 150
+    disco: 50
+    rock: 50
+    pop: 50
   type: 1
   lastCassetteValues:
     hipHop: 20

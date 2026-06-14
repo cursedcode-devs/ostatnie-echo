@@ -55,11 +55,16 @@ public class AudioQueueManager : MonoBehaviour
             QueuedClip next = audioQueue.Dequeue();
             if (next.clip == null)
                 return;
-            NowPlayingBar.SetActive(true);
-            Transform songTitle = NowPlayingBar.transform.Find("Text");
-            TMP_Text text = songTitle.GetComponent<TMP_Text>();
-            text.text = $"TERAZ GRAMY: {next.content.GetAuthor()} - {next.content.GetName()}";
-            songTitle.GetComponent<MarqueeText>().ResetPosition();
+
+            NowPlayingBar.SetActive(false);
+            if (next.content.GetType() == CassetteTypes.Music)
+            {
+                NowPlayingBar.SetActive(true);
+                Transform songTitle = NowPlayingBar.transform.Find("Text");
+                TMP_Text text = songTitle.GetComponent<TMP_Text>();
+                text.text = $"TERAZ GRAMY: {next.content.GetAuthor()} - {next.content.GetName()}";
+                songTitle.GetComponent<MarqueeText>().ResetPosition();
+            }
             audioSource.clip = next.clip;
 
             if(next.content != null && next.content.GetType() == CassetteTypes.Music)

@@ -15,13 +15,14 @@ MonoBehaviour:
   audio: {fileID: 8300000, guid: 0fd8eba0aa6b09a23a0614f1b6c61ea4, type: 3}
   itemName: "Presti\u017C na P\xF3\u0142ce"
   author: Puszex
+  genre: 
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
   timesUsedInDay: 0
   cassetteValues:
-    hipHop: 20
-    disco: 20
-    rock: 20
-    pop: 0
+    hipHop: 50
+    disco: 50
+    rock: 50
+    pop: 150
   type: 1
   lastCassetteValues:
     hipHop: 20

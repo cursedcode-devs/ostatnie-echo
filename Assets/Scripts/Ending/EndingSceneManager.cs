@@ -91,6 +91,9 @@ public class EndingSceneManager : MonoBehaviour
     public string successVerdict = "Gratulacje.";
     public string failVerdict = "Nie osiągnąłeś rozgłosu. Spróbuj jeszcze raz.";
 
+    [Header("Werdykt — ujemne pieniądze")]
+    public string debtVerdict = "Zbankrutowałeś.";
+
     [Header("Intro — czarny ekran + dźwięk (konflikt nuklearny)")]
     [Tooltip("Dźwięk odtwarzany na czarnym ekranie przed telegazetami (syrena/wybuch).")]
     public AudioClip introSound;
@@ -254,7 +257,14 @@ public class EndingSceneManager : MonoBehaviour
         }
         if (verdictText != null)
         {
-            verdictText.text = success ? successVerdict : failVerdict;
+            if (GameManager.radioStation.GetCurrentMoney() < 0)
+            {
+                verdictText.text = debtVerdict;
+            }
+            else
+            {
+                verdictText.text = success ? successVerdict : failVerdict;
+            }
             yield return FadeInGraphic(verdictText, textFadeDuration);
             yield return new WaitForSecondsRealtime(sequentialDelay);
         }
