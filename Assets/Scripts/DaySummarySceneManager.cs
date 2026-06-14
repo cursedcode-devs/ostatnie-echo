@@ -82,19 +82,13 @@ public class DaySummarySceneManager : MonoBehaviour
         // --- FIXED DAY 1 MORNING STATE SEQUENCE ---
         if (DaySummaryData.Day == 1)
         {
-            if (budgetPanel != null) budgetPanel.SetActive(false);
-            if (listenersPanel != null) listenersPanel.SetActive(false);
-            if (shopPanel != null) shopPanel.SetActive(false);
-
-            if (contractsPanel != null)
-            {
-                contractsPanel.SetActive(true);
-                BuildContractsUI();
-            }
-            else
-            {
-                ShowUpgradeOrNewspaper();
-            }
+            // Przywróć czas i wywołaj akcję zamykającą podsumowanie
+            Time.timeScale = 1f;
+            DaySummaryData.OnSummaryClosed?.Invoke();
+            DaySummaryData.OnSummaryClosed = null;
+            // Wyładuj scenę podsumowania bez pokazywania telegazety ani kontraktów
+            SceneManager.UnloadSceneAsync("DaySummaryScene");
+            return; // Zakończ działanie funkcji Start w tym miejscu
         }
         else
         {
