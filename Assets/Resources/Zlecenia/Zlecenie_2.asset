@@ -15,13 +15,14 @@ MonoBehaviour:
   audio: {fileID: 8300000, guid: 3173ebf4fa71f5d49bbfbcb403fe9b0c, type: 3}
   itemName: "Zak\u0142ad \u201ECzy\u015Bciciel\u201D - Usuwamy Problemy i \u015Alady"
   author: "Zak\u0142ad \u201ECzy\u015Bciciel\u201D"
+  genre: 
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
   timesUsedInDay: 0
   cassetteValues:
-    hipHop: 20
-    disco: 20
-    rock: 20
-    pop: 0
+    hipHop: 50
+    disco: 150
+    rock: 50
+    pop: 50
   type: 1
   lastCassetteValues:
     hipHop: 20

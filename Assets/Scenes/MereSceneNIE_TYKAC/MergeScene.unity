@@ -1162,12 +1162,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   radioStation:
     currentListeners:
-      hipHop: 5
-      disco: 5
-      rock: 5
-      pop: 5
-    startListeners: 5
-    currentMoney: 5
+      hipHop: 15
+      disco: 15
+      rock: 15
+      pop: 15
+    startListeners: 15
+    currentMoney: 150
     hourlyListenersModifier:
       hipHop: 0
       disco: 0
@@ -14370,7 +14370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65046f9c6d7aa10b4969e6125455de54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DayEndHandler
-  MinListenersToWin: 55
+  MinListenersToWin: 100
   gameManager: {fileID: 111077787}
   timeHandler:
     Hour: 0
