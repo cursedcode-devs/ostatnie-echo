@@ -79,10 +79,31 @@ public class DaySummarySceneManager : MonoBehaviour
 
         BindDataToUI();
 
-        if (budgetPanel != null) budgetPanel.SetActive(true);
-        if (listenersPanel != null) listenersPanel.SetActive(false);
-        if (shopPanel != null) shopPanel.SetActive(false);
+        // --- FIXED DAY 1 MORNING STATE SEQUENCE ---
+        if (DaySummaryData.Day == 1)
+        {
+            if (budgetPanel != null) budgetPanel.SetActive(false);
+            if (listenersPanel != null) listenersPanel.SetActive(false);
+            if (shopPanel != null) shopPanel.SetActive(false);
 
+            if (contractsPanel != null)
+            {
+                contractsPanel.SetActive(true);
+                BuildContractsUI();
+            }
+            else
+            {
+                ShowUpgradeOrNewspaper();
+            }
+        }
+        else
+        {
+            if (budgetPanel != null) budgetPanel.SetActive(true);
+            if (listenersPanel != null) listenersPanel.SetActive(false);
+            if (shopPanel != null) shopPanel.SetActive(false);
+        }
+
+        // Setup clear button interactions
         if (budgetContinueButton != null)
         {
             budgetContinueButton.onClick.RemoveAllListeners();
@@ -106,6 +127,27 @@ public class DaySummarySceneManager : MonoBehaviour
             contractsContinueButton.onClick.RemoveAllListeners();
             contractsContinueButton.onClick.AddListener(OnContractsContinueClicked);
         }
+
+        if (newspaperContinueButton != null)
+        {
+            newspaperContinueButton.onClick.RemoveAllListeners();
+            newspaperContinueButton.onClick.AddListener(OnNewspaperMorningContinueClicked);
+        }
+    }
+
+    private void OnNewspaperMorningContinueClicked()
+    {
+        if (newspaperPanel != null) newspaperPanel.SetActive(false);
+
+        if (DaySummaryData.Day == 1 && contractsPanel != null)
+        {
+            contractsPanel.SetActive(true);
+            BuildContractsUI();
+        }
+        else
+        {
+            ShowUpgradeOrNewspaper();
+        }
     }
 
     void BindDataToUI()
@@ -114,7 +156,11 @@ public class DaySummarySceneManager : MonoBehaviour
         {
             foreach (var t in titleTexts)
             {
-                if (t != null) t.text = $"KONIEC DNIA {DaySummaryData.Day - 1}";
+                if (t != null)
+                {
+                    // FIX: Stop title from reading 'KONIEC DNIA 0' on fresh game load
+                    t.text = (DaySummaryData.Day == 1) ? "PORANEK DNIA 1" : $"KONIEC DNIA {DaySummaryData.Day - 1}";
+                }
             }
         }
 
@@ -168,7 +214,6 @@ public class DaySummarySceneManager : MonoBehaviour
         if (popDiffText != null)
         {
             popDiffText.text = FormatDiff(DaySummaryData.PopDiff);
-            // popDiffText.color = DiffColor(DaySummaryData.PopDiff);
         }
     }
 
@@ -248,15 +293,28 @@ public class DaySummarySceneManager : MonoBehaviour
             adManager.AcceptContracts(selectedAds);
         }
 
-        ShowUpgradeOrNewspaper();
+        if (DaySummaryData.Day <= 1)
+        {
+            Debug.Log("[DaySummarySceneManager] Dzień 1: Pomijam ulepszenia. Ładuję gazetę.");
+            StartCoroutine(LoadNewspaperAndUnload());
+        }
+        else
+        {
+            ShowUpgradeOrNewspaper();
+        }
     }
 
     private void ShowUpgradeOrNewspaper()
     {
+        if (DaySummaryData.Day <= 1)
+        {
+            StartCoroutine(LoadNewspaperAndUnload());
+            return;
+        }
+
         upgradeManager = FindFirstObjectByType<UpgradeManager>();
         upgradeOptions = upgradeManager != null ? upgradeManager.GetOrCreateDraftOptions() : null;
 
-        // Brak ulepszeń do zaoferowania (np. wszystkie kupione) — pomijamy ekran.
         if (upgradeManager == null || upgradeOptions == null || upgradeOptions.Count == 0)
         {
             StartCoroutine(LoadNewspaperAndUnload());
@@ -267,12 +325,8 @@ public class DaySummarySceneManager : MonoBehaviour
     }
 
     // ------------------------------------------------------------------
-    #region Sklep ulepszeń (wygląd 1:1 ze sklepem kaset)
+    #region Sklep ulepszeń
 
-    // Ekran ulepszeń jest DZIECKIEM DaySummaryCanvas (ScreenSpaceCamera przez kamerę z
-    // VideoPlayerem i filtrem CRT) — dziedziczy tło-wideo, filtr i czcionkę, jak sklep kaset.
-    // Współrzędne w przestrzeni 1920x1080 (środek = 0,0). Teksty/przyciski są jasne —
-    // pomarańczowy klimat nadaje filtr kamery, więc nie ustawiamy go ręcznie.
     private static readonly Color32 ShopWhite = new Color32(245, 240, 232, 255);
     private static readonly Color32 ShopGreen = new Color32(70, 230, 95, 255);
     private static readonly Color32 ShopRed   = new Color32(220, 110, 95, 255);
@@ -280,8 +334,8 @@ public class DaySummarySceneManager : MonoBehaviour
     private static readonly Color32 ShopLine  = new Color32(235, 150, 60, 255);
     private const float SlotSpacing = 560f;
 
-    private TMPro.TMP_FontAsset upgradeFont;  // czcionka pobrana ze sklepu kaset
-    private Material upgradeFontMat;          // materiał (poświata) tej czcionki
+    private TMPro.TMP_FontAsset upgradeFont;
+    private Material upgradeFontMat;
 
     private void BuildUpgradesUI()
     {
@@ -289,8 +343,6 @@ public class DaySummarySceneManager : MonoBehaviour
 
         Transform canvas = GetSummaryCanvas();
 
-        // Panel rozciągnięty na cały DaySummaryCanvas (środek = 0,0), BEZ własnego tła —
-        // dzięki temu widać tło-wideo + filtr kamery, identycznie jak w sklepie kaset.
         upgradePanel = new GameObject("UpgradePanel");
         upgradePanel.transform.SetParent(canvas, false);
         var rt = upgradePanel.AddComponent<RectTransform>();
@@ -301,28 +353,22 @@ public class DaySummarySceneManager : MonoBehaviour
 
         Transform root = upgradePanel.transform;
 
-        // Tytuł (biały — filtr kamery zabarwia go na pomarańczowo, jak "SKLEP")
         var title = MakeShopText(root, "TYTUL", "ULEPSZENIA", 64, ShopWhite, TextAlignmentOptions.Center);
         SR(title.gameObject, 0.5f, 0.5f, 1000, 90, 0, 445);
 
-        // Kasa (prawy-górny)
         upgradeMoneyText = MakeShopText(root, "Kasa", "", 40, ShopWhite, TextAlignmentOptions.Right);
         SR(upgradeMoneyText.gameObject, 0.5f, 0.5f, 600, 56, 600, 445);
 
-        // Linie oddzielające (góra/dół) jak w sklepie kaset
         SR(MakeImage(root, "LiniaGora", ShopLine), 0.5f, 0.5f, 1720, 4, 0, 385);
         SR(MakeImage(root, "LiniaDol", ShopLine), 0.5f, 0.5f, 1720, 4, 0, -345);
 
-        // Podpowiedź
         var hint = MakeShopText(root, "Hint", "Każde ulepszenie możesz kupić tylko raz.", 26, ShopDim, TextAlignmentOptions.Center);
         SR(hint.gameObject, 0.5f, 0.5f, 1200, 36, 0, 335);
 
-        // Sloty (przebudowywane po każdym zakupie)
         var slotsRoot = new GameObject("Sloty");
         slotsRoot.transform.SetParent(root, false);
         SR(slotsRoot, 0.5f, 0.5f, 1800, 700, 0, -10);
 
-        // Przycisk DALEJ (biały prostokąt jak ShopPanel/Dalej; filtr nada pomarańcz)
         var continueBtn = MakeShopButton(root, "Dalej", "DALEJ", ShopWhite, new Color32(40, 25, 15, 255));
         SR(continueBtn, 0.5f, 0.5f, 340, 78, 0, -450);
         continueBtn.GetComponent<Button>().onClick.AddListener(OnUpgradesContinue);
@@ -338,7 +384,6 @@ public class DaySummarySceneManager : MonoBehaviour
         return transform;
     }
 
-    /// <summary>Pobiera czcionkę (z materiałem/poświatą) ze sklepu kaset, by ekran wyglądał identycznie.</summary>
     private void CacheShopAssets()
     {
         TextMeshProUGUI src = null;
@@ -381,27 +426,22 @@ public class DaySummarySceneManager : MonoBehaviour
         slot.transform.SetParent(parent, false);
         SR(slot, 0.5f, 0.5f, 480, 700, x, 0);
 
-        // Nazwa ulepszenia
         var name = MakeShopText(slot.transform, "NAZWA", upgrade.upgradeName, 44, ShopWhite, TextAlignmentOptions.Center);
         SR(name.gameObject, 0.5f, 0.5f, 470, 56, 0, 250);
 
-        // Tag (lepszy target / lepsza antena)
         var tag = MakeShopText(slot.transform, "TAG", flavor, 26, ShopDim, TextAlignmentOptions.Center);
         tag.fontStyle = FontStyles.Italic;
         SR(tag.gameObject, 0.5f, 0.5f, 440, 36, 0, 192);
 
-        // Efekt — klarownie co ulepszenie daje (z %), na zielono
         var eff = MakeShopText(slot.transform, "EFEKT", effectMain, 50, ShopGreen, TextAlignmentOptions.Center);
         SR(eff.gameObject, 0.5f, 0.5f, 460, 62, 0, 72);
 
         var effSub = MakeShopText(slot.transform, "EFEKT_SUB", effectSub, 30, ShopDim, TextAlignmentOptions.Center);
         SR(effSub.gameObject, 0.5f, 0.5f, 460, 40, 0, 14);
 
-        // Cena (biała)
         var price = MakeShopText(slot.transform, "CENA", $"{upgrade.cost:F0} ZŁ", 46, ShopWhite, TextAlignmentOptions.Center);
         SR(price.gameObject, 0.5f, 0.5f, 440, 58, 0, -110);
 
-        // Akcja
         if (owned)
         {
             var b = MakeShopButton(slot.transform, "Kupiono", "KUPIONO", ShopGreen, new Color32(20, 40, 25, 255));
@@ -424,7 +464,6 @@ public class DaySummarySceneManager : MonoBehaviour
         }
     }
 
-    /// <summary>Klarowny opis efektu (tag + „+X% mnożnika" + kategoria) dla danego ulepszenia.</summary>
     private void GetUpgradeInfo(UpgradeDefinition u, out string flavor, out string effectMain, out string effectSub)
     {
         switch (u.type)
@@ -469,7 +508,6 @@ public class DaySummarySceneManager : MonoBehaviour
         return (gm != null && gm.radioStation != null) ? gm.radioStation.GetCurrentMoney() : 0f;
     }
 
-    /// <summary>Tekst TMP z czcionką sklepu kaset (poświata) i wyrównaniem.</summary>
     private TextMeshProUGUI MakeShopText(Transform parent, string name, string text, int size, Color color, TextAlignmentOptions align)
     {
         var go = MakeText(parent, name, text, size, color);
@@ -481,7 +519,6 @@ public class DaySummarySceneManager : MonoBehaviour
         return tmp;
     }
 
-    /// <summary>Przycisk jak ShopPanel/Dalej: biały prostokąt (filtr kamery nadaje kolor).</summary>
     private GameObject MakeShopButton(Transform parent, string name, string label, Color32 bg, Color32 textColor)
     {
         var obj = new GameObject(name);
@@ -531,7 +568,7 @@ public class DaySummarySceneManager : MonoBehaviour
             float payout = adManager.CalculatePotentialPayout(ad);
 
             var rowBox = MakeImage(contractsContainer, $"RowBox_{i}", new Color32(25, 31, 40, 255));
-            SR(rowBox, 0.5f, 1f, 1020, 95, 0, -y - 50); // Zmiana pivota na górę lub odpowiednie ułożenie
+            SR(rowBox, 0.5f, 1f, 1020, 95, 0, -y - 50);
             var outline = rowBox.AddComponent<UnityEngine.UI.Outline>();
             outline.effectColor = new Color32(42, 58, 80, 255);
 
@@ -630,7 +667,6 @@ public class DaySummarySceneManager : MonoBehaviour
 
         SceneManager.UnloadSceneAsync("DaySummaryScene");
     }
-
 
     public void OnNewspaperContinueClicked()
     {
