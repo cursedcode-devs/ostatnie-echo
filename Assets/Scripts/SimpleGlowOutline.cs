@@ -14,8 +14,10 @@ public class SimpleGlowOutline : MonoBehaviour
     [Tooltip("Renderery, które mają być podświetlane. Zostaw puste by znaleźć automatycznie.")]
     public Renderer[] targetRenderers;
 
+    [Tooltip("Gotowy materiał przezroczysty z Resources.")]
+    public Material glowMaterial;
+
     private Dictionary<Renderer, Material[]> originalMaterials = new Dictionary<Renderer, Material[]>();
-    private Material glowMaterial;
 
     void Awake()
     {
@@ -24,19 +26,9 @@ public class SimpleGlowOutline : MonoBehaviour
             targetRenderers = GetComponentsInChildren<Renderer>();
         }
 
-        // Tworzymy prosty materiał Unlit lub używamy URP/Standard zależy co projekt wspiera.
-        // Najprostszy fallback to stworzenie koloru Emissive.
-        Shader shader = Shader.Find("Universal Render Pipeline/Unlit");
-        if (shader == null) shader = Shader.Find("Unlit/Color"); // Fallback do standardu
-        
-        glowMaterial = new Material(shader);
-        if (glowMaterial.HasProperty("_BaseColor"))
+        if (glowMaterial == null)
         {
-            glowMaterial.SetColor("_BaseColor", glowColor);
-        }
-        else if (glowMaterial.HasProperty("_Color"))
-        {
-            glowMaterial.SetColor("_Color", glowColor);
+            glowMaterial = Resources.Load<Material>("shadermaterial");
         }
     }
 
