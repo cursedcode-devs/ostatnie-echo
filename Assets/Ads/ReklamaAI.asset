@@ -15,17 +15,20 @@ MonoBehaviour:
   audio: {fileID: 8300000, guid: fa6df06f46c63d44bb7693cc1dc18724, type: 3}
   itemName: Reklama Disco
   author: 
+  genre: 
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
   timesUsedInDay: 0
   cassetteValues:
-    hipHop: 150
-    disco: 300
-    rock: 150
-    metal: 150
+    hipHop: 50
+    disco: 150
+    rock: 50
+    pop: 50
   type: 1
   lastCassetteValues:
     hipHop: 150
     disco: 300
     rock: 150
-    metal: 150
+    pop: 0
   price: 0
+  clientName: 
+  content: 

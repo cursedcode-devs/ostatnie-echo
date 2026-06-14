@@ -15,13 +15,14 @@ MonoBehaviour:
   audio: {fileID: 8300000, guid: c7f07c7f756ec434b96861b6268d3faa, type: 3}
   itemName: "Niewidoczna Inwigilacja S\u0105siedzka"
   author: "Niemy jak mim, niewidoczny jak s\u0142o\u0144"
+  genre: 
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
   timesUsedInDay: 0
   cassetteValues:
-    hipHop: 20
-    disco: 20
-    rock: 20
-    pop: 0
+    hipHop: 50
+    disco: 50
+    rock: 50
+    pop: 150
   type: 1
   lastCassetteValues:
     hipHop: 20

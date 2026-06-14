@@ -15,13 +15,14 @@ MonoBehaviour:
   audio: {fileID: 8300000, guid: f8e83e58b7f932d6ab0117aa9e077f4a, type: 3}
   itemName: "Darmowa Faza od S\u0105siada - Twoja W\u0142asna Elektrownia"
   author: "Pogotowie Wpi\u0119ciowe"
+  genre: 
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
   timesUsedInDay: 0
   cassetteValues:
-    hipHop: 20
-    disco: 20
-    rock: 20
-    pop: 0
+    hipHop: 50
+    disco: 50
+    rock: 150
+    pop: 50
   type: 1
   lastCassetteValues:
     hipHop: 20

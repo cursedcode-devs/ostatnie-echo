@@ -14,11 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Ad
   audio: {fileID: 8300000, guid: 84cc152ada873a74da791f09136d17f6, type: 3}
   itemName: Reklama Metal
+  author: 
+  genre: 
   physicalPrefab: {fileID: 919132149155446097, guid: 1c4237440fe0ec745883233754e692ca, type: 3}
   timesUsedInDay: 0
   cassetteValues:
-    hipHop: 150
-    disco: 150
-    rock: 150
-    metal: 300
+    hipHop: 50
+    disco: 50
+    rock: 50
+    pop: 150
   type: 1
+  lastCassetteValues:
+    hipHop: 0
+    disco: 0
+    rock: 0
+    pop: 0
+  price: 0
+  clientName: 
+  content: 

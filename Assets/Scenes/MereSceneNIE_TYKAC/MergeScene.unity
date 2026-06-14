@@ -1162,12 +1162,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   radioStation:
     currentListeners:
-      hipHop: 5
-      disco: 5
-      rock: 5
-      pop: 5
-    startListeners: 5
-    currentMoney: 5
+      hipHop: 15
+      disco: 15
+      rock: 15
+      pop: 15
+    startListeners: 15
+    currentMoney: 150
     hourlyListenersModifier:
       hipHop: 0
       disco: 0
@@ -1911,7 +1911,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SimpleGlowOutline
   glowColor: {r: 1, g: 0.5, b: 0, a: 1}
   targetRenderers: []
-  glowShader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
+  glowMaterial: {fileID: 0}
 --- !u!1 &180065586
 GameObject:
   m_ObjectHideFlags: 0
@@ -10261,7 +10261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SimpleGlowOutline
   glowColor: {r: 1, g: 0.5, b: 0, a: 1}
   targetRenderers: []
-  glowShader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
+  glowMaterial: {fileID: 0}
 --- !u!1 &1423250557 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 99b3494ec29e30749b1f9b6a39f83f71, type: 3}
@@ -13709,6 +13709,7 @@ MonoBehaviour:
   successVerdict: Gratulacje.
   failVerdict: "Nie osi\u0105gn\u0105\u0142e\u015B wystarczaj\u0105cego rozg\u0142osu.
     Spr\xF3buj jeszcze raz."
+  debtVerdict: "Zbankrutowa\u0142e\u015B."
   introSound: {fileID: 8300000, guid: 09692564294e1f74aa9ff64b5d076f47, type: 3}
   introBlackDuration: 0
   postSoundDelay: 3
@@ -14369,7 +14370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65046f9c6d7aa10b4969e6125455de54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DayEndHandler
-  MinListenersToWin: 55
+  MinListenersToWin: 100
   gameManager: {fileID: 111077787}
   timeHandler:
     Hour: 0
@@ -15526,7 +15527,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SimpleGlowOutline
   glowColor: {r: 1, g: 0.5, b: 0, a: 1}
   targetRenderers: []
-  glowShader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
+  glowMaterial: {fileID: 0}
 --- !u!23 &272471969535813141
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15750,7 +15751,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SimpleGlowOutline
   glowColor: {r: 1, g: 0.5, b: 0, a: 1}
   targetRenderers: []
-  glowShader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
+  glowMaterial: {fileID: 0}
 --- !u!23 &2688068352227792380
 MeshRenderer:
   m_ObjectHideFlags: 0
