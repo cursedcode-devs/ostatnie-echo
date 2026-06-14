@@ -3133,6 +3133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioQueueManager
   audioSource: {fileID: 1292526863}
   NowPlayingBar: {fileID: 1342365663}
+  musicVolume: 0.9
 --- !u!4 &330912645
 Transform:
   m_ObjectHideFlags: 0
@@ -15964,11 +15965,11 @@ MonoBehaviour:
     Path: event:/PutCassetteIn
   hingeOpenSound:
     Guid:
-      Data1: -1352576588
-      Data2: 1101935909
-      Data3: -983343948
-      Data4: -1323830841
-    Path: event:/SlotHinge
+      Data1: 251791982
+      Data2: 1094490258
+      Data3: -731245654
+      Data4: -1727328709
+    Path: event:/PutCassetteIn
 --- !u!65 &4727211978635104605
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16348,11 +16349,11 @@ MonoBehaviour:
     Path: event:/PutCassetteIn
   hingeOpenSound:
     Guid:
-      Data1: -1352576588
-      Data2: 1101935909
-      Data3: -983343948
-      Data4: -1323830841
-    Path: event:/SlotHinge
+      Data1: 251791982
+      Data2: 1094490258
+      Data3: -731245654
+      Data4: -1727328709
+    Path: event:/PutCassetteIn
 --- !u!65 &7950036444631380149
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16428,11 +16429,11 @@ MonoBehaviour:
     Path: event:/PutCassetteIn
   hingeOpenSound:
     Guid:
-      Data1: -1352576588
-      Data2: 1101935909
-      Data3: -983343948
-      Data4: -1323830841
-    Path: event:/SlotHinge
+      Data1: 251791982
+      Data2: 1094490258
+      Data3: -731245654
+      Data4: -1727328709
+    Path: event:/PutCassetteIn
 --- !u!65 &9166785325905138435
 BoxCollider:
   m_ObjectHideFlags: 0
