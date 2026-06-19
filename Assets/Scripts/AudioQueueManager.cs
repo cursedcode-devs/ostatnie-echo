@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+using static Unity.VisualScripting.Member;
 public class AudioQueueManager : MonoBehaviour
 {
     [SerializeField] private AudioSource audioSource;
@@ -21,7 +22,7 @@ public class AudioQueueManager : MonoBehaviour
             this.content = content;
         }
     }
-    private  TimeHandler timeHandler;
+    private TimeHandler timeHandler;
     private Queue<QueuedClip> audioQueue = new Queue<QueuedClip>();
     private bool isPlayingQueue = false;
     public float musicVolume = 0.9f;
@@ -43,14 +44,14 @@ public class AudioQueueManager : MonoBehaviour
             return;
         }
 
-        if(audioQueue.Count == 0 )
+        if (audioQueue.Count == 0)
         {
             audioSource.Stop();
             HideAdSubtitles();
             NowPlayingBar.SetActive(false);
         }
 
-        if( audioQueue.Count > 0 )
+        if (audioQueue.Count > 0)
         {
             QueuedClip next = audioQueue.Dequeue();
             if (next.clip == null)
@@ -67,7 +68,7 @@ public class AudioQueueManager : MonoBehaviour
             }
             audioSource.clip = next.clip;
 
-            if(next.content != null && next.content.GetType() == CassetteTypes.Music)
+            if (next.content != null && next.content.GetType() == CassetteTypes.Music)
                 audioSource.volume = musicVolume;
             else
                 audioSource.volume = 1.0f;
@@ -76,15 +77,15 @@ public class AudioQueueManager : MonoBehaviour
             audioSource.Play();
             HideAdSubtitles();
             HandleAdSubtitles(next);
-            
+
         }
     }
 
     public void PlayClipsSequence()
     {
         if (!isPlayingQueue)
-        {   
-            
+        {
+
             StartCoroutine(ProcessAudioQueue());
         }
     }
@@ -123,10 +124,34 @@ public class AudioQueueManager : MonoBehaviour
         }
     }
 
+
+    public static bool IsReversePitch(AudioSource source)
+    {
+        return source.pitch < 0f;
+    }
+
+    public static float GetClipRemainingTime(AudioSource source)
+    {
+        // Calculate the remainingTime of the given AudioSource,
+        // if we keep playing with the same pitch.
+        float remainingTime = (source.clip.length - source.time) / source.pitch;
+        return IsReversePitch(source) ?
+            (source.clip.length + remainingTime) :
+            remainingTime;
+    }
+
+    public bool isClipPlaying()
+    {
+        var waitForClipRemainingTime = GetClipRemainingTime(audioSource);
+
+        if(waitForClipRemainingTime <= 0.0f)
+            return false;
+        return true;
+    }
+
     private IEnumerator ProcessAudioQueue()
     {
         isPlayingQueue = true;
-
         while (audioQueue.Count > 0)
         {
             QueuedClip queued = audioQueue.Dequeue();
@@ -154,7 +179,7 @@ public class AudioQueueManager : MonoBehaviour
             }
             // Czekamy aż skończy się audio ORAZ napisy reklamy (treść bywa dłuższa niż
             // krótki placeholderowy dźwięk — nie wolno jej uciąć).
-            yield return new WaitWhile(() => audioSource.isPlaying || AdSubtitlesActive());
+            yield return new WaitWhile(() => isClipPlaying() || AdSubtitlesActive());
             HideAdSubtitles();
             yield return new WaitForSeconds(0.5f);
         }
