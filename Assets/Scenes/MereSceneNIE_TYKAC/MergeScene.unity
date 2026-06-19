@@ -15226,7 +15226,7 @@ MonoBehaviour:
   frequencySlider: {fileID: 786127596}
   rewardPopupCanvas: {fileID: 0}
   rewardText: {fileID: 0}
-  popupDuration: 3
+  popupDuration: 0.5
   closeKey: 31
   disableClicksWhenOpen: 1
 --- !u!4 &2060187814
