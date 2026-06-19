@@ -220,6 +220,18 @@ public class DaySummarySceneManager : MonoBehaviour
     public void OnListenersContinueClicked()
     {
         if (listenersPanel != null) listenersPanel.SetActive(false);
+
+        //OSTATNI DZIEŃ ZMIEŃ TU!!!
+        int lastDay = 3;
+
+        if (DaySummaryData.Day > lastDay)
+        {
+            // Pomijamy sklep, kontrakty i ulepszenia.
+            // Przechodzimy bezpośrednio do ładowania telegazety / zamykania podsumowania
+            StartCoroutine(LoadNewspaperAndUnload());
+            return;
+        }
+
         if (shopPanel != null)
         {
             shopPanel.SetActive(true);
@@ -241,7 +253,7 @@ public class DaySummarySceneManager : MonoBehaviour
                         var stats = kaseta.Find("STATYSTYKI")?.GetComponent<TextMeshProUGUI>();
 
                         if (title != null) title.text = $"DEBUG KASETA {i + 1}";
-                        if (price != null) price.text = $"{(i + 1) * 15}$";
+                        if (price != null) price.text = $"{(i + 1) * 15} ZŁ";
                         if (stats != null) stats.text = "+10 Zadowolenia";
                     }
                 }
@@ -585,7 +597,7 @@ public class DaySummarySceneManager : MonoBehaviour
             var payoutOutline = payoutTag.AddComponent<UnityEngine.UI.Outline>();
             payoutOutline.effectColor = new Color32(30, 90, 50, 255);
 
-            var payoutTxt = MakeText(payoutTag.transform, "PayoutText", $"EST. ZAROBEK: {payout:F2}$", 16, new Color32(80, 220, 100, 255));
+            var payoutTxt = MakeText(payoutTag.transform, "PayoutText", $"EST. ZAROBEK: {payout:F2} ZŁ", 16, new Color32(80, 220, 100, 255));
             StretchFull(payoutTxt);
             var tmpPayout = payoutTxt.GetComponent<TextMeshProUGUI>();
             tmpPayout.alignment = TextAlignmentOptions.Center;
