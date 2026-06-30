@@ -37,6 +37,7 @@ public class Stats : MonoBehaviour
     private float lastKnownMoney = -1f;
     private Coroutine budgetAnimationRoutine;
     private float currentDisplayMoney;
+    [SerializeField] private TextMeshProUGUI dayText;
 
     public void Initialize(RadioStation rs, TimeHandler th)
     {
@@ -53,6 +54,7 @@ public class Stats : MonoBehaviour
             lastKnownMoney = radioStation.GetCurrentMoney();
             currentDisplayMoney = lastKnownMoney;
         }
+        
     }
 
     void Update()
@@ -169,6 +171,8 @@ public class Stats : MonoBehaviour
         UpdateBar(rockBar, rock, currentMax);
         UpdateBar(hipHopBar, hipHop, currentMax);
         UpdateBar(discoBar, disco, currentMax);
+        dayText.text = string.Format("DZIEŃ: {0} / 3", timeHandler.getDay());
+
     }
 
     private void UpdateBar(GenreBarUI bar, int amount, int currentMax)
