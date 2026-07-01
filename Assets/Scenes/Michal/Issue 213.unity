@@ -4551,9 +4551,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1995655865}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 274, y: -399.5}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -841, y: -17}
   m_SizeDelta: {x: 295.81274, y: 315.1321}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &455026542
@@ -9604,9 +9604,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1995655865}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -642, y: -382}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 610, y: -123}
   m_SizeDelta: {x: 295.81274, y: 315.13208}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1111862440
@@ -11547,6 +11547,7 @@ GameObject:
   - component: {fileID: 1362422965}
   - component: {fileID: 1362422968}
   - component: {fileID: 1362422967}
+  - component: {fileID: 1362422969}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -11652,6 +11653,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
   m_HorizontalFit: 1
   m_VerticalFit: 1
+--- !u!225 &1362422969
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1362422963}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &1371773580
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16843,6 +16856,7 @@ MonoBehaviour:
   slideRoot: {fileID: 1997592407}
   zoomHandler: {fileID: 904548056}
   mainCamera: {fileID: 0}
+  canvasGroup: {fileID: 1362422969}
 --- !u!1001 &1996645279
 PrefabInstance:
   m_ObjectHideFlags: 0

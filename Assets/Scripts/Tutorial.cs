@@ -19,7 +19,7 @@ public class Tutorial : MonoBehaviour
     private GameObject[] currentObjects;
     public Transform mainCamera;
     private int currentIndex = 0;
-
+    [SerializeField] private CanvasGroup canvasGroup;
     private void Start()
     {
         if (nextBtn != null)
@@ -99,27 +99,22 @@ public class Tutorial : MonoBehaviour
             yield break;
 
         
-
         if (slide.cameraTarget != null && zoomHandler != null)
         {
             yield return StartCoroutine(zoomHandler.ChangeZoomCoroutine(slide.cameraTarget));
         }
 
-        if (howToPlayText != null)
-            howToPlayText.text = slide.text;
+         yield return Fade(0f, 0.2f);
+
+        // zmiana layoutu
+        slideRoot.anchoredPosition = slide.slideLayout.anchoredPosition;
+
+
+        howToPlayText.text = slide.text;
         howToPlayText.gameObject.SetActive(true);
-        if (slide.slideLayout != null && slideRoot != null)
-        {
-            RectTransform layout = slide.slideLayout;
+        yield return Fade(1f, 0.2f);
 
-            slideRoot.anchorMin = layout.anchorMin;
-            slideRoot.anchorMax = layout.anchorMax;
-            slideRoot.pivot = layout.pivot;
-            slideRoot.anchoredPosition = layout.anchoredPosition;
-            slideRoot.sizeDelta = layout.sizeDelta;
-        }
 
-        // przyciski
         if (prevBtn != null)
             prevBtn.interactable = currentIndex > 0;
 
@@ -139,5 +134,19 @@ public class Tutorial : MonoBehaviour
                     element.SetActive(true);
             }
         }
+    }
+    private IEnumerator Fade(float targetAlpha, float duration)
+    {
+        float start = canvasGroup.alpha;
+
+        float t = 0;
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            canvasGroup.alpha = Mathf.Lerp(start, targetAlpha, t / duration);
+            yield return null;
+        }
+
+        canvasGroup.alpha = targetAlpha;
     }
 }
