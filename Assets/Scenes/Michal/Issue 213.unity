@@ -15724,6 +15724,41 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1927611921
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1927611922}
+  m_Layer: 0
+  m_Name: Center (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1927611922
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927611921}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1995655865}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 13, y: -6}
+  m_SizeDelta: {x: 521.7319, y: 316.1321}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1946241450
 GameObject:
   m_ObjectHideFlags: 0
@@ -16313,6 +16348,7 @@ RectTransform:
   - {fileID: 447136545}
   - {fileID: 1108743678}
   - {fileID: 1578134171}
+  - {fileID: 1927611922}
   - {fileID: 529197240}
   - {fileID: 279029677}
   - {fileID: 820915049}
@@ -16355,7 +16391,7 @@ MonoBehaviour:
       onHoverExit:
         m_PersistentCalls:
           m_Calls: []
-    slideLayout: {fileID: 447136545}
+    slideLayout: {fileID: 1578134171}
     elementsToShow: []
   - text: "Twoim zadaniem jest poprowadzi\u0107 stacj\u0119\_radiow\u0105, przez
       3 dni nie doprowadzaj\u0105c siebie do bankructwa. Je\u015Bli tw\xF3j bud\u017Cet
