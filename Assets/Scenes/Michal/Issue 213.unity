@@ -16344,7 +16344,7 @@ MonoBehaviour:
   prevBtn: {fileID: 1280742102}
   closeBtn: {fileID: 599530748}
   slides:
-  - text: "Witaj w Radio \u017Bubr!"
+  - text: "Witaj w \u017Bubr FM!"
     cameraTarget:
       interactableCollider: {fileID: 0}
       targetCameraPosition: {fileID: 713872620}
@@ -16370,7 +16370,7 @@ MonoBehaviour:
       onHoverExit:
         m_PersistentCalls:
           m_Calls: []
-    slideLayout: {fileID: 447136545}
+    slideLayout: {fileID: 1578134171}
     elementsToShow: []
   - text: "Poza tym, musisz zdoby\u0107 jak najwi\u0119cej s\u0142uchaczy ka\u017Cdego
       z czterech r\xF3\u017Cnych gatunk\xF3w muzycznych. "
@@ -16414,8 +16414,8 @@ MonoBehaviour:
           m_Calls: []
     slideLayout: {fileID: 447136545}
     elementsToShow: []
-  - text: "Audycja to zestaw kaset, kt\xF3re wsadzasz do odtwarzacza, przed tob\u0105.
-      Mo\u017Cesz tworzy\u0107 audycj\u0119 z dowonln\u0105 ilo\u015Bci\u0105 kaset
+  - text: "Audycja to zestaw kaset, kt\xF3re wsadzasz do odtwarzacza przed tob\u0105.
+      Mo\u017Cesz tworzy\u0107 audycj\u0119 z dowoln\u0105 ilo\u015Bci\u0105 kaset
       od jednej do trzech. Kolejno\u015B\u0107 kaset w audycji nie ma znaczenia."
     cameraTarget:
       interactableCollider: {fileID: 0}
