@@ -193,7 +193,7 @@ MonoBehaviour:
     minigry, kt\xF3re gdy je pozytywnie uko\u0144czysz mog\u0105 dawa\u0107 r\xF3\u017Cne
     bonusy."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: cef895a8377096940ac15c69f765c14b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: aa077d21d15bbe14895bf3914cb69409, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 4118bcba525a1e6498ebcae80f4beddf, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -260,7 +260,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &158414980
@@ -443,7 +443,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "POWR\xD3T"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: cef895a8377096940ac15c69f765c14b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: aa077d21d15bbe14895bf3914cb69409, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 4118bcba525a1e6498ebcae80f4beddf, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -510,7 +510,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &225728508
@@ -1271,7 +1271,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 113.6, y: -400}
+  m_AnchoredPosition: {x: 113.6001, y: -400}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &707743304
@@ -3108,7 +3108,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "POWR\xD3T"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: cef895a8377096940ac15c69f765c14b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: aa077d21d15bbe14895bf3914cb69409, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 4118bcba525a1e6498ebcae80f4beddf, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3175,7 +3175,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1962016785
@@ -3466,7 +3466,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "D\u0179WI\u0118K"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: cef895a8377096940ac15c69f765c14b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: aa077d21d15bbe14895bf3914cb69409, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 4118bcba525a1e6498ebcae80f4beddf, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3533,7 +3533,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &2044089893

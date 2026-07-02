@@ -20,6 +20,7 @@ public class Tutorial : MonoBehaviour
     public Transform mainCamera;
     private int currentIndex = 0;
     [SerializeField] private CanvasGroup canvasGroup;
+    private Coroutine slideRoutine;
     private void Start()
     {
         if (nextBtn != null)
@@ -81,7 +82,10 @@ public class Tutorial : MonoBehaviour
 
     public void UpdateSlide()
     {
-        StartCoroutine(UpdateSlideRoutine());
+        if (slideRoutine != null)
+            StopCoroutine(slideRoutine);
+
+        slideRoutine = StartCoroutine(UpdateSlideRoutine());
     }
     private IEnumerator UpdateSlideRoutine()
     {
