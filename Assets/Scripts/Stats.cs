@@ -25,7 +25,7 @@ public class Stats : MonoBehaviour
     public GenreBarUI discoBar;
 
     private RadioStation radioStation;
-    private TimeHandler timeHandler;
+    public TimeHandler timeHandler;
     
     private GenreValues targetListeners;
     private GenreValues lastKnownListeners;
