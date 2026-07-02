@@ -81,7 +81,7 @@ public class ZoomHandler : MonoBehaviour
         else
         {
             // Prawy przycisk myszy - zoom out (powrót)
-            if (Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame)
+            if ((Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame))
             {
                 ZoomOut();
             }
@@ -128,7 +128,7 @@ public class ZoomHandler : MonoBehaviour
         }
     }
 
-    private void ZoomIn(ZoomTarget target)
+    public void ZoomIn(ZoomTarget target)
     {
         if (isAnimating || isZoomedIn) return;
         
@@ -256,5 +256,22 @@ public class ZoomHandler : MonoBehaviour
         mainCamera.transform.rotation = targetRotation;
 
         isAnimating = false;
+    }
+    public void ChangeZoom(ZoomTarget target)
+    {
+        StartCoroutine(ChangeZoomCoroutine(target));
+    }
+
+    public IEnumerator ChangeZoomCoroutine(ZoomTarget target)
+    {
+        if (isZoomedIn)
+        {
+            ZoomOut();
+
+            while (isAnimating)
+                yield return null;
+        }
+
+        ZoomIn(target);
     }
 }
