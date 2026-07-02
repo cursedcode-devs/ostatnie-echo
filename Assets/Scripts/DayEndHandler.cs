@@ -27,7 +27,7 @@ public class DayEndHandler : MonoBehaviour
     private float studia_fee;
 
     private bool gameFinished = false;
-
+    public Canvas dayIndicatorCanvas;
     public static DayEndHandler Instance { get; private set; }
 
     void Awake()
@@ -37,6 +37,7 @@ public class DayEndHandler : MonoBehaviour
 
     void Start()
     {
+
         ShopUI.gameObject.SetActive(false);
         
         if (radioStation != null)
@@ -86,6 +87,8 @@ public class DayEndHandler : MonoBehaviour
         {
             timeHandler.OnFirstDayStarted -= HandleFirstDayStart;
         }
+        
+
 
         gameManager.SetInputEnabled(false);
         ResetAllCassettePenalties();
@@ -123,12 +126,14 @@ public class DayEndHandler : MonoBehaviour
 
             if (mainCam != null)
                 mainCam.gameObject.SetActive(true);
-
+            
             gameManager.SetInputEnabled(true);
         };
 
         DaySummaryData.OnSummaryClosed?.Invoke();
         DaySummaryData.OnSummaryClosed = null;
+        dayIndicatorCanvas.GetComponent<CanvasFadeOut>()
+        .startShowingDay(timeHandler.getDay());
     }
 
     private void OnDaySummarySceneLoaded(Scene scene, LoadSceneMode mode)
@@ -149,6 +154,8 @@ public class DayEndHandler : MonoBehaviour
 
     void HandleDayStart()
     {   
+        
+
         if (timeHandler != null && timeHandler.getDay() <= 1)
         {
             Debug.Log("[DayEndHandler] Zablokowano HandleDayStart dla dnia 1, aby uniknąć ulepszeń na starcie.");
@@ -233,14 +240,17 @@ public class DayEndHandler : MonoBehaviour
 
             if (mainCam != null)
                 mainCam.gameObject.SetActive(true);
-
+            dayIndicatorCanvas.GetComponent<CanvasFadeOut>()
+            .startShowingDay(timeHandler.getDay());
             gameManager.SetInputEnabled(true);
+
         };
 
         if (mainCam != null)
             mainCam.gameObject.SetActive(false);
 
         SceneManager.LoadScene("DaySummaryScene", LoadSceneMode.Additive);
+
     }
 
     void HandleGameFinished()

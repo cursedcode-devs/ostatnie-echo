@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     private int startDay = 1;
     private const float startingModifier = 0f;
     public ZoomHandler zoomHandler;
+    
 
     private bool inputEnabled = false;
 
@@ -43,11 +44,11 @@ public class GameManager : MonoBehaviour
     public ChoosingCassetteUI choosingCassetteUI;
     public AudioQueueManager audioQueueManager;
     public CassetteSlotHandler[] cassetteSlots;
+  
 
     void Start()
     {
         FMODUnity.RuntimeManager.PlayOneShot(enterRadioSound, this.transform.position);
-
         actionManager = new ActionManager(mainCamera);
         timeHandler = new TimeHandler(startHour, startDay, airtime, cassetteSlots, zoomHandler, daysNr, lastHour);
         FMODUnity.RuntimeManager.PlayOneShot(ambient, this.transform.position);
