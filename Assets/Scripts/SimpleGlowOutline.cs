@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-
+using System.Collections;
 /// <summary>
 /// Prosty skrypt podświetlenia, który można podpiąć pod obiekt.
 /// Po jego włączeniu (np. z poziomu ZoomHandler) podmienia/dodaje pomarańczowy materiał.
@@ -16,6 +16,7 @@ public class SimpleGlowOutline : MonoBehaviour
 
     [Tooltip("Gotowy materiał przezroczysty z Resources.")]
     public Material glowMaterial;
+
 
     private Dictionary<Renderer, Material[]> originalMaterials = new Dictionary<Renderer, Material[]>();
 
@@ -68,4 +69,6 @@ public class SimpleGlowOutline : MonoBehaviour
             }
         }
     }
+
+
 }

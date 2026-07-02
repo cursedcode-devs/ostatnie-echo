@@ -158,11 +158,11 @@ public class DaySummarySceneManager : MonoBehaviour
             }
         }
 
-        if (rentFeeText != null) rentFeeText.text = $"{DaySummaryData.RentFee:F2}$";
-        if (foodFeeText != null) foodFeeText.text = $"{DaySummaryData.FoodFee:F2}$";
-        if (studiesFeeText != null) studiesFeeText.text = $"{DaySummaryData.StudiesFee:F2}$";
+        if (rentFeeText != null) rentFeeText.text = $"{DaySummaryData.RentFee:F2}ZŁ";
+        if (foodFeeText != null) foodFeeText.text = $"{DaySummaryData.FoodFee:F2}ZŁ";
+        if (studiesFeeText != null) studiesFeeText.text = $"{DaySummaryData.StudiesFee:F2}ZŁ";
 
-        if (adsPenaltyText != null) adsPenaltyText.text = $"{DaySummaryData.AdsPenalty:F2}$";
+        if (adsPenaltyText != null) adsPenaltyText.text = $"{DaySummaryData.AdsPenalty:F2}ZŁ";
         if (adsPenaltyBreakdownText != null)
         {
             if (DaySummaryData.UnplayedPenalties != null && DaySummaryData.UnplayedPenalties.Count > 0)
@@ -170,7 +170,7 @@ public class DaySummarySceneManager : MonoBehaviour
                 string bText = "Niewyemitowane zlecenia (kara 1/2 zysku):\n";
                 foreach (var p in DaySummaryData.UnplayedPenalties)
                 {
-                    bText += $" • {p.clientName} (\"{p.adTitle}\"): -{p.penaltyAmount:F2}$\n";
+                    bText += $" • {p.clientName} (\"{p.adTitle}\"): -{p.penaltyAmount:F2}ZŁ\n";
                 }
                 adsPenaltyBreakdownText.text = bText;
                 adsPenaltyBreakdownText.gameObject.SetActive(true);
@@ -182,10 +182,10 @@ public class DaySummarySceneManager : MonoBehaviour
             }
         }
 
-        if (moneyFinalText != null) moneyFinalText.text = $"{DaySummaryData.FinalMoney:F2}$";
+        if (moneyFinalText != null) moneyFinalText.text = $"{DaySummaryData.FinalMoney:F2}ZŁ";
         if (moneyDiffText != null)
         {
-            moneyDiffText.text = FormatDiff(DaySummaryData.MoneyDiff, "F2", "$");
+            moneyDiffText.text = FormatDiff(DaySummaryData.MoneyDiff, "F2", "ZŁ");
         }
 
         if (hipHopFinalText != null) hipHopFinalText.text = $"{DaySummaryData.HipHop}";
@@ -220,6 +220,18 @@ public class DaySummarySceneManager : MonoBehaviour
     public void OnListenersContinueClicked()
     {
         if (listenersPanel != null) listenersPanel.SetActive(false);
+
+        //OSTATNI DZIEŃ ZMIEŃ TU!!!
+        int lastDay = 3;
+
+        if (DaySummaryData.Day > lastDay)
+        {
+            // Pomijamy sklep, kontrakty i ulepszenia.
+            // Przechodzimy bezpośrednio do ładowania telegazety / zamykania podsumowania
+            StartCoroutine(LoadNewspaperAndUnload());
+            return;
+        }
+
         if (shopPanel != null)
         {
             shopPanel.SetActive(true);
@@ -241,7 +253,7 @@ public class DaySummarySceneManager : MonoBehaviour
                         var stats = kaseta.Find("STATYSTYKI")?.GetComponent<TextMeshProUGUI>();
 
                         if (title != null) title.text = $"DEBUG KASETA {i + 1}";
-                        if (price != null) price.text = $"{(i + 1) * 15}$";
+                        if (price != null) price.text = $"{(i + 1) * 15} ZŁ";
                         if (stats != null) stats.text = "+10 Zadowolenia";
                     }
                 }
@@ -585,7 +597,7 @@ public class DaySummarySceneManager : MonoBehaviour
             var payoutOutline = payoutTag.AddComponent<UnityEngine.UI.Outline>();
             payoutOutline.effectColor = new Color32(30, 90, 50, 255);
 
-            var payoutTxt = MakeText(payoutTag.transform, "PayoutText", $"EST. ZAROBEK: {payout:F2}$", 16, new Color32(80, 220, 100, 255));
+            var payoutTxt = MakeText(payoutTag.transform, "PayoutText", $"EST. ZAROBEK: {payout:F2} ZŁ", 16, new Color32(80, 220, 100, 255));
             StretchFull(payoutTxt);
             var tmpPayout = payoutTxt.GetComponent<TextMeshProUGUI>();
             tmpPayout.alignment = TextAlignmentOptions.Center;

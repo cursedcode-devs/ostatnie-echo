@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+using static Unity.VisualScripting.Member;
 public class AudioQueueManager : MonoBehaviour
 {
     [SerializeField] private AudioSource audioSource;
@@ -21,9 +22,10 @@ public class AudioQueueManager : MonoBehaviour
             this.content = content;
         }
     }
-    private  TimeHandler timeHandler;
+    private TimeHandler timeHandler;
     private Queue<QueuedClip> audioQueue = new Queue<QueuedClip>();
     private bool isPlayingQueue = false;
+    private bool skippedClip = false;
     public float musicVolume = 0.9f;
 
     public void SetTimeHandler(TimeHandler timeHandler)
@@ -39,52 +41,18 @@ public class AudioQueueManager : MonoBehaviour
     public void SkipSong()
     {
         if (!isPlayingQueue)
-        {
             return;
-        }
 
-        if(audioQueue.Count == 0 )
-        {
-            audioSource.Stop();
-            HideAdSubtitles();
-            NowPlayingBar.SetActive(false);
-        }
-
-        if( audioQueue.Count > 0 )
-        {
-            QueuedClip next = audioQueue.Dequeue();
-            if (next.clip == null)
-                return;
-
-            NowPlayingBar.SetActive(false);
-            if (next.content.GetType() == CassetteTypes.Music)
-            {
-                NowPlayingBar.SetActive(true);
-                Transform songTitle = NowPlayingBar.transform.Find("Text");
-                TMP_Text text = songTitle.GetComponent<TMP_Text>();
-                text.text = $"TERAZ GRAMY: {next.content.GetAuthor()} - {next.content.GetName()}";
-                songTitle.GetComponent<MarqueeText>().ResetPosition();
-            }
-            audioSource.clip = next.clip;
-
-            if(next.content != null && next.content.GetType() == CassetteTypes.Music)
-                audioSource.volume = musicVolume;
-            else
-                audioSource.volume = 1.0f;
-            audioSource.Play();
-
-            audioSource.Play();
-            HideAdSubtitles();
-            HandleAdSubtitles(next);
-            
-        }
+        skippedClip = true;
+        audioSource.Stop();
+        HideAdSubtitles();
     }
 
     public void PlayClipsSequence()
     {
         if (!isPlayingQueue)
-        {   
-            
+        {
+            isPlayingQueue = true;
             StartCoroutine(ProcessAudioQueue());
         }
     }
@@ -123,10 +91,40 @@ public class AudioQueueManager : MonoBehaviour
         }
     }
 
+
+    public static bool IsReversePitch(AudioSource source)
+    {
+        return source.pitch < 0f;
+    }
+
+    public static float GetClipRemainingTime(AudioSource source)
+    {
+        // Calculate the remainingTime of the given AudioSource,
+        // if we keep playing with the same pitch.
+        float remainingTime = (source.clip.length - source.time) / source.pitch;
+        return IsReversePitch(source) ?
+            (source.clip.length + remainingTime) :
+            remainingTime;
+    }
+
+    public bool isClipPlaying(AudioClip clip)
+    {
+        if (clip == null || audioSource == null || audioSource.clip == null)
+            return false;
+
+        if(audioSource.clip!=clip)
+            return false;
+
+        var waitForClipRemainingTime = GetClipRemainingTime(audioSource);
+
+        if (waitForClipRemainingTime <= 0.0f)
+            return false;
+        return true;
+    }
+
     private IEnumerator ProcessAudioQueue()
     {
-        isPlayingQueue = true;
-
+        skippedClip = false;
         while (audioQueue.Count > 0)
         {
             QueuedClip queued = audioQueue.Dequeue();
@@ -154,8 +152,9 @@ public class AudioQueueManager : MonoBehaviour
             }
             // Czekamy aż skończy się audio ORAZ napisy reklamy (treść bywa dłuższa niż
             // krótki placeholderowy dźwięk — nie wolno jej uciąć).
-            yield return new WaitWhile(() => audioSource.isPlaying || AdSubtitlesActive());
+            yield return new WaitWhile(() => (isClipPlaying(queued.clip) || AdSubtitlesActive()) && !skippedClip);
             HideAdSubtitles();
+            skippedClip = false;
             yield return new WaitForSeconds(0.5f);
         }
         NowPlayingBar.SetActive(false);
