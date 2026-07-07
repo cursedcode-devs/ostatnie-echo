@@ -19,6 +19,7 @@ public class TimeHandler
     public event Action OnGameFinished;
     private int lastDay;
     private int lastHour;
+    public int LastHour => lastHour;
     public TimeHandler(int startHour, int startDay, Airtime airtime, CassetteSlotHandler[] slots, ZoomHandler zoomHandler, int dayNr, int lastHour = 16)
     {
         Hour = startHour;

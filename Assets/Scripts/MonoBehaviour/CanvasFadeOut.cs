@@ -20,7 +20,7 @@ public class CanvasFadeOut : MonoBehaviour
     private IEnumerator showDayAndFadeOut(int day)
     {
         canvasGroup.alpha = 1f;
-        textMesh.text = string.Format("DZIEŃ: {0}", day);
+        textMesh.text = string.Format("DZIEŃ {0}", day);
         yield return new WaitForSeconds(delay);
 
         float time = 0f;
