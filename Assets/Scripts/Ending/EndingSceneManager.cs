@@ -147,6 +147,8 @@ public class EndingSceneManager : MonoBehaviour
         SetButtonLabel(nextButton, nextButtonLabel);
         SetButtonLabel(exitButton, exitButtonLabel);
 
+        ApplyTextColor();
+
         Sprite[] pages =
         {
             EndingData.HostSurvives     ? hostSurvives     : hostDies,
@@ -268,8 +270,15 @@ public class EndingSceneManager : MonoBehaviour
             yield return FadeInGraphic(verdictText, textFadeDuration);
             yield return new WaitForSecondsRealtime(sequentialDelay);
         }
+        
         if (exitButton != null)
-            yield return FadeInCanvasGroup(exitButton.gameObject, textFadeDuration);
+        {
+            var btnImage = exitButton.GetComponent<UnityEngine.UI.Image>();
+            if (btnImage != null)
+                yield return FadeInGraphic(btnImage, textFadeDuration * 0.5f);
+            else
+                exitButton.gameObject.SetActive(true); // Fallback jeśli nie ma Image
+        }
     }
 
     // Fade-in dla tekstu (TMP) — alpha 0 -> 1 na czasie nieskalowanym.
@@ -318,6 +327,35 @@ public class EndingSceneManager : MonoBehaviour
         if (btn == null) return;
         var t = btn.GetComponentInChildren<TextMeshProUGUI>(true);
         if (t != null) t.text = text;
+    }
+
+    void ApplyTextColor()
+    {
+        Color hexColor;
+        if (ColorUtility.TryParseHtmlString("#FF8000", out hexColor))
+        {
+            if (countText != null) countText.color = new Color(hexColor.r, hexColor.g, hexColor.b, countText.color.a);
+            if (countLabel != null) countLabel.color = new Color(hexColor.r, hexColor.g, hexColor.b, countLabel.color.a);
+            if (verdictText != null) verdictText.color = new Color(hexColor.r, hexColor.g, hexColor.b, verdictText.color.a);
+            
+            ApplyButtonStyles(exitButton, hexColor, Color.black);
+        }
+
+        Color nextBtnBg;
+        if (ColorUtility.TryParseHtmlString("#FF0000", out nextBtnBg))
+        {
+            ApplyButtonStyles(nextButton, nextBtnBg, Color.white);
+        }
+    }
+
+    void ApplyButtonStyles(Button btn, Color bgColor, Color textColor)
+    {
+        if (btn == null) return;
+        var img = btn.GetComponent<UnityEngine.UI.Image>();
+        if (img != null) img.color = new Color(bgColor.r, bgColor.g, bgColor.b, 1f);
+
+        var t = btn.GetComponentInChildren<TextMeshProUGUI>(true);
+        if (t != null) t.color = new Color(textColor.r, textColor.g, textColor.b, 1f);
     }
 
     void PlayIntroSound()

@@ -6384,6 +6384,18 @@ PrefabInstance:
       propertyPath: delay
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3477209596195224811, guid: 1fff8a59fcf84cfa68221bbceef83246, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477209596195224811, guid: 1fff8a59fcf84cfa68221bbceef83246, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477209596195224811, guid: 1fff8a59fcf84cfa68221bbceef83246, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278223103
+      objectReference: {fileID: 0}
     - target: {fileID: 3987751359719259115, guid: 1fff8a59fcf84cfa68221bbceef83246, type: 3}
       propertyPath: m_Name
       value: DayIndicatorCanvas
@@ -10980,6 +10992,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4353756984678456867, guid: 5ef490b88bb85f831a6ba33de2ff1174, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4353756984678456867, guid: 5ef490b88bb85f831a6ba33de2ff1174, type: 3}
       propertyPath: m_SizeDelta.y
       value: 85

@@ -27,6 +27,7 @@ public class AudioQueueManager : MonoBehaviour
     private bool isPlayingQueue = false;
     private bool skippedClip = false;
     public float musicVolume = 0.9f;
+    public System.Action onSequenceFinished;
 
     public void SetTimeHandler(TimeHandler timeHandler)
     {
@@ -159,6 +160,10 @@ public class AudioQueueManager : MonoBehaviour
         }
         NowPlayingBar.SetActive(false);
         isPlayingQueue = false;
+
+        onSequenceFinished?.Invoke();
+        onSequenceFinished = null;
+
         timeHandler.NextHour();
     }
 

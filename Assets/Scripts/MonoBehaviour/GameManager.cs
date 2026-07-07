@@ -284,15 +284,21 @@ public class GameManager : MonoBehaviour
         // Kolejkujemy z zawartością kaset, aby reklamy mogły pokazać napisy (treść)
         // zsynchronizowane z dźwiękiem odczytu podczas emisji.
         audioQueueManager.EnqueuePlayables(playedCassettes);
+        
+        // Zapisujemy odtworzone kasety, aby bezpiecznie usunąć je po zakończeniu audycji
+        PlayableContent[] capturedCassettes = (PlayableContent[])playedCassettes.Clone();
+
+        audioQueueManager.onSequenceFinished = () => {
+            // Destroy physical ad cassettes that were just played after the entire broadcast
+            var adManager = FindFirstObjectByType<AdContractManager>();
+            if (adManager != null)
+            {
+                adManager.HandleAdsPlayed(capturedCassettes, cassetteSlots);
+            }
+        };
+
         audioQueueManager.PlayClipsSequence();
         CheckForRequestedCassette();
-
-        // Destroy physical ad cassettes that were just played
-        var adManager = FindFirstObjectByType<AdContractManager>();
-        if (adManager != null)
-        {
-            adManager.HandleAdsPlayed(playedCassettes, cassetteSlots);
-        }
 
         choosingCassetteUI.UpdatePredictions();
         choosingCassetteUI.Hide();
