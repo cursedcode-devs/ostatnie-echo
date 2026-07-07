@@ -264,6 +264,26 @@ public class ZoomHandler : MonoBehaviour
 
     public IEnumerator ChangeZoomCoroutine(ZoomTarget target)
     {
+        if (isZoomedIn && currentZoomedTarget != null)
+        {
+            bool isSameTarget = false;
+            
+            if (target.targetCameraPosition != null && currentZoomedTarget.targetCameraPosition != null)
+            {
+                isSameTarget = (target.targetCameraPosition == currentZoomedTarget.targetCameraPosition);
+            }
+            else if (target.interactableCollider != null && currentZoomedTarget.interactableCollider != null)
+            {
+                isSameTarget = (target.interactableCollider == currentZoomedTarget.interactableCollider);
+            }
+
+            if (isSameTarget)
+            {
+                currentZoomedTarget = target;
+                yield break;
+            }
+        }
+
         if (isZoomedIn)
         {
             ZoomOut();
