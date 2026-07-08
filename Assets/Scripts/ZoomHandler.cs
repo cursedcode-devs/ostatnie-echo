@@ -49,6 +49,19 @@ public class ZoomHandler : MonoBehaviour
     
     private ZoomTarget currentHoveredTarget = null;
     private ZoomTarget currentZoomedTarget = null;
+    private bool inputEnabled = true;
+
+    public void SetInputEnabled(bool enabled)
+    {
+        inputEnabled = enabled;
+        if (!enabled && currentHoveredTarget != null)
+        {
+            if (currentHoveredTarget.outlineComponent != null)
+                currentHoveredTarget.outlineComponent.enabled = false;
+            currentHoveredTarget.onHoverExit?.Invoke();
+            currentHoveredTarget = null;
+        }
+    }
 
     void Start()
     {
@@ -67,6 +80,8 @@ public class ZoomHandler : MonoBehaviour
     {
         // Blokujemy interakcje podczas animacji kamery
         if (isAnimating) return;
+        
+        if (!inputEnabled) return;
 
         if (!isZoomedIn)
         {
@@ -264,6 +279,26 @@ public class ZoomHandler : MonoBehaviour
 
     public IEnumerator ChangeZoomCoroutine(ZoomTarget target)
     {
+        if (isZoomedIn && currentZoomedTarget != null)
+        {
+            bool isSameTarget = false;
+            
+            if (target.targetCameraPosition != null && currentZoomedTarget.targetCameraPosition != null)
+            {
+                isSameTarget = (target.targetCameraPosition == currentZoomedTarget.targetCameraPosition);
+            }
+            else if (target.interactableCollider != null && currentZoomedTarget.interactableCollider != null)
+            {
+                isSameTarget = (target.interactableCollider == currentZoomedTarget.interactableCollider);
+            }
+
+            if (isSameTarget)
+            {
+                currentZoomedTarget = target;
+                yield break;
+            }
+        }
+
         if (isZoomedIn)
         {
             ZoomOut();

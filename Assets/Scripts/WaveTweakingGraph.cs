@@ -22,13 +22,13 @@ public class WaveTweakingGraph : MaskableGraphic
 {
     [Header("Wygląd")]
     [Tooltip("Kolor fali-celu (wyraźny, kontrastowy).")]
-    public Color targetColor = new Color(0.45f, 0.78f, 1f, 0.80f);
+    public Color targetColor = new Color(1f, 0.5f, 0f, 0.4f);
     [Tooltip("Kolor fali aktualnej (jaskrawy).")]
-    public Color currentColor = new Color(1f, 0.92f, 0.25f, 1f);
+    public Color currentColor = new Color(1f, 0.5f, 0f, 1f);
     [Tooltip("Kolor fali aktualnej, gdy idealnie dopasowana do celu.")]
-    public Color matchedColor = new Color(0.25f, 1f, 0.35f, 1f);
+    public Color matchedColor = new Color(0.29f, 1f, 0.5f, 1f);
     [Tooltip("Kolor linii środkowej (oś).")]
-    public Color axisColor = new Color(1f, 1f, 1f, 0.14f);
+    public Color axisColor = new Color(1f, 0.5f, 0f, 0.2f);
     public float lineThickness = 4f;
     public float axisThickness = 2f;
     [Range(16, 512)] public int samples = 180;

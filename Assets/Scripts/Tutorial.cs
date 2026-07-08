@@ -20,6 +20,7 @@ public class Tutorial : MonoBehaviour
     public Transform mainCamera;
     private int currentIndex = 0;
     [SerializeField] private CanvasGroup canvasGroup;
+    private Coroutine slideRoutine;
     private void Start()
     {
         if (nextBtn != null)
@@ -81,39 +82,47 @@ public class Tutorial : MonoBehaviour
 
     public void UpdateSlide()
     {
-        StartCoroutine(UpdateSlideRoutine());
+        if (slideRoutine != null)
+            StopCoroutine(slideRoutine);
+
+        slideRoutine = StartCoroutine(UpdateSlideRoutine());
     }
     private IEnumerator UpdateSlideRoutine()
     {
-        TutorialSlide slide = slides[currentIndex];
-        if (currentObjects != null)
-        {
-            foreach (var element in currentObjects)
-                {
-                    
-                    element.SetActive(false);
-                }
-        }
-        howToPlayText.gameObject.SetActive(false);
         if (slides == null || slides.Length == 0)
             yield break;
 
+        TutorialSlide slide = slides[currentIndex];
         
+        // 1. Płynne ukrycie całego panelu (tła z tekstem) ZANIM cokolwiek zmienimy
+        yield return Fade(0f, 0.2f);
+
+        if (currentObjects != null)
+        {
+            foreach (var element in currentObjects)
+            {
+                if (element != null) element.SetActive(false);
+            }
+        }
+        
+        howToPlayText.gameObject.SetActive(false);
+
+        // 2. Ruch kamery, podczas gdy UI jest ukryte (alpha = 0)
         if (slide.cameraTarget != null && zoomHandler != null)
         {
             yield return StartCoroutine(zoomHandler.ChangeZoomCoroutine(slide.cameraTarget));
         }
 
-         yield return Fade(0f, 0.2f);
-
-        // zmiana layoutu
+        // 3. Zmiana layoutu i przygotowanie nowego tekstu
         slideRoot.anchoredPosition = slide.slideLayout.anchoredPosition;
-
 
         howToPlayText.text = slide.text;
         howToPlayText.gameObject.SetActive(true);
-        yield return Fade(1f, 0.2f);
+        
+        // Opcjonalnie: można wymusić przebudowanie layoutu tutaj, ale aktywacja tekstu powyżej i tak powinna to zrobić
 
+        // 4. Płynne pojawienie się gotowego, nowego panelu
+        yield return Fade(1f, 0.2f);
 
         if (prevBtn != null)
             prevBtn.interactable = currentIndex > 0;
@@ -122,7 +131,6 @@ public class Tutorial : MonoBehaviour
             nextBtn.interactable = currentIndex < slides.Length - 1;
 
         currentObjects = slide.elementsToShow;
-
 
         yield return new WaitForSeconds(1f);
 

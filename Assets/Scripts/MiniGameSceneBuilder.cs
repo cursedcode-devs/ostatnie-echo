@@ -74,27 +74,39 @@ public class MiniGameSceneBuilder : MonoBehaviour
         float panelW = gridW + switchSize * 2 + 60;
         float panelH = gridH + switchSize * 2 + 60;
 
-        var bg = MakeImage(ct, "PanelBG", new Color32(28, 24, 20, 255));
+        var bg = MakeImage(ct, "PanelBG", new Color32(0, 0, 0, 255));
         SR(bg, 0.5f, 0.5f, panelW + 60, panelH + 80, 0, 0);
 
         // Nakładka tekstury (ciemniejsza ramka)
-        var border = MakeImage(bg.transform, "Border", new Color32(50, 44, 38, 255));
+        var border = MakeImage(bg.transform, "Border", new Color32(63, 12, 0, 255));
         SR(border, 0.5f, 0.5f, panelW + 40, panelH + 60, 0, 0);
         border.GetComponent<RectTransform>().SetAsFirstSibling();
 
         // ---- Tytuł ----
-        var title = MakeText(ct, "Title", "PANEL STEROWANIA", 28, new Color32(255, 220, 50, 255));
-        SR(title, 0.5f, 0.5f, 500, 44, 0, panelH / 2f + 30);
+        // Przesunięcie i wymiary, które są potrzebne dla przełączników i tytułu
+        float hw = gridW / 2f + switchSize / 2f + 14f;
+        float hh = gridH / 2f + switchSize / 2f + 14f;
 
-        // ---- Status / HUD ----
-        var statusGO = MakeText(ct, "StatusText", "WYŁĄCZONYCH: ?", 20, Color.white);
-        SR(statusGO, 0.5f, 0.5f, 400, 36, 0, -panelH / 2f - 30);
+        string newTitle = "Użyj przełączników, aby zapalić wszystkie lampki bezpieczników. Każdy przełącznik wpływa na obszar 3x3.";
+        var title = MakeText(ct, "Title", newTitle, 30, new Color32(255, 128, 0, 255));
+        var titleTmp = title.GetComponent<TextMeshProUGUI>();
+        titleTmp.enableWordWrapping = true;
+        
+        TMP_FontAsset font = null;
+        var fonts = Resources.FindObjectsOfTypeAll<TMP_FontAsset>();
+        foreach (var f in fonts)
+            if (f.name.Contains("Jersey10")) font = f;
+        
+#if UNITY_EDITOR
+        if (font == null) font = UnityEditor.AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/Jersey10-Regular SDF.asset");
+#endif
+        if (font != null) titleTmp.font = font;
 
-        var movesGO = MakeText(ct, "MovesText", "RUCHY: 0", 18, new Color32(180, 180, 180, 255));
-        SR(movesGO, 0.5f, 0.5f, 300, 36, 0, -panelH / 2f - 66);
+        // Tytuł mieści się pomiędzy przełącznikami i jest lekko ponad ich poziomem.
+        float titleWidth = (hw * 2f) - switchSize - 20f;
+        SR(title, 0.5f, 0.5f, titleWidth, 140, 0, hh + 20f);
 
-        var restartGO = MakeButton(ct, "RestartButton", "RESTART");
-        SR(restartGO, 0.5f, 0.5f, 160, 44, 0, -panelH / 2f - 108);
+        // ---- Status / HUD usunięte na prośbę użytkownika ----
 
         // ---- Grid 4x4 (centrum) ----
         var gridGO = new GameObject("LightsGrid");
@@ -115,13 +127,11 @@ public class MiniGameSceneBuilder : MonoBehaviour
         for (int i = 0; i < 16; i++)
         {
             var cell = MakeLightCell(gridGO.transform, i);
-            lightImages[i] = cell.GetComponent<Image>();
+            lightImages[i] = cell.transform.Find("Bulb").GetComponent<Image>();
         }
 
         // ---- Przełączniki w rogach ----
-        // Pozycje względem centrum gridu
-        float hw = gridW / 2f + switchSize / 2f + 14f;
-        float hh = gridH / 2f + switchSize / 2f + 14f;
+        // Pozycje względem centrum gridu (wyliczone wcześniej)
         Vector2[] corners = {
             new Vector2(-hw,  hh),  // lewy górny  - Żółty
             new Vector2( hw,  hh),  // prawy górny - Zielony
@@ -137,15 +147,7 @@ public class MiniGameSceneBuilder : MonoBehaviour
             switchBtns[i] = sw.GetComponent<Button>();
         }
 
-        // Etykiety pod przełącznikami
-        string[] labels = { "ŻÓŁ", "ZIEL", "NIEB", "FIOL" };
-        for (int i = 0; i < 4; i++)
-        {
-            var lbl = MakeText(ct, $"Label_{i}", labels[i], 13,
-                               new Color(SwitchColors[i].r/255f, SwitchColors[i].g/255f, SwitchColors[i].b/255f));
-            Vector2 lpos = corners[i] + new Vector2(0, -switchSize / 2f - 14f);
-            SR(lbl, 0.5f, 0.5f, 80, 22, lpos.x, lpos.y);
-        }
+        // Etykiety pod przełącznikami usunięte na prośbę użytkownika
 
         // ---- Linie wizualne (podgląd obszarów) - opcjonalne ozdobne prostokąty ----
         // Narysuj kolorowe obwódki na gridzie pokazujące jakie komórki zmienia który switch
@@ -161,9 +163,7 @@ public class MiniGameSceneBuilder : MonoBehaviour
         gm.switchGreen   = switchBtns[1];
         gm.switchBlue    = switchBtns[2];
         gm.switchPurple  = switchBtns[3];
-        gm.statusText    = statusGO.GetComponent<TextMeshProUGUI>();
-        gm.movesText     = movesGO.GetComponent<TextMeshProUGUI>();
-        gm.restartButton = restartGO.GetComponent<Button>();
+        // Wyrzucone referencje do UI
         gm.shuffleCount  = 8;
 
         // Wywołaj Initialize zaraz po przypisaniu referencji
@@ -231,17 +231,34 @@ public class MiniGameSceneBuilder : MonoBehaviour
         var obj = new GameObject($"Light_{idx:00}");
         obj.transform.SetParent(parent, false);
         var img = obj.AddComponent<Image>();
-        img.color = new Color(0.15f, 0.12f, 0.1f);
+        img.color = new Color32(0, 0, 0, 255); // Obudowa (kwadratowa - czarna, jak GraphBox)
 
         // Wewnętrzna żarówka
         var bulb = new GameObject("Bulb");
         bulb.transform.SetParent(obj.transform, false);
         var bi = bulb.AddComponent<Image>();
-        bi.color = new Color(0.25f, 0.2f, 0.12f);
+        bi.color = new Color32(63, 12, 0, 255);
         var brt = bulb.GetComponent<RectTransform>();
         brt.anchorMin = new Vector2(0.2f, 0.2f);
         brt.anchorMax = new Vector2(0.8f, 0.8f);
         brt.offsetMin = brt.offsetMax = Vector2.zero;
+
+        // Poświata (Glow)
+        var glow = new GameObject("Glow");
+        glow.transform.SetParent(bulb.transform, false);
+        var glowImg = glow.AddComponent<Image>();
+        glowImg.color = new Color32(255, 160, 50, 255); // Jasny pomarańcz
+        var grt = glow.GetComponent<RectTransform>();
+        grt.anchorMin = Vector2.zero;
+        grt.anchorMax = Vector2.one;
+        grt.offsetMin = new Vector2(-4, -4); // Minimalne wyjście poza żarówkę
+        grt.offsetMax = new Vector2(4, 4);
+        
+        var ge = glow.AddComponent<GlowEffect>();
+        ge.minAlpha = 0.1f;
+        ge.maxAlpha = 0.5f;
+        ge.minScale = 1.0f;
+        ge.maxScale = 1.08f;
 
         return obj;
     }
@@ -255,7 +272,7 @@ public class MiniGameSceneBuilder : MonoBehaviour
         var bg = new GameObject("BG");
         bg.transform.SetParent(obj.transform, false);
         var bgImg = bg.AddComponent<Image>();
-        bgImg.color = new Color32(35, 30, 25, 255);
+        bgImg.color = new Color32(0, 0, 0, 255);
         var bgRT = bg.GetComponent<RectTransform>();
         bgRT.anchorMin = Vector2.zero; bgRT.anchorMax = Vector2.one;
         bgRT.offsetMin = bgRT.offsetMax = Vector2.zero;

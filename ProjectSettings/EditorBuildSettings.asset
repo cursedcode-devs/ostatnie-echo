@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Tobiasz/MainMenu.unity
     guid: 288dd287761105b4c8519dd6f74de6ad
   - enabled: 1
-    path: Assets/Scenes/MereSceneNIE_TYKAC/MergeScene.unity
+    path: Assets/Scenes/MereSceneNIE_TYKAC/MergeSceneBackup.unity
     guid: 70bf9c75d357ce641b56af4d7184fc7b
   - enabled: 1
     path: Assets/Scenes/Tobiasz/DaySummaryScene.unity
@@ -29,6 +29,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tobiasz/NewspaperScene.unity
     guid: 32c3b00e9f448984e92c3d1035304dc4
+  - enabled: 1
+    path: Assets/Scenes/MereSceneNIE_TYKAC/MergeScene.unity
+    guid: e5ef681e54e8c55d5a640b12b4276acb
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

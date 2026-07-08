@@ -25,7 +25,7 @@ public class Stats : MonoBehaviour
     public GenreBarUI discoBar;
 
     private RadioStation radioStation;
-    private TimeHandler timeHandler;
+    public TimeHandler timeHandler;
     
     private GenreValues targetListeners;
     private GenreValues lastKnownListeners;
@@ -37,6 +37,8 @@ public class Stats : MonoBehaviour
     private float lastKnownMoney = -1f;
     private Coroutine budgetAnimationRoutine;
     private float currentDisplayMoney;
+    [SerializeField] private TextMeshProUGUI dayText;
+    [SerializeField] private TextMeshProUGUI auditionText;
 
     public void Initialize(RadioStation rs, TimeHandler th)
     {
@@ -53,6 +55,7 @@ public class Stats : MonoBehaviour
             lastKnownMoney = radioStation.GetCurrentMoney();
             currentDisplayMoney = lastKnownMoney;
         }
+        
     }
 
     void Update()
@@ -169,6 +172,15 @@ public class Stats : MonoBehaviour
         UpdateBar(rockBar, rock, currentMax);
         UpdateBar(hipHopBar, hipHop, currentMax);
         UpdateBar(discoBar, disco, currentMax);
+        if (dayText != null)
+            dayText.text = string.Format("Dzień {0}", timeHandler.getDay());
+            
+        if (auditionText != null)
+        {
+            int currentAudition = timeHandler.CurrentHour - 14 + 1;
+            int totalAuditions = timeHandler.LastHour - 14 + 1;
+            auditionText.text = string.Format("Audycja {0}/{1}", currentAudition, totalAuditions);
+        }
     }
 
     private void UpdateBar(GenreBarUI bar, int amount, int currentMax)

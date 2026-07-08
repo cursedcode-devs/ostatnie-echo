@@ -11,7 +11,7 @@ using System.Collections;
 ///   - The zone (marked by two cable dots on left/right walls) is centred at a random height
 ///   - Zone is always larger than the bar — fair but shrinking each round
 ///   - Speed increases each round
-/// Player presses Space to freeze the bar. Win if bar fits inside the zone.
+/// Player clicks the left mouse button to freeze the bar. Win if bar fits inside the zone.
 /// </summary>
 public class CableFixMiniGame : MonoBehaviour
 {
@@ -84,7 +84,7 @@ public class CableFixMiniGame : MonoBehaviour
         stopped = false;
 
         uiScript?.SetRound(round, zoneTop, zoneBot, curBarH, curSpeed);
-        uiScript?.SetMessage($"runda {round + 1} / {Rounds.Length}");
+        uiScript?.SetMessage($"{round + 1} / {Rounds.Length}");
         Debug.Log($"[CableFixMiniGame] Round {round + 1} started. Speed:{curSpeed} BarH:{curBarH:F2} Zone:{zoneTop:F2}-{zoneBot:F2}");
     }
 
@@ -102,13 +102,11 @@ public class CableFixMiniGame : MonoBehaviour
 
         uiScript?.SetBarPosition(barPos);
 
-        // Input
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-            TryStop();
     }
 
-    void TryStop()
+    public void TryStop()
     {
+        if (!active || stopped) return;
         stopped = true;
         float halfBar = curBarH / 2f;
         bool hit = (barPos - halfBar) >= zoneTop && (barPos + halfBar) <= zoneBot;
@@ -128,9 +126,7 @@ public class CableFixMiniGame : MonoBehaviour
         if (round >= Rounds.Length)
         {
             active = false;
-            uiScript?.SetMessage(successCount == Rounds.Length ? "sygnał przywrócony!" :
-                                 successCount > 0              ? $"{successCount}/{Rounds.Length} — kabel niestabilny" :
-                                                                 "naprawa nieudana");
+            uiScript?.SetMessage(successCount == Rounds.Length ? "SYGNAŁ PRZYWRÓCONY" : "NAPRAWA NIEUDANA");
             yield return new WaitForSeconds(0.6f);
             OnWin?.Invoke();
         }

@@ -24,7 +24,17 @@ public class SimpleGlowOutline : MonoBehaviour
     {
         if (targetRenderers == null || targetRenderers.Length == 0)
         {
-            targetRenderers = GetComponentsInChildren<Renderer>();
+            var allRenderers = GetComponentsInChildren<Renderer>();
+            var filtered = new System.Collections.Generic.List<Renderer>();
+            foreach (var r in allRenderers)
+            {
+                var otherGlow = r.GetComponent<SimpleGlowOutline>();
+                if (otherGlow == null || otherGlow == this)
+                {
+                    filtered.Add(r);
+                }
+            }
+            targetRenderers = filtered.ToArray();
         }
 
         if (glowMaterial == null)

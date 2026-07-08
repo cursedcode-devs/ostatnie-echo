@@ -73,8 +73,8 @@ public class LightsOutMiniGame : MonoBehaviour
     [Header("SFX")]
     public FMODUnity.EventReference clickSound;
     [Header("Kolory świateł")]
-    public Color lightOnColor  = new Color(1f, 0.95f, 0.3f);
-    public Color lightOffColor = new Color(0.15f, 0.12f, 0.1f);
+    public Color lightOnColor  = new Color32(255, 128, 0, 255);
+    public Color lightOffColor = new Color32(63, 12, 0, 255);
 
     [Header("Tasowanie")]
     [Tooltip("Ile losowych kliknięć przy starcie")]

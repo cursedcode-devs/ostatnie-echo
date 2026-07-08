@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     private int startDay = 1;
     private const float startingModifier = 0f;
     public ZoomHandler zoomHandler;
+    
 
     private bool inputEnabled = false;
 
@@ -43,11 +44,11 @@ public class GameManager : MonoBehaviour
     public ChoosingCassetteUI choosingCassetteUI;
     public AudioQueueManager audioQueueManager;
     public CassetteSlotHandler[] cassetteSlots;
+  
 
     void Start()
     {
         FMODUnity.RuntimeManager.PlayOneShot(enterRadioSound, this.transform.position);
-
         actionManager = new ActionManager(mainCamera);
         timeHandler = new TimeHandler(startHour, startDay, airtime, cassetteSlots, zoomHandler, daysNr, lastHour);
         FMODUnity.RuntimeManager.PlayOneShot(ambient, this.transform.position);
@@ -78,12 +79,14 @@ public class GameManager : MonoBehaviour
     {
 
         // DEBUG: Wciśnięcie '0' pozwala pominąć główną grę i od razu przejść do końca dnia (podsumowania)
+        /*
         if (Keyboard.current != null && Keyboard.current.digit0Key.wasPressedThisFrame)
         {
             // Natychmiastowe zakończenie obecnego dnia i pokazanie podsumowania
             timeHandler.StartDay();
             // Jeżeli chcesz przeskoczyć do ostatniej "godziny" (17), zamiast do podsumowania, użyłbyś:
         }
+        */
 
         if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
@@ -226,9 +229,11 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Wcisnieto Enter");
                 playSegment();
                 break;
+            /*
             case ActionTypes.PressedP:
                 audioQueueManager.SkipSong();
                 break;
+            */
             case ActionTypes.None:
                 addedObjectRotation = Vector3.zero;
                 break;
@@ -283,15 +288,21 @@ public class GameManager : MonoBehaviour
         // Kolejkujemy z zawartością kaset, aby reklamy mogły pokazać napisy (treść)
         // zsynchronizowane z dźwiękiem odczytu podczas emisji.
         audioQueueManager.EnqueuePlayables(playedCassettes);
+        
+        // Zapisujemy odtworzone kasety, aby bezpiecznie usunąć je po zakończeniu audycji
+        PlayableContent[] capturedCassettes = (PlayableContent[])playedCassettes.Clone();
+
+        audioQueueManager.onSequenceFinished = () => {
+            // Destroy physical ad cassettes that were just played after the entire broadcast
+            var adManager = FindFirstObjectByType<AdContractManager>();
+            if (adManager != null)
+            {
+                adManager.HandleAdsPlayed(capturedCassettes, cassetteSlots);
+            }
+        };
+
         audioQueueManager.PlayClipsSequence();
         CheckForRequestedCassette();
-
-        // Destroy physical ad cassettes that were just played
-        var adManager = FindFirstObjectByType<AdContractManager>();
-        if (adManager != null)
-        {
-            adManager.HandleAdsPlayed(playedCassettes, cassetteSlots);
-        }
 
         choosingCassetteUI.UpdatePredictions();
         choosingCassetteUI.Hide();
@@ -306,6 +317,10 @@ public class GameManager : MonoBehaviour
     public void SetInputEnabled(bool enabled)
     {
         inputEnabled = enabled;
+        if (zoomHandler != null)
+        {
+            zoomHandler.SetInputEnabled(enabled);
+        }
     }
 
     // ------------------------------------------------------------------
