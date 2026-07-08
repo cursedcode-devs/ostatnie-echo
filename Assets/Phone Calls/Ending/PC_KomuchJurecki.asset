@@ -16,9 +16,9 @@ MonoBehaviour:
   callerName: "Dyrektor Zak\u0142ad\xF3w Azotowych"
   audio: {fileID: 0}
   initialDialog: "Dzie\u0144 dobry tu, Stanis\u0142aw czy wie Pan, \u017Ce ten hultaj
-    komuch Jurecki dalej rz\u0105dzi?  Tak, tak. Nie wierzy mi Pan? To sama prawda.
+    komuch Jurecki dalej rz\u0105dzi? Tak, tak. Nie wierzy mi Pan? To sama prawda.
     Ja jestem emerytowanym urz\u0119dnikiem i wiem. Mam kontakty. Tylko oni tam wszyscy
-    s\u0105 op\u0142aceni. Jestem pewien, \u017Ce drodzy  s\u0142uchacze ch\u0119tnie
+    s\u0105 op\u0142aceni. Jestem pewien, \u017Ce drodzy s\u0142uchacze ch\u0119tnie
     mnie wys\u0142uchaj\u0105."
   dialogOptions:
   - optionText: "Mam Pan racj\u0119, ch\u0119tnie pos\u0142uchamy co ma Pan do powiedzenia."

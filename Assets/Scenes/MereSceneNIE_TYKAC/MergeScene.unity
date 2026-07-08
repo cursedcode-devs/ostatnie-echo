@@ -7902,7 +7902,7 @@ GameObject:
   - component: {fileID: 962777026}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Unselectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10464,6 +10464,14 @@ PrefabInstance:
     - target: {fileID: 8126175696760515901, guid: 8fa75e20f07404f4ab57a44e4f90d5ad, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -550
+      objectReference: {fileID: 0}
+    - target: {fileID: 8506986483397444394, guid: 8fa75e20f07404f4ab57a44e4f90d5ad, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 56.68135
+      objectReference: {fileID: 0}
+    - target: {fileID: 8506986483397444394, guid: 8fa75e20f07404f4ab57a44e4f90d5ad, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 16.859327
       objectReference: {fileID: 0}
     - target: {fileID: 9109118153634288640, guid: 8fa75e20f07404f4ab57a44e4f90d5ad, type: 3}
       propertyPath: m_Colors.m_NormalColor.b
@@ -13322,6 +13330,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 71340712007535175, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 540
+      objectReference: {fileID: 0}
+    - target: {fileID: 71340712007535175, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 630536880263957199, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -13433,6 +13449,10 @@ PrefabInstance:
     - target: {fileID: 4710538789843534460, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5673636402570206237, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 7894636164320162386, guid: 352832d08ab665d42bcb379a15e3265b, type: 3}
       propertyPath: typeDelay

@@ -11,6 +11,6 @@ public struct GenreValues
 
 
     public override string ToString(){
-        return $"Hip Hop: {hipHop}\nDisco: {disco}\nRock: {rock}\nMetal: {pop}";
+        return $"HipHop: {hipHop}\nDisco: {disco}\nRock: {rock}\nMetal: {pop}";
     }
 }

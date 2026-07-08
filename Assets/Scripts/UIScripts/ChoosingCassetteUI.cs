@@ -34,7 +34,7 @@ public class ChoosingCassetteUI : MonoBehaviour
             if (cassettes[i] == null)
             {
                // cassetteSlotTexts[i].text = "Slot " + (i + 1);
-                StatTexts[i].text = "Hip Hop: \nRock: \nPop: \nDisco Polo: ";
+                StatTexts[i].text = "HipHop: \nRock: \nPop: \nDisco: ";
                 continue;
             }
 
@@ -77,7 +77,7 @@ public class ChoosingCassetteUI : MonoBehaviour
 
             if (c.GetType() == CassetteTypes.Ad)
             {
-                StatTexts[i].text = $"Hip Hop: {h / 100f:0.##}zł\nRock: {r / 100f:0.##}zł\nPop: {p / 100f:0.##}zł\nDisco Polo: {d / 100f:0.##}zł";
+                StatTexts[i].text = $"HipHop: {h / 100f:0.##}zł\nRock: {r / 100f:0.##}zł\nPop: {p / 100f:0.##}zł\nDisco: {d / 100f:0.##}zł";
                 sumAdHipHop += h / 100f;
                 sumAdRock += r / 100f;
                 sumAdPop += p / 100f;
@@ -85,7 +85,7 @@ public class ChoosingCassetteUI : MonoBehaviour
             }
             else if (c.GetType() == CassetteTypes.Music)
             {
-                StatTexts[i].text = $"Hip Hop: {h / 100f:0.##%}\nRock: {r / 100f:0.##%}\nPop: {p / 100f:0.##%}\nDisco Polo: {d / 100f:0.##%}";
+                StatTexts[i].text = $"HipHop: {h / 100f:0.##%}\nRock: {r / 100f:0.##%}\nPop: {p / 100f:0.##%}\nDisco: {d / 100f:0.##%}";
                 sumMusicHipHop += h / 100f;
                 sumMusicRock += r / 100f;
                 sumMusicPop += p / 100f;
@@ -95,10 +95,10 @@ public class ChoosingCassetteUI : MonoBehaviour
             simulatedTimesUsed[c]++;
         }
 
-        StatTexts[3].text = $"Hip Hop: {sumMusicHipHop:0.##%} {sumAdHipHop:0.##}zł\n" +
+        StatTexts[3].text = $"HipHop: {sumMusicHipHop:0.##%} {sumAdHipHop:0.##}zł\n" +
                             $"Rock: {sumMusicRock:0.##%} {sumAdRock:0.##}zł\n" +
                             $"Pop: {sumMusicPop:0.##%} {sumAdPop:0.##}zł\n" +
-                            $"Disco Polo: {sumMusicDisco:0.##%} {sumAdDisco:0.##}zł";
+                            $"Disco: {sumMusicDisco:0.##%} {sumAdDisco:0.##}zł";
     }
 
     private void PlayCassetteSound()

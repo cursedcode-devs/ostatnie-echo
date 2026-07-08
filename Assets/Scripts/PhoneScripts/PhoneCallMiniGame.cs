@@ -173,7 +173,11 @@ public class PhoneCallMiniGame : BaseMiniGame
             optionAButton.gameObject.SetActive(true);
             optionAButton.onClick.RemoveAllListeners();
             optionAButton.onClick.AddListener(OnOkayClicked);
-            if (optionAText != null) optionAText.text = "OK";
+            if (optionAText != null) 
+            {
+                optionAText.enableAutoSizing = true;
+                optionAText.text = "OK";
+            }
         }
         if (optionBButton != null) optionBButton.gameObject.SetActive(false);
     }
@@ -219,7 +223,11 @@ public class PhoneCallMiniGame : BaseMiniGame
             if (currentPhoneCall.dialogOptions.Count > 0)
             {
                 optionAButton.gameObject.SetActive(true);
-                if (optionAText != null) optionAText.text = currentPhoneCall.dialogOptions[0].optionText;
+                if (optionAText != null) 
+                {
+                    optionAText.enableAutoSizing = true;
+                    optionAText.text = currentPhoneCall.dialogOptions[0].optionText;
+                }
             }
             else
             {
@@ -234,12 +242,32 @@ public class PhoneCallMiniGame : BaseMiniGame
             if (currentPhoneCall.dialogOptions.Count > 1)
             {
                 optionBButton.gameObject.SetActive(true);
-                if (optionBText != null) optionBText.text = currentPhoneCall.dialogOptions[1].optionText;
+                if (optionBText != null) 
+                {
+                    optionBText.enableAutoSizing = true;
+                    optionBText.text = currentPhoneCall.dialogOptions[1].optionText;
+                }
             }
             else
             {
                 optionBButton.gameObject.SetActive(false);
             }
+        }
+
+        // Wyrównanie wielkości tekstu dla obu opcji, aby uniknąć sytuacji gdzie "Tak" i "Nie" 
+        // mają różny rozmiar ze względu na szerokość liter przy włączonym AutoSize.
+        if (optionAText != null && optionAText.gameObject.activeInHierarchy &&
+            optionBText != null && optionBText.gameObject.activeInHierarchy)
+        {
+            optionAText.ForceMeshUpdate();
+            optionBText.ForceMeshUpdate();
+            
+            float minSize = Mathf.Min(optionAText.fontSize, optionBText.fontSize);
+            
+            optionAText.enableAutoSizing = false;
+            optionBText.enableAutoSizing = false;
+            optionAText.fontSize = minSize;
+            optionBText.fontSize = minSize;
         }
     }
 
