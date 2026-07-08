@@ -225,7 +225,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -2619,38 +2619,30 @@ MonoBehaviour:
   howToPlayPrevBtn: {fileID: 1995581252}
   backFromHowToPlayBtn: {fileID: 344330891}
   howToPlaySlides:
-  - "Twoim zadaniem jest prowadzanie radia przez 3 dni, gdzie ka\u017Cdy dzie\u0144
-    jest podzielony na 4 godziny.\nJe\u015Bli stan twojego bud\u017Cetu, kt\xF3rego\u015B
-    dnia wyniesie 0 - gra zako\u0144czy si\u0119 pora\u017Ck\u0105. Celem jest zdobycie
-    jak najwi\u0119kszej ilo\u015Bci s\u0142uchaczy, odtwarzaj\u0105c kasety z muzyk\u0105,
-    jednocze\u015Bnie nie pozwalaj\u0105c na ca\u0142kowite opr\xF3\u017Cnienie swojego
-    portfela. "
-  - "Kasety jak i twoi s\u0142uchacze s\u0105 podzieleni wzgl\u0119dem gatunku muzycznego
-    kt\xF3ry reprezentuj\u0105, a s\u0105 nimi: Hip Hop, Rock, Pop i Disco Polo.
-    Ka\u017Cda z kaset z muzyk\u0105 posiada swoje modyfikatory, determinuj\u0105ce
-    jaki wp\u0142yw wywr\u0105 na tw\xF3j bilans s\u0142uchaczy po zako\u0144czeniu
-    audycji.\nPieni\u0105dze mo\u017Cna zdobywa\u0107 za pomoc\u0105 odtwarzania
-    reklam - aby zagra\u0107 jakiekolwiek kasety, musisz stworzy\u0107 audycj\u0119. "
-  - "Audycja to zestaw kaset umieszczonych w odtwarzaczu z ekranikami. Odtwarzacz
-    posiada 3 sloty. Ka\u017Cdy slot przetrzymuje dok\u0142adnie jedn\u0105 kaset\u0119.
-    Mo\u017Cesz w\u0142o\u017Cy\u0107 tam zar\xF3wno kaset\u0119 z muzyk\u0105, jak
-    i kaset\u0119 z reklam\u0105. Na ekranach slot\xF3w pojawia si\u0119 podsumowanie
-    jaki efekt uzyska dana kaseta w ramach jej modyfikator\xF3w. Kasety z ka\u017Cdego
-    slotu sumuj\u0105 swoje modyfikatory. Podsumowanie zobaczysz na g\xF3rnym ekranie
-    odtwarzacza. "
-  - "To do ciebie nale\u017Cy decyzja, z jakich kaset b\u0119dzie sk\u0142ada\u0107
-    si\u0119 twoja audycja.  "
-  - "Kasety w slotach odtwarzaj\u0105 si\u0119 od lewej do prawej, a ich efekt nie
-    zale\u017Cy od kolejno\u015Bci. Aby zacz\u0105\u0107 audycj\u0119, upewnij si\u0119,
-    \u017Ce wszystkie sloty maj\u0105 zamkni\u0119te klapki oraz przycisk PLAY zosta\u0142
-    wci\u015Bni\u0119ty. Kasety mo\u017Cesz pomija\u0107 za pomoc\u0105 przycisku
-    SKIP - nie wp\u0142ywa to na wynik.\n"
-  - "Czas up\u0142ywa tylko wtedy, gdy prowadzisz audycj\u0119. Pomi\u0119dzy audycjami
-    b\u0119dziesz musia\u0142 mierzy\u0107 si\u0119 z r\xF3\u017Cnymi wyzwaniami
-    - czy to z pechowym przerwaniem kabla, niespodziewanym telefonem od s\u0142uchacza,
-    czy nag\u0142\u0105 dekalibracj\u0105 sygna\u0142u - wszystkie te zdarzenia,
-    b\u0119d\u0105 reprezentowane za pomoc\u0105 mini-gier, kt\xF3re przynios\u0105
-    inny efekt, w zale\u017Cno\u015Bci od tego jak sobie z nimi poradzisz.\n"
+  - "Jeste\u015B pracownikiem stacji Radio \u017Bubr. Twoim zadaniem jest zdoby\u0107
+    jak najwi\u0119cej nowych s\u0142uchaczy oraz nie zosta\u0107 przy tym bankrutem."
+  - "Twoi s\u0142uchacze s\u0105 podzieleni wzgl\u0119dem gatunk\xF3w muzycznych,
+    kt\xF3re reprezentuj\u0105. Ka\u017Cda kaseta z muzyk\u0105 posiada swoje modyfikatory,
+    wskazuj\u0105ce na to, jakim s\u0142uchaczom si\u0119 spodoba. Musisz odpowiednio
+    balansowa\u0107 swoj\u0105 muzyczn\u0105 kolekcj\u0105, aby zadowoli\u0107 jak
+    najwi\u0119ksz\u0105 cz\u0119\u015B\u0107 publiki. "
+  - "Je\u015Bli chcesz utrzyma\u0107 si\u0119 na rynku, musisz pami\u0119ta\u0107
+    o zarobku. W tym celu mo\u017Cesz odtwarza\u0107 reklamy na antenie. Statystyki
+    reklam pokazuj\u0105 jaki zysk zostanie wygenerowany przez konkretn\u0105 grup\u0119
+    s\u0142uchaczy - ka\u017Cdy reklamodawca chce trafia\u0107 do innej grupy docelowej. "
+  - "Pod koniec dnia masz mo\u017Cliwo\u015B\u0107 podpisania kontrakt\xF3w reklamowych
+    na kolejny dzie\u0144. S\u0105 one darmowe, lecz je\u015Bli nie wywi\u0105\u017Cesz
+    si\u0119 z kontraktu - czeka ci\u0119 kara finansowa. Pami\u0119taj, \u017Ce
+    s\u0142uchacze znudz\u0105 si\u0119 je\u015Bli b\u0119dziesz transmitowa\u0142
+    same reklamy, co odbije si\u0119 na statystykach. Chyba nie chcia\u0142by\u015B
+    zosta\u0107 uznany za \"kapitalistyczn\u0105 \u015Bwini\u0119\"..."
+  - "Pod koniec dnia masz dost\u0119p do sklepu z kasetami, kt\xF3ry rozszerza tw\xF3j
+    asortyment. Znajdziesz tam r\xF3wnie\u017C ulepszenia, kt\xF3re pozwol\u0105
+    ci na wzmocnienie poszczeg\xF3lnych statystyk."
+  - "Jako prowadz\u0105cy Radia \u017Bubr, b\u0119dziesz naprawia\u0142 uszkodzone
+    elementy elektroniki lub rozmawia\u0142 z s\u0142uchaczami. Pami\u0119taj, \u017Ce
+    twoje decyzje b\u0119d\u0105 mia\u0142y konsekwencje. Mo\u017Cesz uzyska\u0107
+    a\u017C do 10 zako\u0144cze\u0144.\nPowodzenia! "
 --- !u!114 &1733569422
 MonoBehaviour:
   m_ObjectHideFlags: 0
