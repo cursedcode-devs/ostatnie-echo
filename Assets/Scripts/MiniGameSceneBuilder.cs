@@ -74,11 +74,11 @@ public class MiniGameSceneBuilder : MonoBehaviour
         float panelW = gridW + switchSize * 2 + 60;
         float panelH = gridH + switchSize * 2 + 60;
 
-        var bg = MakeImage(ct, "PanelBG", new Color32(28, 24, 20, 255));
+        var bg = MakeImage(ct, "PanelBG", new Color32(0, 0, 0, 255));
         SR(bg, 0.5f, 0.5f, panelW + 60, panelH + 80, 0, 0);
 
         // Nakładka tekstury (ciemniejsza ramka)
-        var border = MakeImage(bg.transform, "Border", new Color32(50, 44, 38, 255));
+        var border = MakeImage(bg.transform, "Border", new Color32(63, 12, 0, 255));
         SR(border, 0.5f, 0.5f, panelW + 40, panelH + 60, 0, 0);
         border.GetComponent<RectTransform>().SetAsFirstSibling();
 
@@ -231,7 +231,7 @@ public class MiniGameSceneBuilder : MonoBehaviour
         var obj = new GameObject($"Light_{idx:00}");
         obj.transform.SetParent(parent, false);
         var img = obj.AddComponent<Image>();
-        img.color = new Color32(35, 30, 25, 255); // Obudowa (kwadratowa)
+        img.color = new Color32(0, 0, 0, 255); // Obudowa (kwadratowa - czarna, jak GraphBox)
 
         // Wewnętrzna żarówka
         var bulb = new GameObject("Bulb");
@@ -272,7 +272,7 @@ public class MiniGameSceneBuilder : MonoBehaviour
         var bg = new GameObject("BG");
         bg.transform.SetParent(obj.transform, false);
         var bgImg = bg.AddComponent<Image>();
-        bgImg.color = new Color32(35, 30, 25, 255);
+        bgImg.color = new Color32(0, 0, 0, 255);
         var bgRT = bg.GetComponent<RectTransform>();
         bgRT.anchorMin = Vector2.zero; bgRT.anchorMax = Vector2.one;
         bgRT.offsetMin = bgRT.offsetMax = Vector2.zero;

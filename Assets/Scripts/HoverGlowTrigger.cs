@@ -8,6 +8,7 @@ public class HoverGlowTrigger : MonoBehaviour
     private Collider col;
     private SimpleGlowOutline outline;
     private Camera cam;
+    private bool isDragging = false;
 
     void Start()
     {
@@ -36,9 +37,20 @@ public class HoverGlowTrigger : MonoBehaviour
             }
         }
 
-        if (outline.enabled != hovered)
+        if (hovered && mouse.leftButton.wasPressedThisFrame)
         {
-            outline.enabled = hovered;
+            isDragging = true;
+        }
+        else if (mouse.leftButton.wasReleasedThisFrame)
+        {
+            isDragging = false;
+        }
+
+        bool shouldGlow = hovered || isDragging;
+
+        if (outline.enabled != shouldGlow)
+        {
+            outline.enabled = shouldGlow;
         }
     }
 }

@@ -8,7 +8,12 @@ using UnityEngine;
 /// </summary>
 public class WaveTweakingMiniGameUI : MonoBehaviour
 {
-    [SerializeField] public TextMeshProUGUI actualValuesText;
+    [SerializeField] public TextMeshProUGUI ampValueText;
+    [SerializeField] public TextMeshProUGUI lenValueText;
+    [SerializeField] public TextMeshProUGUI freqValueText;
+    [SerializeField] public TextMeshProUGUI ampTargetText;
+    [SerializeField] public TextMeshProUGUI lenTargetText;
+    [SerializeField] public TextMeshProUGUI freqTargetText;
     [SerializeField] public TextMeshProUGUI statusText;
     [SerializeField] public WaveTweakingGraph waveGraph;
 
@@ -35,11 +40,16 @@ public class WaveTweakingMiniGameUI : MonoBehaviour
 
         active = true;
 
-        if (actualValuesText != null)
-            actualValuesText.text = "5.0, 5.0, 5.0";
+        if (ampValueText != null) ampValueText.text = "5.0";
+        if (lenValueText != null) lenValueText.text = "5.0";
+        if (freqValueText != null) freqValueText.text = "5.0";
+
+        if (ampTargetText != null) ampTargetText.text = WaveTweakingMiniGame.ToDisplayValue(requiredAmplitude).ToString("F1");
+        if (lenTargetText != null) lenTargetText.text = WaveTweakingMiniGame.ToDisplayValue(requiredLength).ToString("F1");
+        if (freqTargetText != null) freqTargetText.text = WaveTweakingMiniGame.ToDisplayValue(requiredFrequency).ToString("F1");
 
         if (statusText != null)
-            statusText.text = "DOPASUJ FALE";
+            statusText.text = "Użyj suwaków poniżej, aby dopasować obie fale sygnału.";
 
         if (waveGraph != null)
             waveGraph.SetTarget(requiredAmplitude, requiredLength, requiredFrequency);
@@ -64,17 +74,11 @@ public class WaveTweakingMiniGameUI : MonoBehaviour
         float l = lengthSlider.GetCurrentValue();
         float f = frequencySlider.GetCurrentValue();
 
-        if (actualValuesText != null)
-            actualValuesText.text = FormatValues(a, l, f);
+        if (ampValueText != null) ampValueText.text = WaveTweakingMiniGame.ToDisplayValue(a).ToString("F1");
+        if (lenValueText != null) lenValueText.text = WaveTweakingMiniGame.ToDisplayValue(l).ToString("F1");
+        if (freqValueText != null) freqValueText.text = WaveTweakingMiniGame.ToDisplayValue(f).ToString("F1");
 
         if (waveGraph != null)
             waveGraph.SetCurrent(a, l, f);
-    }
-
-    private string FormatValues(float a, float b, float c)
-    {
-        return $"{WaveTweakingMiniGame.ToDisplayValue(a):F1}, " +
-               $"{WaveTweakingMiniGame.ToDisplayValue(b):F1}, " +
-               $"{WaveTweakingMiniGame.ToDisplayValue(c):F1}";
     }
 }
