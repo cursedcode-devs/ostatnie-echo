@@ -313,6 +313,10 @@ public class GameManager : MonoBehaviour
     public void SetInputEnabled(bool enabled)
     {
         inputEnabled = enabled;
+        if (zoomHandler != null)
+        {
+            zoomHandler.SetInputEnabled(enabled);
+        }
     }
 
     // ------------------------------------------------------------------

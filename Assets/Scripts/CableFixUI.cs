@@ -28,12 +28,12 @@ public class CableFixUI : MonoBehaviour
 
     public float PlayAreaHeight => playArea != null ? playArea.rect.height : 600f;
 
-    private static readonly Color ColActive  = new Color32(229, 184,  0, 255);
-    private static readonly Color ColStopped = new Color32(100, 100,100, 255);
-    private static readonly Color ColZone    = new Color32( 74, 222,128,  22);
-    private static readonly Color ColPipOk   = new Color32( 74, 222,128, 255);
-    private static readonly Color ColPipFail = new Color32(248, 113,113, 255);
-    private static readonly Color ColPipIdle = new Color32( 50,  50, 50, 255);
+    private static readonly Color ColActive  = new Color32(255, 128,  0, 255);
+    private static readonly Color ColStopped = new Color32( 63,  12,  0, 255);
+    private static readonly Color ColZone    = new Color32(255, 128,  0,  40);
+    private static readonly Color ColPipOk   = new Color32(255, 128,  0, 255);
+    private static readonly Color ColPipFail = new Color32( 63,  12,  0, 255);
+    private static readonly Color ColPipIdle = new Color32( 63,  12,  0, 255);
 
     // ------------------------------------------------------------------
     public void SetRound(int round, float zoneTop, float zoneBot, float barH, float speed)
@@ -78,10 +78,10 @@ public class CableFixUI : MonoBehaviour
 
     public void ShowResult(bool hit)
     {
-        if (barImage != null) barImage.color = hit ? ColPipOk : ColPipFail;
+        if (barImage != null) barImage.color = hit ? ColPipOk : ColActive;
         if (zoneImage != null) zoneImage.color = hit
-            ? new Color32(74, 222, 128, 50)
-            : new Color32(248, 113, 113, 40);
+            ? new Color32(74, 255, 128, 160)
+            : new Color32(255, 50, 50, 160);
     }
 
     public void SetPip(int index, bool success)

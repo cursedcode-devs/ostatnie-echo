@@ -80,8 +80,20 @@ public class MiniGameSystem : MonoBehaviour
     void Update()
     {
         if (currentMiniGame != null && currentMiniGame.IsOpen)
+        {
             if (Keyboard.current[closeKey].wasPressedThisFrame)
                 CloseCurrent();
+        }
+        else
+        {
+            // Developer shortcuts
+            if (Keyboard.current[Key.Digit1].wasPressedThisFrame)
+                Launch("Cable Fix");
+            if (Keyboard.current[Key.Digit2].wasPressedThisFrame)
+                Launch("LightsOut");
+            if (Keyboard.current[Key.Digit3].wasPressedThisFrame)
+                Launch("WaveTweaking");
+        }
     }
 
     // ------------------------------------------------------------------
@@ -220,9 +232,14 @@ public class MiniGameSystem : MonoBehaviour
         ApplyRewards(rewards);
 
         if (rewards.Length > 0)
+        {
             StartCoroutine(ShowRewardPopup(rewards));
-
-        StartCoroutine(CloseAfterDelay(popupDuration + 0.5f));
+            StartCoroutine(CloseAfterDelay(popupDuration));
+        }
+        else
+        {
+            StartCoroutine(CloseAfterDelay(0.4f));
+        }
     }
 
     void HandleClosed()

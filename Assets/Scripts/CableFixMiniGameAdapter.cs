@@ -16,7 +16,7 @@ using System.Collections;
 public class CableFixMiniGameAdapter : BaseMiniGame
 {
     [Header("CableFix settings")]
-    public float winDelay = 1.2f;
+    public float winDelay = 0.2f;
 
     private CableFixMiniGame game;
     private CableFixSceneBuilder builder;

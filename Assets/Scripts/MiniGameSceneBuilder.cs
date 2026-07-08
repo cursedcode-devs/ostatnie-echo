@@ -83,18 +83,30 @@ public class MiniGameSceneBuilder : MonoBehaviour
         border.GetComponent<RectTransform>().SetAsFirstSibling();
 
         // ---- Tytuł ----
-        var title = MakeText(ct, "Title", "PANEL STEROWANIA", 28, new Color32(255, 220, 50, 255));
-        SR(title, 0.5f, 0.5f, 500, 44, 0, panelH / 2f + 30);
+        // Przesunięcie i wymiary, które są potrzebne dla przełączników i tytułu
+        float hw = gridW / 2f + switchSize / 2f + 14f;
+        float hh = gridH / 2f + switchSize / 2f + 14f;
 
-        // ---- Status / HUD ----
-        var statusGO = MakeText(ct, "StatusText", "WYŁĄCZONYCH: ?", 20, Color.white);
-        SR(statusGO, 0.5f, 0.5f, 400, 36, 0, -panelH / 2f - 30);
+        string newTitle = "Użyj przełączników, aby zapalić wszystkie lampki bezpieczników. Każdy przełącznik wpływa na obszar 3x3.";
+        var title = MakeText(ct, "Title", newTitle, 30, new Color32(255, 128, 0, 255));
+        var titleTmp = title.GetComponent<TextMeshProUGUI>();
+        titleTmp.enableWordWrapping = true;
+        
+        TMP_FontAsset font = null;
+        var fonts = Resources.FindObjectsOfTypeAll<TMP_FontAsset>();
+        foreach (var f in fonts)
+            if (f.name.Contains("Jersey10")) font = f;
+        
+#if UNITY_EDITOR
+        if (font == null) font = UnityEditor.AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/Jersey10-Regular SDF.asset");
+#endif
+        if (font != null) titleTmp.font = font;
 
-        var movesGO = MakeText(ct, "MovesText", "RUCHY: 0", 18, new Color32(180, 180, 180, 255));
-        SR(movesGO, 0.5f, 0.5f, 300, 36, 0, -panelH / 2f - 66);
+        // Tytuł mieści się pomiędzy przełącznikami i jest lekko ponad ich poziomem.
+        float titleWidth = (hw * 2f) - switchSize - 20f;
+        SR(title, 0.5f, 0.5f, titleWidth, 140, 0, hh + 20f);
 
-        var restartGO = MakeButton(ct, "RestartButton", "RESTART");
-        SR(restartGO, 0.5f, 0.5f, 160, 44, 0, -panelH / 2f - 108);
+        // ---- Status / HUD usunięte na prośbę użytkownika ----
 
         // ---- Grid 4x4 (centrum) ----
         var gridGO = new GameObject("LightsGrid");
@@ -119,9 +131,7 @@ public class MiniGameSceneBuilder : MonoBehaviour
         }
 
         // ---- Przełączniki w rogach ----
-        // Pozycje względem centrum gridu
-        float hw = gridW / 2f + switchSize / 2f + 14f;
-        float hh = gridH / 2f + switchSize / 2f + 14f;
+        // Pozycje względem centrum gridu (wyliczone wcześniej)
         Vector2[] corners = {
             new Vector2(-hw,  hh),  // lewy górny  - Żółty
             new Vector2( hw,  hh),  // prawy górny - Zielony
@@ -137,15 +147,7 @@ public class MiniGameSceneBuilder : MonoBehaviour
             switchBtns[i] = sw.GetComponent<Button>();
         }
 
-        // Etykiety pod przełącznikami
-        string[] labels = { "ŻÓŁ", "ZIEL", "NIEB", "FIOL" };
-        for (int i = 0; i < 4; i++)
-        {
-            var lbl = MakeText(ct, $"Label_{i}", labels[i], 13,
-                               new Color(SwitchColors[i].r/255f, SwitchColors[i].g/255f, SwitchColors[i].b/255f));
-            Vector2 lpos = corners[i] + new Vector2(0, -switchSize / 2f - 14f);
-            SR(lbl, 0.5f, 0.5f, 80, 22, lpos.x, lpos.y);
-        }
+        // Etykiety pod przełącznikami usunięte na prośbę użytkownika
 
         // ---- Linie wizualne (podgląd obszarów) - opcjonalne ozdobne prostokąty ----
         // Narysuj kolorowe obwódki na gridzie pokazujące jakie komórki zmienia który switch
@@ -161,9 +163,7 @@ public class MiniGameSceneBuilder : MonoBehaviour
         gm.switchGreen   = switchBtns[1];
         gm.switchBlue    = switchBtns[2];
         gm.switchPurple  = switchBtns[3];
-        gm.statusText    = statusGO.GetComponent<TextMeshProUGUI>();
-        gm.movesText     = movesGO.GetComponent<TextMeshProUGUI>();
-        gm.restartButton = restartGO.GetComponent<Button>();
+        // Wyrzucone referencje do UI
         gm.shuffleCount  = 8;
 
         // Wywołaj Initialize zaraz po przypisaniu referencji

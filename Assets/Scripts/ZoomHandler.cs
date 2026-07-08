@@ -49,6 +49,19 @@ public class ZoomHandler : MonoBehaviour
     
     private ZoomTarget currentHoveredTarget = null;
     private ZoomTarget currentZoomedTarget = null;
+    private bool inputEnabled = true;
+
+    public void SetInputEnabled(bool enabled)
+    {
+        inputEnabled = enabled;
+        if (!enabled && currentHoveredTarget != null)
+        {
+            if (currentHoveredTarget.outlineComponent != null)
+                currentHoveredTarget.outlineComponent.enabled = false;
+            currentHoveredTarget.onHoverExit?.Invoke();
+            currentHoveredTarget = null;
+        }
+    }
 
     void Start()
     {
@@ -67,6 +80,8 @@ public class ZoomHandler : MonoBehaviour
     {
         // Blokujemy interakcje podczas animacji kamery
         if (isAnimating) return;
+        
+        if (!inputEnabled) return;
 
         if (!isZoomedIn)
         {
