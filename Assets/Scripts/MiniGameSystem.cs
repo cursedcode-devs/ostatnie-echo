@@ -87,12 +87,14 @@ public class MiniGameSystem : MonoBehaviour
         else
         {
             // Developer shortcuts
+            /*
             if (Keyboard.current[Key.Digit1].wasPressedThisFrame)
                 Launch("Cable Fix");
             if (Keyboard.current[Key.Digit2].wasPressedThisFrame)
                 Launch("LightsOut");
             if (Keyboard.current[Key.Digit3].wasPressedThisFrame)
                 Launch("WaveTweaking");
+            */
         }
     }
 

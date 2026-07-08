@@ -79,12 +79,14 @@ public class GameManager : MonoBehaviour
     {
 
         // DEBUG: Wciśnięcie '0' pozwala pominąć główną grę i od razu przejść do końca dnia (podsumowania)
+        /*
         if (Keyboard.current != null && Keyboard.current.digit0Key.wasPressedThisFrame)
         {
             // Natychmiastowe zakończenie obecnego dnia i pokazanie podsumowania
             timeHandler.StartDay();
             // Jeżeli chcesz przeskoczyć do ostatniej "godziny" (17), zamiast do podsumowania, użyłbyś:
         }
+        */
 
         if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
@@ -227,9 +229,11 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Wcisnieto Enter");
                 playSegment();
                 break;
+            /*
             case ActionTypes.PressedP:
                 audioQueueManager.SkipSong();
                 break;
+            */
             case ActionTypes.None:
                 addedObjectRotation = Vector3.zero;
                 break;
