@@ -597,7 +597,7 @@ public class DaySummarySceneManager : MonoBehaviour
             var payoutOutline = payoutTag.AddComponent<UnityEngine.UI.Outline>();
             payoutOutline.effectColor = new Color32(30, 90, 50, 255);
 
-            var payoutTxt = MakeText(payoutTag.transform, "PayoutText", $"EST. ZAROBEK: {payout:F2} ZŁ", 16, new Color32(80, 220, 100, 255));
+            var payoutTxt = MakeText(payoutTag.transform, "PayoutText", $"SZACOWANY\nZAROBEK: {payout:F2} ZŁ", 16, new Color32(80, 220, 100, 255));
             StretchFull(payoutTxt);
             var tmpPayout = payoutTxt.GetComponent<TextMeshProUGUI>();
             tmpPayout.alignment = TextAlignmentOptions.Center;
