@@ -9684,7 +9684,7 @@ PrefabInstance:
       propertyPath: slides.Array.data[11].text
       value: "W przypadku telefonu od s\u0142uchacza - twoim zadaniem jest wybra\u0107
         odpowiedni\u0105 odpowied\u017A. Twoje decyzje b\u0119d\u0105 mia\u0142y
-        konsekwencje fabularne."
+        konsekwencje."
       objectReference: {fileID: 0}
     - target: {fileID: 3348019460543682689, guid: 8fa75e20f07404f4ab57a44e4f90d5ad, type: 3}
       propertyPath: slides.Array.data[12].text
@@ -9696,7 +9696,7 @@ PrefabInstance:
       propertyPath: slides.Array.data[13].text
       value: "Je\u015Bli nie zdob\u0119dziesz oczekiwanego progu s\u0142uchaczy lub
         tw\xF3j bud\u017Cet wyniesie 0 z\u0142, gra zako\u0144czy si\u0119 pora\u017Ck\u0105.\\nNie
-        zawied\u017A Prezesa Radia \u017Bubr!"
+        zawied\u017A Prezesa!"
       objectReference: {fileID: 0}
     - target: {fileID: 3348019460543682689, guid: 8fa75e20f07404f4ab57a44e4f90d5ad, type: 3}
       propertyPath: slides.Array.data[14].text
@@ -9749,11 +9749,11 @@ PrefabInstance:
     - target: {fileID: 3348019460543682689, guid: 8fa75e20f07404f4ab57a44e4f90d5ad, type: 3}
       propertyPath: slides.Array.data[9].slideLayout
       value: 
-      objectReference: {fileID: 552030385}
+      objectReference: {fileID: 1857765088}
     - target: {fileID: 3348019460543682689, guid: 8fa75e20f07404f4ab57a44e4f90d5ad, type: 3}
       propertyPath: slides.Array.data[10].slideLayout
       value: 
-      objectReference: {fileID: 552030385}
+      objectReference: {fileID: 1857765088}
     - target: {fileID: 3348019460543682689, guid: 8fa75e20f07404f4ab57a44e4f90d5ad, type: 3}
       propertyPath: slides.Array.data[11].slideLayout
       value: 
@@ -9985,7 +9985,7 @@ PrefabInstance:
     - target: {fileID: 3348019460543682689, guid: 8fa75e20f07404f4ab57a44e4f90d5ad, type: 3}
       propertyPath: slides.Array.data[10].cameraTarget.targetCameraPosition
       value: 
-      objectReference: {fileID: 733058105}
+      objectReference: {fileID: 1900290253}
     - target: {fileID: 3348019460543682689, guid: 8fa75e20f07404f4ab57a44e4f90d5ad, type: 3}
       propertyPath: slides.Array.data[11].cameraTarget.targetCameraPosition
       value: 
@@ -10163,6 +10163,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3846064028167944198, guid: 8fa75e20f07404f4ab57a44e4f90d5ad, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3846064028167944198, guid: 8fa75e20f07404f4ab57a44e4f90d5ad, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 118
       objectReference: {fileID: 0}
@@ -10293,6 +10297,10 @@ PrefabInstance:
     - target: {fileID: 5751731296421912504, guid: 8fa75e20f07404f4ab57a44e4f90d5ad, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763669248589095973, guid: 8fa75e20f07404f4ab57a44e4f90d5ad, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -350
       objectReference: {fileID: 0}
     - target: {fileID: 5885058707497858782, guid: 8fa75e20f07404f4ab57a44e4f90d5ad, type: 3}
       propertyPath: m_fontSize
