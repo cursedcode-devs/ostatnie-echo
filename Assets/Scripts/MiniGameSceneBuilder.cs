@@ -127,7 +127,7 @@ public class MiniGameSceneBuilder : MonoBehaviour
         for (int i = 0; i < 16; i++)
         {
             var cell = MakeLightCell(gridGO.transform, i);
-            lightImages[i] = cell.GetComponent<Image>();
+            lightImages[i] = cell.transform.Find("Bulb").GetComponent<Image>();
         }
 
         // ---- Przełączniki w rogach ----
@@ -231,17 +231,34 @@ public class MiniGameSceneBuilder : MonoBehaviour
         var obj = new GameObject($"Light_{idx:00}");
         obj.transform.SetParent(parent, false);
         var img = obj.AddComponent<Image>();
-        img.color = new Color(0.15f, 0.12f, 0.1f);
+        img.color = new Color32(35, 30, 25, 255); // Obudowa (kwadratowa)
 
         // Wewnętrzna żarówka
         var bulb = new GameObject("Bulb");
         bulb.transform.SetParent(obj.transform, false);
         var bi = bulb.AddComponent<Image>();
-        bi.color = new Color(0.25f, 0.2f, 0.12f);
+        bi.color = new Color32(63, 12, 0, 255);
         var brt = bulb.GetComponent<RectTransform>();
         brt.anchorMin = new Vector2(0.2f, 0.2f);
         brt.anchorMax = new Vector2(0.8f, 0.8f);
         brt.offsetMin = brt.offsetMax = Vector2.zero;
+
+        // Poświata (Glow)
+        var glow = new GameObject("Glow");
+        glow.transform.SetParent(bulb.transform, false);
+        var glowImg = glow.AddComponent<Image>();
+        glowImg.color = new Color32(255, 160, 50, 255); // Jasny pomarańcz
+        var grt = glow.GetComponent<RectTransform>();
+        grt.anchorMin = Vector2.zero;
+        grt.anchorMax = Vector2.one;
+        grt.offsetMin = new Vector2(-4, -4); // Minimalne wyjście poza żarówkę
+        grt.offsetMax = new Vector2(4, 4);
+        
+        var ge = glow.AddComponent<GlowEffect>();
+        ge.minAlpha = 0.1f;
+        ge.maxAlpha = 0.5f;
+        ge.minScale = 1.0f;
+        ge.maxScale = 1.08f;
 
         return obj;
     }
