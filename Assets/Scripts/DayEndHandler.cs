@@ -452,7 +452,7 @@ public class DayEndHandler : MonoBehaviour
             TextMeshProUGUI yourMoney = yourMoneySlot.GetComponent<TextMeshProUGUI>();
             if (yourMoney != null)
             {
-                yourMoney.text = radioStation.GetCurrentMoney().ToString() + " ZŁ";
+                yourMoney.text = Mathf.FloorToInt(radioStation.GetCurrentMoney()).ToString() + " ZŁ";
             }
         }
     }

@@ -505,7 +505,7 @@ public class DaySummarySceneManager : MonoBehaviour
     private void RefreshUpgradeMoney()
     {
         if (upgradeMoneyText != null)
-            upgradeMoneyText.text = $"KASA: {GetCurrentMoneySafe():F0} ZŁ";
+            upgradeMoneyText.text = $"KASA: {Mathf.FloorToInt(GetCurrentMoneySafe())} ZŁ";
     }
 
     private float GetCurrentMoneySafe()
