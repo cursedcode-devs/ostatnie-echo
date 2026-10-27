@@ -9,8 +9,6 @@
 [![Itch.io](https://img.shields.io/badge/Play%20on-Itch.io-FA5C5C?style=for-the-badge&logo=itch.io)](https://cursedcodegames.itch.io/ostatnie-echo)
 [![Cyberiada](https://img.shields.io/badge/Projekt-Cyberiada%202025%2F2026-gold?style=for-the-badge)](#o-projekcie)
 
-<br/>
-
 Zasiądź za sterem **Radia Żubr** i wciel się w zadłużonego polskiego radiowca z lat 90. Komunizm upadł, wolny rynek i kapitalizm dopiero raczkują, a w społeczeństwie panuje narastające napięcie. Zdobądź słuchaczy, spłać gigantyczne długi i spróbuj przetrwać ten trudny czas.
 
 [Zagraj na itch.io](https://cursedcodegames.itch.io/ostatnie-echo)
